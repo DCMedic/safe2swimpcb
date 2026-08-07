@@ -15,6 +15,25 @@
 - `nws_flag_overlap_audit.csv`: date-by-date comparison of recovered NWS Bay flags against primary PCBFLAGS/Safe2Swim observations on overlapping dates.
 - `nws_flag_overlap_audit.json`: summary agreement statistics for that audit.
 - `flag_recovery_summary.json`: counts, date range, flag mix, and provenance policy for observations actually promoted into the recovered tier.
+- `pre2017_flag_candidates.csv`: unverified candidate observations found while searching archived copies of official PCB current-condition pages. These are discovery records only and are never promoted automatically.
+- `pre2017_flag_hunt_summary.json`: search coverage, candidate counts, archive errors, and the next source families targeted for pre-2017 recovery.
+
+## Measured NOAA / NDBC tables
+
+- `ndbc_measured_observations.csv`: timestamp-level measured observations from local station `PCBF1` / NOAA NOS `8729210` and offshore NDBC buoy `42039`.
+- `ndbc_measured_daily.csv`: derived daily measured fields such as local wind/gust/air/water temperature/pressure and offshore significant wave height/period/wind/water temperature.
+- `ndbc_measured_summary.json`: station metadata, measured coverage, source/quality notes, and refresh time.
+
+Historical annual NDBC standard-meteorological files are quality-controlled. Recent `realtime2` observations have undergone NDBC gross-error checking only and should be treated as provisional context until archived.
+
+## Tropical-cyclone tables
+
+- `tropical_cyclone_track_points_near_pcb.csv`: Atlantic HURDAT2 six-hourly best-track points within 500 miles of the Safe2Swim PCB reference point.
+- `tropical_cyclone_events_near_pcb.csv`: one row per Atlantic tropical cyclone passing within 500 miles, including closest approach and intensity context.
+- `tropical_cyclone_daily.csv`: one row per local calendar day with a tropical cyclone within 500 miles, including nearest storm, minimum distance, maximum nearby wind, and 50/100/200/300/500-mile proximity indicators.
+- `tropical_cyclone_summary.json`: HURDAT2 source version, coverage, counts, and methodology.
+
+HURDAT2 is retrospective best-track history, not a forecast. Cyclone-history variables are published for retrospective association analysis and are not automatically used as operational prediction features.
 
 ## Derived tables
 
@@ -22,8 +41,8 @@
 - `flag_daily_master.csv` / `.json`: one row per observed/recovered day; `peak_flag` is the highest base severity seen that day and `latest_flag` is the last observed base status. `record_tier` identifies primary versus recovered-only days.
 - `flag_summary.json`: current coverage and provenance-aware historical summary.
 - `environmental_daily.csv`: one environmental feature row per observed flag day. `data_quality` is either `provisional` or `finalized`.
-- `model_training.csv`: finalized daily flag records joined to finalized environmental rows.
-- `model_metrics.json`: time-aware validation and standardized feature associations when minimum sample thresholds are met.
+- `model_training.csv`: finalized daily flag records joined to finalized reanalysis environmental rows plus any available measured NDBC and retrospective cyclone context.
+- `model_metrics.json`: time-aware validation and standardized feature associations. The operational feature set remains the reproducible environmental/reanalysis feature set; measured and retrospective cyclone fields are retained for research until separately validated.
 
 ## Flag severity and Purple handling
 
