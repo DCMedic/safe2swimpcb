@@ -1,0 +1,13 @@
+{
+  "source": "National Weather Service Tallahassee SRFTAE, retrieved from the Iowa Environmental Mesonet NWS text-product archive",
+  "retrieval_endpoint": "https://mesonet.agron.iastate.edu/cgi-bin/afos/retrieve.py",
+  "archive_start_requested": "2008-01-01",
+  "first_product_date": "2017-06-01",
+  "last_product_date": "2026-08-07",
+  "products_parsed": 9628,
+  "daily_records": 3347,
+  "days_with_explicit_bay_flag": 2189,
+  "explicit_bay_flag_observations": 2201,
+  "note": "Supplemental research source. Explicit Bay flag reports come from NWS products stating they were based on communication with area beach officials. This dataset is kept separate from the original ALERTBAY/PCBFLAGS archive and is not automatically used as a model label.",
+  "updated_at_utc": "2026-08-07T21:49:00.247526+00:00"
+}
