@@ -74,5 +74,124 @@
       "odds_ratio": 0.9748526206260614
     }
   ],
-  "note": "Association/prediction research only. Never overrides posted beach flags."
+  "research_context": {
+    "measured_ndbc": {
+      "pcbf1_obs_count": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "pcbf1_wind_max_mph": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "pcbf1_gust_max_mph": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "pcbf1_air_temp_max_f": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "pcbf1_air_temp_min_f": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "pcbf1_water_temp_mean_f": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "pcbf1_pressure_min_mb": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "42039_obs_count": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_wave_max_ft": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_wave_mean_ft": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_dominant_period_max_s": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_average_period_mean_s": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_wind_max_mph": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_gust_max_mph": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_water_temp_mean_f": {
+        "rows": 0,
+        "pct": 0.0
+      },
+      "ndbc42039_pressure_min_mb": {
+        "rows": 0,
+        "pct": 0.0
+      }
+    },
+    "retrospective_tropical_cyclone": {
+      "nearest_storm_id": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "nearest_storm_name": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "nearest_storm_status": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "nearest_storm_category": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_min_distance_mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_max_wind_kt_within_500mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_active_storms_within_500mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_within_50mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_within_100mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_within_200mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_within_300mi": {
+        "rows": 104,
+        "pct": 4.7
+      },
+      "tc_within_500mi": {
+        "rows": 104,
+        "pct": 4.7
+      }
+    },
+    "policy": "Measured NDBC and HURDAT2 fields are retained in model_training.csv for research. HURDAT2 best-track fields are retrospective and are not included in the operational feature set."
+  },
+  "note": "Association/prediction research only. Never overrides posted beach flags. Measured NDBC fields are contextual; retrospective HURDAT2 best-track fields are not operational predictors."
 }

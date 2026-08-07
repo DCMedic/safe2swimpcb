@@ -1,0 +1,42 @@
+{
+  "goal": "Recover Panama City Beach flag evidence before the NWS SRFTAE explicit Bay-flag record begins.",
+  "candidate_count": 0,
+  "candidate_days": 0,
+  "candidate_start": null,
+  "candidate_end": null,
+  "nws_srf_first_product_date": "2017-06-01",
+  "max_snapshot_fetches_per_target": 120,
+  "targets": {
+    "www.visitpanamacitybeach.com/beach-alerts-iframe/": {
+      "captures": 84,
+      "unique_capture_days": 73,
+      "snapshot_days_checked": 73,
+      "parsed_candidates": 0,
+      "status": "checked"
+    },
+    "www.visitpanamacitybeach.com/stay-pcb-current/": {
+      "captures": 0,
+      "unique_capture_days": 0,
+      "snapshot_days_checked": 0,
+      "parsed_candidates": 0,
+      "status": "checked"
+    },
+    "www.visitpanamacitybeach.com/partners/resources/beach-safety/": {
+      "captures": 11,
+      "unique_capture_days": 11,
+      "snapshot_days_checked": 11,
+      "parsed_candidates": 0,
+      "status": "checked"
+    }
+  },
+  "errors_sample": [],
+  "evidence_policy": "Wayback captures are discovery evidence only. No candidate is merged into the Safe2Swim flag master until independently audited against an authoritative or contemporaneous source.",
+  "next_sources_to_pursue": [
+    "City of Panama City Beach / Beach & Surf Patrol retained operational logs",
+    "Bay County emergency-management or beach-safety retained flag logs",
+    "Legacy ALERTBAY/888777 message exports from residents or agencies",
+    "Archived Visit Panama City Beach current-condition pages and embedded flag widgets",
+    "Contemporaneous local media reports only as corroborating evidence, not primary labels"
+  ],
+  "updated_at_utc": "2026-08-07T22:27:09.760707+00:00"
+}
