@@ -7,6 +7,8 @@ on:
       - '.github/workflows/backfill-nws-history.yml'
       - 'scripts/backfill_nws_srf.py'
       - 'scripts/audit_nws_flag_recovery.py'
+      - 'scripts/promote_nws_recovered_flags.py'
+      - 'scripts/build_daily_flags.py'
       - 'tests/test_nws_srf_parser.py'
   schedule:
     - cron: '41 4 * * 1'
@@ -36,6 +38,7 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
+
       - name: Recover NWS Surf Zone Forecast archive
         run: |
           if [[ "${{ github.event_name }}" == "push" ]]; then
@@ -43,24 +46,50 @@ jobs:
           else
             python scripts/backfill_nws_srf.py
           fi
+
       - name: Audit recovered flags against primary PCBFLAGS archive
         run: python scripts/audit_nws_flag_recovery.py
-      - name: Run parser and project tests
-        run: pytest -q
-      - name: Commit supplemental historical data
+
+      - name: Promote only non-overlapping NWS Bay flag reports
+        run: python scripts/promote_nws_recovered_flags.py
+
+      - name: Rebuild extended flag history
+        run: python scripts/build_daily_flags.py
+
+      - name: Validate recovered history
+        run: |
+          python scripts/validate_data.py
+          pytest -q
+
+      - name: Enrich newly recovered dates for research
+        id: enrich
+        continue-on-error: true
+        run: |
+          python scripts/update_environment.py
+          python scripts/build_model_dataset.py
+          python scripts/validate_data.py
+
+      - name: Revert incomplete enrichment if an external API was unavailable
+        if: steps.enrich.outcome == 'failure'
+        run: |
+          git restore data/environmental_daily.csv data/model_training.csv data/model_metrics.json || true
+          echo "Historical flags were recovered successfully; environmental enrichment will retry during the normal daily refresh."
+
+      - name: Commit extended historical dataset
         id: commit_data
         run: |
           if [[ -n "$(git status --porcelain data/)" ]]; then
             git config user.name "safe2swim-data-bot"
             git config user.email "actions@users.noreply.github.com"
-            git add data/nws_srf_observations.csv data/nws_srf_daily.csv data/nws_flag_recovery.csv data/nws_srf_summary.json data/nws_flag_overlap_audit.csv data/nws_flag_overlap_audit.json
-            git commit -m "data: refresh NWS surf-zone history and audit"
+            git add data/
+            git commit -m "data: extend PCB flag history with audited NWS recovery"
             git pull --rebase
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
       - name: Configure GitHub Pages
         if: steps.commit_data.outputs.changed == 'true'
         uses: actions/configure-pages@v5
