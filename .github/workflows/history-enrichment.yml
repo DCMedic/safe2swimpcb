@@ -8,6 +8,7 @@ on:
       - 'scripts/update_ndbc_measured.py'
       - 'scripts/update_tropical_cyclones.py'
       - 'scripts/hunt_pre2017_flags.py'
+      - 'scripts/backfill_westendpcb_flags.py'
       - 'scripts/build_model_dataset.py'
       - 'tests/test_history_enrichment.py'
   schedule:
@@ -21,7 +22,7 @@ permissions:
 
 concurrency:
   group: safe2swim-data-write
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   enrich-history:
@@ -51,14 +52,18 @@ jobs:
       - name: Refresh NOAA NHC tropical cyclone history
         run: python scripts/update_tropical_cyclones.py
 
-      - name: Hunt for pre-2017 flag candidates
+      - name: Audit historical West End PCB flag-status mirror
+        run: python scripts/backfill_westendpcb_flags.py
+
+      - name: Hunt archived official pages for pre-2017 flag candidates
+        if: github.event_name != 'push'
         id: pre2017
         continue-on-error: true
         run: python scripts/hunt_pre2017_flags.py
 
       - name: Preserve hunt status if archive service was unavailable
-        if: steps.pre2017.outcome == 'failure'
-        run: echo "Pre-2017 archive discovery was unavailable this run; measured NOAA and HURDAT2 enrichment will continue."
+        if: github.event_name != 'push' && steps.pre2017.outcome == 'failure'
+        run: echo "Pre-2017 Wayback discovery was unavailable this run; measured NOAA, HURDAT2, and community-mirror auditing will continue."
 
       - name: Rebuild research table with measured and storm context
         run: python scripts/build_model_dataset.py
@@ -76,7 +81,7 @@ jobs:
             git config user.name "safe2swim-data-bot"
             git config user.email "actions@users.noreply.github.com"
             git add data/
-            git commit -m "data: refresh measured NOAA and tropical cyclone history"
+            git commit -m "data: refresh measured NOAA, cyclone, and historical flag research"
             git pull --rebase
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
