@@ -9,7 +9,7 @@
 - `nws_srf_observations.csv`: parsed NWS Tallahassee Surf Zone Forecast products, including flag reports when present plus rip-current risk, surf, water temperature, winds, and related fields.
 - `nws_srf_daily.csv`: representative daily NWS surf-zone context.
 
-## Recovery quality-control tables
+## Recovery quality-control and candidate tables
 
 - `nws_srf_summary.json`: coverage and product counts for the recovered NWS surf-zone archive.
 - `nws_flag_overlap_audit.csv`: date-by-date comparison of recovered NWS Bay flags against primary PCBFLAGS/Safe2Swim observations on overlapping dates.
@@ -17,14 +17,17 @@
 - `flag_recovery_summary.json`: counts, date range, flag mix, and provenance policy for observations actually promoted into the recovered tier.
 - `pre2017_flag_candidates.csv`: unverified candidate observations found while searching archived copies of official PCB current-condition pages. These are discovery records only and are never promoted automatically.
 - `pre2017_flag_hunt_summary.json`: search coverage, candidate counts, archive errors, and the next source families targeted for pre-2017 recovery.
+- `westendpcb_flag_posts.csv`: explicitly dated historical Panama City Beach flag-status post titles indexed by the independent local West End PCB site.
+- `pre2017_westendpcb_candidates.csv`: pre-2017 West End PCB records preserved as community-mirror candidates only.
+- `westendpcb_flag_overlap_audit.csv`: comparison of later West End PCB posts against dates already represented by primary or NWS-recovered Safe2Swim evidence.
+- `westendpcb_flag_summary.json`: counts, date coverage, overlap agreement, and evidence policy for the community-mirror source.
 
 ## Measured NOAA / NDBC tables
 
-- `ndbc_measured_observations.csv`: timestamp-level measured observations from local station `PCBF1` / NOAA NOS `8729210` and offshore NDBC buoy `42039`.
-- `ndbc_measured_daily.csv`: derived daily measured fields such as local wind/gust/air/water temperature/pressure and offshore significant wave height/period/wind/water temperature.
-- `ndbc_measured_summary.json`: station metadata, measured coverage, source/quality notes, and refresh time.
+- `ndbc_measured_daily.csv`: derived daily measured fields from local station `PCBF1` / NOAA NOS `8729210` and offshore NDBC buoy `42039`, including local wind/gust/air/water temperature/pressure and offshore significant wave height/period/wind/water temperature.
+- `ndbc_measured_summary.json`: station metadata, measured coverage, source URL patterns, source/quality notes, and refresh time.
 
-Historical annual NDBC standard-meteorological files are quality-controlled. Recent `realtime2` observations have undergone NDBC gross-error checking only and should be treated as provisional context until archived.
+Safe2Swim does **not** mirror the full timestamp-level NDBC archive into GitHub. Raw observations remain at NOAA/NDBC as the authoritative upstream source. The enrichment job reads those observations in memory and publishes compact daily derived features plus source metadata. Historical annual NDBC standard-meteorological files are quality-controlled; recent `realtime2` observations have undergone NDBC gross-error checking only and should be treated as provisional context until archived.
 
 ## Tropical-cyclone tables
 
