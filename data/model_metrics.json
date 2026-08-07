@@ -1,6 +1,78 @@
 {
-  "status": "insufficient_data",
-  "n_training": 0,
-  "positive_days": 0,
-  "note": "At least 300 finalized days and 50 red-or-worse days are required before publishing model validation."
+  "status": "ok",
+  "n_training": 640,
+  "positive_days": 182,
+  "validation": {
+    "method": "5-split expanding-window time-series validation",
+    "roc_auc": 0.8995238095238096,
+    "brier": 0.15753523547292728,
+    "status": "exploratory"
+  },
+  "baselines": {
+    "monthly_auc": 0.4305311355311356,
+    "persistence_auc": 0.7844322344322344
+  },
+  "associations": [
+    {
+      "key": "wave_period_s",
+      "label": "Wave period",
+      "coefficient": 2.2502953852690335,
+      "odds_ratio": 9.490538787715957
+    },
+    {
+      "key": "wave_max_ft",
+      "label": "Wave height",
+      "coefficient": 1.86136882005056,
+      "odds_ratio": 6.432535731844245
+    },
+    {
+      "key": "season_cos",
+      "label": "Season (cos)",
+      "coefficient": -0.7125400981753796,
+      "odds_ratio": 0.4903969576584413
+    },
+    {
+      "key": "tide_range_ft",
+      "label": "Tide range",
+      "coefficient": -0.6592768173033547,
+      "odds_ratio": 0.5172252476209981
+    },
+    {
+      "key": "gust_max_mph",
+      "label": "Max gust",
+      "coefficient": -0.44796307376209565,
+      "odds_ratio": 0.6389282768138707
+    },
+    {
+      "key": "season_sin",
+      "label": "Season (sin)",
+      "coefficient": -0.34175710546299237,
+      "odds_ratio": 0.7105207653636461
+    },
+    {
+      "key": "wind_max_mph",
+      "label": "Max wind",
+      "coefficient": 0.2619707221833847,
+      "odds_ratio": 1.2994884956865513
+    },
+    {
+      "key": "swell_period_s",
+      "label": "Swell period",
+      "coefficient": -0.22056765406342208,
+      "odds_ratio": 0.8020633741796522
+    },
+    {
+      "key": "precip_in",
+      "label": "Rain",
+      "coefficient": -0.07751639814313976,
+      "odds_ratio": 0.925411849236248
+    },
+    {
+      "key": "swell_max_ft",
+      "label": "Swell height",
+      "coefficient": -0.04453386123339307,
+      "odds_ratio": 0.9564432131984244
+    }
+  ],
+  "note": "Association/prediction research only. Never overrides posted beach flags."
 }
