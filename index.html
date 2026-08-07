@@ -1,20 +1,185 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Safe2Swim PCB combines current Panama City Beach beach flags with historical flag, weather, wave and tide data for safer vacation planning."><meta name="theme-color" content="#0a2733"><title>Safe2Swim PCB | Beach Flag History & Conditions</title><link rel="icon" href="assets/favicon.svg"><link rel="manifest" href="site.webmanifest"><link rel="stylesheet" href="assets/app.css"><script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><script defer src="assets/app.js"></script></head><body><main class="shell"><header class="hero"><div class="brand"><div class="brandmark"><img src="assets/favicon.svg" alt="" width="32" height="32"></div><div><div class="eyebrow">Safe2Swim PCB</div><div class="small muted">Panama City Beach · Florida</div></div></div><h1>Know the Gulf before you hit the sand.</h1><p class="lede">Current beach-flag status plus a growing historical dataset of Panama City Beach flags, weather, waves, swell and tides. Designed for tourists planning a trip and for long-term research into the conditions associated with elevated beach hazards.</p><div class="safety"><strong>Safety first:</strong> Safe2Swim PCB is an informational planning tool, not a swimming clearance. Always obey the flags physically posted at the beach, lifeguards, Beach & Surf Patrol, law enforcement, and National Weather Service warnings.</div></header><nav class="tabs" aria-label="Safe2Swim sections"><button class="tab active" data-view="today">Today</button><button class="tab" data-view="planner">Vacation Planner</button><div class="more-nav"><button id="moreMenuButton" class="menu-toggle" type="button" aria-expanded="false" aria-controls="moreMenu">More <span aria-hidden="true">▾</span></button><div id="moreMenu" class="more-menu" hidden><button class="tab menu-item" data-view="patterns">Historical Patterns</button><button class="tab menu-item" data-view="science">Research Model</button><button class="tab menu-item" data-view="data">Data & Methods</button></div></div></nav>
-<section id="today" class="view active"><div class="today-grid"><div class="flag-card"><div class="eyebrow">Current PCB flag</div><div class="flagline"><div id="flagPole" class="flagpole"><span class="flagshape"></span><span class="flagshape" hidden></span></div><div><div id="currentFlag" class="flagname">Loading…</div><div id="currentMeaning" class="muted"></div></div></div><div id="flagFreshness" class="status">Checking the locally cached official status…</div><div class="pillrow"><span class="pill">Beach & Surf Patrol via Visit PCB</span><span class="pill">Auto-polled</span><span class="pill">Historical archive preserved</span></div></div><div class="card" style="margin:0"><h3>Use this panel for today only</h3><p>The flag displayed here is automatically collected from the public PCB current-conditions source. Historical probabilities below are useful for planning, but they never override a current posted flag.</p><p><a href="https://www.visitpanamacitybeach.com/stay-pcb-current/" target="_blank" rel="noopener">Verify current conditions at the source ↗</a></p></div></div><div class="grid metrics" style="margin-top:15px"><div class="metric"><div class="label">Air temperature</div><div id="liveTemp" class="value">—</div><div id="liveTempSub" class="sub">Current weather context</div></div><div class="metric"><div class="label">Wind / gust</div><div id="liveWind" class="value">—</div><div id="liveWindSub" class="sub">Direction and gusts</div></div><div class="metric"><div class="label">Wave height</div><div id="liveWave" class="value">—</div><div id="liveWaveSub" class="sub">Regional marine model</div></div><div class="metric"><div class="label">Next tide</div><div id="liveTide" class="value">—</div><div id="liveTideSub" class="sub">NOAA 8729136</div></div></div><div id="liveApiStatus" class="status" style="margin-top:12px">Loading weather, wave and NOAA tide context…</div></section>
-<section id="planner" class="view"><div class="card"><h2>Vacation Planner</h2><p>Choose a future trip window. The planner compares those calendar dates with every available historical year, using a ±7-day seasonal window to increase sample size without pretending that a short archive provides climatology.</p><div class="controls"><div class="control"><label for="tripStart">Trip start</label><input id="tripStart" type="date"></div><div class="control"><label for="tripEnd">Trip end</label><input id="tripEnd" type="date"></div><button id="planTrip" class="btn primary" type="button">Analyze trip window</button></div><div id="plannerResult" class="status">Select dates to build a historical trip profile.</div></div><div id="plannerMetrics" class="grid metrics"></div><div class="grid two"><div class="card"><h3>Historical flag distribution</h3><div class="chart"><canvas id="plannerFlagChart"></canvas></div></div><div class="card"><h3>Typical environmental context</h3><div id="plannerEnv" class="status">Environmental averages will appear once the scheduled enrichment pipeline has populated finalized records.</div></div></div><div class="card"><h3>What this means for a tourist</h3><div id="plannerNarrative" class="insight">The planner will report observed historical frequency, sample size, and coverage. It will not label a future day “safe.”</div></div></section>
-<section id="patterns" class="view"><div class="grid metrics" id="archiveMetrics"></div><div class="grid two"><div class="card"><h3>Red-or-worse frequency by month</h3><div class="chart"><canvas id="monthlyRiskChart"></canvas></div></div><div class="card"><h3>Flag-day composition</h3><div class="chart"><canvas id="flagMixChart"></canvas></div></div></div><div class="card"><h3>Year × month hazard heatmap</h3><p>Percent of observed days in each month that reached single red or double red. Empty cells mean no data, not “safe.”</p><div id="heatmap" class="calendar"></div></div><div class="grid two"><div class="card"><h3>Persistence into the next day</h3><div id="persistenceInsights"></div></div><div class="card"><h3>Intraday changes</h3><div id="intradayInsights"></div></div></div><div class="card"><h3>Explore an exact historical date</h3><div class="controls"><div class="control"><label for="historyDate">Date</label><input id="historyDate" type="date"></div><button id="historyLookup" class="btn" type="button">Look up date</button></div><div id="historyResult" class="status">Choose a date from the archive.</div></div></section>
-<section id="science" class="view"><div class="callout"><strong>Research status:</strong> Safe2Swim PCB stores a modeling-ready record, but the model is deliberately separated from the current safety flag. Only finalized historical environmental data enter training. Provisional recent data stay out until the reanalysis sources catch up.</div><div class="grid metrics" id="modelMetrics" style="margin-top:15px"></div><div class="grid two"><div class="card"><h3>Environmental associations</h3><div class="chart"><canvas id="associationChart"></canvas></div></div><div class="card"><h3>Validation and baselines</h3><div id="modelNarrative" class="status">The first daily enrichment run will generate time-aware validation metrics.</div></div></div><div class="card"><h3>Modeling design</h3><p>The training table uses red-or-worse as the research outcome and environmental features such as wind, gusts, wave height, wave period, swell, tide range and season. Validation is time-aware rather than random so future records are not leaked backward into training folds. A monthly-climatology baseline and a one-day persistence baseline are retained for comparison.</p></div></section>
-<section id="data" class="view"><div class="card"><h2>Open data and provenance</h2><p>Your original ALERTBAY/PCBFLAGS archive remains preserved as the historical source. New observations are appended by automation rather than rewriting those records. Each environmental row is labeled provisional or finalized, and only finalized rows enter the modeling table.</p><div class="download-grid"><a class="download" href="data/flag_observations_archive.csv" download><strong>Original cleaned flag observations</strong><span>All parsed ALERTBAY messages from the supplied archive</span></a><a class="download" href="data/flag_observations_auto.csv" download><strong>Automatic flag observations</strong><span>Daily snapshots + detected future status changes</span></a><a class="download" href="data/flag_daily_master.csv" download><strong>Master daily flag table</strong><span>One row per observed day</span></a><a class="download" href="data/environmental_daily.csv" download><strong>Environmental daily table</strong><span>Weather, wave, swell and NOAA tide features</span></a><a class="download" href="data/model_training.csv" download><strong>Model training table</strong><span>Finalized rows only, engineered for research</span></a><a class="download" href="data/model_metrics.json" download><strong>Model validation metrics</strong><span>Time-aware performance and feature associations</span></a></div></div><div class="grid two"><div class="card"><h3>Primary sources</h3><p><a href="https://www.pcbfl.gov/174/Beach-Flags" target="_blank" rel="noopener">City of Panama City Beach flag definitions ↗</a></p><p><a href="https://www.visitpanamacitybeach.com/stay-pcb-current/" target="_blank" rel="noopener">Current PCB conditions ↗</a></p><p><a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener">Open-Meteo historical weather ↗</a></p><p><a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener">Open-Meteo marine data ↗</a></p><p><a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8729136" target="_blank" rel="noopener">NOAA tide station 8729136 ↗</a></p></div><div class="card"><h3>Important limitations</h3><p>PCB flags apply across Panama City Beach, while the tide and location context is centered near the St. Andrews entrance. ERA5 and ERA5-Ocean are gridded reanalysis products, not instruments sitting on the St. Andrews beach. A flag observation also represents a public hazard decision, not a direct measurement of rip-current speed.</p><p class="warning">No statistical model on this site should ever be used to override double-red closures or any posted beach flag.</p></div></div></section>
-<footer class="footer">Safe2Swim PCB is an independent public-information project and is not affiliated with the City of Panama City Beach, Bay County, Florida State Parks, NOAA, the National Weather Service, or Visit Panama City Beach. Data-source attribution and limitations are provided above.</footer><script>
-(()=>{
-  const wrap=document.querySelector('.more-nav');
-  const toggle=document.getElementById('moreMenuButton');
-  const menu=document.getElementById('moreMenu');
-  if(!wrap||!toggle||!menu)return;
-  const close=()=>{menu.hidden=true;toggle.setAttribute('aria-expanded','false');};
-  const open=()=>{menu.hidden=false;toggle.setAttribute('aria-expanded','true');};
-  toggle.addEventListener('click',e=>{e.stopPropagation();menu.hidden?open():close();});
-  menu.querySelectorAll('.menu-item').forEach(item=>item.addEventListener('click',close));
-  document.addEventListener('click',e=>{if(!wrap.contains(e.target))close();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle.focus();}});
-})();
-</script></main></body></html>
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panama City Beach Flags Today & Beach Conditions | Safe2Swim PCB</title>
+  <meta name="description" content="Check today's Panama City Beach flag, surf, wind, waves and tides, then explore historical PCB beach conditions and vacation-planning data with Safe2Swim PCB.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="author" content="Safe2Swim PCB">
+  <meta name="theme-color" content="#0a2733">
+  <link rel="canonical" href="https://safe2swimpcb.com/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Safe2Swim PCB">
+  <meta property="og:title" content="Panama City Beach Flags Today & Beach Conditions | Safe2Swim PCB">
+  <meta property="og:description" content="Today's PCB beach flag plus surf, wind, waves, tides and a growing historical beach-conditions dataset for smarter vacation planning.">
+  <meta property="og:url" content="https://safe2swimpcb.com/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Panama City Beach Flags Today & Beach Conditions | Safe2Swim PCB">
+  <meta name="twitter:description" content="Check today's PCB flag, beach conditions, surf, waves and tides, then explore historical patterns for your next beach trip.">
+  <link rel="stylesheet" href="assets/app.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://safe2swimpcb.com/#website",
+        "url": "https://safe2swimpcb.com/",
+        "name": "Safe2Swim PCB",
+        "alternateName": ["Safe2SwimPCB", "Safe 2 Swim PCB"],
+        "description": "Current Panama City Beach beach flags, surf, wind, waves, tides and historical beach-condition data for vacation planning.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Dataset",
+        "@id": "https://safe2swimpcb.com/#dataset",
+        "name": "Panama City Beach Historical Beach Flag and Environmental Conditions Dataset",
+        "description": "A growing historical dataset of Panama City Beach beach-flag observations enriched with weather, wave, swell and NOAA tide context for public planning and research.",
+        "url": "https://safe2swimpcb.com/",
+        "creator": {
+          "@type": "Organization",
+          "name": "Safe2Swim PCB",
+          "url": "https://safe2swimpcb.com/"
+        },
+        "spatialCoverage": {
+          "@type": "Place",
+          "name": "Panama City Beach, Florida, USA"
+        },
+        "temporalCoverage": "2024-08-19/..",
+        "isBasedOn": [
+          "https://www.visitpanamacitybeach.com/stay-pcb-current/",
+          "https://www.pcbfl.gov/174/Beach-Flags",
+          "https://open-meteo.com/",
+          "https://tidesandcurrents.noaa.gov/"
+        ],
+        "distribution": [
+          {
+            "@type": "DataDownload",
+            "encodingFormat": "text/csv",
+            "contentUrl": "https://safe2swimpcb.com/data/flag_daily_master.csv",
+            "name": "Master daily Panama City Beach flag table"
+          },
+          {
+            "@type": "DataDownload",
+            "encodingFormat": "text/csv",
+            "contentUrl": "https://safe2swimpcb.com/data/environmental_daily.csv",
+            "name": "Daily weather, wave, swell and tide context"
+          },
+          {
+            "@type": "DataDownload",
+            "encodingFormat": "text/csv",
+            "contentUrl": "https://safe2swimpcb.com/data/model_training.csv",
+            "name": "Finalized modeling dataset"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div class="brand">
+      <div class="brandmark"><img src="assets/favicon.svg" alt="Safe2Swim PCB flag icon" width="58" height="58"></div>
+      <div>
+        <div class="brand-title">Safe2Swim <span>PCB</span></div>
+        <div class="brand-subtitle">Panama City Beach · Florida</div>
+      </div>
+    </div>
+    <div class="hero-copy">
+      <div class="hero-kicker">Your beach day starts here.</div>
+      <h1>Know the Gulf. <span class="hero-accent">Catch the good beach days.</span></h1>
+      <p class="lede">Beach day loading? Check today’s Panama City Beach flag, peek at the surf, wind, waves and tides, then explore how Gulf conditions have behaved across past seasons. Safe2Swim PCB puts the beach-day essentials in one fun, fast dashboard so you can plan smarter, pack the sunscreen, and make the most of every PCB adventure.</p>
+      <div class="hero-highlights" aria-label="Safe2Swim PCB highlights">
+        <span>Live PCB flag</span><span>Surf + tide</span><span>Vacation planner</span><span>Growing history</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Safe2Swim sections">
+    <button class="tab active" data-view="today">Today</button>
+    <button class="tab" data-view="planner">Vacation Planner</button>
+    <div class="more-nav">
+      <button id="moreMenuButton" class="menu-toggle" type="button" aria-expanded="false" aria-controls="moreMenu">More <span aria-hidden="true">▾</span></button>
+      <div id="moreMenu" class="more-menu" hidden>
+        <button class="tab menu-item" data-view="patterns">Historical Patterns</button>
+        <button class="tab menu-item" data-view="science">Research Model</button>
+        <button class="tab menu-item" data-view="data">Data & Methods</button>
+      </div>
+    </div>
+  </nav>
+
+  <section id="today" class="view active">
+    <div class="flag-card flag-card-wide">
+      <div class="eyebrow flag-eyebrow">Current PCB flag</div>
+      <a class="flag-official-link" href="https://www.visitpanamacitybeach.com/stay-pcb-current/" target="_blank" rel="noopener" aria-label="Open official Panama City Beach flag conditions from Visit Panama City Beach">
+        <div class="flagline">
+          <div id="flagPole" class="flagpole"><span class="flagshape"></span><span class="flagshape" hidden></span></div>
+          <div>
+            <div id="currentFlag" class="flagname">Loading…</div>
+            <div id="currentMeaning" class="muted"></div>
+          </div>
+        </div>
+        <div class="official-hint">Tap the flag for official PCB conditions ↗</div>
+      </a>
+      <div id="flagFreshness" class="status flag-status">Checking the locally cached official status…</div>
+      <div class="pillrow flag-pills"><span class="pill">Beach & Surf Patrol via Visit PCB</span><span class="pill">Auto-polled</span><span class="pill">Historical archive preserved</span></div>
+    </div>
+
+    <div class="conditions-head">
+      <div class="eyebrow">Beach conditions now</div>
+      <h2>Sun, surf, wind & tide at a glance</h2>
+      <p>Live environmental context for Panama City Beach. The posted beach flag remains the public-safety signal to follow.</p>
+    </div>
+    <div class="grid metrics beach-metrics">
+      <div class="metric"><div class="label">Air temperature</div><div id="liveTemp" class="value">—</div><div id="liveTempSub" class="sub">Current weather context</div></div>
+      <div class="metric"><div class="label">Wind / gust</div><div id="liveWind" class="value">—</div><div id="liveWindSub" class="sub">Direction and gusts</div></div>
+      <div class="metric"><div class="label">Wave height</div><div id="liveWave" class="value">—</div><div id="liveWaveSub" class="sub">Regional marine model</div></div>
+      <div class="metric"><div class="label">Next tide</div><div id="liveTide" class="value">—</div><div id="liveTideSub" class="sub">NOAA 8729136</div></div>
+    </div>
+    <div id="liveApiStatus" class="status" style="margin-top:12px">Loading weather, wave and NOAA tide context…</div>
+  </section>
+
+  <section id="planner" class="view">
+    <div class="card"><h2>Vacation Planner</h2><p>Choose a future trip window. The planner compares those calendar dates with every available historical year, using a ±7-day seasonal window to increase sample size without pretending that a short archive provides climatology.</p><div class="controls"><div class="control"><label for="tripStart">Trip start</label><input id="tripStart" type="date"></div><div class="control"><label for="tripEnd">Trip end</label><input id="tripEnd" type="date"></div><button id="planTrip" class="btn primary" type="button">Analyze trip window</button></div><div id="plannerResult" class="status">Select dates to build a historical trip profile.</div></div><div id="plannerMetrics" class="grid metrics"></div><div class="grid two"><div class="card"><h3>Historical flag distribution</h3><div class="chart"><canvas id="plannerFlagChart"></canvas></div></div><div class="card"><h3>Typical environmental context</h3><div id="plannerEnv" class="status">Environmental averages will appear once the scheduled enrichment pipeline has populated finalized records.</div></div></div><div class="card"><h3>What this means for a tourist</h3><div id="plannerNarrative" class="insight">The planner will report observed historical frequency, sample size, and coverage. It will not label a future day “safe.”</div></div>
+  </section>
+
+  <section id="patterns" class="view"><div class="grid metrics" id="archiveMetrics"></div><div class="grid two"><div class="card"><h3>Red-or-worse frequency by month</h3><div class="chart"><canvas id="monthlyRiskChart"></canvas></div></div><div class="card"><h3>Flag-day composition</h3><div class="chart"><canvas id="flagMixChart"></canvas></div></div></div><div class="card"><h3>Year × month hazard heatmap</h3><p>Percent of observed days in each month that reached single red or double red. Empty cells mean no data, not “safe.”</p><div id="heatmap" class="calendar"></div></div><div class="grid two"><div class="card"><h3>Persistence into the next day</h3><div id="persistenceInsights"></div></div><div class="card"><h3>Intraday changes</h3><div id="intradayInsights"></div></div></div><div class="card"><h3>Explore an exact historical date</h3><div class="controls"><div class="control"><label for="historyDate">Date</label><input id="historyDate" type="date"></div><button id="historyLookup" class="btn" type="button">Look up date</button></div><div id="historyResult" class="status">Choose a date from the archive.</div></div></section>
+
+  <section id="science" class="view"><div class="callout"><strong>Research status:</strong> Safe2Swim PCB stores a modeling-ready record, but the model is deliberately separated from the current safety flag. Only finalized historical environmental data enter training. Provisional recent data stay out until the reanalysis sources catch up.</div><div class="grid metrics" id="modelMetrics" style="margin-top:15px"></div><div class="grid two"><div class="card"><h3>Environmental associations</h3><div class="chart"><canvas id="associationChart"></canvas></div></div><div class="card"><h3>Validation and baselines</h3><div id="modelNarrative" class="status">The first daily enrichment run will generate time-aware validation metrics.</div></div></div><div class="card"><h3>Modeling design</h3><p>The training table uses red-or-worse as the research outcome and environmental features such as wind, gusts, wave height, wave period, swell, tide range and season. Validation is time-aware rather than random so future records are not leaked backward into training folds. A monthly-climatology baseline and a one-day persistence baseline are retained for comparison.</p></div></section>
+
+  <section id="data" class="view"><div class="card"><h2>Open data and provenance</h2><p>Your original ALERTBAY/PCBFLAGS archive remains preserved as the historical source. New observations are appended by automation rather than rewriting those records. Each environmental row is labeled provisional or finalized, and only finalized rows enter the modeling table.</p><div class="download-grid"><a class="download" href="data/flag_observations_archive.csv" download><strong>Original cleaned flag observations</strong><span>All parsed ALERTBAY messages from the supplied archive</span></a><a class="download" href="data/flag_observations_auto.csv" download><strong>Automatic flag observations</strong><span>Daily snapshots + detected future status changes</span></a><a class="download" href="data/flag_daily_master.csv" download><strong>Master daily flag table</strong><span>One row per observed day</span></a><a class="download" href="data/environmental_daily.csv" download><strong>Environmental daily table</strong><span>Weather, wave, swell and NOAA tide features</span></a><a class="download" href="data/model_training.csv" download><strong>Model training table</strong><span>Finalized rows only, engineered for research</span></a><a class="download" href="data/model_metrics.json" download><strong>Model validation metrics</strong><span>Time-aware performance and feature associations</span></a></div></div><div class="grid two"><div class="card"><h3>Primary sources</h3><p><a href="https://www.pcbfl.gov/174/Beach-Flags" target="_blank" rel="noopener">City of Panama City Beach flag definitions ↗</a></p><p><a href="https://www.visitpanamacitybeach.com/stay-pcb-current/" target="_blank" rel="noopener">Current PCB conditions ↗</a></p><p><a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener">Open-Meteo historical weather ↗</a></p><p><a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener">Open-Meteo marine data ↗</a></p><p><a href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8729136" target="_blank" rel="noopener">NOAA tide station 8729136 ↗</a></p></div><div class="card"><h3>Important limitations</h3><p>PCB flags apply across Panama City Beach, while the tide and location context is centered near the St. Andrews entrance. ERA5 and ERA5-Ocean are gridded reanalysis products, not instruments sitting on the St. Andrews beach. A flag observation also represents a public hazard decision, not a direct measurement of rip-current speed.</p><p class="warning">No statistical model on this site should ever be used to override double-red closures or any posted beach flag.</p></div></div></section>
+
+  <aside class="safety safety-bottom" aria-label="Safety notice">
+    <div><strong>Safety first.</strong> Safe2Swim PCB is an informational planning tool, not a swimming clearance. Always obey the flags physically posted at the beach, lifeguards, Beach & Surf Patrol, law enforcement, and National Weather Service warnings.</div>
+    <a href="https://www.visitpanamacitybeach.com/stay-pcb-current/" target="_blank" rel="noopener">Check official PCB conditions ↗</a>
+  </aside>
+
+  <footer class="footer">Safe2Swim PCB is an independent public-information project and is not affiliated with the City of Panama City Beach, Bay County, Florida State Parks, NOAA, the National Weather Service, or Visit Panama City Beach. Data-source attribution and limitations are provided above.</footer>
+
+  <script>
+  (()=>{
+    const wrap=document.querySelector('.more-nav');
+    const toggle=document.getElementById('moreMenuButton');
+    const menu=document.getElementById('moreMenu');
+    if(!wrap||!toggle||!menu)return;
+    const close=()=>{menu.hidden=true;toggle.setAttribute('aria-expanded','false');};
+    const open=()=>{menu.hidden=false;toggle.setAttribute('aria-expanded','true');};
+    toggle.addEventListener('click',e=>{e.stopPropagation();menu.hidden?open():close();});
+    menu.querySelectorAll('.menu-item').forEach(item=>item.addEventListener('click',close));
+    document.addEventListener('click',e=>{if(!wrap.contains(e.target))close();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle.focus();}});
+  })();
+  </script>
+</main>
+</body>
+</html>
