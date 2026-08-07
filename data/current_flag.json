@@ -1,11 +1,12 @@
 {
-  "flag": null,
+  "flag": "Yellow",
   "purple": false,
-  "label": "Pending live verification",
-  "last_verified_at": null,
-  "status_changed_at": null,
+  "label": "Yellow",
+  "last_verified_at": "2026-08-07T15:45:44.632498-05:00",
+  "status_changed_at": "2026-08-07T15:45:44.632498-05:00",
   "source_name": "Visit Panama City Beach / Beach & Surf Patrol",
   "source_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
-  "method": "Run the included polling workflow once after deployment to establish the live status.",
-  "stale_after_hours": 6
+  "method": "Scheduled public current-condition snapshot",
+  "stale_after_hours": 6,
+  "note": "Polling time is not guaranteed to equal the exact official issuance time."
 }
