@@ -16,6 +16,27 @@ def test_parse_ndbc_standard_met():
     assert d.iloc[0].date == "2024-08-01"
 
 
+def test_parse_ndbc_four_digit_year_under_legacy_yy_header():
+    text = """#YY MM DD hh mm WDIR WSPD GST WVHT DPD APD MWD PRES ATMP WTMP
+#yr mo dy hr mn degT m/s m/s m sec sec degT hPa degC degC
+2017 08 01 12 00 180 5.0 7.0 1.2 6.0 5.0 190 1012.0 30.0 29.0
+"""
+    d = _parse_ndbc_text(text, "42039", "https://example.test/42039h2017.txt.gz")
+    assert len(d) == 1
+    assert d.iloc[0].date == "2017-08-01"
+    assert d.iloc[0].observed_utc.year == 2017
+
+
+def test_parse_ndbc_true_two_digit_year_still_expands():
+    text = """#YY MM DD hh mm WDIR WSPD GST WVHT DPD APD MWD PRES ATMP WTMP
+#yr mo dy hr mn degT m/s m/s m sec sec degT hPa degC degC
+06 08 01 12 00 180 5.0 7.0 1.2 6.0 5.0 190 1012.0 30.0 29.0
+"""
+    d = _parse_ndbc_text(text, "42039", "https://example.test/42039h2006.txt.gz")
+    assert len(d) == 1
+    assert d.iloc[0].date == "2006-08-01"
+
+
 def test_parse_hurdat_and_distance():
     text = """AL092024, HELENE, 2,
 20240926, 1200, L, HU, 29.0N, 84.0W, 105, 960,
