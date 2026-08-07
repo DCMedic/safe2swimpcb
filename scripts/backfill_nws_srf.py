@@ -44,12 +44,19 @@ def _normalize_flag(value: str | None) -> str | None:
     return None
 
 
-def _flag_line(text: str, label: str) -> str | None:
-    m = re.search(
-        rf"(?mi)^\s*{re.escape(label)}\s*\.*\s*(Double\s+Red|Single\s+Red|Red|Yellow|Green|Not\s+Available)\.?\s*$",
-        text,
-    )
-    return _normalize_flag(m.group(1)) if m else None
+def _flag_entry(text: str, label: str) -> tuple[str | None, bool]:
+    """Return base flag and Purple overlay from one NWS beach-official line.
+
+    NWS products may use values such as "Yellow and Purple". Purple is an
+    independent dangerous-marine-life overlay, so it is retained separately.
+    """
+    m = re.search(rf"(?mi)^\s*{re.escape(label)}\s*\.*\s*(.+?)\s*$", text)
+    if not m:
+        return None, False
+    raw = re.sub(r"[.\s]+$", "", m.group(1).strip())
+    if not raw or "not available" in raw.lower():
+        return None, False
+    return _normalize_flag(raw), bool(re.search(r"\bpurple\b", raw, re.I))
 
 
 def _coastal_bay_section(text: str) -> str:
@@ -59,7 +66,6 @@ def _coastal_bay_section(text: str) -> str:
     )
     if m:
         return m.group(1)
-    # Older products sometimes used less regular zone formatting.
     m = re.search(
         r"(?ms)Coastal Bay-?\s*\n(.*?)(?=^\$\$|^FLZ\d{3}-|\Z)",
         text,
@@ -129,8 +135,8 @@ def parse_product(filename: str, text: str) -> dict | None:
     issued_local = issued_utc.astimezone(TZ)
     product_id = _product_id(filename, issued_utc, text)
 
-    bay_flag = _flag_line(text, "Bay")
-    state_flag = _flag_line(text, "State Park Gulf Beaches")
+    bay_flag, bay_purple = _flag_entry(text, "Bay")
+    state_flag, state_purple = _flag_entry(text, "State Park Gulf Beaches")
     section = _coastal_bay_section(text)
     block = _today_block(section)
 
@@ -154,7 +160,9 @@ def parse_product(filename: str, text: str) -> dict | None:
         "date": issued_local.date().isoformat(),
         "time_local": issued_local.strftime("%H:%M"),
         "bay_flag": bay_flag,
+        "bay_purple_overlay": bay_purple,
         "state_park_flag": state_flag,
+        "state_park_purple_overlay": state_purple,
         "rip_current_risk": risk,
         "rip_current_risk_score": RISK_SCORE.get(risk),
         "surf_height_text": surf,
@@ -226,21 +234,21 @@ def _representative_daily(obs: pd.DataFrame) -> pd.DataFrame:
 
 def _flag_recovery(obs: pd.DataFrame) -> pd.DataFrame:
     cols = [
-        "issued_utc", "issued_local", "date", "time_local", "bay_flag", "state_park_flag",
-        "rip_current_risk", "surf_height_text", "water_temperature_f", "winds_text",
-        "source_product_id", "source_url", "source",
+        "issued_utc", "issued_local", "date", "time_local", "bay_flag", "bay_purple_overlay",
+        "state_park_flag", "state_park_purple_overlay", "rip_current_risk", "surf_height_text",
+        "water_temperature_f", "winds_text", "source_product_id", "source_url", "source",
     ]
     if obs.empty:
         return pd.DataFrame(columns=cols)
     f = obs[obs["bay_flag"].notna()].sort_values(["date", "issued_utc"]).copy()
-    # Keep the first report of the day plus actual flag changes; repeated same-status reports add provenance but not signal.
     keep = []
     for _, g in f.groupby("date", sort=True):
         last = None
         for idx, row in g.iterrows():
-            if row["bay_flag"] != last:
+            state = (row["bay_flag"], bool(row.get("bay_purple_overlay", False)))
+            if state != last:
                 keep.append(idx)
-                last = row["bay_flag"]
+                last = state
     return f.loc[keep, cols].reset_index(drop=True) if keep else pd.DataFrame(columns=cols)
 
 
@@ -262,7 +270,11 @@ def main():
         fetched.extend(_fetch_range(a, b))
 
     new = pd.DataFrame(fetched)
-    if existing.empty:
+    if full:
+        # A full parser refresh intentionally replaces prior derived rows so schema/parser upgrades
+        # are applied consistently across the complete archive.
+        obs = new
+    elif existing.empty:
         obs = new
     elif new.empty:
         obs = existing
@@ -289,7 +301,8 @@ def main():
         "daily_records": int(len(daily)),
         "days_with_explicit_bay_flag": int(recovery["date"].nunique()) if len(recovery) else 0,
         "explicit_bay_flag_observations": int(len(recovery)),
-        "note": "Supplemental research source. Explicit Bay flag reports come from NWS products stating they were based on communication with area beach officials. This dataset is kept separate from the original ALERTBAY/PCBFLAGS archive and is not automatically used as a model label.",
+        "days_with_explicit_bay_purple": int(recovery.loc[recovery["bay_purple_overlay"].astype(str).str.lower().eq("true"), "date"].nunique()) if len(recovery) else 0,
+        "note": "Supplemental research source. Explicit Bay flag reports come from NWS products stating they were based on communication with area beach officials. Purple is preserved when the NWS line explicitly includes it. This dataset remains provenance-labeled and never overwrites original ALERTBAY/PCBFLAGS evidence.",
         "updated_at_utc": datetime.now(timezone.utc).isoformat(),
     }
     (DATA / "nws_srf_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
