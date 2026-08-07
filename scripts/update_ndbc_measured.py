@@ -2,10 +2,8 @@
 from __future__ import annotations
 
 import gzip
-import io
 import json
 from datetime import datetime, timezone
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -221,8 +219,9 @@ def main():
     if not frames:
         raise RuntimeError("No NDBC measured observations could be retrieved.")
 
+    # Keep the timestamp-level source observations in memory only. NOAA/NDBC remains the
+    # authoritative raw archive; Safe2Swim publishes compact daily derived measurements.
     obs = pd.concat(frames, ignore_index=True, sort=False).sort_values(["station", "observed_utc"])
-    obs.to_csv(DATA / "ndbc_measured_observations.csv", index=False)
 
     local = _agg_station(obs, "PCBF1")
     offshore = _agg_station(obs, "42039")
@@ -242,13 +241,16 @@ def main():
             **STATIONS[station],
             "first_observation": str(s.date.min()) if len(s) else None,
             "last_observation": str(s.date.max()) if len(s) else None,
-            "observations": int(len(s)),
+            "observations_processed": int(len(s)),
             "days": int(s.date.nunique()) if len(s) else 0,
+            "historical_url_pattern": NDBC_HIST.format(station=station.lower(), year="YYYY"),
+            "recent_url": NDBC_RT.format(station=station.upper()),
         }
     summary = {
         "source": "NOAA National Data Buoy Center quality-controlled historical standard meteorological files plus recent realtime2 observations",
         "stations": availability,
         "daily_rows": int(len(daily)),
+        "raw_observation_policy": "Timestamp-level raw measurements remain at NOAA/NDBC and are not mirrored into the GitHub repository. Safe2Swim processes them in memory and publishes daily derived measured features with source metadata.",
         "units_note": "Published daily derived fields use mph, feet, degrees F, seconds, and millibars. Raw NDBC source observations are SI where applicable.",
         "quality_note": "Historical annual files are NDBC quality-controlled archives. Recent realtime2 values have undergone NDBC gross error checking only and should remain contextual until archived.",
         "updated_at_utc": datetime.now(timezone.utc).isoformat(),
