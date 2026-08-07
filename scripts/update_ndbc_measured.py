@@ -78,11 +78,19 @@ def _parse_ndbc_text(text: str, station: str, source_url: str) -> pd.DataFrame:
     year_col = "YYYY" if "YYYY" in df.columns else "YY"
     year = pd.to_numeric(df[year_col], errors="coerce")
     if year_col == "YY":
-        year = np.where(year < 70, year + 2000, year + 1900)
+        # NDBC changed some standard-met files to four-digit year values while
+        # retaining the legacy YY column name. Preserve already-four-digit years;
+        # only expand true two-digit values.
+        year = np.where(
+            year >= 100,
+            year,
+            np.where(year < 70, year + 2000, year + 1900),
+        )
     month = pd.to_numeric(df.get("MM"), errors="coerce")
     day = pd.to_numeric(df.get("DD"), errors="coerce")
     hour = pd.to_numeric(df.get("hh"), errors="coerce")
-    minute = pd.to_numeric(df.get("mm", 0), errors="coerce").fillna(0) if hasattr(pd.to_numeric(df.get("mm", 0), errors="coerce"), "fillna") else 0
+    minute_raw = pd.to_numeric(df.get("mm", 0), errors="coerce")
+    minute = minute_raw.fillna(0) if hasattr(minute_raw, "fillna") else 0
     dt = pd.to_datetime(
         {"year": year, "month": month, "day": day, "hour": hour, "minute": minute},
         errors="coerce",
