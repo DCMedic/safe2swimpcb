@@ -1,0 +1,21 @@
+{
+  "brand": "Safe2Swim PCB",
+  "domain": "safe2swimpcb.com",
+  "timezone": "America/Chicago",
+  "location": {
+    "name": "St. Andrews State Park / Panama City Beach",
+    "lat": 30.125,
+    "lon": -85.73
+  },
+  "tide_station": {
+    "id": "8729136",
+    "name": "New Entrance Channel, St. Andrew Bay"
+  },
+  "sources": {
+    "current_flag": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
+    "flag_definitions": "https://www.pcbfl.gov/174/Beach-Flags",
+    "weather": "https://open-meteo.com/en/docs/historical-weather-api",
+    "marine": "https://open-meteo.com/en/docs/marine-weather-api",
+    "tides": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8729136"
+  }
+}

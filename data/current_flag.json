@@ -1,0 +1,11 @@
+{
+  "flag": null,
+  "purple": false,
+  "label": "Pending live verification",
+  "last_verified_at": null,
+  "status_changed_at": null,
+  "source_name": "Visit Panama City Beach / Beach & Surf Patrol",
+  "source_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
+  "method": "Run the included polling workflow once after deployment to establish the live status.",
+  "stale_after_hours": 6
+}
