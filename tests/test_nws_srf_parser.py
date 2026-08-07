@@ -49,13 +49,22 @@ def test_parse_explicit_bay_and_state_flags():
     row = parse_product("202401251627-KTAE-FZUS52-SRFTAE.txt", SAMPLE)
     assert row is not None
     assert row["bay_flag"] == "Single Red"
+    assert row["bay_purple_overlay"] is False
     assert row["state_park_flag"] == "Double Red"
+    assert row["state_park_purple_overlay"] is False
     assert row["rip_current_risk"] == "High"
     assert row["rip_current_risk_score"] == 3
     assert row["surf_height_min_ft"] == 4
     assert row["surf_height_max_ft"] == 4
     assert row["water_temperature_f"] == 56
     assert row["wind_speed_max_mph"] == 15
+
+
+def test_parse_purple_overlay_independently_from_base_flag():
+    purple = SAMPLE.replace("Bay...........................Red", "Bay...........................Yellow and Purple")
+    row = parse_product("202401251627-KTAE-FZUS52-SRFTAE.txt", purple)
+    assert row["bay_flag"] == "Yellow"
+    assert row["bay_purple_overlay"] is True
 
 
 def test_local_date_and_source_product_id():
