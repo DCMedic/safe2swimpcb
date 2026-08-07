@@ -55,7 +55,9 @@ def main():
             "time": str(r["time_local"]),
             "base_flag": base,
             "purple_overlay": purple,
-            "purple_known": True,
+            # Historical NWS products reliably identify Purple when explicitly present,
+            # but absence is not treated as proof that no Purple overlay was posted.
+            "purple_known": purple,
             "flag_label": base + (" + Purple" if purple else ""),
             "severity": FLAG_SEVERITY[base],
             "source": "NWS Tallahassee SRFTAE recovered Bay flag via IEM",
@@ -80,6 +82,7 @@ def main():
         "start": str(out["date"].min()) if len(out) else None,
         "end": str(out["date"].max()) if len(out) else None,
         "purple_observations": int(out["purple_overlay"].map(as_bool).sum()) if len(out) else 0,
+        "purple_reporting_policy": "Explicit recovered Purple reports are retained. Recovered records without Purple are marked Purple-unknown so incomplete historical overlay reporting cannot dilute Purple-warning statistics.",
         "flag_counts": {str(k): int(v) for k, v in counts.items()},
         "updated_at_utc": datetime.now(timezone.utc).isoformat(),
         "caution": "Recovered records are strong secondary evidence, not replacements for original PCBFLAGS messages. Each row retains its source product URL and record tier.",
