@@ -1,0 +1,100 @@
+name: Refresh measured NOAA and storm history
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/history-enrichment.yml'
+      - 'scripts/update_ndbc_measured.py'
+      - 'scripts/update_tropical_cyclones.py'
+      - 'scripts/hunt_pre2017_flags.py'
+      - 'scripts/build_model_dataset.py'
+      - 'tests/test_history_enrichment.py'
+  schedule:
+    - cron: '17 4 * * 6'
+      timezone: 'America/Chicago'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: safe2swim-data-write
+  cancel-in-progress: false
+
+jobs:
+  enrich-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Refresh measured NOAA NDBC observations
+        run: python scripts/update_ndbc_measured.py
+
+      - name: Refresh NOAA NHC tropical cyclone history
+        run: python scripts/update_tropical_cyclones.py
+
+      - name: Hunt for pre-2017 flag candidates
+        id: pre2017
+        continue-on-error: true
+        run: python scripts/hunt_pre2017_flags.py
+
+      - name: Preserve hunt status if archive service was unavailable
+        if: steps.pre2017.outcome == 'failure'
+        run: echo "Pre-2017 archive discovery was unavailable this run; measured NOAA and HURDAT2 enrichment will continue."
+
+      - name: Rebuild research table with measured and storm context
+        run: python scripts/build_model_dataset.py
+
+      - name: Validate data and parsers
+        run: |
+          python scripts/validate_data.py
+          pytest -q
+          node --check assets/app.js
+
+      - name: Commit historical enrichment
+        id: commit_data
+        run: |
+          if [[ -n "$(git status --porcelain data/)" ]]; then
+            git config user.name "safe2swim-data-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/
+            git commit -m "data: refresh measured NOAA and tropical cyclone history"
+            git pull --rebase
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure GitHub Pages
+        if: steps.commit_data.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload refreshed site
+        if: steps.commit_data.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Deploy refreshed site
+        if: steps.commit_data.outputs.changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
