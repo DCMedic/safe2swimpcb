@@ -15,6 +15,7 @@ except ImportError:
 
 CDX = "https://web.archive.org/cdx/search/cdx"
 WAYBACK = "https://web.archive.org/web/{timestamp}id_/{original}"
+MAX_SNAPSHOT_FETCHES = 120
 TARGETS = [
     "www.visitpanamacitybeach.com/beach-alerts-iframe/",
     "www.visitpanamacitybeach.com/stay-pcb-current/",
@@ -83,6 +84,15 @@ def cdx_captures(target: str):
     return [dict(zip(header, row)) for row in z[1:]]
 
 
+def evenly_sample(items, limit: int):
+    if len(items) <= limit:
+        return items
+    if limit <= 1:
+        return [items[-1]]
+    idx = sorted({round(i * (len(items) - 1) / (limit - 1)) for i in range(limit)})
+    return [items[i] for i in idx]
+
+
 def main():
     s = session()
     rows = []
@@ -103,12 +113,16 @@ def main():
             ts = str(cap.get("timestamp", ""))
             if len(ts) >= 8:
                 per_day[ts[:8]] = cap
+        all_days = sorted(per_day.values(), key=lambda x: x.get("timestamp", ""))
+        selected = evenly_sample(all_days, MAX_SNAPSHOT_FETCHES)
         parsed = 0
-        for cap in sorted(per_day.values(), key=lambda x: x.get("timestamp", "")):
+        checked = 0
+        for cap in selected:
             ts = str(cap.get("timestamp", ""))
             original = cap.get("original") or target
             if not ts.startswith(tuple(str(y) for y in range(2008, 2017))):
                 continue
+            checked += 1
             url = WAYBACK.format(timestamp=ts, original=original)
             try:
                 r = s.get(url, timeout=45)
@@ -135,7 +149,13 @@ def main():
                 parsed += 1
             except Exception as exc:
                 errors.append(f"snapshot {ts} {original}: {exc}")
-        target_stats[target] = {"captures": int(len(caps)), "unique_capture_days": int(len(per_day)), "parsed_candidates": int(parsed), "status": "checked"}
+        target_stats[target] = {
+            "captures": int(len(caps)),
+            "unique_capture_days": int(len(per_day)),
+            "snapshot_days_checked": int(checked),
+            "parsed_candidates": int(parsed),
+            "status": "checked",
+        }
 
     out = pd.DataFrame(rows)
     if len(out):
@@ -162,6 +182,7 @@ def main():
         "candidate_start": str(out.capture_date.min()) if len(out) else None,
         "candidate_end": str(out.capture_date.max()) if len(out) else None,
         "nws_srf_first_product_date": nws_first,
+        "max_snapshot_fetches_per_target": MAX_SNAPSHOT_FETCHES,
         "targets": target_stats,
         "errors_sample": errors[:20],
         "evidence_policy": "Wayback captures are discovery evidence only. No candidate is merged into the Safe2Swim flag master until independently audited against an authoritative or contemporaneous source.",
