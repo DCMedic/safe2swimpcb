@@ -37,7 +37,12 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Recover NWS Surf Zone Forecast archive
-        run: python scripts/backfill_nws_srf.py
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            NWS_SRF_FULL_BACKFILL=1 python scripts/backfill_nws_srf.py
+          else
+            python scripts/backfill_nws_srf.py
+          fi
       - name: Audit recovered flags against primary PCBFLAGS archive
         run: python scripts/audit_nws_flag_recovery.py
       - name: Run parser and project tests
