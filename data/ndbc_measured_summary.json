@@ -8,9 +8,11 @@
       "start_year": 2005,
       "role": "local_coastal_meteorology",
       "first_observation": "2005-02-01",
-      "last_observation": "2006-12-31",
-      "observations": 50473,
-      "days": 663
+      "last_observation": "2026-08-07",
+      "observations_processed": 1209189,
+      "days": 5551,
+      "historical_url_pattern": "https://www.ndbc.noaa.gov/data/historical/stdmet/pcbf1hYYYY.txt.gz",
+      "recent_url": "https://www.ndbc.noaa.gov/data/realtime2/PCBF1.txt"
     },
     "42039": {
       "name": "PENSACOLA - 115NM SSE of Pensacola, FL",
@@ -19,13 +21,16 @@
       "start_year": 1995,
       "role": "offshore_wave_meteorology",
       "first_observation": "1995-12-12",
-      "last_observation": "2006-12-31",
-      "observations": 92853,
-      "days": 3887
+      "last_observation": "2026-08-07",
+      "observations_processed": 420033,
+      "days": 9602,
+      "historical_url_pattern": "https://www.ndbc.noaa.gov/data/historical/stdmet/42039hYYYY.txt.gz",
+      "recent_url": "https://www.ndbc.noaa.gov/data/realtime2/42039.txt"
     }
   },
-  "daily_rows": 3939,
+  "daily_rows": 10795,
+  "raw_observation_policy": "Timestamp-level raw measurements remain at NOAA/NDBC and are not mirrored into the GitHub repository. Safe2Swim processes them in memory and publishes daily derived measured features with source metadata.",
   "units_note": "Published daily derived fields use mph, feet, degrees F, seconds, and millibars. Raw NDBC source observations are SI where applicable.",
   "quality_note": "Historical annual files are NDBC quality-controlled archives. Recent realtime2 values have undergone NDBC gross error checking only and should remain contextual until archived.",
-  "updated_at_utc": "2026-08-07T22:25:47.583209+00:00"
+  "updated_at_utc": "2026-08-07T22:42:54.873755+00:00"
 }

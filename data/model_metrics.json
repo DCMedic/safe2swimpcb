@@ -77,68 +77,68 @@
   "research_context": {
     "measured_ndbc": {
       "pcbf1_obs_count": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 2010,
+        "pct": 91.5
       },
       "pcbf1_wind_max_mph": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 2010,
+        "pct": 91.5
       },
       "pcbf1_gust_max_mph": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 2010,
+        "pct": 91.5
       },
       "pcbf1_air_temp_max_f": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1985,
+        "pct": 90.4
       },
       "pcbf1_air_temp_min_f": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1985,
+        "pct": 90.4
       },
       "pcbf1_water_temp_mean_f": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1987,
+        "pct": 90.5
       },
       "pcbf1_pressure_min_mb": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1988,
+        "pct": 90.5
       },
       "42039_obs_count": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1218,
+        "pct": 55.5
       },
       "ndbc42039_wave_max_ft": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1174,
+        "pct": 53.5
       },
       "ndbc42039_wave_mean_ft": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1174,
+        "pct": 53.5
       },
       "ndbc42039_dominant_period_max_s": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1169,
+        "pct": 53.2
       },
       "ndbc42039_average_period_mean_s": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1174,
+        "pct": 53.5
       },
       "ndbc42039_wind_max_mph": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1218,
+        "pct": 55.5
       },
       "ndbc42039_gust_max_mph": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1218,
+        "pct": 55.5
       },
       "ndbc42039_water_temp_mean_f": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 715,
+        "pct": 32.6
       },
       "ndbc42039_pressure_min_mb": {
-        "rows": 0,
-        "pct": 0.0
+        "rows": 1218,
+        "pct": 55.5
       }
     },
     "retrospective_tropical_cyclone": {

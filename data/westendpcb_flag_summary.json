@@ -1,0 +1,33 @@
+{
+  "source": "West End PCB public site-map index of historical Panama City Beach flag-status posts",
+  "source_url": "https://www.westendpcb.com/site-map/",
+  "live_site_map_status": "loaded",
+  "source_characterization": "Independent local/community site. Its current flag page says condition updates are posted when Beach & Surf Patrol sends a text, but it is not an official government archive.",
+  "all_explicitly_dated_flag_posts": 81,
+  "first_post_date": "2010-07-06",
+  "last_post_date": "2018-12-27",
+  "posts_by_year": {
+    "2010": 36,
+    "2011": 1,
+    "2016": 11,
+    "2017": 11,
+    "2018": 22
+  },
+  "pre2017_candidate_posts": 48,
+  "pre2017_candidate_days": 48,
+  "pre2017_start": "2010-07-06",
+  "pre2017_end": "2016-12-18",
+  "pre2017_flag_counts": {
+    "Yellow": 34,
+    "Single Red": 11,
+    "Double Red": 3
+  },
+  "overlap_audit": {
+    "overlap_posts": 1,
+    "base_match_posts": 1,
+    "base_match_pct": 100.0,
+    "exact_label_match_pct": 100.0
+  },
+  "policy": "These records are preserved as a separately auditable community-mirror candidate tier. They do not overwrite or automatically extend primary/NWS recovered Safe2Swim labels.",
+  "updated_at_utc": "2026-08-07T22:43:00.958957+00:00"
+}
