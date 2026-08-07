@@ -1,0 +1,17 @@
+{
+  "record_tier": "recovered",
+  "source": "NWS Tallahassee SRFTAE explicit Bay flag reports via Iowa Environmental Mesonet",
+  "selection_rule": "Only NWS Bay flag reports from dates absent from both the immutable ALERTBAY/PCBFLAGS archive and automatic Safe2Swim observations are promoted. Primary records always win on overlap.",
+  "observations": 1571,
+  "days": 1561,
+  "start": "2017-08-30",
+  "end": "2026-08-06",
+  "purple_observations": 1,
+  "flag_counts": {
+    "Yellow": 966,
+    "Single Red": 432,
+    "Double Red": 173
+  },
+  "updated_at_utc": "2026-08-07T21:58:32.454500+00:00",
+  "caution": "Recovered records are strong secondary evidence, not replacements for original PCBFLAGS messages. Each row retains its source product URL and record tier."
+}
