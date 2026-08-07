@@ -7,11 +7,12 @@
   "start": "2017-08-30",
   "end": "2026-08-06",
   "purple_observations": 1,
+  "purple_reporting_policy": "Explicit recovered Purple reports are retained. Recovered records without Purple are marked Purple-unknown so incomplete historical overlay reporting cannot dilute Purple-warning statistics.",
   "flag_counts": {
     "Yellow": 966,
     "Single Red": 432,
     "Double Red": 173
   },
-  "updated_at_utc": "2026-08-07T21:58:32.454500+00:00",
+  "updated_at_utc": "2026-08-07T22:03:43.766340+00:00",
   "caution": "Recovered records are strong secondary evidence, not replacements for original PCBFLAGS messages. Each row retains its source product URL and record tier."
 }
