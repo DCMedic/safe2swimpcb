@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import csv,json,re,os
-from datetime import datetime,timedelta
+from datetime import datetime
 from bs4 import BeautifulSoup
 try:
     from .common import ROOT,DATA,TZ,FLAG_SEVERITY,session,now_local
@@ -38,25 +38,32 @@ def read_log():
     if not p.exists():return []
     with p.open(newline='',encoding='utf-8') as f:return list(csv.DictReader(f))
 def main():
-    fixture=os.getenv('SAFE2SWIM_FIXTURE');
+    fixture=os.getenv('SAFE2SWIM_FIXTURE')
     if fixture:
         html=open(fixture,encoding='utf-8').read()
     else:
         resp=session().get(URL,timeout=30);resp.raise_for_status();html=resp.text
     base,purple,label=parse_status(html);now=now_local();old=load_old();rows=read_log();today=now.date().isoformat()
-    changed=bool(old.get('label')) and old.get('label')!=label;first=not any(r.get('date')==today for r in rows)
-    last=old.get('last_verified_at');heartbeat=True
-    if last:
-        try:heartbeat=now-datetime.fromisoformat(last)>=timedelta(hours=4)
-        except:heartbeat=True
+    changed=bool(old.get('label')) and old.get('label')!=label
+    first=not any(r.get('date')==today for r in rows)
     if changed or first:
         with (DATA/'flag_observations_auto.csv').open('a',newline='',encoding='utf-8') as f:
             w=csv.DictWriter(f,fieldnames=FIELDS)
             if f.tell()==0:w.writeheader()
             w.writerow({'observed_at':now.isoformat(),'date':today,'time':now.strftime('%H:%M:%S'),'base_flag':base,'purple_overlay':purple,'flag_label':label,'severity':FLAG_SEVERITY[base],'source':'Visit PCB / Beach & Surf Patrol','source_url':URL,'observation_type':'status_change' if changed else 'daily_snapshot','message':f'Current Beach Conditions: {label} Flag'})
-    if changed or first or heartbeat or not old:
-        status_changed_at=now.isoformat() if changed else old.get('status_changed_at')
-        out={'flag':base,'purple':purple,'label':label,'last_verified_at':now.isoformat(),'status_changed_at':status_changed_at,'source_name':'Visit Panama City Beach / Beach & Surf Patrol','source_url':URL,'method':'Scheduled public current-condition snapshot','stale_after_hours':6,'note':'Polling time is not guaranteed to equal the exact official issuance time.'}
-        (DATA/'current_flag.json').write_text(json.dumps(out,indent=2)+'\n')
-    print(label,now.isoformat(),'changed=',changed,'first_today=',first,'heartbeat=',heartbeat)
+    status_changed_at=now.isoformat() if changed or not old.get('status_changed_at') else old.get('status_changed_at')
+    out={
+        'flag':base,
+        'purple':purple,
+        'label':label,
+        'last_verified_at':now.isoformat(),
+        'status_changed_at':status_changed_at,
+        'source_name':'Visit Panama City Beach / Beach & Surf Patrol',
+        'source_url':URL,
+        'method':'Scheduled public current-condition snapshot',
+        'stale_after_hours':2,
+        'note':'last_verified_at is the most recent successful Safe2Swim poll. status_changed_at is when Safe2Swim first observed the current flag status. Polling time is not guaranteed to equal the exact official issuance time.'
+    }
+    (DATA/'current_flag.json').write_text(json.dumps(out,indent=2)+'\n')
+    print(label,now.isoformat(),'changed=',changed,'first_today=',first,'verification_refreshed=true')
 if __name__=='__main__':main()
