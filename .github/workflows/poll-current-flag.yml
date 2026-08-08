@@ -1,6 +1,10 @@
 name: Poll current PCB beach flag
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/poll-current-flag.yml'
+      - 'scripts/update_current_flag.py'
   schedule:
     - cron: '7,37 6-22 * * *'
       timezone: 'America/Chicago'
@@ -29,7 +33,7 @@ jobs:
       - run: python scripts/update_current_flag.py
       - run: python scripts/build_daily_flags.py
       - run: python scripts/validate_data.py
-      - name: Commit status changes or heartbeat
+      - name: Commit status changes or verification heartbeat
         id: commit_data
         run: |
           if [[ -n "$(git status --porcelain data/current_flag.json data/flag_observations_auto.csv data/flag_daily_master.csv data/flag_daily_master.json data/flag_observations_master.csv data/flag_observations_master.json data/flag_summary.json)" ]]; then
