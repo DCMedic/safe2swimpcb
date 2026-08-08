@@ -13,7 +13,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: safe2swim-data-write
+  group: knowthegulf-data-write
   cancel-in-progress: false
 jobs:
   poll:
@@ -37,7 +37,7 @@ jobs:
         id: commit_data
         run: |
           if [[ -n "$(git status --porcelain data/current_flag.json data/flag_observations_auto.csv data/flag_daily_master.csv data/flag_daily_master.json data/flag_observations_master.csv data/flag_observations_master.json data/flag_summary.json)" ]]; then
-            git config user.name "safe2swim-data-bot"
+            git config user.name "knowthegulf-data-bot"
             git config user.email "actions@users.noreply.github.com"
             git add data/current_flag.json data/flag_observations_auto.csv data/flag_daily_master.csv data/flag_daily_master.json data/flag_observations_master.csv data/flag_observations_master.json data/flag_summary.json
             git commit -m "data: refresh PCB beach flag"
