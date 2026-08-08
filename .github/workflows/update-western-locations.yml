@@ -1,4 +1,4 @@
-name: Update Destin and Okaloosa data
+name: Update western Gulf data
 on:
   workflow_dispatch:
   push:
@@ -34,11 +34,11 @@ jobs:
       - name: Commit refreshed western Gulf data
         id: commit_data
         run: |
-          if [[ -n "$(git status --porcelain data/destin data/okaloosa-island data/western)" ]]; then
+          if [[ -n "$(git status --porcelain data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)" ]]; then
             git config user.name "knowthegulf-data-bot"
             git config user.email "actions@users.noreply.github.com"
-            git add data/destin data/okaloosa-island data/western
-            git commit -m "data: refresh Destin and Okaloosa Island"
+            git add data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western
+            git commit -m "data: refresh western Gulf beaches"
             git pull --rebase
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
