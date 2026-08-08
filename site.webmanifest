@@ -3,7 +3,15 @@
   "short_name": "Know the Gulf",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#061821",
-  "theme_color": "#0a2733",
-  "description": "Current and historical Panama City Beach beach flags and Gulf conditions with weather, wave and tide context."
+  "background_color": "#fffaf0",
+  "theme_color": "#087eae",
+  "description": "Current and historical Panama City Beach beach flags and Gulf conditions with weather, wave and tide context.",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
