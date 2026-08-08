@@ -1,6 +1,6 @@
-# Safe2Swim PCB
+# Know the Gulf
 
-Public single-page dashboard for **safe2swimpcb.com**. It combines a user-supplied ALERTBAY/PCBFLAGS historical archive with automatically collected future PCB flag snapshots, Open-Meteo weather/wave context, NOAA tide predictions, and a modeling-ready finalized dataset.
+Public coastal-conditions dashboard for **knowthegulf.com**, launching with Panama City Beach, Florida. It combines a user-supplied ALERTBAY/PCBFLAGS historical archive with automatically collected future PCB flag snapshots, Open-Meteo weather/wave context, NOAA tide predictions, and a modeling-ready finalized dataset.
 
 ## Data lifecycle
 
@@ -12,6 +12,12 @@ Public single-page dashboard for **safe2swimpcb.com**. It combines a user-suppli
 
 ## Safety design
 
-The current official flag is visually separated from all historical statistics and research-model output. Predictions never override posted flags.
+The current official flag is visually separated from all historical statistics and research-model output. Know the Gulf is an informational planning and research project; predictions never override posted flags or official local guidance.
 
-See `DEPLOYMENT.md` for the GitHub Actions-based Pages deployment, custom-domain verification, DNS setup, HTTPS, and first-run automation procedure.
+## Domain architecture
+
+- `knowthegulf.com` is the canonical public domain.
+- `knowthegulf.org` should permanently redirect to `https://knowthegulf.com/`.
+- `safe2swimpcb.com` should permanently redirect to the equivalent `https://knowthegulf.com/` path so legacy links and QR codes continue to work.
+
+See `DEPLOYMENT.md` for the GitHub Actions-based Pages deployment, custom-domain verification, DNS setup, HTTPS, redirect strategy, and first-run automation procedure.

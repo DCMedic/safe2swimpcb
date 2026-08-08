@@ -62,7 +62,7 @@ def main():
         'source_url':URL,
         'method':'Scheduled public current-condition snapshot',
         'stale_after_hours':2,
-        'note':'last_verified_at is the most recent successful Safe2Swim poll. status_changed_at is when Safe2Swim first observed the current flag status. Polling time is not guaranteed to equal the exact official issuance time.'
+        'note':'last_verified_at is the most recent successful Know the Gulf poll. status_changed_at is when Know the Gulf first observed the current flag status. Polling time is not guaranteed to equal the exact official issuance time.'
     }
     (DATA/'current_flag.json').write_text(json.dumps(out,indent=2)+'\n')
     print(label,now.isoformat(),'changed=',changed,'first_today=',first,'verification_refreshed=true')

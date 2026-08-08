@@ -93,7 +93,7 @@ def main():
         'purple_pct_known':round(100*purple_days/purple_known_days,1) if purple_known_days else None,
         'multi_update_days':int((d.n_updates>1).sum()),
         'latest_record_status':str(d.iloc[-1].record_status),
-        'provenance_note':'Original ALERTBAY/PCBFLAGS and automatic Safe2Swim observations take precedence. Recovered NWS SRFTAE Bay flag reports are used only on dates with no primary observation.'
+        'provenance_note':'Original ALERTBAY/PCBFLAGS and automatic project observations take precedence. Historical automatic rows may retain the legacy Safe2Swim collector label. Recovered NWS SRFTAE Bay flag reports are used only on dates with no primary observation.'
     }
     (DATA/'flag_summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     print('observations',len(x),'daily rows',len(d),'primary days',primary_days,'recovered days',recovered_days,'through',d.date.max())
