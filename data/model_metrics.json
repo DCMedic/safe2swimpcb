@@ -22,8 +22,8 @@
     {
       "key": "wave_max_ft",
       "label": "Wave height",
-      "coefficient": 1.5334597336999334,
-      "odds_ratio": 4.634182155414328
+      "coefficient": 1.533459733699934,
+      "odds_ratio": 4.63418215541433
     },
     {
       "key": "gust_max_mph",
@@ -34,44 +34,44 @@
     {
       "key": "tide_range_ft",
       "label": "Tide range",
-      "coefficient": -0.5729883170121806,
-      "odds_ratio": 0.5638379919788685
+      "coefficient": -0.5729883170121809,
+      "odds_ratio": 0.5638379919788683
     },
     {
       "key": "season_cos",
       "label": "Season (cos)",
-      "coefficient": -0.5504605220072782,
-      "odds_ratio": 0.5766841734662287
+      "coefficient": -0.5504605220072778,
+      "odds_ratio": 0.5766841734662289
     },
     {
       "key": "wind_max_mph",
       "label": "Max wind",
-      "coefficient": 0.49200470099581617,
-      "odds_ratio": 1.635591808097414
+      "coefficient": 0.49200470099581595,
+      "odds_ratio": 1.6355918080974137
     },
     {
       "key": "season_sin",
       "label": "Season (sin)",
-      "coefficient": -0.3680039328938351,
-      "odds_ratio": 0.6921144596706861
+      "coefficient": -0.3680039328938356,
+      "odds_ratio": 0.6921144596706857
     },
     {
       "key": "precip_in",
       "label": "Rain",
-      "coefficient": 0.15498660480302479,
-      "odds_ratio": 1.1676423202014932
+      "coefficient": 0.15498660480302448,
+      "odds_ratio": 1.1676423202014927
     },
     {
       "key": "swell_max_ft",
       "label": "Swell height",
-      "coefficient": 0.1289756936393735,
-      "odds_ratio": 1.137662471395363
+      "coefficient": 0.1289756936393733,
+      "odds_ratio": 1.1376624713953627
     },
     {
       "key": "swell_period_s",
       "label": "Swell period",
-      "coefficient": -0.031254836244945655,
-      "odds_ratio": 0.9692285470383475
+      "coefficient": -0.03125483624494592,
+      "odds_ratio": 0.9692285470383473
     }
   ],
   "research_context": {
