@@ -29,9 +29,7 @@
       "status": "checked"
     }
   },
-  "errors_sample": [
-    "snapshot 20131014073226 http://www.visitpanamacitybeach.com/partners/resources/beach-safety/: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20131014073226id_/http://www.visitpanamacitybeach.com/partners/resources/beach-safety/ (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=45)\"))"
-  ],
+  "errors_sample": [],
   "evidence_policy": "Wayback captures are discovery evidence only. No candidate is merged into the Safe2Swim flag master until independently audited against an authoritative or contemporaneous source.",
   "next_sources_to_pursue": [
     "City of Panama City Beach / Beach & Surf Patrol retained operational logs",
@@ -40,5 +38,5 @@
     "Archived Visit Panama City Beach current-condition pages and embedded flag widgets",
     "Contemporaneous local media reports only as corroborating evidence, not primary labels"
   ],
-  "updated_at_utc": "2026-08-08T10:01:40.924142+00:00"
+  "updated_at_utc": "2026-08-15T09:42:46.862941+00:00"
 }
