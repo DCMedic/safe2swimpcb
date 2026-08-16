@@ -7,9 +7,6 @@ Design goals:
 - Cost-aware: most posts are URL-free; linked posts are intentionally sparse.
 - Quiet by default: no post unless a scheduled slot or meaningful flag change exists.
 - Duplicate-resistant: persistent state records recent fingerprints and budget estimates.
-
-The script either prints a selected post to stdout or exits 0 with no post selected.
-When --publish is used, it publishes through scripts.post_to_x and updates state.
 """
 
 from __future__ import annotations
@@ -17,8 +14,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
-import random
 import sys
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -117,8 +112,8 @@ def initial_state() -> dict:
 
 def load_state() -> dict:
     state = load_json(STATE_PATH, initial_state())
-    for k, v in initial_state().items():
-        state.setdefault(k, v)
+    for key, value in initial_state().items():
+        state.setdefault(key, value)
     return state
 
 
@@ -144,9 +139,8 @@ def fresh_flag(path: Path, now: datetime) -> dict | None:
     label = data.get("label") or data.get("flag")
     verified = dt_or_none(data.get("last_verified_at"))
     stale_hours = data.get("stale_after_hours", 2)
-    if not label or label.lower().startswith("check official") or not verified:
+    if not label or str(label).lower().startswith("check official") or not verified:
         return None
-    # Give scheduled jobs a little tolerance beyond the site's own freshness threshold.
     max_age = max(float(stale_hours or 0), 2.0) + 1.0
     if now - verified > timedelta(hours=max_age):
         return None
@@ -174,21 +168,21 @@ def flag_change_candidate(state: dict, now: datetime) -> Candidate | None:
     return Candidate("flag-change", text, priority=100)
 
 
-def morning_candidate(state: dict, now: datetime) -> Candidate | None:
+def morning_candidate(state: dict, now: datetime) -> Candidate:
     current = []
     for name, path in LOCATIONS.items():
         flag = fresh_flag(path, now)
         if flag:
             current.append(f"{name}: {flag['label']}")
+    date_label = now.strftime("%a, %b %-d")
     if not current:
-        return Candidate("morning-safety", "Good morning from Know the Gulf. Before heading to a Northwest Florida beach today, check the locally posted flag, marine weather, and thunderstorm risk. Conditions can differ between beaches and change during the day. 🌊")
+        return Candidate("morning-safety", f"{date_label}: Good morning from Know the Gulf. Before heading to a Northwest Florida beach, check the locally posted flag, marine weather, and thunderstorm risk. Conditions can differ between beaches and change during the day. 🌊")
     joined = " | ".join(current[:4])
-    return Candidate("morning-flags", f"Good morning, Gulf Coast. Fresh flag checks available to Know the Gulf: {joined}. Always follow the flag physically posted at your beach and local lifeguard direction. 🌊")
+    return Candidate("morning-flags", f"{date_label} Gulf Coast flag check: {joined}. Always follow the flag physically posted at your beach and local lifeguard direction. 🌊")
 
 
 def educational_candidate(state: dict, now: datetime) -> Candidate:
     seq = int(state.get("sequence", 0))
-    # Alternate general safety and destination-specific context for variety.
     if seq % 3 == 2:
         name, fact = DESTINATION_FACTS[(seq // 3) % len(DESTINATION_FACTS)]
         return Candidate("destination", f"{name} beach note: {fact}")
@@ -206,20 +200,18 @@ def link_candidate(state: dict, now: datetime) -> Candidate | None:
 def scheduled_slot(now: datetime, forced: str | None) -> str | None:
     if forced:
         return forced
-    # Workflow runs hourly. Wide windows make delayed GitHub schedules safe.
     if 7 <= now.hour <= 9:
         return "morning"
     if 14 <= now.hour <= 16:
         return "afternoon"
-    if 18 <= now.hour <= 20 and now.weekday() in {1, 4}:  # Tue/Fri optional third slot
+    if 18 <= now.hour <= 20 and now.weekday() in {1, 4}:  # Tuesday/Friday
         return "evening"
     return None
 
 
 def usage_bucket(state: dict, now: datetime) -> dict:
     key = now.strftime("%Y-%m")
-    bucket = state["usage"].setdefault(key, {"posts": 0, "url_posts": 0, "estimated_spend_usd": 0.0, "days": {}})
-    return bucket
+    return state["usage"].setdefault(key, {"posts": 0, "url_posts": 0, "estimated_spend_usd": 0.0, "days": {}})
 
 
 def guardrails_allow(state: dict, now: datetime, candidate: Candidate) -> tuple[bool, str]:
@@ -241,7 +233,6 @@ def guardrails_allow(state: dict, now: datetime, candidate: Candidate) -> tuple[
 
 
 def choose_candidate(state: dict, now: datetime, forced: str | None) -> Candidate | None:
-    # Meaningful verified flag changes always win.
     change = flag_change_candidate(state, now)
     if change:
         return change
@@ -267,8 +258,7 @@ def record_post(state: dict, now: datetime, candidate: Candidate) -> None:
     state["last_posted_at"] = now.isoformat()
     if candidate.contains_url:
         state["last_link_post_at"] = now.isoformat()
-    recents = state.get("recent_fingerprints", []) + [fingerprint(candidate.text)]
-    state["recent_fingerprints"] = recents[-40:]
+    state["recent_fingerprints"] = (state.get("recent_fingerprints", []) + [fingerprint(candidate.text)])[-40:]
     state["sequence"] = int(state.get("sequence", 0)) + 1
 
 
@@ -277,8 +267,9 @@ def main() -> int:
     now = now_local(args.now)
     state = load_state()
     candidate = choose_candidate(state, now, args.force_slot)
-    # Persist fresh observed flag state even when no post is sent; this prevents an
-    # initial deployment from treating today's existing flag as a new change.
+
+    # Persist fresh observed flag state even if no post is selected. This initializes
+    # baseline conditions without announcing an existing flag as a new change.
     if not candidate:
         save_state(state)
         print("NO_POST: no scheduled slot or verified flag change")
