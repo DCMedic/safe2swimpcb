@@ -3,17 +3,19 @@
     "Panama City Beach": "Yellow"
   },
   "last_link_post_at": null,
-  "last_posted_at": null,
-  "lifetime_estimated_spend_usd": 0.015,
-  "recent_fingerprints": [],
-  "sequence": 0,
+  "last_posted_at": "2026-08-16T18:17:56.277405-05:00",
+  "lifetime_estimated_spend_usd": 0.03,
+  "recent_fingerprints": [
+    "cbf77fef1cd79abb"
+  ],
+  "sequence": 1,
   "usage": {
     "2026-08": {
       "days": {
-        "2026-08-16": 1
+        "2026-08-16": 2
       },
-      "estimated_spend_usd": 0.015,
-      "posts": 1,
+      "estimated_spend_usd": 0.03,
+      "posts": 2,
       "url_posts": 0
     }
   },
