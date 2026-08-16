@@ -1,0 +1,56 @@
+name: Post to Know the Gulf X account
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_text:
+        description: "Text to publish to @knowthegulf (max 280 characters)"
+        required: true
+        type: string
+      publish:
+        description: "Actually publish? Leave off for a dry run."
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: know-the-gulf-x-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install X posting dependencies
+        run: python -m pip install --disable-pip-version-check requests requests-oauthlib
+
+      - name: Validate posting client
+        run: python -m py_compile scripts/post_to_x.py
+
+      - name: Dry-run post
+        if: ${{ inputs.publish != true }}
+        env:
+          POST_TEXT: ${{ inputs.post_text }}
+        run: python scripts/post_to_x.py --dry-run --text "$POST_TEXT"
+
+      - name: Publish post to X
+        if: ${{ inputs.publish == true }}
+        env:
+          POST_TEXT: ${{ inputs.post_text }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: python scripts/post_to_x.py --text "$POST_TEXT"
