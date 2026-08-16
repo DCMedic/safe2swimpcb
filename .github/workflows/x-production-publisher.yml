@@ -47,6 +47,27 @@ jobs:
         run: python -m pip install --disable-pip-version-check requests requests-oauthlib pillow
       - name: Fetch authoritative environmental data
         run: python scripts/fetch_x_environment.py
+      - name: Log environmental validation summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/x_environment.json').read_text())
+          pcb=d.get('locations',{}).get('Panama City Beach',{})
+          obs=d.get('pcb_observations',{})
+          offshore=d.get('regional_offshore',{})
+          rip=d.get('rip_current',{})
+          air=obs.get('air_temp_observed_f') or pcb.get('air_temp_f')
+          wind=obs.get('wind_observed') or {}
+          wind_dir=wind.get('direction') or pcb.get('wind_direction') or 'N/A'
+          wind_speed=wind.get('speed_mph')
+          if wind_speed is None:
+              wind_speed=pcb.get('wind_speed','N/A')
+          water=obs.get('water_temp_f') or offshore.get('water_temp_f') or 'N/A'
+          waves=offshore.get('wave_height_ft','N/A')
+          rip_status='NWS explicit risk available' if rip.get('available') else 'Check NWS surf-zone forecast'
+          print(f"ENVIRONMENT: Air {air if air is not None else 'N/A'} F | Wind {wind_dir} {wind_speed} | Gulf {water} F | Waves {waves} ft | Rip: {rip_status}")
+          PY
       - name: Validate publisher code
         run: |
           python -m py_compile scripts/post_to_x.py scripts/x_content_engine.py scripts/generate_x_condition_card.py scripts/fetch_x_environment.py
