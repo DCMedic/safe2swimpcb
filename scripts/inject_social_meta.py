@@ -12,6 +12,7 @@ OG_ALT_RE = re.compile(r'<meta\s+property=["\']og:image:alt["\']\s+content=["\']
 TW_IMAGE_RE = re.compile(r'<meta\s+name=["\']twitter:image["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
 TW_ALT_RE = re.compile(r'<meta\s+name=["\']twitter:image:alt["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
 TW_SITE_RE = re.compile(r'<meta\s+name=["\']twitter:site["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
+IDENTITY_RE = re.compile(r'<script id="ktg-social-identity" type="application/ld\+json">.*?</script>', re.I | re.S)
 
 
 def inject_or_replace(html: str) -> str:
@@ -28,29 +29,30 @@ def inject_or_replace(html: str) -> str:
         else:
             html = html.replace("</head>", tag + "</head>", 1)
 
-    identity_re = re.compile(r'<script id="ktg-social-identity" type="application/ld\+json">.*?</script>', re.I | re.S)
     identity = (
         '<script id="ktg-social-identity" type="application/ld+json">'
         '{"@context":"https://schema.org","@type":"Organization","@id":"https://knowthegulf.com/#organization",'
         '"name":"Know the Gulf","url":"https://knowthegulf.com/",'
-        f'"email":"mailto:{CONTACT_EMAIL}","sameAs":["{X_PROFILE}"]}}'</n        '</script>'
+        f'"email":"mailto:{CONTACT_EMAIL}","sameAs":["{X_PROFILE}"]}}'
+        '</script>'
     )
-    if identity_re.search(html):
-        html = identity_re.sub(identity, html, count=1)
+    if IDENTITY_RE.search(html):
+        html = IDENTITY_RE.sub(identity, html, count=1)
     else:
         html = html.replace("</head>", identity + "</head>", 1)
 
-    footer_links = (
-        f' · <a class="ktg-x-link" href="{X_PROFILE}" target="_blank" rel="noopener me">Follow @knowthegulf on X ↗</a>'
-        f' · <a class="ktg-contact-link" href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>'
-    )
     if 'class="ktg-contact-link"' not in html:
         footer_close = html.rfind("</footer>")
         if footer_close != -1:
             if 'class="ktg-x-link"' in html:
-                html = html[:footer_close] + f' · <a class="ktg-contact-link" href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' + html[footer_close:]
+                contact = f' · <a class="ktg-contact-link" href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>'
+                html = html[:footer_close] + contact + html[footer_close:]
             else:
-                html = html[:footer_close] + footer_links + html[footer_close:]
+                links = (
+                    f' · <a class="ktg-x-link" href="{X_PROFILE}" target="_blank" rel="noopener me">Follow @knowthegulf on X ↗</a>'
+                    f' · <a class="ktg-contact-link" href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>'
+                )
+                html = html[:footer_close] + links + html[footer_close:]
 
     return html
 
