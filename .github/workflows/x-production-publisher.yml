@@ -27,9 +27,12 @@ on:
       - 'scripts/x_content_engine.py'
       - 'scripts/post_to_x.py'
   schedule:
-    # Hourly daytime checks let urgent verified flag changes publish promptly.
-    # The content engine itself limits normal posts to selected local-time windows.
-    - cron: '23 7-20 * * *'
+    # Local-time safety checks plus two normal content slots. Runs at 11:23,
+    # 18:23, and 20:23 are normally silent unless a verified flag change exists.
+    - cron: '23 8,11,15,18,20 * * *'
+      timezone: 'America/Chicago'
+    # A third, intentionally sparse traffic-driving slot on Tuesday and Friday.
+    - cron: '23 19 * * 2,5'
       timezone: 'America/Chicago'
 
 permissions:
