@@ -1,0 +1,100 @@
+name: Publish Know the Gulf to X
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode'
+        required: true
+        type: choice
+        options:
+          - dry-run
+          - publish
+        default: dry-run
+      slot:
+        description: 'Optional content slot override'
+        required: false
+        type: choice
+        options:
+          - auto
+          - morning
+          - afternoon
+          - evening
+        default: auto
+  schedule:
+    # Hourly daytime checks let urgent verified flag changes publish promptly.
+    # The content engine itself limits normal posts to selected local-time windows.
+    - cron: '23 7-20 * * *'
+      timezone: 'America/Chicago'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: knowthegulf-x-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install X API dependencies
+        run: python -m pip install --disable-pip-version-check requests requests-oauthlib
+
+      - name: Validate publisher code
+        run: |
+          python -m py_compile scripts/post_to_x.py
+          python -m py_compile scripts/x_content_engine.py
+
+      - name: Run production content engine
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          MANUAL_MODE: ${{ inputs.mode }}
+          MANUAL_SLOT: ${{ inputs.slot }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          args=()
+          if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then
+            args+=(--publish)
+          fi
+          if [[ -n "$MANUAL_SLOT" && "$MANUAL_SLOT" != "auto" ]]; then
+            args+=(--force-slot "$MANUAL_SLOT")
+          fi
+          python scripts/x_content_engine.py "${args[@]}"
+
+      - name: Persist publisher state
+        run: |
+          if [[ -z "$(git status --porcelain data/x_posting_state.json)" ]]; then
+            echo "No publisher state change to persist."
+            exit 0
+          fi
+
+          git config user.name "knowthegulf-x-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/x_posting_state.json
+          git commit -m "data: update X publisher state"
+
+          for attempt in 1 2 3; do
+            if git pull --rebase && git push; then
+              exit 0
+            fi
+            if [[ "$attempt" -eq 3 ]]; then
+              echo "Failed to persist X publisher state after 3 attempts." >&2
+              exit 1
+            fi
+            sleep $((attempt * 5))
+          done
