@@ -7,19 +7,13 @@ on:
         description: 'Run mode'
         required: true
         type: choice
-        options:
-          - dry-run
-          - publish
+        options: [dry-run, publish]
         default: dry-run
       slot:
         description: 'Optional content slot override'
         required: false
         type: choice
-        options:
-          - auto
-          - morning
-          - afternoon
-          - evening
+        options: [auto, morning, afternoon, evening]
         default: auto
   push:
     paths:
@@ -27,22 +21,17 @@ on:
       - 'scripts/x_content_engine.py'
       - 'scripts/post_to_x.py'
       - 'scripts/generate_x_condition_card.py'
+      - 'scripts/fetch_x_environment.py'
   schedule:
-    # Local-time safety checks plus two normal content slots. Runs at 11:23,
-    # 18:23, and 20:23 are normally silent unless a verified flag change exists.
     - cron: '23 8,11,15,18,20 * * *'
       timezone: 'America/Chicago'
-    # A third, intentionally sparse traffic-driving slot on Tuesday and Friday.
     - cron: '23 19 * * 2,5'
       timezone: 'America/Chicago'
-
 permissions:
   contents: write
-
 concurrency:
   group: knowthegulf-x-publisher
   cancel-in-progress: false
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -50,75 +39,48 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
+        with: {fetch-depth: 0}
       - name: Set up Python
         uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-
+        with: {python-version: '3.12'}
       - name: Install X API and graphics dependencies
         run: python -m pip install --disable-pip-version-check requests requests-oauthlib pillow
-
+      - name: Fetch authoritative environmental data
+        run: python scripts/fetch_x_environment.py
       - name: Validate publisher code
         run: |
-          python -m py_compile scripts/post_to_x.py
-          python -m py_compile scripts/x_content_engine.py
-          python -m py_compile scripts/generate_x_condition_card.py
+          python -m py_compile scripts/post_to_x.py scripts/x_content_engine.py scripts/generate_x_condition_card.py scripts/fetch_x_environment.py
           python scripts/generate_x_condition_card.py --output tmp/x-condition-card-validation.png
           python - <<'PY'
           from PIL import Image
-          p='tmp/x-condition-card-validation.png'
-          im=Image.open(p)
-          assert im.size == (1200, 675), im.size
-          assert im.format == 'PNG', im.format
-          print(f'Validated visual card: {im.size[0]}x{im.size[1]} PNG')
+          im=Image.open('tmp/x-condition-card-validation.png')
+          assert im.size == (1200,675) and im.format == 'PNG'
+          print('Validated visual card: 1200x675 PNG')
           PY
-
       - name: Run production content engine
         env:
           X_API_KEY: ${{ secrets.X_API_KEY }}
           X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          # Optional. If configured, the publisher uses X API v2 media upload.
-          # Otherwise it uses X's legacy OAuth 1.0a media-upload endpoint.
           X_OAUTH2_ACCESS_TOKEN: ${{ secrets.X_OAUTH2_ACCESS_TOKEN }}
           MANUAL_MODE: ${{ inputs.mode }}
           MANUAL_SLOT: ${{ inputs.slot }}
           EVENT_NAME: ${{ github.event_name }}
         run: |
           args=()
-          # Push events are validation-only. Scheduled runs publish automatically;
-          # manual runs publish only when explicitly requested.
-          if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then
-            args+=(--publish)
-          fi
-          if [[ -n "$MANUAL_SLOT" && "$MANUAL_SLOT" != "auto" ]]; then
-            args+=(--force-slot "$MANUAL_SLOT")
-          fi
+          if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then args+=(--publish); fi
+          if [[ -n "$MANUAL_SLOT" && "$MANUAL_SLOT" != "auto" ]]; then args+=(--force-slot "$MANUAL_SLOT"); fi
           python scripts/x_content_engine.py "${args[@]}"
-
       - name: Persist publisher state
         run: |
-          if [[ -z "$(git status --porcelain data/x_posting_state.json)" ]]; then
-            echo "No publisher state change to persist."
-            exit 0
-          fi
-
+          if [[ -z "$(git status --porcelain data/x_posting_state.json)" ]]; then echo "No publisher state change to persist."; exit 0; fi
           git config user.name "knowthegulf-x-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/x_posting_state.json
           git commit -m "data: update X publisher state"
-
           for attempt in 1 2 3; do
-            if git pull --rebase && git push; then
-              exit 0
-            fi
-            if [[ "$attempt" -eq 3 ]]; then
-              echo "Failed to persist X publisher state after 3 attempts." >&2
-              exit 1
-            fi
+            if git pull --rebase && git push; then exit 0; fi
+            if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist X publisher state after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 5))
           done
