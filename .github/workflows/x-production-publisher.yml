@@ -21,6 +21,11 @@ on:
           - afternoon
           - evening
         default: auto
+  push:
+    paths:
+      - '.github/workflows/x-production-publisher.yml'
+      - 'scripts/x_content_engine.py'
+      - 'scripts/post_to_x.py'
   schedule:
     # Hourly daytime checks let urgent verified flag changes publish promptly.
     # The content engine itself limits normal posts to selected local-time windows.
@@ -68,6 +73,8 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
         run: |
           args=()
+          # Push events are validation-only. Scheduled runs publish automatically;
+          # manual runs publish only when explicitly requested.
           if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then
             args+=(--publish)
           fi
