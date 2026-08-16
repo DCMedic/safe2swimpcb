@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v6
       - name: Validate frontend JavaScript
         run: node --check assets/app.js
+      - name: Inject social sharing metadata
+        run: python scripts/inject_social_meta.py
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload site artifact
