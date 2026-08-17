@@ -10,17 +10,12 @@ on:
       timezone: 'America/Chicago'
 permissions:
   contents: write
-  pages: write
-  id-token: write
 concurrency:
   group: knowthegulf-data-write
   cancel-in-progress: false
 jobs:
   poll:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -73,15 +68,3 @@ jobs:
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
-      - name: Configure GitHub Pages
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/configure-pages@v5
-      - name: Upload refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: '.'
-      - name: Deploy refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        id: deployment
-        uses: actions/deploy-pages@v4
