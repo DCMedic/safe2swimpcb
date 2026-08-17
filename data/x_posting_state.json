@@ -4,22 +4,25 @@
     "link_posts": 0
   },
   "flag_state": {
+    "Destin": "Double Red",
     "Panama City Beach": "Yellow"
   },
   "last_link_post_at": null,
-  "last_posted_at": "2026-08-16T18:17:56.277405-05:00",
-  "lifetime_estimated_spend_usd": 0.03,
+  "last_posted_at": "2026-08-17T08:57:35.771535-05:00",
+  "lifetime_estimated_spend_usd": 0.045,
   "recent_fingerprints": [
-    "cbf77fef1cd79abb"
+    "cbf77fef1cd79abb",
+    "8362194d7e6e1b08"
   ],
-  "sequence": 1,
+  "sequence": 2,
   "usage": {
     "2026-08": {
       "days": {
-        "2026-08-16": 2
+        "2026-08-16": 2,
+        "2026-08-17": 1
       },
-      "estimated_spend_usd": 0.03,
-      "posts": 2,
+      "estimated_spend_usd": 0.045,
+      "posts": 3,
       "url_posts": 0
     }
   },
