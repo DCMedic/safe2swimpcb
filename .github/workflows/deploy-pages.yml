@@ -19,22 +19,48 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
       - name: Validate frontend JavaScript
         run: node --check assets/app.js
+
       - name: Validate social metadata injector
         run: python -m py_compile scripts/inject_social_meta.py
+
       - name: Inject social sharing and brand metadata
         run: python scripts/inject_social_meta.py
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
-      - name: Deploy to GitHub Pages
+
+      - name: Deploy to GitHub Pages - attempt 1
+        id: deploy_1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before deployment retry 2
+        if: steps.deploy_1.outcome == 'failure'
+        run: sleep 15
+
+      - name: Deploy to GitHub Pages - attempt 2
+        id: deploy_2
+        if: steps.deploy_1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before final deployment retry
+        if: steps.deploy_1.outcome == 'failure' && steps.deploy_2.outcome == 'failure'
+        run: sleep 30
+
+      - name: Deploy to GitHub Pages - final attempt
         id: deployment
+        if: steps.deploy_1.outcome == 'failure' && steps.deploy_2.outcome == 'failure'
         uses: actions/deploy-pages@v4
