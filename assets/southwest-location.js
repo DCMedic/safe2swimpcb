@@ -6,15 +6,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const getJSON = async u => { const r = await fetch(u, {cache:'no-store'}); if (!r.ok) throw Error(r.status); return r.json(); };
   const flagClass = f => f === 'Green' ? 'green' : f === 'Red' ? 'red' : f === 'Double Red' ? 'double' : '';
+  const fallback = {
+    'anna-maria-island': {authority:'Manatee County Beach Patrol', source:'Safe Beach Day / Manatee County', sourceUrl:'https://safebeachday.com/county/manatee-county/', officialUrl:'https://www.mymanatee.org/services-and-amenities/service-listing/service-details/check-beach-conditions', beaches:['Manatee Public Beach','Coquina Beach','Cortez Beach']},
+    'siesta-key': {authority:'Sarasota County Fire Department Lifeguard Operations', source:'Mote Beach Conditions Reporting System / VisitBeaches', sourceUrl:'https://visitbeaches.org/', officialUrl:'https://www.scgov.net/government/emergency-services/lifeguard-operations', beaches:['Siesta Beach']},
+    'venice': {authority:'Sarasota County Fire Department Lifeguard Operations', source:'Mote Beach Conditions Reporting System / VisitBeaches', sourceUrl:'https://visitbeaches.org/', officialUrl:'https://www.scgov.net/government/emergency-services/lifeguard-operations', beaches:['Venice Beach','Nokomis Beach','North Jetty','Manasota Beach']},
+    'sanibel': {authority:'Lee County Natural Resources / Mote Marine Laboratory', source:'Mote Beach Conditions Reporting System / VisitBeaches', sourceUrl:'https://visitbeaches.org/', officialUrl:'https://www.leefl.gov/naturalresources/WaterQuality/WaterQualityStatus', beaches:['Sanibel','Captiva']},
+    'fort-myers-beach': {authority:'Lee County Natural Resources / Mote Marine Laboratory', source:'Mote Beach Conditions Reporting System / VisitBeaches', sourceUrl:'https://visitbeaches.org/', officialUrl:'https://www.leefl.gov/naturalresources/WaterQuality/WaterQualityStatus', beaches:['Fort Myers Beach']},
+    'naples': {authority:'Collier County Pollution Control / Mote Marine Laboratory', source:'Mote Beach Conditions Reporting System / VisitBeaches', sourceUrl:'https://visitbeaches.org/', officialUrl:'https://www.collier.gov/County-Development/Transportation-Management/Pollution-Control/Red-Tide/Red-Tide-Status', beaches:['Vanderbilt Beach','Seagate Beach','Naples Pier','Barefoot Beach']},
+    'marco-island': {authority:'Collier County Pollution Control / Mote Marine Laboratory', source:'Mote Beach Conditions Reporting System / VisitBeaches', sourceUrl:'https://visitbeaches.org/', officialUrl:'https://www.collier.gov/County-Development/Transportation-Management/Pollution-Control/Red-Tide/Red-Tide-Status', beaches:['South Marco Beach']}
+  }[slug];
+
+  function applyBase(c) {
+    $('authority').textContent = c.official_authority || c.authority || 'Local beach-safety authority';
+    $('sourceSystem').textContent = c.source_name || c.source || 'Official current-conditions source';
+    $('sourceLink').href = c.source_url || c.sourceUrl || '#';
+    $('officialLink').href = c.official_authority_url || c.officialUrl || '#';
+    $('beachList').innerHTML = (c.beaches || []).map(x => `<li>${esc(x)}</li>`).join('');
+  }
+  if (fallback) applyBase(fallback);
 
   try {
     const c = await getJSON(`/data/${slug}/current_status.json`);
+    applyBase(c);
     $('currentStatus').textContent = c.label || 'Official current conditions unavailable';
-    $('authority').textContent = c.official_authority || 'Local beach-safety authority';
-    $('sourceSystem').textContent = c.source_name || 'Official current-conditions source';
-    $('sourceLink').href = c.source_url;
-    $('officialLink').href = c.official_authority_url;
-    $('beachList').innerHTML = (c.beaches || []).map(x => `<li>${esc(x)}</li>`).join('');
     $('methodNote').textContent = c.update_note || '';
     $('safetyNote').textContent = c.safety_note || '';
 
@@ -42,8 +56,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       pole.hidden = true;
     }
   } catch (e) {
-    $('currentStatus').textContent = 'Official current conditions unavailable';
+    $('currentStatus').textContent = 'Open official current conditions';
+    $('methodNote').textContent = 'The automated cache has not populated yet or is temporarily unavailable. The direct official/current-conditions links remain available above.';
+    $('safetyNote').textContent = 'Know the Gulf does not infer a flag from weather, surf, red tide, water quality, or generic hazard scores. Posted flags and lifeguard instructions control.';
     $('statusFreshness').className = 'status stale';
-    $('statusFreshness').textContent = 'Know the Gulf could not load the cached Southwest conditions record. Use the official source before entering the water.';
+    $('statusFreshness').textContent = 'Automated Southwest status cache unavailable; use the live official source.';
   }
 });
