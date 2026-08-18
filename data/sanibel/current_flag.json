@@ -1,0 +1,26 @@
+{
+  "location": "Sanibel / Captiva",
+  "county": "Lee County",
+  "beaches": [
+    "Sanibel",
+    "Captiva"
+  ],
+  "flag": null,
+  "label": "Open official current conditions",
+  "severity": null,
+  "status": "official_conditions_source_reachable",
+  "provenance_tier": "officially_directed_conditions_source",
+  "last_verified_at": "2026-08-18T16:58:25.953255-04:00",
+  "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
+  "source_url": "https://visitbeaches.org/",
+  "official_authority": "Lee County Natural Resources / Mote Marine Laboratory",
+  "official_authority_url": "https://www.leefl.gov/naturalresources/WaterQuality/WaterQualityStatus",
+  "source_reachable": true,
+  "source_http_status": 200,
+  "explicit_flag_evidence": null,
+  "flag_expected_from_source": false,
+  "stale_after_hours": 18,
+  "update_note": "Lee County directs the public to Mote Marine Laboratory for current beach conditions. Know the Gulf does not manufacture a flag where the upstream report does not explicitly publish one.",
+  "error": null,
+  "safety_note": "Only an explicit upstream flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a beach flag. Physical posted flags and lifeguard instructions control."
+}

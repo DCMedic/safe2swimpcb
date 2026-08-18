@@ -1,0 +1,28 @@
+{
+  "location": "Naples",
+  "county": "Collier County",
+  "beaches": [
+    "Vanderbilt Beach",
+    "Seagate Beach",
+    "Naples Pier",
+    "Barefoot Beach"
+  ],
+  "flag": null,
+  "label": "Open official current conditions",
+  "severity": null,
+  "status": "official_conditions_source_reachable",
+  "provenance_tier": "officially_directed_conditions_source",
+  "last_verified_at": "2026-08-18T16:58:26.499725-04:00",
+  "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
+  "source_url": "https://visitbeaches.org/",
+  "official_authority": "Collier County Pollution Control / Mote Marine Laboratory",
+  "official_authority_url": "https://www.collier.gov/County-Development/Transportation-Management/Pollution-Control/Red-Tide/Red-Tide-Status",
+  "source_reachable": true,
+  "source_http_status": 200,
+  "explicit_flag_evidence": null,
+  "flag_expected_from_source": false,
+  "stale_after_hours": 18,
+  "update_note": "Collier County directs users to VisitBeaches for current beach conditions. Red-tide sampling is retained as separate health context, not a beach-flag substitute.",
+  "error": null,
+  "safety_note": "Only an explicit upstream flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a beach flag. Physical posted flags and lifeguard instructions control."
+}

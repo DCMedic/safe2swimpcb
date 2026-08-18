@@ -1,0 +1,28 @@
+{
+  "location": "Venice / Nokomis",
+  "county": "Sarasota County",
+  "beaches": [
+    "Venice Beach",
+    "Nokomis Beach",
+    "North Jetty",
+    "Manasota Beach"
+  ],
+  "flag": null,
+  "label": "Open official current conditions",
+  "severity": null,
+  "status": "official_conditions_source_reachable",
+  "provenance_tier": "officially_directed_conditions_source",
+  "last_verified_at": "2026-08-18T16:58:25.675045-04:00",
+  "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
+  "source_url": "https://visitbeaches.org/",
+  "official_authority": "Sarasota County Fire Department Lifeguard Operations",
+  "official_authority_url": "https://www.scgov.net/government/emergency-services/lifeguard-operations",
+  "source_reachable": true,
+  "source_http_status": 200,
+  "explicit_flag_evidence": null,
+  "flag_expected_from_source": true,
+  "stale_after_hours": 18,
+  "update_note": "Sarasota County says VisitBeaches is updated twice daily by lifeguards and Mote Marine staff and is updated when flags change.",
+  "error": null,
+  "safety_note": "Only an explicit upstream flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a beach flag. Physical posted flags and lifeguard instructions control."
+}

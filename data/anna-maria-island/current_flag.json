@@ -1,0 +1,27 @@
+{
+  "location": "Anna Maria Island",
+  "county": "Manatee County",
+  "beaches": [
+    "Manatee Public Beach",
+    "Coquina Beach",
+    "Cortez Beach"
+  ],
+  "flag": null,
+  "label": "Open official current conditions",
+  "severity": null,
+  "status": "official_conditions_source_reachable",
+  "provenance_tier": "officially_directed_conditions_source",
+  "last_verified_at": "2026-08-18T16:58:25.138014-04:00",
+  "source_name": "Safe Beach Day / Manatee County",
+  "source_url": "https://safebeachday.com/county/manatee-county/",
+  "official_authority": "Manatee County Beach Patrol",
+  "official_authority_url": "https://www.mymanatee.org/services-and-amenities/service-listing/service-details/check-beach-conditions",
+  "source_reachable": true,
+  "source_http_status": 200,
+  "explicit_flag_evidence": null,
+  "flag_expected_from_source": true,
+  "stale_after_hours": 18,
+  "update_note": "Manatee County says guarded-beach conditions are updated daily at 10:00 a.m. and 3:00 p.m.; physical tower flags override online information.",
+  "error": null,
+  "safety_note": "Only an explicit upstream flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a beach flag. Physical posted flags and lifeguard instructions control."
+}
