@@ -1,10 +1,10 @@
+(()=>{if(window.KTGBeachNav)window.KTGBeachNav();else if(!document.querySelector('script[data-ktg-beach-nav]')){const s=document.createElement('script');s.src='/assets/beach-nav.js';s.defer=true;s.dataset.ktgBeachNav='';document.head.appendChild(s)}})();
+
 document.addEventListener('DOMContentLoaded',async()=>{
   const root=document.querySelector('[data-full-location]'); if(!root)return;
   const slug=root.dataset.slug,lat=root.dataset.lat,lon=root.dataset.lon;
   const defaults={destin:['8729511','East Pass'], 'okaloosa-island':['8729511','East Pass'], 'navarre-beach':['8729678','Navarre Beach'], 'pensacola-beach':['8729840','Pensacola']};
   const station=root.dataset.station||(defaults[slug]?.[0]||'8729511'),tideLabel=root.dataset.tideLabel||(defaults[slug]?.[1]||'Local tide station');
-  const nav=document.querySelector('.location-links');
-  if(nav){[['/','Panama City Beach','pcb'],['/destin/','Destin','destin'],['/okaloosa-island/','Okaloosa Island','okaloosa-island'],['/navarre-beach/','Navarre Beach','navarre-beach'],['/pensacola-beach/','Pensacola Beach','pensacola-beach']].forEach(([href,label,key])=>{if(!nav.querySelector(`a[href="${href}"]`)){const a=document.createElement('a');a.className='location-link';a.href=href;a.textContent=label;nav.appendChild(a)}})}
   const $=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const compass=d=>d==null||!Number.isFinite(Number(d))?'—':['N','NE','E','SE','S','SW','W','NW'][Math.round(Number(d)/45)%8];
   const pct=(a,b)=>b?`${(100*a/b).toFixed(1)}%`:'—';
