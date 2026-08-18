@@ -1,6 +1,6 @@
+(()=>{if(window.KTGBeachNav)window.KTGBeachNav();else if(!document.querySelector('script[data-ktg-beach-nav]')){const s=document.createElement('script');s.src='/assets/beach-nav.js';s.defer=true;s.dataset.ktgBeachNav='';document.head.appendChild(s)}})();
+
 document.addEventListener('DOMContentLoaded',()=>{
-  const nav=document.querySelector('.location-links');
-  if(nav){[['/navarre-beach/','Navarre Beach'],['/pensacola-beach/','Pensacola Beach']].forEach(([href,label])=>{if(!nav.querySelector(`a[href="${href}"]`)){const a=document.createElement('a');a.className='location-link';a.href=href;a.textContent=label;nav.appendChild(a)}})}
   const button=document.getElementById('moreMenuButton');
   const menu=document.getElementById('moreMenu');
   if(!button||!menu)return;
