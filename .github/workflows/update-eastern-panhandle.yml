@@ -1,0 +1,62 @@
+name: Update eastern Panhandle flags
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/update-eastern-panhandle.yml'
+      - 'scripts/update_eastern_panhandle.py'
+  schedule:
+    - cron: '12,42 * * * *'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: knowthegulf-data-write
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/update_eastern_panhandle.py
+      - name: Commit refreshed eastern Panhandle flags
+        id: commit_data
+        run: |
+          if [[ -n "$(git status --porcelain data/south-walton data/cape-san-blas data/gulf-state-park-beaches data/st-joe-beach data/franklin-county)" ]]; then
+            git config user.name "knowthegulf-data-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/south-walton data/cape-san-blas data/gulf-state-park-beaches data/st-joe-beach data/franklin-county
+            git commit -m "data: refresh eastern Panhandle flags"
+            git pull --rebase
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Configure GitHub Pages
+        if: steps.commit_data.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+      - name: Upload refreshed site
+        if: steps.commit_data.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+      - name: Deploy refreshed site
+        if: steps.commit_data.outputs.changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
