@@ -85,7 +85,40 @@ def normalize_flag(value: str | None) -> str | None:
     return None
 
 
-def fetch_nws_flags() -> tuple[dict[str, str], str | None]:
+def hours_old(ts: datetime | None, now: datetime) -> float | None:
+    if ts is None:
+        return None
+    return max(0.0, (now.astimezone(ts.tzinfo) - ts).total_seconds() / 3600.0)
+
+
+def parse_nws_issued(text: str) -> datetime | None:
+    m = re.search(
+        r"(?mi)^\s*(\d{3,4}\s+[AP]M)\s+(?:EDT|EST)\s+([A-Z][a-z]{2}\s+[A-Z][a-z]{2}\s+\d{1,2}\s+\d{4})\s*$",
+        text,
+    )
+    if not m:
+        return None
+    raw_time = m.group(1).zfill(7)
+    try:
+        return datetime.strptime(f"{raw_time} {m.group(2)}", "%I%M %p %a %b %d %Y").replace(tzinfo=EASTERN)
+    except ValueError:
+        return None
+
+
+def parse_franklin_updated(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    cleaned = re.sub(r"^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s*", "", value.strip(), flags=re.I)
+    cleaned = re.sub(r"\s+(EDT|EST)$", "", cleaned, flags=re.I)
+    cleaned = cleaned.replace(" at ", " ")
+    try:
+        dt = datetime.strptime(f"{cleaned} {datetime.now(EASTERN).year}", "%B %d %I:%M %p %Y")
+        return dt.replace(tzinfo=EASTERN)
+    except ValueError:
+        return None
+
+
+def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None]:
     r = session().get(NWS_URL, timeout=30)
     r.raise_for_status()
     text = BeautifulSoup(r.text, "html.parser").get_text("\n")
@@ -103,14 +136,14 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None]:
             flag = normalize_flag(m.group(1))
             if flag:
                 flags[key] = flag
-    issued = None
+    issued_text = None
     m = re.search(r"(?mi)^\s*National Weather Service Tallahassee FL\s*\n\s*(.+?\d{4})\s*$", text)
     if m:
-        issued = m.group(1).strip()
-    return flags, issued
+        issued_text = m.group(1).strip()
+    return flags, issued_text, parse_nws_issued(text)
 
 
-def fetch_franklin() -> dict[str, str | None]:
+def fetch_franklin() -> dict[str, object | None]:
     r = session().get(FRANKLIN_URL, timeout=30)
     r.raise_for_status()
     soup = BeautifulSoup(r.text, "html.parser")
@@ -129,42 +162,54 @@ def fetch_franklin() -> dict[str, str | None]:
             if phrase.lower() in text.lower():
                 flag = mapped
                 break
-    updated = None
+    updated_text = None
     m = re.search(
         r"Last updated:\s*([^|]+?)(?=\s+(?:Green|Yellow|Red|Double Red|Low Hazard|Medium Hazard|High Hazard|Water Closed)|$)",
         text,
         re.I,
     )
     if m:
-        updated = m.group(1).strip()
-    return {"flag": flag, "official_updated_text": updated}
+        updated_text = m.group(1).strip()
+    return {
+        "flag": flag,
+        "official_updated_text": updated_text,
+        "official_updated_at": parse_franklin_updated(updated_text),
+    }
 
 
 def write_payload(
     slug: str,
     cfg: dict,
     nws_flags: dict[str, str],
-    nws_issued: str | None,
-    franklin: dict[str, str | None] | None,
+    nws_issued_text: str | None,
+    nws_issued_at: datetime | None,
+    franklin: dict[str, object | None] | None,
 ) -> None:
     out = DATA / slug
     out.mkdir(parents=True, exist_ok=True)
     now = datetime.now(cfg["timezone"])
     nws_flag = nws_flags.get(cfg["nws_key"])
-    official_flag = franklin.get("flag") if slug == "franklin-county" and franklin else None
-    official_updated = franklin.get("official_updated_text") if slug == "franklin-county" and franklin else None
+    nws_age = hours_old(nws_issued_at, now)
+    nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= 18)
 
-    if official_flag:
-        flag = official_flag
+    official_flag = franklin.get("flag") if slug == "franklin-county" and franklin else None
+    official_updated_text = franklin.get("official_updated_text") if slug == "franklin-county" and franklin else None
+    official_updated_at = franklin.get("official_updated_at") if slug == "franklin-county" and franklin else None
+    official_age = hours_old(official_updated_at, now) if isinstance(official_updated_at, datetime) else None
+    official_fresh = bool(official_flag and official_age is not None and official_age <= 18)
+
+    if official_fresh:
+        flag = str(official_flag)
         tier = "primary_official"
         source_name = cfg["authority"]
         source_url = cfg["official_url"]
         method = "Direct official current-condition page snapshot"
-        corroborating_flag = nws_flag
-        corroborates = bool(nws_flag and nws_flag == official_flag)
-        stale_after_hours = 12
-    elif nws_flag:
-        flag = nws_flag
+        corroborating_flag = nws_flag if nws_fresh else None
+        corroborates = bool(corroborating_flag and corroborating_flag == flag)
+        stale_after_hours = 18
+        stale_reason = None
+    elif nws_fresh:
+        flag = str(nws_flag)
         tier = "official_report_via_nws"
         source_name = "NWS Tallahassee SRFTAE, based on communication with area beach officials"
         source_url = NWS_URL
@@ -172,6 +217,7 @@ def write_payload(
         corroborating_flag = None
         corroborates = None
         stale_after_hours = 18
+        stale_reason = "Direct official source unavailable or stale; using fresh NWS-republished official report" if slug == "franklin-county" else None
     else:
         flag = None
         tier = "unavailable"
@@ -181,6 +227,7 @@ def write_payload(
         corroborating_flag = None
         corroborates = None
         stale_after_hours = 0
+        stale_reason = "Authoritative flag evidence is missing or older than the accepted freshness window"
 
     payload = {
         "location": cfg["name"],
@@ -189,26 +236,31 @@ def write_payload(
         "severity": FLAG_SEVERITY.get(flag),
         "provenance_tier": tier,
         "last_verified_at": now.isoformat(),
-        "official_updated_text": official_updated,
+        "official_updated_text": official_updated_text,
+        "official_updated_at": official_updated_at.isoformat() if isinstance(official_updated_at, datetime) else None,
+        "official_age_hours": round(official_age, 2) if official_age is not None else None,
         "source_name": source_name,
         "source_url": source_url,
         "official_authority": cfg["authority"],
         "official_authority_url": cfg["official_url"],
         "method": method,
         "stale_after_hours": stale_after_hours,
+        "stale_reason": stale_reason,
         "nws_reported_flag": nws_flag,
-        "nws_issued_text": nws_issued,
+        "nws_issued_text": nws_issued_text,
+        "nws_issued_at": nws_issued_at.isoformat() if nws_issued_at else None,
+        "nws_age_hours": round(nws_age, 2) if nws_age is not None else None,
         "nws_source_url": NWS_URL,
         "corroborating_flag": corroborating_flag,
         "corroborates_primary": corroborates,
         "source_note": cfg["source_note"],
-        "safety_note": "Know the Gulf never derives a beach flag from forecast weather, surf height, or rip-current risk. When authoritative flag evidence is unavailable or stale, the public status should be shown as unavailable.",
+        "safety_note": "Know the Gulf never derives a beach flag from forecast weather, surf height, or rip-current risk. When authoritative flag evidence is unavailable or stale, the public status is unavailable.",
     }
     (out / "current_flag.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> None:
-    nws_flags, nws_issued = fetch_nws_flags()
+    nws_flags, nws_issued_text, nws_issued_at = fetch_nws_flags()
     franklin = None
     try:
         franklin = fetch_franklin()
@@ -220,7 +272,7 @@ def main() -> None:
         print("NWS did not expose all expected flag keys:", ", ".join(sorted(set(missing))))
 
     for slug, cfg in LOCATIONS.items():
-        write_payload(slug, cfg, nws_flags, nws_issued, franklin)
+        write_payload(slug, cfg, nws_flags, nws_issued_text, nws_issued_at, franklin)
     print("eastern Panhandle current flags updated", datetime.now(CENTRAL).isoformat())
 
 
