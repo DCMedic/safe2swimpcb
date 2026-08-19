@@ -1,0 +1,43 @@
+name: Validate Know the Gulf site health
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'assets/**'
+      - 'scripts/**'
+      - 'data/**/*.json'
+      - 'sitemap.xml'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Validate shared JavaScript
+        run: |
+          for f in assets/app.js assets/menu.js assets/beach-nav.js assets/site-ui.js assets/western-location.js assets/eastern-location.js assets/southwest-location.js assets/location-page.js; do
+            node --check "$f"
+          done
+      - name: Validate Python entry points
+        run: |
+          python -m compileall -q scripts
+      - name: Build standardized deployment HTML
+        run: python scripts/inject_social_meta.py
+      - name: Validate routes, assets, sitemap and data contracts
+        run: python scripts/site_health_check.py
