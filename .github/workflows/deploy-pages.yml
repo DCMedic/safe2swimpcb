@@ -6,6 +6,7 @@ on:
   workflow_run:
     workflows:
       - Poll current PCB beach flag
+      - Poll current Destin beach flag
       - Update western Gulf data
       - Update eastern Panhandle flags
       - Update Southwest Florida locations
@@ -46,16 +47,21 @@ jobs:
           node --check assets/app.js
           node --check assets/menu.js
           node --check assets/beach-nav.js
+          node --check assets/site-ui.js
           node --check assets/western-location.js
           node --check assets/eastern-location.js
           node --check assets/southwest-location.js
           node --check assets/location-page.js
 
-      - name: Validate social metadata injector
-        run: python -m py_compile scripts/inject_social_meta.py
+      - name: Validate deployment helpers
+        run: |
+          python -m py_compile scripts/inject_social_meta.py scripts/site_health_check.py
 
-      - name: Inject social sharing and brand metadata
+      - name: Inject standardized UI and social metadata
         run: python scripts/inject_social_meta.py
+
+      - name: Repository-wide site health gate
+        run: python scripts/site_health_check.py
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

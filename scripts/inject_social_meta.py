@@ -6,6 +6,7 @@ SOCIAL_ALT = "Know the Gulf beach conditions, flags and Gulf safety"
 X_PROFILE = "https://x.com/knowthegulf"
 X_HANDLE = "@knowthegulf"
 CONTACT_EMAIL = "contact@knowthegulf.com"
+SITE_UI = '<script defer src="/assets/site-ui.js"></script>'
 
 OG_IMAGE_RE = re.compile(r'<meta\s+property=["\']og:image["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
 OG_ALT_RE = re.compile(r'<meta\s+property=["\']og:image:alt["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
@@ -13,6 +14,7 @@ TW_IMAGE_RE = re.compile(r'<meta\s+name=["\']twitter:image["\']\s+content=["\'][
 TW_ALT_RE = re.compile(r'<meta\s+name=["\']twitter:image:alt["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
 TW_SITE_RE = re.compile(r'<meta\s+name=["\']twitter:site["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
 IDENTITY_RE = re.compile(r'<script id="ktg-social-identity" type="application/ld\+json">.*?</script>', re.I | re.S)
+SITE_UI_RE = re.compile(r'<script[^>]+src=["\']/assets/site-ui\.js["\'][^>]*></script>', re.I)
 
 
 def inject_or_replace(html: str) -> str:
@@ -41,18 +43,8 @@ def inject_or_replace(html: str) -> str:
     else:
         html = html.replace("</head>", identity + "</head>", 1)
 
-    if 'class="ktg-contact-link"' not in html:
-        footer_close = html.rfind("</footer>")
-        if footer_close != -1:
-            if 'class="ktg-x-link"' in html:
-                contact = f' · <a class="ktg-contact-link" href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>'
-                html = html[:footer_close] + contact + html[footer_close:]
-            else:
-                links = (
-                    f' · <a class="ktg-x-link" href="{X_PROFILE}" target="_blank" rel="noopener me">Follow @knowthegulf on X ↗</a>'
-                    f' · <a class="ktg-contact-link" href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>'
-                )
-                html = html[:footer_close] + links + html[footer_close:]
+    if not SITE_UI_RE.search(html):
+        html = html.replace("</head>", SITE_UI + "</head>", 1)
 
     return html
 
@@ -68,7 +60,7 @@ def main() -> None:
         if updated != original:
             path.write_text(updated, encoding="utf-8")
             changed += 1
-    print(f"Updated social metadata, X identity and contact email in {changed} HTML files")
+    print(f"Updated shared UI/social metadata in {changed} HTML files")
 
 
 if __name__ == "__main__":

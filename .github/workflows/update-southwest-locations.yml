@@ -8,7 +8,7 @@ on:
       - 'scripts/update_southwest_locations.py'
       - 'tests/test_southwest_sources.py'
   schedule:
-    - cron: '22,52 * * * *'
+    - cron: '22 * * * *'
 
 permissions:
   contents: write
@@ -20,11 +20,12 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -33,19 +34,26 @@ jobs:
         run: |
           python -m py_compile scripts/update_southwest_locations.py
           pytest -q tests/test_southwest_sources.py
-      - run: python scripts/update_southwest_locations.py
+      - name: Refresh Southwest sources with bounded retry
+        run: |
+          for attempt in 1 2 3; do
+            if python scripts/update_southwest_locations.py; then break; fi
+            if [[ "$attempt" -eq 3 ]]; then echo "Southwest collector failed after 3 attempts." >&2; exit 1; fi
+            sleep $((attempt * 10))
+          done
       - name: Commit refreshed Southwest data
         run: |
-          if [[ -n "$(git status --porcelain data/anna-maria-island data/siesta-key data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island)" ]]; then
-            git config user.name "knowthegulf-data-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git add data/anna-maria-island data/siesta-key data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island
-            git commit -m "data: refresh Southwest Florida beaches"
-            git pull --rebase
-            git push
-          else
-            echo "No Southwest data changes to commit."
+          if [[ -z "$(git status --porcelain data/anna-maria-island data/siesta-key data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island)" ]]; then
+            echo "No Southwest data changes to commit."; exit 0
           fi
+          git config user.name "knowthegulf-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/anna-maria-island data/siesta-key data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island
+          git commit -m "data: refresh Southwest Florida beaches"
+          for attempt in 1 2 3; do
+            if git pull --rebase && git push; then exit 0; fi
+            if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist Southwest data after 3 attempts." >&2; exit 1; fi
+            sleep $((attempt * 5))
+          done
 
       # Pages deployment is intentionally centralized in deploy-pages.yml.
-      # Any successful push to main is followed by the sole site deployment workflow.
