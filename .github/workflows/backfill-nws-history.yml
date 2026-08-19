@@ -16,8 +16,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: knowthegulf-data-write
@@ -26,9 +24,6 @@ concurrency:
 jobs:
   backfill:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -76,7 +71,6 @@ jobs:
           echo "Historical flags were recovered successfully; environmental enrichment will retry during the normal daily refresh."
 
       - name: Commit extended historical dataset
-        id: commit_data
         run: |
           if [[ -n "$(git status --porcelain data/)" ]]; then
             git config user.name "knowthegulf-data-bot"
@@ -85,20 +79,8 @@ jobs:
             git commit -m "data: extend PCB flag history with audited NWS recovery"
             git pull --rebase
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No extended historical-data changes to commit."
           fi
 
-      - name: Configure GitHub Pages
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/configure-pages@v5
-      - name: Upload refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: '.'
-      - name: Deploy refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # Pages deployment is intentionally centralized in deploy-pages.yml.

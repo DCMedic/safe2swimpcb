@@ -17,8 +17,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: knowthegulf-data-write
@@ -28,9 +26,6 @@ jobs:
   enrich-history:
     runs-on: ubuntu-latest
     timeout-minutes: 35
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -75,7 +70,6 @@ jobs:
           node --check assets/app.js
 
       - name: Commit historical enrichment
-        id: commit_data
         run: |
           rm -f data/ndbc_measured_observations.csv
           if [[ -n "$(git status --porcelain data/)" ]]; then
@@ -85,22 +79,8 @@ jobs:
             git commit -m "data: refresh measured NOAA, cyclone, and historical flag research"
             git pull --rebase
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No historical-enrichment changes to commit."
           fi
 
-      - name: Configure GitHub Pages
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/configure-pages@v5
-
-      - name: Upload refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: '.'
-
-      - name: Deploy refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # Pages deployment is intentionally centralized in deploy-pages.yml.
