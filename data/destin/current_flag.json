@@ -2,11 +2,9 @@
   "flag": "Double Red",
   "label": "Double Red",
   "severity": 4,
-  "last_verified_at": "2026-08-19T10:10:05.761584-05:00",
-  "status_changed_at": "2026-08-19T10:10:05.761584-05:00",
+  "last_verified_at": "2026-08-19T08:10:18.195815-05:00",
   "source_name": "Destin Fire Control District / Destin Beach Safety",
   "source_url": "https://www.destinfire.gov/today-s-warning-condition-beach-flags",
-  "method": "Hourly public current-condition snapshot with retry-enabled HTTP client",
-  "stale_after_hours": 3,
-  "note": "Current Destin status is refreshed independently from the heavier western historical-data workflow. Posted flags and Destin Beach Safety control."
+  "method": "Scheduled public current-condition snapshot",
+  "stale_after_hours": 2
 }
