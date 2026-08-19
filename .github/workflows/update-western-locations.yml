@@ -10,17 +10,12 @@ on:
       timezone: 'America/Chicago'
 permissions:
   contents: write
-  pages: write
-  id-token: write
 concurrency:
   group: knowthegulf-data-write
   cancel-in-progress: false
 jobs:
   update:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,7 +27,6 @@ jobs:
       - run: pip install requests beautifulsoup4 pandas
       - run: python scripts/update_western_locations.py
       - name: Commit refreshed western Gulf data
-        id: commit_data
         run: |
           if [[ -n "$(git status --porcelain data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)" ]]; then
             git config user.name "knowthegulf-data-bot"
@@ -41,19 +35,8 @@ jobs:
             git commit -m "data: refresh western Gulf beaches"
             git pull --rebase
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No western Gulf data changes to commit."
           fi
-      - name: Configure GitHub Pages
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/configure-pages@v5
-      - name: Upload refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: '.'
-      - name: Deploy refreshed site
-        if: steps.commit_data.outputs.changed == 'true'
-        id: deployment
-        uses: actions/deploy-pages@v4
+
+      # Pages deployment is intentionally centralized in deploy-pages.yml.

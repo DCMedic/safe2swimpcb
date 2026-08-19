@@ -3,6 +3,16 @@ name: Deploy Know the Gulf to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows:
+      - Poll current PCB beach flag
+      - Update western Gulf data
+      - Update eastern Panhandle flags
+      - Update Southwest Florida locations
+      - Refresh Know the Gulf research dataset
+      - Refresh measured NOAA and storm history
+      - Backfill NWS Surf Zone history
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,16 +26,30 @@ concurrency:
 
 jobs:
   deploy:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deployment.outputs.page_url }}
+    env:
+      PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v6
+        with:
+          ref: main
 
       - name: Validate frontend JavaScript
-        run: node --check assets/app.js
+        run: |
+          node --check assets/app.js
+          node --check assets/menu.js
+          node --check assets/beach-nav.js
+          node --check assets/western-location.js
+          node --check assets/eastern-location.js
+          node --check assets/southwest-location.js
+          node --check assets/location-page.js
 
       - name: Validate social metadata injector
         run: python -m py_compile scripts/inject_social_meta.py
@@ -39,12 +63,15 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
+          name: ${{ env.PAGES_ARTIFACT_NAME }}
           path: '.'
 
       - name: Deploy to GitHub Pages - attempt 1
         id: deploy_1
         continue-on-error: true
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
 
       - name: Wait before deployment retry 2
         if: steps.deploy_1.outcome == 'failure'
@@ -55,6 +82,8 @@ jobs:
         if: steps.deploy_1.outcome == 'failure'
         continue-on-error: true
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
 
       - name: Wait before final deployment retry
         if: steps.deploy_1.outcome == 'failure' && steps.deploy_2.outcome == 'failure'
@@ -64,3 +93,5 @@ jobs:
         id: deployment
         if: steps.deploy_1.outcome == 'failure' && steps.deploy_2.outcome == 'failure'
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
