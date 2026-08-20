@@ -6,7 +6,11 @@ on:
     paths:
       - '.github/workflows/update-eastern-panhandle.yml'
       - 'scripts/update_eastern_panhandle.py'
+      - 'scripts/florida_flag_terms.py'
+      - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_eastern_panhandle_flags.py'
+      - 'tests/test_florida_flag_terms.py'
+      - 'tests/test_apply_florida_flag_terms.py'
   schedule:
     - cron: '12 * * * *'
 
@@ -30,8 +34,8 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install requests beautifulsoup4 pytest
-      - run: python -m py_compile scripts/update_eastern_panhandle.py
-      - run: pytest -q tests/test_eastern_panhandle_flags.py
+      - run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+      - run: pytest -q tests/test_eastern_panhandle_flags.py tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
       - name: Refresh eastern Panhandle flags with bounded retry
         run: |
           for attempt in 1 2 3; do
@@ -39,6 +43,8 @@ jobs:
             if [[ "$attempt" -eq 3 ]]; then echo "Eastern collector failed after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 10))
           done
+      - name: Apply canonical Florida warning-flag terminology
+        run: python scripts/apply_florida_flag_terms.py south-walton cape-san-blas gulf-state-park-beaches st-joe-beach franklin-county
       - name: Commit refreshed eastern Panhandle flags
         run: |
           if [[ -z "$(git status --porcelain data/south-walton data/cape-san-blas data/gulf-state-park-beaches data/st-joe-beach data/franklin-county)" ]]; then

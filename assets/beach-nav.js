@@ -22,9 +22,19 @@
   async function colorDot(dot,slug){
     try{
       const r=await fetch(flagUrl(slug),{cache:'no-store'});if(!r.ok)return;
-      const c=await r.json();const color=FLAG_COLORS[c.flag];if(!color)return;
-      dot.style.background=color;dot.style.boxShadow=`0 0 0 3px color-mix(in srgb, ${color} 22%, transparent)`;
-      dot.dataset.flag=c.flag;dot.title=`Current flag: ${c.flag}`;
+      const c=await r.json();
+      const primary=c.primary_flag||c.flag||null,purple=c.purple===true;
+      const primaryColor=FLAG_COLORS[primary],purpleColor=FLAG_COLORS.Purple;
+      if(!primaryColor&&!purple)return;
+      if(primaryColor&&purple){
+        dot.style.background=`linear-gradient(135deg, ${primaryColor} 0 50%, ${purpleColor} 50% 100%)`;
+        dot.style.boxShadow=`0 0 0 3px color-mix(in srgb, ${primaryColor} 18%, ${purpleColor} 10%)`;
+      }else{
+        const color=primaryColor||purpleColor;
+        dot.style.background=color;dot.style.boxShadow=`0 0 0 3px color-mix(in srgb, ${color} 22%, transparent)`;
+      }
+      const label=primary&&purple?`${primary} + Purple`:primary||'Purple';
+      dot.dataset.flag=label;dot.title=`Current flag${primary&&purple?'s':''}: ${label}`;
     }catch(_){/* Keep neutral dot when a verified flag is unavailable. */}
   }
   function renderBeachNav(){

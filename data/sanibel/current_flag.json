@@ -10,7 +10,7 @@
   "severity": null,
   "status": "official_conditions_source_reachable",
   "provenance_tier": "officially_directed_conditions_source",
-  "last_verified_at": "2026-08-20T11:00:05.402121-04:00",
+  "last_verified_at": "2026-08-20T11:31:32.277077-04:00",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/",
   "official_authority": "Lee County Natural Resources / Mote Marine Laboratory",
@@ -28,5 +28,9 @@
     "200 https://datafetch.visitbeaches.org/content/blam.json?beach_id=",
     "200 https://datafetch.visitbeaches.org/terms-conditions"
   ],
-  "safety_note": "Only an explicit upstream warning flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, a legend, or a generic hazard score into a Florida warning flag. Posted flags and lifeguard instructions control."
+  "safety_note": "Only an explicit upstream warning flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, a legend, or a generic hazard score into a Florida warning flag. Posted flags and lifeguard instructions control.",
+  "primary_flag": null,
+  "purple": false,
+  "flag_schema": "Florida Beach Warning Flag terminology v1",
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag."
 }
