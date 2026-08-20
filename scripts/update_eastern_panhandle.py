@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -19,6 +20,7 @@ FRANKLIN_URL = "https://www.franklincountyparks.com/parks-recreation/beach-flag-
 WALTON_URL = "https://www.visitsouthwalton.com/beach-safety/"
 GULF_URL = "https://www.visitgulf.com/things-to-do/beaches/beach-safety/"
 FLAG_SEVERITY = {"Green": 1, "Yellow": 2, "Red": 3, "Single Red": 3, "Double Red": 4}
+MAX_OFFICIAL_AGE_HOURS = 24
 NWS_KEYS = [
     "Walton",
     "Bay",
@@ -82,7 +84,7 @@ def normalize_flag(value: str | None) -> str | None:
     if not value:
         return None
     text = re.sub(r"[^A-Za-z ]+", " ", value).strip().lower()
-    if ("double" in text or "two" in text) and "red" in text or "water closed" in text:
+    if (("double" in text or "two" in text) and "red" in text) or "water closed" in text:
         return "Double Red"
     if re.search(r"\bred\b", text):
         return "Red"
@@ -113,17 +115,32 @@ def parse_nws_issued(text: str) -> datetime | None:
         return None
 
 
-def parse_franklin_updated(value: str | None) -> datetime | None:
+def parse_franklin_updated(value: str | None, now: datetime | None = None) -> datetime | None:
     if not value:
         return None
-    cleaned = re.sub(r"^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s*", "", value.strip(), flags=re.I)
+    reference = now.astimezone(EASTERN) if now else datetime.now(EASTERN)
+    cleaned = value.strip().replace("\u00a0", " ")
+    cleaned = re.sub(r"^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s*", "", cleaned, flags=re.I)
     cleaned = re.sub(r"\s+(EDT|EST)$", "", cleaned, flags=re.I)
-    cleaned = cleaned.replace(" at ", " ")
-    try:
-        dt = datetime.strptime(f"{cleaned} {datetime.now(EASTERN).year}", "%B %d %I:%M %p %Y")
-        return dt.replace(tzinfo=EASTERN)
-    except ValueError:
-        return None
+    cleaned = re.sub(r"\s+at\s+", " ", cleaned, flags=re.I)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,")
+
+    formats_with_year = ("%B %d, %Y %I:%M %p", "%B %d %Y %I:%M %p")
+    for fmt in formats_with_year:
+        try:
+            return datetime.strptime(cleaned, fmt).replace(tzinfo=EASTERN)
+        except ValueError:
+            pass
+
+    for year in (reference.year, reference.year - 1, reference.year + 1):
+        for fmt in ("%B %d %I:%M %p", "%b %d %I:%M %p"):
+            try:
+                candidate = datetime.strptime(f"{cleaned} {year}", f"{fmt} %Y").replace(tzinfo=EASTERN)
+            except ValueError:
+                continue
+            if abs((reference - candidate).total_seconds()) <= 370 * 24 * 3600:
+                return candidate
+    return None
 
 
 def parse_nws_flag_table(text: str) -> dict[str, str]:
@@ -155,11 +172,6 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
     newest_issued_text: str | None = None
     last_url = NWS_URL
 
-    # NWS product delivery is an upstream dependency, not a reason to kill the
-    # regional heartbeat. Each version is independently bounded and a timeout,
-    # 5xx, or connection failure is logged and skipped. If every NWS request is
-    # unavailable, the caller still checks Franklin's independent official page
-    # and writes a conservative unavailable heartbeat for the remaining beaches.
     for version in [None, 1, 2, 3, 4, 5, 6, 7, 8]:
         url = _nws_version_url(version)
         last_url = url
@@ -181,17 +193,38 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
         if not flags:
             continue
         age = hours_old(issued, datetime.now(EASTERN)) if issued else None
-        if age is not None and age <= 24:
+        if age is not None and age <= MAX_OFFICIAL_AGE_HOURS:
             return flags, issued_text, issued, url
 
     return {}, newest_issued_text, newest_issued, last_url
 
 
-def parse_franklin_page(html: str) -> dict[str, object | None]:
+def _franklin_current_text(soup: BeautifulSoup) -> tuple[str, object]:
+    heading = soup.find(lambda tag: tag.name in {"h1", "h2", "h3", "h4"} and "current beach conditions" in tag.get_text(" ", strip=True).lower())
+    if not heading:
+        return " ".join(soup.stripped_strings), soup
+
+    pieces: list[str] = []
+    for node in heading.next_elements:
+        if node is heading:
+            continue
+        name = getattr(node, "name", None)
+        if name in {"h1", "h2", "h3", "h4"}:
+            break
+        if isinstance(node, str):
+            value = node.strip()
+            if value:
+                pieces.append(value)
+    return " ".join(pieces), heading.parent or soup
+
+
+def parse_franklin_page(html: str, fetched_at: datetime | None = None) -> dict[str, object | None]:
+    fetched_at = fetched_at.astimezone(EASTERN) if fetched_at else datetime.now(EASTERN)
     soup = BeautifulSoup(html, "html.parser")
-    text = " ".join(soup.stripped_strings)
+    current_text, current_container = _franklin_current_text(soup)
+
     flag = None
-    image = soup.find("img", alt=re.compile(r"(Double Red|Red|Yellow|Green) Flag", re.I))
+    image = current_container.find("img", alt=re.compile(r"(Double Red|Red|Yellow|Green) Flag", re.I))
     if image:
         flag = normalize_flag(image.get("alt"))
     if not flag:
@@ -199,30 +232,89 @@ def parse_franklin_page(html: str) -> dict[str, object | None]:
             "Water Closed": "Double Red",
             "High Hazard": "Red",
             "Medium Hazard": "Yellow",
+            "Moderate Hazard": "Yellow",
             "Low Hazard": "Green",
         }.items():
-            if phrase.lower() in text.lower():
+            if phrase.lower() in current_text.lower():
                 flag = mapped
                 break
+
     updated_text = None
     m = re.search(
-        r"Last updated:\s*(.+?)(?=\s+(?:Green|Yellow|Red|Double Red|Low Hazard|Medium Hazard|High Hazard|Water Closed)|$)",
-        text,
+        r"Last\s+updated\s*:?\s*(.+?)(?=\s+(?:Green|Yellow|Red|Double Red|Low Hazard|Medium Hazard|Moderate Hazard|High Hazard|Water Closed|Moderate Surf|High Surf|Calm Conditions)|$)",
+        current_text,
         re.I,
     )
     if m:
         updated_text = m.group(1).strip(" |")
+    updated_at = parse_franklin_updated(updated_text, now=fetched_at)
+
     return {
         "flag": flag,
         "official_updated_text": updated_text,
-        "official_updated_at": parse_franklin_updated(updated_text),
+        "official_updated_at": updated_at,
+        "fetched_at": fetched_at,
+        "timestamp_basis": "official_page" if updated_at else ("fetch_time" if flag else None),
     }
 
 
-def fetch_franklin() -> dict[str, object | None]:
-    r = session().get(FRANKLIN_URL, timeout=(5, 12))
-    r.raise_for_status()
-    return parse_franklin_page(r.text)
+def fetch_franklin(attempts: int = 3) -> dict[str, object | None]:
+    s = session()
+    last_exc: requests.RequestException | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            r = s.get(FRANKLIN_URL, timeout=(5, 12))
+            r.raise_for_status()
+            parsed = parse_franklin_page(r.text, fetched_at=datetime.now(EASTERN))
+            if parsed.get("flag"):
+                return parsed
+            raise requests.RequestException("Franklin page loaded but no explicit current-condition flag was parsed")
+        except requests.RequestException as exc:
+            last_exc = exc
+            if attempt < attempts:
+                time.sleep(attempt * 2)
+    assert last_exc is not None
+    raise last_exc
+
+
+def load_previous_payload(slug: str) -> dict[str, object] | None:
+    path = DATA / slug / "current_flag.json"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def parse_iso_datetime(value: object) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        dt = datetime.fromisoformat(value)
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else None
+
+
+def cached_franklin_observation(now: datetime) -> dict[str, object | None] | None:
+    previous = load_previous_payload("franklin-county")
+    if not previous:
+        return None
+    flag = normalize_flag(previous.get("flag") if isinstance(previous.get("flag"), str) else None)
+    observed_at = parse_iso_datetime(previous.get("official_updated_at"))
+    if observed_at is None and previous.get("timestamp_basis") == "fetch_time":
+        observed_at = parse_iso_datetime(previous.get("official_observed_at"))
+    age = hours_old(observed_at, now) if observed_at else None
+    if not flag or age is None or age > MAX_OFFICIAL_AGE_HOURS:
+        return None
+    return {
+        "flag": flag,
+        "official_updated_text": previous.get("official_updated_text"),
+        "official_updated_at": parse_iso_datetime(previous.get("official_updated_at")),
+        "fetched_at": parse_iso_datetime(previous.get("official_observed_at")) or observed_at,
+        "timestamp_basis": previous.get("timestamp_basis") or "official_page",
+        "cached": True,
+    }
 
 
 def write_payload(
@@ -239,24 +331,29 @@ def write_payload(
     now = datetime.now(cfg["timezone"])
     nws_flag = nws_flags.get(cfg["nws_key"])
     nws_age = hours_old(nws_issued_at, now)
-    nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= 24)
+    nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= MAX_OFFICIAL_AGE_HOURS)
 
     official_flag = franklin.get("flag") if slug == "franklin-county" and franklin else None
     official_updated_text = franklin.get("official_updated_text") if slug == "franklin-county" and franklin else None
     official_updated_at = franklin.get("official_updated_at") if slug == "franklin-county" and franklin else None
-    official_age = hours_old(official_updated_at, now) if isinstance(official_updated_at, datetime) else None
-    official_fresh = bool(official_flag and official_age is not None and official_age <= 24)
+    fetched_at = franklin.get("fetched_at") if slug == "franklin-county" and franklin else None
+    timestamp_basis = franklin.get("timestamp_basis") if slug == "franklin-county" and franklin else None
+    cached = bool(franklin.get("cached")) if slug == "franklin-county" and franklin else False
+
+    evidence_at = official_updated_at if isinstance(official_updated_at, datetime) else fetched_at if isinstance(fetched_at, datetime) else None
+    official_age = hours_old(evidence_at, now) if evidence_at else None
+    official_fresh = bool(official_flag and official_age is not None and official_age <= MAX_OFFICIAL_AGE_HOURS)
 
     if official_fresh:
         flag = str(official_flag)
-        tier = "primary_official"
+        tier = "primary_official_cached" if cached else "primary_official"
         source_name = cfg["authority"]
         source_url = cfg["official_url"]
-        method = "Direct official current-condition page snapshot"
+        method = "Still-fresh last-known official current-condition observation retained after a transient source failure" if cached else "Direct official current-condition page snapshot"
         corroborating_flag = nws_flag if nws_fresh else None
         corroborates = bool(corroborating_flag and corroborating_flag == flag)
-        stale_after_hours = 24
-        stale_reason = None
+        stale_after_hours = MAX_OFFICIAL_AGE_HOURS
+        stale_reason = "Direct source could not be refreshed; cached official observation remains within the accepted freshness window" if cached else None
     elif nws_fresh:
         flag = str(nws_flag)
         tier = "official_report_via_nws"
@@ -265,7 +362,7 @@ def write_payload(
         method = "Newest fresh SRFTAE flag table reported by area beach officials; never inferred from rip-current risk"
         corroborating_flag = None
         corroborates = None
-        stale_after_hours = 24
+        stale_after_hours = MAX_OFFICIAL_AGE_HOURS
         stale_reason = "Direct official source unavailable or stale; using fresh NWS-republished official report" if slug == "franklin-county" else None
     else:
         flag = None
@@ -287,7 +384,9 @@ def write_payload(
         "last_verified_at": now.isoformat(),
         "official_updated_text": official_updated_text,
         "official_updated_at": official_updated_at.isoformat() if isinstance(official_updated_at, datetime) else None,
+        "official_observed_at": evidence_at.isoformat() if isinstance(evidence_at, datetime) else None,
         "official_age_hours": round(official_age, 2) if official_age is not None else None,
+        "timestamp_basis": timestamp_basis,
         "source_name": source_name,
         "source_url": source_url,
         "official_authority": cfg["authority"],
@@ -314,7 +413,10 @@ def main() -> None:
     try:
         franklin = fetch_franklin()
     except requests.RequestException as exc:
-        print(f"Franklin official source unavailable: {exc}")
+        print(f"Franklin official source unavailable: {type(exc).__name__}: {exc}")
+        franklin = cached_franklin_observation(datetime.now(EASTERN))
+        if franklin:
+            print("Retaining still-fresh cached Franklin official observation")
 
     missing = [cfg["nws_key"] for cfg in LOCATIONS.values() if cfg["nws_key"] not in nws_flags]
     if missing:
