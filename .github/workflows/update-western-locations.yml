@@ -6,6 +6,9 @@ on:
       - '.github/workflows/update-western-locations.yml'
       - 'scripts/update_western_locations.py'
       - 'scripts/update_destin_current.py'
+      - 'scripts/florida_flag_terms.py'
+      - 'scripts/apply_florida_flag_terms.py'
+      - 'tests/test_florida_flag_terms.py'
   schedule:
     - cron: '17 7 * * *'
       timezone: 'America/Chicago'
@@ -26,10 +29,14 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pandas
+      - run: pip install requests beautifulsoup4 pandas pytest
+      - name: Validate Florida flag terminology
+        run: pytest -q tests/test_florida_flag_terms.py
       - run: python scripts/update_western_locations.py
       - name: Re-verify current Destin flag after historical refresh
         run: python scripts/update_destin_current.py
+      - name: Apply canonical Florida warning-flag terminology
+        run: python scripts/apply_florida_flag_terms.py destin okaloosa-island navarre-beach pensacola-beach
       - name: Commit refreshed western Gulf data
         run: |
           if [[ -z "$(git status --porcelain data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)" ]]; then
