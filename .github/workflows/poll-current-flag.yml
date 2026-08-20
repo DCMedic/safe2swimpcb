@@ -13,11 +13,12 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: knowthegulf-data-write
+  group: knowthegulf-core-data-write
   cancel-in-progress: false
 jobs:
   poll:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
         with:

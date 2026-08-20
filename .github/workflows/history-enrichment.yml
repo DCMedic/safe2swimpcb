@@ -19,8 +19,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: knowthegulf-data-write
-  cancel-in-progress: true
+  group: knowthegulf-core-data-write
+  cancel-in-progress: false
 
 jobs:
   enrich-history:

@@ -18,7 +18,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: knowthegulf-data-write
+  group: knowthegulf-southwest-data-write
   cancel-in-progress: false
 
 jobs:

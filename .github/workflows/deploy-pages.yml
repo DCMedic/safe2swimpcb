@@ -3,17 +3,6 @@ name: Deploy Know the Gulf to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_run:
-    workflows:
-      - Poll current PCB beach flag
-      - Poll current Destin beach flag
-      - Update western Gulf data
-      - Update eastern Panhandle flags
-      - Update Southwest Florida locations
-      - Refresh Know the Gulf research dataset
-      - Refresh measured NOAA and storm history
-      - Backfill NWS Surf Zone history
-    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -27,9 +16,6 @@ concurrency:
 
 jobs:
   deploy:
-    if: >-
-      github.event_name != 'workflow_run' ||
-      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
