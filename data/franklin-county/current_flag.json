@@ -4,10 +4,10 @@
   "label": "Yellow",
   "severity": 2,
   "provenance_tier": "primary_official",
-  "last_verified_at": "2026-08-20T11:15:44.408973-04:00",
+  "last_verified_at": "2026-08-20T11:18:55.821901-04:00",
   "official_updated_text": "Thursday, August 20 at 11:00 AM EDT",
   "official_updated_at": "2026-08-20T11:00:00-04:00",
-  "official_age_hours": 0.26,
+  "official_age_hours": 0.32,
   "source_name": "Franklin County Board of County Commissioners / Parks & Recreation",
   "source_url": "https://www.franklincountyparks.com/parks-recreation/beach-flag-warnings/",
   "official_authority": "Franklin County Board of County Commissioners / Parks & Recreation",
@@ -18,7 +18,7 @@
   "nws_reported_flag": "Yellow",
   "nws_issued_text": "1153 AM EDT Wed Aug 19 2026",
   "nws_issued_at": "2026-08-19T11:53:00-04:00",
-  "nws_age_hours": 23.38,
+  "nws_age_hours": 23.43,
   "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0&version=2",
   "corroborating_flag": "Yellow",
   "corroborates_primary": true,
@@ -30,5 +30,5 @@
   "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag.",
   "terminology_verified_url": "https://www.franklincountyparks.com/parks-recreation/beach-flag-warnings/",
   "terminology_evidence": "current-text:Medium Hazard; Moderate Surf and/or Currents",
-  "terminology_verified_at": "2026-08-20T10:15:45.723870-05:00"
+  "terminology_verified_at": "2026-08-20T10:18:57.521385-05:00"
 }
