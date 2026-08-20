@@ -18,6 +18,16 @@ def test_current_status_bare_color_is_supported():
     assert 'Yellow' in evidence
 
 
+def test_current_flag_phrasing_is_supported():
+    state, evidence = state_from_current_text('Current Flag: Double Red')
+    assert state.primary == 'Double Red'
+    assert 'Double Red' in evidence
+
+    state, evidence = state_from_current_text('Current Flag Conditions: Medium Hazard')
+    assert state.primary == 'Yellow'
+    assert 'Medium Hazard' in evidence
+
+
 def test_current_status_surf_words_map_primary_and_purple():
     state, _ = state_from_current_text(
         'Current Beach Conditions: Moderate Surf and/or Currents; Dangerous Marine Life'
