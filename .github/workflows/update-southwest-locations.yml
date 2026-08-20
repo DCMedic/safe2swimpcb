@@ -8,8 +8,12 @@ on:
       - '.github/workflows/update-southwest-locations.yml'
       - 'scripts/update_southwest_locations.py'
       - 'scripts/update_southwest_location.py'
+      - 'scripts/collector_resilience.py'
+      - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
+      - 'tests/test_collector_resilience.py'
+      - 'tests/test_southwest_sources.py'
   schedule:
     - cron: '22 * * * *'
 
@@ -34,7 +38,22 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Validate Southwest adapter entry points
-        run: python -m py_compile scripts/update_southwest_locations.py scripts/update_southwest_location.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+        run: python -m py_compile scripts/update_southwest_locations.py scripts/update_southwest_location.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+      - name: Run Southwest collector regression tests
+        run: pytest -q tests/test_collector_resilience.py tests/test_southwest_sources.py
+      - name: Snapshot last-known Southwest status
+        shell: bash
+        run: |
+          mkdir -p tmp/southwest-before
+          slugs=(anna-maria-island siesta-key venice sanibel fort-myers-beach naples marco-island)
+          for slug in "${slugs[@]}"; do
+            for name in current_flag current_status; do
+              source="data/${slug}/${name}.json"
+              if [[ -f "$source" ]]; then
+                cp "$source" "tmp/southwest-before/${slug}-${name}.json"
+              fi
+            done
+          done
       - name: Refresh Southwest sources in parallel with bounded runtime
         shell: bash
         run: |
@@ -59,6 +78,39 @@ jobs:
             cat "tmp/southwest/${slug}.log"
           done
           exit "$failed"
+      - name: Prevent transient Southwest flag regressions
+        shell: bash
+        run: |
+          expected_flag_slugs=(anna-maria-island siesta-key venice)
+          optional_flag_slugs=(sanibel fort-myers-beach naples marco-island)
+
+          for slug in "${expected_flag_slugs[@]}"; do
+            for name in current_flag current_status; do
+              previous="tmp/southwest-before/${slug}-${name}.json"
+              current="data/${slug}/${name}.json"
+              if [[ -f "$previous" && -f "$current" ]]; then
+                python scripts/protect_current_flag.py \
+                  --previous "$previous" \
+                  --current "$current" \
+                  --max-age-hours 18 \
+                  --mode missing-flag
+              fi
+            done
+          done
+
+          for slug in "${optional_flag_slugs[@]}"; do
+            for name in current_flag current_status; do
+              previous="tmp/southwest-before/${slug}-${name}.json"
+              current="data/${slug}/${name}.json"
+              if [[ -f "$previous" && -f "$current" ]]; then
+                python scripts/protect_current_flag.py \
+                  --previous "$previous" \
+                  --current "$current" \
+                  --max-age-hours 18 \
+                  --mode unavailable
+              fi
+            done
+          done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py anna-maria-island siesta-key venice sanibel fort-myers-beach naples marco-island
       - name: Commit refreshed Southwest data
@@ -77,5 +129,5 @@ jobs:
             sleep $((attempt * 5))
           done
 
-      # Full unit tests run centrally in site-health.yml.
+      # Full unit tests also run centrally in site-health.yml.
       # Pages deployment is intentionally centralized in deploy-pages.yml.
