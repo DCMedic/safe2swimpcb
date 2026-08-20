@@ -3,14 +3,12 @@ name: Update eastern Panhandle flags
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/update-eastern-panhandle.yml'
       - 'scripts/update_eastern_panhandle.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
-      - 'tests/test_eastern_panhandle_flags.py'
-      - 'tests/test_florida_flag_terms.py'
-      - 'tests/test_apply_florida_flag_terms.py'
   schedule:
     - cron: '12 * * * *'
 
@@ -33,16 +31,11 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pytest
-      - run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
-      - run: pytest -q tests/test_eastern_panhandle_flags.py tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
-      - name: Refresh eastern Panhandle flags with bounded retry
-        run: |
-          for attempt in 1 2; do
-            if timeout 7m python scripts/update_eastern_panhandle.py; then exit 0; fi
-            if [[ "$attempt" -eq 2 ]]; then echo "Eastern collector failed after 2 bounded attempts." >&2; exit 1; fi
-            sleep 15
-          done
+      - run: pip install requests beautifulsoup4
+      - name: Validate Eastern collector entry points
+        run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+      - name: Refresh eastern Panhandle flags
+        run: timeout 8m python scripts/update_eastern_panhandle.py
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py south-walton cape-san-blas gulf-state-park-beaches st-joe-beach franklin-county
       - name: Commit refreshed eastern Panhandle flags
@@ -56,8 +49,10 @@ jobs:
           git commit -m "data: refresh eastern Panhandle flags"
           for attempt in 1 2 3; do
             if git pull --rebase && git push; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
             if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist eastern Panhandle data after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 5))
           done
 
+      # Full unit tests run centrally in site-health.yml.
       # Pages deployment is intentionally centralized in deploy-pages.yml.

@@ -3,6 +3,7 @@ name: Poll current Destin beach flag
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/poll-destin-flag.yml'
       - 'scripts/update_destin_current.py'
@@ -46,6 +47,7 @@ jobs:
           git commit -m "data: refresh Destin beach flag"
           for attempt in 1 2 3; do
             if git pull --rebase && git push; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
             if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist Destin flag after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 5))
           done

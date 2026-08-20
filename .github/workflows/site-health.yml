@@ -9,8 +9,10 @@ on:
       - '**/*.html'
       - 'assets/**'
       - 'scripts/**'
+      - 'tests/**'
       - 'data/**/*.json'
       - 'sitemap.xml'
+      - 'requirements.txt'
       - '.github/workflows/**'
 
 permissions:
@@ -23,20 +25,24 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+          cache: pip
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
       - name: Validate shared JavaScript
         run: |
           for f in assets/app.js assets/menu.js assets/beach-nav.js assets/site-ui.js assets/western-location.js assets/eastern-location.js assets/southwest-location.js assets/location-page.js; do
             node --check "$f"
           done
       - name: Validate Python entry points
-        run: |
-          python -m compileall -q scripts
+        run: python -m compileall -q scripts
+      - name: Run repository test suite
+        run: pytest -q
       - name: Build standardized deployment HTML
         run: python scripts/inject_social_meta.py
       - name: Validate routes, assets, sitemap and data contracts

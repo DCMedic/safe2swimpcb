@@ -2,6 +2,7 @@ name: Poll current PCB beach flag
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/poll-current-flag.yml'
       - 'scripts/update_current_flag.py'
@@ -41,35 +42,19 @@ jobs:
             git config user.email "actions@users.noreply.github.com"
             git add data/current_flag.json data/flag_observations_auto.csv data/flag_daily_master.csv data/flag_daily_master.json data/flag_observations_master.csv data/flag_observations_master.json data/flag_summary.json
             git commit -m "data: refresh PCB beach flag"
-            git pull --rebase
 
-            # GitHub occasionally returns a transient 5xx error while accepting a push.
-            # Retry a few times with bounded backoff, rebasing before each retry so
-            # genuine branch movement is handled without masking persistent failures.
-            push_succeeded=false
             for attempt in 1 2 3; do
-              if git push; then
-                push_succeeded=true
-                break
+              if git pull --rebase && git push; then
+                echo "changed=true" >> "$GITHUB_OUTPUT"
+                exit 0
               fi
-
+              git rebase --abort 2>/dev/null || true
               if [[ "$attempt" -eq 3 ]]; then
-                echo "git push failed after 3 attempts" >&2
+                echo "Failed to persist PCB flag after 3 attempts." >&2
                 exit 1
               fi
-
-              delay=$((attempt * 5))
-              echo "git push attempt $attempt failed; retrying in ${delay}s..." >&2
-              sleep "$delay"
-              git pull --rebase
+              sleep $((attempt * 5))
             done
-
-            if [[ "$push_succeeded" != "true" ]]; then
-              echo "git push did not complete successfully" >&2
-              exit 1
-            fi
-
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi

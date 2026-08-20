@@ -129,8 +129,6 @@ def parse_franklin_updated(value: str | None) -> datetime | None:
 def parse_nws_flag_table(text: str) -> dict[str, str]:
     flags: dict[str, str] = {}
     for key in NWS_KEYS:
-        # Current and archived SRFTAE products use dotted leaders, but tolerate
-        # whitespace and optional plural "flags" text to survive formatting changes.
         patterns = [
             rf"(?mi)^\s*{re.escape(key)}\s*\.*\s*(DOUBLE\s+RED|RED|YELLOW|GREEN)(?:\s+FLAGS?)?\.?\s*$",
             rf"(?mi)^\s*{re.escape(key)}\s*[:=-]\s*(DOUBLE\s+RED|RED|YELLOW|GREEN)(?:\s+FLAGS?)?\.?\s*$",
@@ -155,13 +153,23 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
     s = session()
     newest_issued: datetime | None = None
     newest_issued_text: str | None = None
-    # The first early-morning SRFTAE can precede the day's beach-official flag
-    # communication. Walk recent product versions and use the newest table that
-    # is still within the accepted freshness window rather than returning null.
+    last_url = NWS_URL
+
+    # NWS product delivery is an upstream dependency, not a reason to kill the
+    # regional heartbeat. Each version is independently bounded and a timeout,
+    # 5xx, or connection failure is logged and skipped. If every NWS request is
+    # unavailable, the caller still checks Franklin's independent official page
+    # and writes a conservative unavailable heartbeat for the remaining beaches.
     for version in [None, 1, 2, 3, 4, 5, 6, 7, 8]:
         url = _nws_version_url(version)
-        r = s.get(url, timeout=30)
-        r.raise_for_status()
+        last_url = url
+        try:
+            r = s.get(url, timeout=(5, 10))
+            r.raise_for_status()
+        except requests.RequestException as exc:
+            print(f"NWS SRFTAE unavailable for {url}: {type(exc).__name__}: {exc}")
+            continue
+
         text = BeautifulSoup(r.text, "html.parser").get_text("\n")
         issued = parse_nws_issued(text)
         m = re.search(r"(?mi)^\s*National Weather Service Tallahassee FL\s*\n\s*(.+?\d{4})\s*$", text)
@@ -175,7 +183,8 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
         age = hours_old(issued, datetime.now(EASTERN)) if issued else None
         if age is not None and age <= 24:
             return flags, issued_text, issued, url
-    return {}, newest_issued_text, newest_issued, NWS_URL
+
+    return {}, newest_issued_text, newest_issued, last_url
 
 
 def parse_franklin_page(html: str) -> dict[str, object | None]:
@@ -211,7 +220,7 @@ def parse_franklin_page(html: str) -> dict[str, object | None]:
 
 
 def fetch_franklin() -> dict[str, object | None]:
-    r = session().get(FRANKLIN_URL, timeout=30)
+    r = session().get(FRANKLIN_URL, timeout=(5, 12))
     r.raise_for_status()
     return parse_franklin_page(r.text)
 
