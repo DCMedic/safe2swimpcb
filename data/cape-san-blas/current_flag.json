@@ -1,10 +1,10 @@
 {
   "location": "Cape San Blas / Indian Pass",
-  "flag": "Red",
+  "flag": null,
   "label": "Red",
-  "severity": 3,
+  "severity": null,
   "provenance_tier": "official_report_via_nws",
-  "last_verified_at": "2026-08-20T10:49:44.017039-04:00",
+  "last_verified_at": "2026-08-20T11:15:44.408372-04:00",
   "official_updated_text": null,
   "official_updated_at": null,
   "official_age_hours": null,
@@ -18,10 +18,14 @@
   "nws_reported_flag": "Red",
   "nws_issued_text": "1153 AM EDT Wed Aug 19 2026",
   "nws_issued_at": "2026-08-19T11:53:00-04:00",
-  "nws_age_hours": 22.95,
+  "nws_age_hours": 23.38,
   "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0&version=2",
   "corroborating_flag": null,
   "corroborates_primary": null,
   "source_note": "NWS Tallahassee republishes west-facing Gulf County flags reported by area beach officials.",
-  "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag."
+  "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag.",
+  "primary_flag": null,
+  "purple": false,
+  "flag_schema": "Florida Beach Warning Flag terminology v1",
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag."
 }
