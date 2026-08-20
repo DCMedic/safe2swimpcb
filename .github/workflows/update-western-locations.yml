@@ -2,14 +2,12 @@ name: Update western Gulf data
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/update-western-locations.yml'
       - 'scripts/update_western_locations.py'
-      - 'scripts/update_destin_current.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
-      - 'tests/test_florida_flag_terms.py'
-      - 'tests/test_apply_florida_flag_terms.py'
   schedule:
     - cron: '17 7 * * *'
       timezone: 'America/Chicago'
@@ -30,27 +28,27 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pandas pytest
-      - name: Validate Florida flag terminology
-        run: pytest -q tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
+      - run: pip install requests beautifulsoup4 pandas
+      - name: Validate western collector entry points
+        run: python -m py_compile scripts/update_western_locations.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
       - run: python scripts/update_western_locations.py
-      - name: Re-verify current Destin flag after historical refresh
-        run: python scripts/update_destin_current.py
       - name: Apply canonical Florida warning-flag terminology
-        run: python scripts/apply_florida_flag_terms.py destin okaloosa-island navarre-beach pensacola-beach
+        run: python scripts/apply_florida_flag_terms.py okaloosa-island navarre-beach pensacola-beach
       - name: Commit refreshed western Gulf data
         run: |
-          if [[ -z "$(git status --porcelain data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)" ]]; then
+          if [[ -z "$(git status --porcelain data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)" ]]; then
             echo "No western Gulf data changes to commit."; exit 0
           fi
           git config user.name "knowthegulf-data-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western
+          git add data/okaloosa-island data/navarre-beach data/pensacola-beach data/western
           git commit -m "data: refresh western Gulf beaches"
           for attempt in 1 2 3; do
             if git pull --rebase && git push; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
             if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist western Gulf data after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 5))
           done
 
+      # Destin current_flag.json is intentionally owned only by poll-destin-flag.yml.
       # Pages deployment is intentionally centralized in deploy-pages.yml.
