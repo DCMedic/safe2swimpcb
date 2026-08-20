@@ -6,7 +6,10 @@ on:
     paths:
       - '.github/workflows/update-southwest-locations.yml'
       - 'scripts/update_southwest_locations.py'
+      - 'scripts/florida_flag_terms.py'
+      - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_southwest_sources.py'
+      - 'tests/test_florida_flag_terms.py'
   schedule:
     - cron: '22 * * * *'
 
@@ -30,10 +33,10 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Validate Southwest adapter
+      - name: Validate Southwest adapter and Florida terminology
         run: |
-          python -m py_compile scripts/update_southwest_locations.py
-          pytest -q tests/test_southwest_sources.py
+          python -m py_compile scripts/update_southwest_locations.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+          pytest -q tests/test_southwest_sources.py tests/test_florida_flag_terms.py
       - name: Refresh Southwest sources with bounded retry
         run: |
           for attempt in 1 2 3; do
@@ -41,6 +44,8 @@ jobs:
             if [[ "$attempt" -eq 3 ]]; then echo "Southwest collector failed after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 10))
           done
+      - name: Apply canonical Florida warning-flag terminology
+        run: python scripts/apply_florida_flag_terms.py anna-maria-island siesta-key venice sanibel fort-myers-beach naples marco-island
       - name: Commit refreshed Southwest data
         run: |
           if [[ -z "$(git status --porcelain data/anna-maria-island data/siesta-key data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island)" ]]; then
