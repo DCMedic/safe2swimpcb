@@ -15,17 +15,29 @@ def test_normalize_only_explicit_flag_language():
 
 
 def test_named_beach_scope_required():
-    html = '<html><body>Some Other Beach Yellow Flag. Siesta Beach conditions updated.</body></html>'
+    html = '<html><body>Some Other Beach Current Flag: Yellow Flag. Siesta Beach conditions updated.</body></html>'
     flag, evidence = extract_explicit_flag(html, ['Siesta Beach'])
     assert flag is None
     assert evidence is None
 
 
-def test_named_beach_explicit_flag_is_accepted():
-    html = '<html><body>Siesta Beach — Yellow Flag — medium hazard.</body></html>'
+def test_named_beach_explicit_current_flag_is_accepted():
+    html = '<html><body>Siesta Beach — Current Flag: Yellow Flag — medium hazard.</body></html>'
     flag, evidence = extract_explicit_flag(html, ['Siesta Beach'])
     assert flag == 'Yellow'
-    assert evidence == 'page-text-near:Siesta Beach'
+    assert evidence == 'current-page-text:Siesta Beach'
+
+
+def test_flag_legend_near_beach_is_not_current_evidence():
+    html = '''
+    <html><body>
+      Manatee Public Beach conditions and safety information.
+      Hazard Key: Green Flag, Yellow Flag, Red Flag, Double Red Flag, Purple Flag.
+    </body></html>
+    '''
+    flag, evidence = extract_explicit_flag(html, ['Manatee Public Beach'])
+    assert flag is None
+    assert evidence is None
 
 
 def test_structured_payload_can_supply_explicit_flag():
@@ -35,7 +47,7 @@ def test_structured_payload_can_supply_explicit_flag():
     assert evidence == 'structured:beach.flag'
 
 
-def test_shared_json_feed_requires_target_beach():
+def test_shared_json_feed_scopes_flag_to_target_beach_record():
     payload = {
         'reports': [
             {'beach': 'Some Other Beach', 'flagColor': 'Red Flag'},
@@ -43,10 +55,9 @@ def test_shared_json_feed_requires_target_beach():
         ]
     }
     flag, evidence = extract_explicit_flag_from_json(payload, ['Siesta Beach'])
-    assert flag == 'Red' or flag == 'Yellow'
-    # The generic flattener proves beach scoping at the document level; live adapters
-    # further prefer beach-specific endpoints whenever the application exposes them.
+    assert flag == 'Yellow'
     assert evidence is not None
+    assert 'flagColor' in evidence
 
 
 def test_generic_hazard_field_is_not_promoted_to_flag():
