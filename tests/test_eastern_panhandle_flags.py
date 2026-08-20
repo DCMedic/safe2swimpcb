@@ -49,25 +49,66 @@ Franklin......................Green
 
 
 def test_parse_franklin_update_timestamp():
-    updated = parse_franklin_updated("Tuesday, August 18 at 12:00 PM EDT")
-    assert updated is not None
-    assert updated.month == 8
-    assert updated.day == 18
-    assert updated.hour == 12
-    assert updated.tzinfo == EASTERN
+    now = datetime(2026, 8, 20, 18, 0, tzinfo=EASTERN)
+    updated = parse_franklin_updated("Tuesday, August 18 at 12:00 PM EDT", now=now)
+    assert updated == datetime(2026, 8, 18, 12, 0, tzinfo=EASTERN)
+
+
+def test_parse_franklin_update_timestamp_tolerates_format_variants():
+    now = datetime(2026, 8, 20, 18, 0, tzinfo=EASTERN)
+    assert parse_franklin_updated("August 20, 2026 12:00 PM EDT", now=now) == datetime(2026, 8, 20, 12, 0, tzinfo=EASTERN)
+    assert parse_franklin_updated("Thursday August 20 at 12:00 PM", now=now) == datetime(2026, 8, 20, 12, 0, tzinfo=EASTERN)
 
 
 def test_parse_franklin_live_condition_page():
+    fetched_at = datetime(2026, 8, 20, 18, 0, tzinfo=EASTERN)
     html = """
-    <h2>Current Beach Conditions</h2>
-    <div>Last updated: Thursday, August 20 at 10:00 AM EDT</div>
-    <img alt="Yellow Flag" src="flag.svg">
-    <div>Medium Hazard</div>
+    <section>
+      <h2>Current Beach Conditions</h2>
+      <div>Last updated: Thursday, August 20 at 10:00 AM EDT</div>
+      <img alt="Yellow Flag" src="flag.svg">
+      <div>Medium Hazard</div>
+    </section>
     """
-    parsed = parse_franklin_page(html)
+    parsed = parse_franklin_page(html, fetched_at=fetched_at)
     assert parsed["flag"] == "Yellow"
     assert parsed["official_updated_text"] == "Thursday, August 20 at 10:00 AM EDT"
-    assert parsed["official_updated_at"] is not None
+    assert parsed["official_updated_at"] == datetime(2026, 8, 20, 10, 0, tzinfo=EASTERN)
+    assert parsed["timestamp_basis"] == "official_page"
+
+
+def test_franklin_explicit_flag_survives_timestamp_markup_change():
+    fetched_at = datetime(2026, 8, 20, 18, 0, tzinfo=EASTERN)
+    html = """
+    <section>
+      <h2>Current Beach Conditions</h2>
+      <div>Updated moments ago by Parks &amp; Recreation</div>
+      <img alt="Yellow Flag" src="flag.svg">
+      <div>Medium Hazard</div>
+    </section>
+    """
+    parsed = parse_franklin_page(html, fetched_at=fetched_at)
+    assert parsed["flag"] == "Yellow"
+    assert parsed["official_updated_at"] is None
+    assert parsed["fetched_at"] == fetched_at
+    assert parsed["timestamp_basis"] == "fetch_time"
+
+
+def test_franklin_parser_ignores_legend_outside_current_conditions():
+    fetched_at = datetime(2026, 8, 20, 18, 0, tzinfo=EASTERN)
+    html = """
+    <section>
+      <h2>Current Beach Conditions</h2>
+      <div>Last updated: Thursday, August 20 at 12:00 PM EDT</div>
+      <img alt="Yellow Flag" src="yellow.svg">
+      <div>Medium Hazard</div>
+      <h2>What the flags mean</h2>
+      <div>High Hazard</div>
+      <img alt="Red Flag" src="red.svg">
+    </section>
+    """
+    parsed = parse_franklin_page(html, fetched_at=fetched_at)
+    assert parsed["flag"] == "Yellow"
 
 
 def test_freshness_age_is_timezone_safe():

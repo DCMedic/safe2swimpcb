@@ -9,6 +9,7 @@ on:
       - 'scripts/update_eastern_panhandle.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
+      - 'tests/test_eastern_panhandle_flags.py'
   schedule:
     - cron: '12 * * * *'
 
@@ -31,9 +32,11 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4
+      - run: pip install requests beautifulsoup4 pytest
       - name: Validate Eastern collector entry points
         run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+      - name: Run Eastern collector regression tests
+        run: python -m pytest -q tests/test_eastern_panhandle_flags.py
       - name: Refresh eastern Panhandle flags
         run: timeout 8m python scripts/update_eastern_panhandle.py
       - name: Apply canonical Florida warning-flag terminology
@@ -54,5 +57,5 @@ jobs:
             sleep $((attempt * 5))
           done
 
-      # Full unit tests run centrally in site-health.yml.
+      # Full unit tests still run centrally in site-health.yml.
       # Pages deployment is intentionally centralized in deploy-pages.yml.
