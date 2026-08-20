@@ -10,6 +10,7 @@ on:
       - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_eastern_panhandle_flags.py'
       - 'tests/test_florida_flag_terms.py'
+      - 'tests/test_apply_florida_flag_terms.py'
   schedule:
     - cron: '12 * * * *'
 
@@ -34,7 +35,7 @@ jobs:
           cache: pip
       - run: pip install requests beautifulsoup4 pytest
       - run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
-      - run: pytest -q tests/test_eastern_panhandle_flags.py tests/test_florida_flag_terms.py
+      - run: pytest -q tests/test_eastern_panhandle_flags.py tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
       - name: Refresh eastern Panhandle flags with bounded retry
         run: |
           for attempt in 1 2 3; do
