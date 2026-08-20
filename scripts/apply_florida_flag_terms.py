@@ -57,7 +57,7 @@ TERM_PATTERN = re.compile(
     re.I,
 )
 CURRENT_LINE = re.compile(
-    r"\b(?:current\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|warning\s+condition)|today(?:'s)?\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|flag(?:s)?|warning\s+condition)|posted\s+(?:flag(?:s)?|warning\s+condition))\b\s*(?:is|are|:|-)?\s*(.{0,180})",
+    r"\b(?:current\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|warning\s+condition|flag(?:s)?|flag\s+condition(?:s)?|beach\s+flag(?:s)?|beach\s+flag\s+condition(?:s)?)|today(?:'s)?\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|flag(?:s)?|flag\s+condition(?:s)?|warning\s+condition)|posted\s+(?:flag(?:s)?|warning\s+condition))\b\s*(?:is|are|:|-)?\s*(.{0,180})",
     re.I,
 )
 BARE_CURRENT_COLOR = re.compile(r"^\s*(double\s+red|single\s+red|red|yellow|green|purple)\b", re.I)
