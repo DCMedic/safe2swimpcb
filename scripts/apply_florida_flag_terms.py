@@ -53,13 +53,14 @@ EXTRA_SOURCE_URLS = {
 }
 
 TERM_PATTERN = re.compile(
-    r"\b(?:water\s+closed(?:\s+to\s+(?:the\s+)?public)?|double\s+red(?:\s+flag)?|two\s+red\s+flags?|single\s+red(?:\s+flag)?|red\s+flag|high\s+hazard|high\s+surf\s+(?:and/or|and|or)\s+currents?|yellow\s+flag|medium\s+hazard|moderate\s+hazard|moderate\s+surf\s+(?:and/or|and|or)\s+currents?|green\s+flag|low\s+hazard|calm\s+conditions(?:\s*,?\s*exercise\s+caution)?|purple\s+flag|dangerous\s+marine\s+life|red|yellow|green|purple)\b",
+    r"\b(?:water\s+closed(?:\s+to\s+(?:the\s+)?public)?|double\s+red(?:\s+flag)?|two\s+red\s+flags?|single\s+red(?:\s+flag)?|red\s+flag|high\s+hazard|high\s+surf\s+(?:and/or|and|or)\s+currents?|yellow\s+flag|medium\s+hazard|moderate\s+hazard|moderate\s+surf\s+(?:and/or|and|or)\s+currents?|green\s+flag|low\s+hazard|calm\s+conditions(?:\s*,?\s*exercise\s+caution)?|purple\s+flag|dangerous\s+marine\s+life)\b",
     re.I,
 )
 CURRENT_LINE = re.compile(
     r"\b(?:current\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|warning\s+condition)|today(?:'s)?\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|flag(?:s)?|warning\s+condition)|posted\s+(?:flag(?:s)?|warning\s+condition))\b\s*(?:is|are|:|-)?\s*(.{0,180})",
     re.I,
 )
+BARE_CURRENT_COLOR = re.compile(r"^\s*(double\s+red|single\s+red|red|yellow|green|purple)\b", re.I)
 
 
 def http_session() -> requests.Session:
@@ -84,9 +85,12 @@ def state_from_current_text(text: str) -> tuple[FloridaFlagState, str | None]:
     for match in CURRENT_LINE.finditer(compact):
         segment = match.group(1)
         segment = re.split(r"\b(?:flag meanings?|warning flag system|what do the flags mean|legend)\b", segment, maxsplit=1, flags=re.I)[0]
+        bare = BARE_CURRENT_COLOR.search(segment)
+        if bare:
+            parsed = interpret_florida_flag_terms(bare.group(1))
+            state = merge_states(state, parsed)
+            evidence.append(bare.group(1))
         terms = list(TERM_PATTERN.finditer(segment))
-        if not terms:
-            continue
         for term in terms[:2]:
             parsed = interpret_florida_flag_terms(term.group(0))
             if parsed.primary or parsed.purple:
@@ -221,9 +225,8 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
             if verified.primary and verified.purple:
                 break
 
-    # A fresh, explicitly current status from an official source takes priority
-    # over an older cached or secondary-republication primary flag. Existing Purple
-    # remains additive if the fresh page does not mention marine life.
+    # Fresh explicitly-current official terminology takes priority over an older
+    # cached or secondary-republication primary. Purple remains additive.
     final_state = merge_states(verified, existing)
     before = json.dumps(payload, sort_keys=True, default=str)
     payload["flag"] = final_state.primary
