@@ -109,9 +109,15 @@ def test_fresh_official_current_status_overrides_older_cached_primary():
     payload = {
         'flag': 'Yellow',
         'label': 'Yellow',
-        'source_url': 'https://example.com/current',
-        'official_authority_url': 'https://example.com/current',
+        'source_name': 'Older secondary report',
+        'source_url': 'https://secondary.example/report',
+        'official_authority': 'Official Beach Safety',
+        'official_authority_url': 'https://official.example/current',
     }
     normalized, _ = update_payload('destin', payload, _Session())
     assert normalized['flag'] == 'Red'
     assert normalized['primary_flag'] == 'Red'
+    assert normalized['source_name'] == 'Official Beach Safety'
+    assert normalized['source_url'] == 'https://official.example/current'
+    assert normalized['secondary_source_url'] == 'https://secondary.example/report'
+    assert normalized['provenance_tier'] == 'primary_official_terminology'
