@@ -18,6 +18,7 @@ LOCATIONS={
 'navarre-beach':{'name':'Navarre Beach','lat':30.3766,'lon':-86.8636,'station':'8729678','tide_name':'Navarre Beach','official':'https://santarosa.fl.gov/269/Water-Safety','authority':'Santa Rosa County / Navarre Beach Safety'},
 'pensacola-beach':{'name':'Pensacola Beach','lat':30.3320,'lon':-87.1420,'station':'8729840','tide_name':'Pensacola','official':'https://myescambia.com/pensacola-beach/pensacola-beach-lifeguards','authority':'Escambia County / Pensacola Beach Lifeguards'}}
 RISK_SCORE={'Low':1,'Moderate':2,'High':3};FLAG_SEVERITY={'Green':1,'Yellow':2,'Single Red':3,'Double Red':4}
+HAZARD_TO_FLAG={'low hazard':'Green','medium hazard':'Yellow','moderate hazard':'Yellow','high hazard':'Single Red','water closed':'Double Red','water closed to public':'Double Red'}
 
 def product_id(filename,issued,text):
     stem=Path(filename).name.rsplit('.',1)[0]
@@ -90,21 +91,37 @@ def environment(outdir,cfg,daily):
     if need:
         a,b=min(need),max(need);w=weather(cfg['lat'],cfg['lon'],a,b);m=marine(cfg['lat'],cfg['lon'],a,b);t=tides(a,b,cfg['station']);n=pd.DataFrame({'date':pd.date_range(a,b).strftime('%Y-%m-%d')}).merge(w,on='date',how='left').merge(m,on='date',how='left').merge(t,on='date',how='left');n=n[n.date.isin(set(need))];n['data_quality']='finalized';n['weather_source']='Open-Meteo ERA5';n['marine_source']='Open-Meteo ERA5-Ocean';n['tide_source']=f"NOAA CO-OPS {cfg['station']} {cfg['tide_name']} predictions";n['updated_at']=now_local().isoformat();old=n if old.empty else pd.concat([old[~old.date.astype(str).isin(set(need))],n],ignore_index=True);old.sort_values('date').to_csv(p,index=False)
     return old.sort_values('date')
+def parse_hazard_flag(html):
+    text=' '.join(BeautifulSoup(html,'html.parser').stripped_strings)
+    m=re.search(r'(Water Closed(?: to Public)?|High Hazard|Medium Hazard|Moderate Hazard|Low Hazard)',text,re.I)
+    return HAZARD_TO_FLAG.get(m.group(1).lower()) if m else None
 def parse_destin_flag(html):
     text=' '.join(BeautifulSoup(html,'html.parser').stripped_strings);m=re.search(r'Current Status:\s*(Water Closed to Public|High Hazard|Medium Hazard|Low Hazard)',text,re.I)
     if not m:raise RuntimeError('Destin current status not found')
-    return {'water closed to public':'Double Red','high hazard':'Single Red','medium hazard':'Yellow','low hazard':'Green'}[m.group(1).lower()]
-def current_file(outdir,slug,cfg):
+    return HAZARD_TO_FLAG[m.group(1).lower()]
+def verified_direct(cfg):
+    r=session().get(cfg['official'],timeout=30);r.raise_for_status();return parse_hazard_flag(r.text)
+def current_file(outdir,slug,cfg,destin_flag=None):
+    now=now_local();flag=None;method='';source_url=cfg['official'];source_name=cfg['authority']
     if slug=='destin':
-        r=session().get(cfg['official'],timeout=30);r.raise_for_status();flag=parse_destin_flag(r.text);now=now_local();payload={'flag':flag,'label':flag,'severity':FLAG_SEVERITY[flag],'last_verified_at':now.isoformat(),'source_name':cfg['authority'],'source_url':cfg['official'],'method':'Scheduled public current-condition snapshot','stale_after_hours':2}
+        flag=destin_flag or verified_direct(cfg);method='Scheduled direct official current-condition snapshot'
+    elif slug=='okaloosa-island' and destin_flag:
+        flag=destin_flag;method='Synchronized Destin-Fort Walton Beach warning flag; Okaloosa County, City of Destin and Henderson Beach State Park use a common flag selection';source_name='Okaloosa County Beach Safety / Destin Fire Control District'
     else:
-        payload={'flag':None,'label':'Check official beach flag','last_verified_at':None,'source_name':cfg['authority'],'source_url':cfg['official'],'method':'Official beach flags are controlled by the local beach-safety authority. Know the Gulf links to the official source and does not infer a flag from NWS rip-current risk.','stale_after_hours':0}
+        try: flag=verified_direct(cfg)
+        except Exception: flag=None
+        method='Scheduled direct official page snapshot; accepts only an explicit Low/Medium/Moderate/High Hazard or Water Closed status'
+    payload={'flag':flag,'label':flag if flag else 'Official flag status unavailable','severity':FLAG_SEVERITY.get(flag),'last_verified_at':now.isoformat(),'source_name':source_name,'source_url':source_url,'official_authority':cfg['authority'],'official_authority_url':cfg['official'],'method':method,'stale_after_hours':3 if flag else 0}
     (outdir/'current_flag.json').write_text(json.dumps(payload,indent=2)+'\n')
 def summarize(outdir,cfg,daily,env):
     merged=daily.merge(env,on='date',how='left') if not env.empty else daily.copy();merged.to_csv(outdir/'history_daily.csv',index=False);merged.to_json(outdir/'history_daily.json',orient='records');n=len(daily);high=int((daily.rip_current_risk=='High').sum());mod=int(daily.rip_current_risk.isin(['Moderate','High']).sum());(outdir/'summary.json').write_text(json.dumps({'start':str(daily.date.min()),'end':str(daily.date.max()),'days_with_data':n,'high_rip_days':high,'high_rip_pct':round(100*high/n,1) if n else None,'moderate_or_worse_days':mod,'moderate_or_worse_pct':round(100*mod/n,1) if n else None,'source':f"NWS Mobile/Pensacola SRFMOB + Open-Meteo ERA5/ERA5-Ocean + NOAA CO-OPS {cfg['station']} {cfg['tide_name']}",'updated_at':now_local().isoformat()},indent=2)+'\n')
 def main():
     shared=DATA/'western';shared.mkdir(parents=True,exist_ok=True);daily=srf_history(shared)
+    destin_flag=None
+    try:
+        r=session().get(LOCATIONS['destin']['official'],timeout=30);r.raise_for_status();destin_flag=parse_destin_flag(r.text)
+    except Exception as exc: print('Destin flag unavailable:',exc)
     for slug,cfg in LOCATIONS.items():
-        out=DATA/slug;out.mkdir(parents=True,exist_ok=True);daily.to_csv(out/'nws_srf_daily.csv',index=False);env=environment(out,cfg,daily);summarize(out,cfg,daily,env);current_file(out,slug,cfg)
+        out=DATA/slug;out.mkdir(parents=True,exist_ok=True);daily.to_csv(out/'nws_srf_daily.csv',index=False);env=environment(out,cfg,daily);summarize(out,cfg,daily,env);current_file(out,slug,cfg,destin_flag)
     print('western locations updated',now_local().isoformat())
 if __name__=='__main__':main()

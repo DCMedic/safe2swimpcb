@@ -1,9 +1,12 @@
 {
-  "flag": null,
-  "label": "Check official beach flag",
-  "last_verified_at": null,
+  "flag": "Yellow",
+  "label": "Yellow",
+  "severity": 2,
+  "last_verified_at": "2026-08-20T09:31:50.669099-05:00",
   "source_name": "Santa Rosa County / Navarre Beach Safety",
   "source_url": "https://santarosa.fl.gov/269/Water-Safety",
-  "method": "Official beach flags are controlled by the local beach-safety authority. Know the Gulf links to the official source and does not infer a flag from NWS rip-current risk.",
-  "stale_after_hours": 0
+  "official_authority": "Santa Rosa County / Navarre Beach Safety",
+  "official_authority_url": "https://santarosa.fl.gov/269/Water-Safety",
+  "method": "Scheduled direct official page snapshot; accepts only an explicit Low/Medium/Moderate/High Hazard or Water Closed status",
+  "stale_after_hours": 3
 }

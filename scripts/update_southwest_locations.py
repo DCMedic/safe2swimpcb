@@ -5,6 +5,7 @@ import json
 import re
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import urljoin, urlparse
 from zoneinfo import ZoneInfo
 
 import requests
@@ -14,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 TZ = ZoneInfo("America/New_York")
 VISIT_BEACHES = "https://visitbeaches.org/"
+BCRS_DATAFETCH = "https://datafetch.visitbeaches.org/"
 MANATEE_CONDITIONS = "https://www.mymanatee.org/services-and-amenities/service-listing/service-details/check-beach-conditions"
 SARASOTA_LIFEGUARDS = "https://www.scgov.net/government/emergency-services/lifeguard-operations"
 LEE_WATER = "https://www.leefl.gov/naturalresources/WaterQuality/WaterQualityStatus"
@@ -29,7 +31,7 @@ LOCATIONS = {
         "authority": "Manatee County Beach Patrol",
         "source_system": "Safe Beach Day / Manatee County",
         "flag_expected": True,
-        "update_note": "Manatee County says guarded-beach conditions are updated daily at 10:00 a.m. and 3:00 p.m.; physical tower flags override online information.",
+        "update_note": "Manatee County directs the public to its daily conditions systems and uses Florida warning flags at guarded beaches; posted tower flags control.",
     },
     "siesta-key": {
         "name": "Siesta Key",
@@ -40,7 +42,7 @@ LOCATIONS = {
         "authority": "Sarasota County Fire Department Lifeguard Operations",
         "source_system": "Mote Beach Conditions Reporting System / VisitBeaches",
         "flag_expected": True,
-        "update_note": "Sarasota County says VisitBeaches is updated twice daily by lifeguards and Mote Marine staff and is updated when flags change.",
+        "update_note": "Sarasota County directs visitors to VisitBeaches for lifeguard-updated beach conditions; posted flags and lifeguards control.",
     },
     "venice": {
         "name": "Venice / Nokomis",
@@ -51,7 +53,7 @@ LOCATIONS = {
         "authority": "Sarasota County Fire Department Lifeguard Operations",
         "source_system": "Mote Beach Conditions Reporting System / VisitBeaches",
         "flag_expected": True,
-        "update_note": "Sarasota County says VisitBeaches is updated twice daily by lifeguards and Mote Marine staff and is updated when flags change.",
+        "update_note": "Sarasota County directs visitors to VisitBeaches for lifeguard-updated beach conditions; posted flags and lifeguards control.",
     },
     "sanibel": {
         "name": "Sanibel / Captiva",
@@ -62,7 +64,7 @@ LOCATIONS = {
         "authority": "Lee County Natural Resources / Mote Marine Laboratory",
         "source_system": "Mote Beach Conditions Reporting System / VisitBeaches",
         "flag_expected": False,
-        "update_note": "Lee County directs the public to Mote Marine Laboratory for current beach conditions. Know the Gulf does not manufacture a flag where the upstream report does not explicitly publish one.",
+        "update_note": "Lee County directs the public to Mote for current beach conditions. A flag is displayed only if the upstream report explicitly supplies one.",
     },
     "fort-myers-beach": {
         "name": "Fort Myers Beach",
@@ -73,7 +75,7 @@ LOCATIONS = {
         "authority": "Lee County Natural Resources / Mote Marine Laboratory",
         "source_system": "Mote Beach Conditions Reporting System / VisitBeaches",
         "flag_expected": False,
-        "update_note": "Lee County directs the public to Mote Marine Laboratory for current beach conditions. Know the Gulf keeps conditions distinct from official flag evidence.",
+        "update_note": "Lee County directs the public to Mote for current beach conditions. A flag is displayed only if explicitly reported upstream.",
     },
     "naples": {
         "name": "Naples",
@@ -84,7 +86,7 @@ LOCATIONS = {
         "authority": "Collier County Pollution Control / Mote Marine Laboratory",
         "source_system": "Mote Beach Conditions Reporting System / VisitBeaches",
         "flag_expected": False,
-        "update_note": "Collier County directs users to VisitBeaches for current beach conditions. Red-tide sampling is retained as separate health context, not a beach-flag substitute.",
+        "update_note": "Collier County directs users to VisitBeaches for current conditions. Red-tide or weather values are never converted into a warning flag.",
     },
     "marco-island": {
         "name": "Marco Island",
@@ -95,16 +97,20 @@ LOCATIONS = {
         "authority": "Collier County Pollution Control / Mote Marine Laboratory",
         "source_system": "Mote Beach Conditions Reporting System / VisitBeaches",
         "flag_expected": False,
-        "update_note": "Collier County directs users to VisitBeaches for current beach conditions. Know the Gulf presents explicit observations only and does not derive swimming flags from red-tide or weather data.",
+        "update_note": "Collier County directs users to VisitBeaches for current conditions. A flag is displayed only when explicitly reported upstream.",
     },
 }
 
-FLAG_SEVERITY = {"Green": 1, "Yellow": 2, "Red": 3, "Double Red": 4}
+FLAG_SEVERITY = {"Green": 1, "Yellow": 2, "Red": 3, "Single Red": 3, "Double Red": 4}
+TRUSTED_HOST_SUFFIXES = ("visitbeaches.org", "safebeachday.com")
 
 
 def session() -> requests.Session:
     s = requests.Session()
-    s.headers.update({"User-Agent": "KnowTheGulf/1.0 (+https://knowthegulf.com)"})
+    s.headers.update({
+        "User-Agent": "KnowTheGulf/1.0 (+https://knowthegulf.com)",
+        "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
+    })
     return s
 
 
@@ -132,55 +138,167 @@ def iter_json_values(obj, path=""):
             yield from iter_json_values(v, f"{path}[{i}]")
 
 
+def _beach_hit(flat: list[tuple[str, object]], beach_names: list[str]) -> bool:
+    values = " ".join(str(v).lower() for _, v in flat if isinstance(v, (str, int, float)))
+    return any(name.lower() in values for name in beach_names)
+
+
+def extract_explicit_flag_from_json(obj: object, beach_names: list[str], require_beach=True) -> tuple[str | None, str | None]:
+    flat = list(iter_json_values(obj))
+    if require_beach and not _beach_hit(flat, beach_names):
+        return None, None
+    for path, value in flat:
+        low_path = path.lower()
+        low_value = str(value or "").lower()
+        # Only accept fields that explicitly represent a flag, or values that
+        # literally say "flag"/"water closed". Generic modeled hazard scores
+        # are intentionally excluded.
+        explicit = "flag" in low_path or "flag" in low_value or "water closed" in low_value
+        if not explicit:
+            continue
+        flag = normalize_flag(value)
+        if flag:
+            return flag, f"json:{path}"
+    return None, None
+
+
 def extract_explicit_flag(html: str, beach_names: list[str]) -> tuple[str | None, str | None]:
     soup = BeautifulSoup(html, "html.parser")
-    # Prefer structured state when a client-rendered site serializes it into the page.
     for script in soup.find_all("script"):
-        raw = script.string or script.get_text(" ")
-        raw = raw.strip()
+        raw = (script.string or script.get_text(" ") or "").strip()
         if not raw or raw[0] not in "[{":
             continue
         try:
             obj = json.loads(raw)
         except Exception:
             continue
-        flat = list(iter_json_values(obj))
-        beach_hit = any(any(name.lower() in str(v).lower() for name in beach_names) for _, v in flat)
-        if not beach_hit:
-            continue
-        for path, value in flat:
-            if any(token in path.lower() for token in ("flag", "hazard", "swim", "condition")):
-                flag = normalize_flag(value)
-                if flag:
-                    return flag, f"structured:{path}"
+        flag, evidence = extract_explicit_flag_from_json(obj, beach_names)
+        if flag:
+            return flag, f"structured:{evidence.removeprefix('json:')}"
 
     text = " ".join(soup.stripped_strings)
-    # Only accept an explicit flag/hazard phrase near a named target beach.
     for beach in beach_names:
-        m = re.search(rf"{re.escape(beach)}(.{{0,500}})", text, re.I)
+        m = re.search(rf"{re.escape(beach)}(.{{0,700}})", text, re.I)
         if not m:
             continue
-        flag = normalize_flag(m.group(1))
+        window = m.group(1)
+        # Page text must actually contain flag language or a closure phrase.
+        if not re.search(r"\bflag\b|water\s+closed", window, re.I):
+            continue
+        flag = normalize_flag(window)
         if flag:
             return flag, f"page-text-near:{beach}"
     return None, None
 
 
+def trusted_url(url: str) -> bool:
+    try:
+        host = (urlparse(url).hostname or "").lower()
+    except ValueError:
+        return False
+    return any(host == suffix or host.endswith("." + suffix) for suffix in TRUSTED_HOST_SUFFIXES)
+
+
+def candidate_links(html: str, base_url: str, beach_names: list[str]) -> list[str]:
+    soup = BeautifulSoup(html, "html.parser")
+    out: list[str] = []
+    for tag in soup.find_all(["a", "form"], limit=250):
+        raw = tag.get("href") or tag.get("action")
+        if not raw:
+            continue
+        url = urljoin(base_url, raw)
+        label = " ".join(tag.stripped_strings)
+        wanted = any(name.lower() in label.lower() for name in beach_names)
+        path = urlparse(url).path.lower()
+        apiish = any(token in path for token in ("api", "data", "report", "fetch", "condition"))
+        if trusted_url(url) and (wanted or apiish) and url not in out:
+            out.append(url)
+    return out[:12]
+
+
+def urls_from_javascript(js: str) -> list[str]:
+    found = re.findall(r"https?://[^\s\"'`<>]+", js)
+    out = []
+    for raw in found:
+        url = raw.rstrip(")]},.;")
+        if trusted_url(url) and any(token in url.lower() for token in ("api", "datafetch", "report", "condition")) and url not in out:
+            out.append(url)
+    return out[:12]
+
+
+def response_flag(r: requests.Response, beach_names: list[str], require_beach=True) -> tuple[str | None, str | None]:
+    ctype = (r.headers.get("content-type") or "").lower()
+    if "json" in ctype or r.text.lstrip().startswith(("{", "[")):
+        try:
+            obj = r.json()
+        except Exception:
+            obj = None
+        if obj is not None:
+            flag, evidence = extract_explicit_flag_from_json(obj, beach_names, require_beach=require_beach)
+            if flag:
+                return flag, evidence
+    return extract_explicit_flag(r.text, beach_names)
+
+
+def discover_client_flag(s: requests.Session, source_url: str, beach_names: list[str]) -> tuple[str | None, str | None, int | None, bool, list[str]]:
+    queue = [source_url]
+    if "visitbeaches.org" in source_url:
+        queue.append(BCRS_DATAFETCH)
+    seen: set[str] = set()
+    diagnostics: list[str] = []
+    first_status = None
+    source_ok = False
+
+    while queue and len(seen) < 20:
+        url = queue.pop(0)
+        if url in seen or not trusted_url(url):
+            continue
+        seen.add(url)
+        try:
+            r = s.get(url, timeout=25)
+            if first_status is None:
+                first_status = r.status_code
+            r.raise_for_status()
+            source_ok = True
+            diagnostics.append(f"{r.status_code} {url}")
+        except Exception as exc:
+            diagnostics.append(f"error {url}: {type(exc).__name__}")
+            continue
+
+        # A beach-specific endpoint may omit the beach name because the URL is
+        # already scoped to that beach. Require a beach hit only on shared feeds.
+        scoped = any(re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") in url.lower() for name in beach_names)
+        flag, evidence = response_flag(r, beach_names, require_beach=not scoped)
+        if flag:
+            return flag, f"{evidence}@{url}", first_status, source_ok, diagnostics
+
+        ctype = (r.headers.get("content-type") or "").lower()
+        if "html" not in ctype and not r.text.lstrip().startswith("<"):
+            continue
+        for link in candidate_links(r.text, url, beach_names):
+            if link not in seen and link not in queue:
+                queue.append(link)
+
+        soup = BeautifulSoup(r.text, "html.parser")
+        for script in soup.find_all("script", src=True)[:10]:
+            script_url = urljoin(url, script.get("src"))
+            if not trusted_url(script_url):
+                continue
+            try:
+                jsr = s.get(script_url, timeout=20)
+                jsr.raise_for_status()
+            except Exception:
+                continue
+            for api_url in urls_from_javascript(jsr.text):
+                if api_url not in seen and api_url not in queue:
+                    queue.append(api_url)
+    return None, None, first_status, source_ok, diagnostics
+
+
 def collect(slug: str, cfg: dict) -> dict:
     now = datetime.now(TZ)
-    source_ok = False
-    http_status = None
-    flag = None
-    evidence = None
-    error = None
-    try:
-        r = session().get(cfg["source_url"], timeout=30)
-        http_status = r.status_code
-        r.raise_for_status()
-        source_ok = True
-        flag, evidence = extract_explicit_flag(r.text, cfg["beaches"])
-    except Exception as exc:
-        error = f"{type(exc).__name__}: {exc}"
+    s = session()
+    flag, evidence, http_status, source_ok, diagnostics = discover_client_flag(s, cfg["source_url"], cfg["beaches"])
 
     if flag:
         status = "explicit_flag_verified"
@@ -188,7 +306,7 @@ def collect(slug: str, cfg: dict) -> dict:
         provenance = "officially_directed_public_source"
     elif source_ok:
         status = "official_conditions_source_reachable"
-        label = "Open official current conditions"
+        label = "Official conditions available — no explicit flag published"
         provenance = "officially_directed_conditions_source"
     else:
         status = "official_conditions_source_unavailable"
@@ -215,8 +333,8 @@ def collect(slug: str, cfg: dict) -> dict:
         "flag_expected_from_source": cfg["flag_expected"],
         "stale_after_hours": 18,
         "update_note": cfg["update_note"],
-        "error": error,
-        "safety_note": "Only an explicit upstream flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a beach flag. Physical posted flags and lifeguard instructions control.",
+        "adapter_diagnostics": diagnostics[-8:],
+        "safety_note": "Only an explicit upstream warning flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a Florida warning flag. Posted flags and lifeguard instructions control.",
     }
 
 
@@ -226,9 +344,8 @@ def main() -> None:
         out = DATA / slug
         out.mkdir(parents=True, exist_ok=True)
         (out / "current_status.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-        # Keep the same filename contract used by existing location pages.
         (out / "current_flag.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-        print(slug, payload["status"], payload["flag"] or "no-explicit-flag")
+        print(slug, payload["status"], payload["flag"] or "no-explicit-flag", payload.get("explicit_flag_evidence"))
 
 
 if __name__ == "__main__":

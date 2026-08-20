@@ -18,7 +18,15 @@ NWS_URL = "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&sit
 FRANKLIN_URL = "https://www.franklincountyparks.com/parks-recreation/beach-flag-warnings/"
 WALTON_URL = "https://www.visitsouthwalton.com/beach-safety/"
 GULF_URL = "https://www.visitgulf.com/things-to-do/beaches/beach-safety/"
-FLAG_SEVERITY = {"Green": 1, "Yellow": 2, "Red": 3, "Double Red": 4}
+FLAG_SEVERITY = {"Green": 1, "Yellow": 2, "Red": 3, "Single Red": 3, "Double Red": 4}
+NWS_KEYS = [
+    "Walton",
+    "Bay",
+    "State Park Gulf Beaches",
+    "West Facing Gulf Beaches",
+    "South Facing Gulf Beaches",
+    "Franklin",
+]
 
 LOCATIONS = {
     "south-walton": {
@@ -27,7 +35,7 @@ LOCATIONS = {
         "official_url": WALTON_URL,
         "nws_key": "Walton",
         "timezone": CENTRAL,
-        "source_note": "Visit South Walton directs visitors to its beach-safety alert service; NWS Tallahassee republishes the flag reported by area beach officials.",
+        "source_note": "NWS Tallahassee republishes the flag reported by Walton-area beach officials; Visit South Walton supplies the public beach-safety program.",
     },
     "cape-san-blas": {
         "name": "Cape San Blas / Indian Pass",
@@ -35,7 +43,7 @@ LOCATIONS = {
         "official_url": GULF_URL,
         "nws_key": "West Facing Gulf Beaches",
         "timezone": EASTERN,
-        "source_note": "Gulf County tourism states South Gulf Fire Rescue/community volunteers manage Cape San Blas and Indian Pass flags. NWS Tallahassee republishes west-facing Gulf County flags reported by area beach officials.",
+        "source_note": "NWS Tallahassee republishes west-facing Gulf County flags reported by area beach officials.",
     },
     "gulf-state-park-beaches": {
         "name": "Gulf County State Park Beaches",
@@ -51,7 +59,7 @@ LOCATIONS = {
         "official_url": GULF_URL,
         "nws_key": "South Facing Gulf Beaches",
         "timezone": EASTERN,
-        "source_note": "Visit Gulf notes St. Joe Beach is not managed by South Gulf Fire Rescue. NWS Tallahassee separately reports south-facing Gulf County flags based on communication with area beach officials.",
+        "source_note": "NWS Tallahassee separately reports south-facing Gulf County flags based on communication with area beach officials.",
     },
     "franklin-county": {
         "name": "Franklin County / St. George Island",
@@ -74,7 +82,7 @@ def normalize_flag(value: str | None) -> str | None:
     if not value:
         return None
     text = re.sub(r"[^A-Za-z ]+", " ", value).strip().lower()
-    if "double" in text and "red" in text:
+    if ("double" in text or "two" in text) and "red" in text or "water closed" in text:
         return "Double Red"
     if re.search(r"\bred\b", text):
         return "Red"
@@ -118,35 +126,60 @@ def parse_franklin_updated(value: str | None) -> datetime | None:
         return None
 
 
-def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None]:
-    r = session().get(NWS_URL, timeout=30)
-    r.raise_for_status()
-    text = BeautifulSoup(r.text, "html.parser").get_text("\n")
+def parse_nws_flag_table(text: str) -> dict[str, str]:
     flags: dict[str, str] = {}
-    for key in [
-        "Walton",
-        "Bay",
-        "State Park Gulf Beaches",
-        "West Facing Gulf Beaches",
-        "South Facing Gulf Beaches",
-        "Franklin",
-    ]:
-        m = re.search(rf"(?mi)^\s*{re.escape(key)}\.*\s*(DOUBLE\s+RED|RED|YELLOW|GREEN)\.?\s*$", text)
-        if m:
-            flag = normalize_flag(m.group(1))
-            if flag:
-                flags[key] = flag
-    issued_text = None
-    m = re.search(r"(?mi)^\s*National Weather Service Tallahassee FL\s*\n\s*(.+?\d{4})\s*$", text)
-    if m:
-        issued_text = m.group(1).strip()
-    return flags, issued_text, parse_nws_issued(text)
+    for key in NWS_KEYS:
+        # Current and archived SRFTAE products use dotted leaders, but tolerate
+        # whitespace and optional plural "flags" text to survive formatting changes.
+        patterns = [
+            rf"(?mi)^\s*{re.escape(key)}\s*\.*\s*(DOUBLE\s+RED|RED|YELLOW|GREEN)(?:\s+FLAGS?)?\.?\s*$",
+            rf"(?mi)^\s*{re.escape(key)}\s*[:=-]\s*(DOUBLE\s+RED|RED|YELLOW|GREEN)(?:\s+FLAGS?)?\.?\s*$",
+        ]
+        for pattern in patterns:
+            m = re.search(pattern, text)
+            if m:
+                flag = normalize_flag(m.group(1))
+                if flag:
+                    flags[key] = flag
+                    break
+    return flags
 
 
-def fetch_franklin() -> dict[str, object | None]:
-    r = session().get(FRANKLIN_URL, timeout=30)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, "html.parser")
+def _nws_version_url(version: int | None) -> str:
+    if version is None:
+        return NWS_URL
+    return f"{NWS_URL}&version={version}"
+
+
+def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]:
+    s = session()
+    newest_issued: datetime | None = None
+    newest_issued_text: str | None = None
+    # The first early-morning SRFTAE can precede the day's beach-official flag
+    # communication. Walk recent product versions and use the newest table that
+    # is still within the accepted freshness window rather than returning null.
+    for version in [None, 1, 2, 3, 4, 5, 6, 7, 8]:
+        url = _nws_version_url(version)
+        r = s.get(url, timeout=30)
+        r.raise_for_status()
+        text = BeautifulSoup(r.text, "html.parser").get_text("\n")
+        issued = parse_nws_issued(text)
+        m = re.search(r"(?mi)^\s*National Weather Service Tallahassee FL\s*\n\s*(.+?\d{4})\s*$", text)
+        issued_text = m.group(1).strip() if m else None
+        if newest_issued is None and issued is not None:
+            newest_issued = issued
+            newest_issued_text = issued_text
+        flags = parse_nws_flag_table(text)
+        if not flags:
+            continue
+        age = hours_old(issued, datetime.now(EASTERN)) if issued else None
+        if age is not None and age <= 24:
+            return flags, issued_text, issued, url
+    return {}, newest_issued_text, newest_issued, NWS_URL
+
+
+def parse_franklin_page(html: str) -> dict[str, object | None]:
+    soup = BeautifulSoup(html, "html.parser")
     text = " ".join(soup.stripped_strings)
     flag = None
     image = soup.find("img", alt=re.compile(r"(Double Red|Red|Yellow|Green) Flag", re.I))
@@ -154,27 +187,33 @@ def fetch_franklin() -> dict[str, object | None]:
         flag = normalize_flag(image.get("alt"))
     if not flag:
         for phrase, mapped in {
-            "Low Hazard": "Green",
-            "Medium Hazard": "Yellow",
-            "High Hazard": "Red",
             "Water Closed": "Double Red",
+            "High Hazard": "Red",
+            "Medium Hazard": "Yellow",
+            "Low Hazard": "Green",
         }.items():
             if phrase.lower() in text.lower():
                 flag = mapped
                 break
     updated_text = None
     m = re.search(
-        r"Last updated:\s*([^|]+?)(?=\s+(?:Green|Yellow|Red|Double Red|Low Hazard|Medium Hazard|High Hazard|Water Closed)|$)",
+        r"Last updated:\s*(.+?)(?=\s+(?:Green|Yellow|Red|Double Red|Low Hazard|Medium Hazard|High Hazard|Water Closed)|$)",
         text,
         re.I,
     )
     if m:
-        updated_text = m.group(1).strip()
+        updated_text = m.group(1).strip(" |")
     return {
         "flag": flag,
         "official_updated_text": updated_text,
         "official_updated_at": parse_franklin_updated(updated_text),
     }
+
+
+def fetch_franklin() -> dict[str, object | None]:
+    r = session().get(FRANKLIN_URL, timeout=30)
+    r.raise_for_status()
+    return parse_franklin_page(r.text)
 
 
 def write_payload(
@@ -183,6 +222,7 @@ def write_payload(
     nws_flags: dict[str, str],
     nws_issued_text: str | None,
     nws_issued_at: datetime | None,
+    nws_source_url: str,
     franklin: dict[str, object | None] | None,
 ) -> None:
     out = DATA / slug
@@ -190,13 +230,13 @@ def write_payload(
     now = datetime.now(cfg["timezone"])
     nws_flag = nws_flags.get(cfg["nws_key"])
     nws_age = hours_old(nws_issued_at, now)
-    nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= 18)
+    nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= 24)
 
     official_flag = franklin.get("flag") if slug == "franklin-county" and franklin else None
     official_updated_text = franklin.get("official_updated_text") if slug == "franklin-county" and franklin else None
     official_updated_at = franklin.get("official_updated_at") if slug == "franklin-county" and franklin else None
     official_age = hours_old(official_updated_at, now) if isinstance(official_updated_at, datetime) else None
-    official_fresh = bool(official_flag and official_age is not None and official_age <= 18)
+    official_fresh = bool(official_flag and official_age is not None and official_age <= 24)
 
     if official_fresh:
         flag = str(official_flag)
@@ -206,17 +246,17 @@ def write_payload(
         method = "Direct official current-condition page snapshot"
         corroborating_flag = nws_flag if nws_fresh else None
         corroborates = bool(corroborating_flag and corroborating_flag == flag)
-        stale_after_hours = 18
+        stale_after_hours = 24
         stale_reason = None
     elif nws_fresh:
         flag = str(nws_flag)
         tier = "official_report_via_nws"
         source_name = "NWS Tallahassee SRFTAE, based on communication with area beach officials"
-        source_url = NWS_URL
-        method = "Authoritative secondary publication of flag reported by area beach officials; not inferred from rip-current risk"
+        source_url = nws_source_url
+        method = "Newest fresh SRFTAE flag table reported by area beach officials; never inferred from rip-current risk"
         corroborating_flag = None
         corroborates = None
-        stale_after_hours = 18
+        stale_after_hours = 24
         stale_reason = "Direct official source unavailable or stale; using fresh NWS-republished official report" if slug == "franklin-county" else None
     else:
         flag = None
@@ -250,17 +290,17 @@ def write_payload(
         "nws_issued_text": nws_issued_text,
         "nws_issued_at": nws_issued_at.isoformat() if nws_issued_at else None,
         "nws_age_hours": round(nws_age, 2) if nws_age is not None else None,
-        "nws_source_url": NWS_URL,
+        "nws_source_url": nws_source_url,
         "corroborating_flag": corroborating_flag,
         "corroborates_primary": corroborates,
         "source_note": cfg["source_note"],
-        "safety_note": "Know the Gulf never derives a beach flag from forecast weather, surf height, or rip-current risk. When authoritative flag evidence is unavailable or stale, the public status is unavailable.",
+        "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag.",
     }
     (out / "current_flag.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> None:
-    nws_flags, nws_issued_text, nws_issued_at = fetch_nws_flags()
+    nws_flags, nws_issued_text, nws_issued_at, nws_source_url = fetch_nws_flags()
     franklin = None
     try:
         franklin = fetch_franklin()
@@ -269,10 +309,10 @@ def main() -> None:
 
     missing = [cfg["nws_key"] for cfg in LOCATIONS.values() if cfg["nws_key"] not in nws_flags]
     if missing:
-        print("NWS did not expose all expected flag keys:", ", ".join(sorted(set(missing))))
+        print("No fresh NWS flag found for:", ", ".join(sorted(set(missing))))
 
     for slug, cfg in LOCATIONS.items():
-        write_payload(slug, cfg, nws_flags, nws_issued_text, nws_issued_at, franklin)
+        write_payload(slug, cfg, nws_flags, nws_issued_text, nws_issued_at, nws_source_url, franklin)
     print("eastern Panhandle current flags updated", datetime.now(CENTRAL).isoformat())
 
 

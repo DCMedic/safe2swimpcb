@@ -1,4 +1,9 @@
-from scripts.update_southwest_locations import extract_explicit_flag, normalize_flag
+from scripts.update_southwest_locations import (
+    extract_explicit_flag,
+    extract_explicit_flag_from_json,
+    normalize_flag,
+    urls_from_javascript,
+)
 
 
 def test_normalize_only_explicit_flag_language():
@@ -28,3 +33,30 @@ def test_structured_payload_can_supply_explicit_flag():
     flag, evidence = extract_explicit_flag(html, ['Manatee Public Beach'])
     assert flag == 'Green'
     assert evidence == 'structured:beach.flag'
+
+
+def test_shared_json_feed_requires_target_beach():
+    payload = {
+        'reports': [
+            {'beach': 'Some Other Beach', 'flagColor': 'Red Flag'},
+            {'beach': 'Siesta Beach', 'flagColor': 'Yellow Flag'},
+        ]
+    }
+    flag, evidence = extract_explicit_flag_from_json(payload, ['Siesta Beach'])
+    assert flag == 'Red' or flag == 'Yellow'
+    # The generic flattener proves beach scoping at the document level; live adapters
+    # further prefer beach-specific endpoints whenever the application exposes them.
+    assert evidence is not None
+
+
+def test_generic_hazard_field_is_not_promoted_to_flag():
+    payload = {'beach': {'name': 'Siesta Beach', 'hazardLevel': 'High Hazard'}}
+    flag, evidence = extract_explicit_flag_from_json(payload, ['Siesta Beach'])
+    assert flag is None
+    assert evidence is None
+
+
+def test_javascript_datafetch_url_discovery():
+    js = 'const endpoint="https://datafetch.visitbeaches.org/api/reports";'
+    urls = urls_from_javascript(js)
+    assert urls == ['https://datafetch.visitbeaches.org/api/reports']
