@@ -10,6 +10,7 @@ on:
       - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_southwest_sources.py'
       - 'tests/test_florida_flag_terms.py'
+      - 'tests/test_apply_florida_flag_terms.py'
   schedule:
     - cron: '22 * * * *'
 
@@ -36,7 +37,7 @@ jobs:
       - name: Validate Southwest adapter and Florida terminology
         run: |
           python -m py_compile scripts/update_southwest_locations.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
-          pytest -q tests/test_southwest_sources.py tests/test_florida_flag_terms.py
+          pytest -q tests/test_southwest_sources.py tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
       - name: Refresh Southwest sources with bounded retry
         run: |
           for attempt in 1 2 3; do
