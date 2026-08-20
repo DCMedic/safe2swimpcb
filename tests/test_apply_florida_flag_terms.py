@@ -27,6 +27,10 @@ def test_current_flag_phrasing_is_supported():
     assert state.primary == 'Yellow'
     assert 'Medium Hazard' in evidence
 
+    state, evidence = state_from_current_text('Current Beach Flag Conditions: Low Hazard')
+    assert state.primary == 'Green'
+    assert 'Low Hazard' in evidence
+
 
 def test_current_status_surf_words_map_primary_and_purple():
     state, _ = state_from_current_text(
