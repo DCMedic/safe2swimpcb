@@ -242,9 +242,21 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         "Purple is an independent overlay. Forecast rip-current risk is not converted into a flag."
     )
     if verified_url:
+        verified_at = datetime.now(CENTRAL).isoformat()
         payload["terminology_verified_url"] = verified_url
         payload["terminology_evidence"] = verified_evidence
-        payload["terminology_verified_at"] = datetime.now(CENTRAL).isoformat()
+        payload["terminology_verified_at"] = verified_at
+        if verified.primary:
+            prior_url = payload.get("source_url")
+            prior_name = payload.get("source_name")
+            if prior_url and prior_url != verified_url:
+                payload["secondary_source_url"] = prior_url
+                payload["secondary_source_name"] = prior_name
+            payload["source_url"] = verified_url
+            payload["source_name"] = payload.get("official_authority") or prior_name or "Official beach-safety authority"
+            payload["method"] = "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions"
+            payload["provenance_tier"] = "primary_official_terminology"
+            payload["last_verified_at"] = verified_at
     after = json.dumps(payload, sort_keys=True, default=str)
     return payload, before != after
 
