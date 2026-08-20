@@ -6,8 +6,11 @@ on:
     paths:
       - '.github/workflows/update-western-locations.yml'
       - 'scripts/update_western_locations.py'
+      - 'scripts/collector_resilience.py'
+      - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
+      - 'tests/test_collector_resilience.py'
   schedule:
     - cron: '17 7 * * *'
       timezone: 'America/Chicago'
@@ -28,10 +31,36 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pandas
+      - run: pip install requests beautifulsoup4 pandas pytest
       - name: Validate western collector entry points
-        run: python -m py_compile scripts/update_western_locations.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
-      - run: python scripts/update_western_locations.py
+        run: python -m py_compile scripts/update_western_locations.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+      - name: Run collector resilience regression tests
+        run: pytest -q tests/test_collector_resilience.py
+      - name: Snapshot last-known western official flags
+        shell: bash
+        run: |
+          mkdir -p tmp/western-before
+          for slug in okaloosa-island navarre-beach pensacola-beach; do
+            if [[ -f "data/${slug}/current_flag.json" ]]; then
+              cp "data/${slug}/current_flag.json" "tmp/western-before/${slug}.json"
+            fi
+          done
+      - name: Refresh western Gulf data
+        run: python scripts/update_western_locations.py
+      - name: Prevent transient western flag regressions
+        shell: bash
+        run: |
+          for slug in okaloosa-island navarre-beach pensacola-beach; do
+            previous="tmp/western-before/${slug}.json"
+            current="data/${slug}/current_flag.json"
+            if [[ -f "$previous" && -f "$current" ]]; then
+              python scripts/protect_current_flag.py \
+                --previous "$previous" \
+                --current "$current" \
+                --max-age-hours 3 \
+                --mode missing-flag
+            fi
+          done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py okaloosa-island navarre-beach pensacola-beach
       - name: Preserve dedicated Destin current-condition ownership
