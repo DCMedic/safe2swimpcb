@@ -5,11 +5,11 @@
     "South Marco Beach"
   ],
   "flag": null,
-  "label": "Open official current conditions",
+  "label": "Official conditions available \u2014 no explicit flag published",
   "severity": null,
   "status": "official_conditions_source_reachable",
   "provenance_tier": "officially_directed_conditions_source",
-  "last_verified_at": "2026-08-20T10:04:55.831728-04:00",
+  "last_verified_at": "2026-08-20T10:48:57.656340-04:00",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/",
   "official_authority": "Collier County Pollution Control / Mote Marine Laboratory",
@@ -19,7 +19,13 @@
   "explicit_flag_evidence": null,
   "flag_expected_from_source": false,
   "stale_after_hours": 18,
-  "update_note": "Collier County directs users to VisitBeaches for current beach conditions. Know the Gulf presents explicit observations only and does not derive swimming flags from red-tide or weather data.",
-  "error": null,
-  "safety_note": "Only an explicit upstream flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a beach flag. Physical posted flags and lifeguard instructions control."
+  "update_note": "Collier County directs users to VisitBeaches for current conditions. A flag is displayed only when explicitly reported upstream.",
+  "adapter_diagnostics": [
+    "200 https://visitbeaches.org/",
+    "200 https://datafetch.visitbeaches.org/",
+    "200 https://api.visitbeaches.org/graphql",
+    "200 https://datafetch.visitbeaches.org/content/blam.json?beach_id=",
+    "200 https://datafetch.visitbeaches.org/terms-conditions"
+  ],
+  "safety_note": "Only an explicit upstream warning flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a Florida warning flag. Posted flags and lifeguard instructions control."
 }
