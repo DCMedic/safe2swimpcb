@@ -2,12 +2,17 @@
   "flag": "Double Red",
   "label": "Double Red",
   "severity": 4,
-  "last_verified_at": "2026-08-20T17:52:57.617490-05:00",
+  "provenance_tier": "primary_official_terminology",
+  "cached": false,
+  "last_verified_at": "2026-08-20T18:10:32.204719-05:00",
+  "last_checked_at": "2026-08-20T18:10:31.619226-05:00",
   "status_changed_at": "2026-08-20T10:29:27.297559-05:00",
   "source_name": "Destin Fire Control District / Destin Beach Safety",
   "source_url": "https://www.destinfire.gov/today-s-warning-condition-beach-flags",
+  "source_check_status": "verified",
   "method": "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions",
   "stale_after_hours": 3,
+  "stale_reason": null,
   "note": "Current Destin status is refreshed independently from the heavier western historical-data workflow. Posted flags and Destin Beach Safety control.",
   "primary_flag": "Double Red",
   "purple": false,
@@ -15,6 +20,5 @@
   "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag.",
   "terminology_verified_url": "https://www.destinfire.gov/today-s-warning-condition-beach-flags",
   "terminology_evidence": "current-text:Water Closed to Public",
-  "terminology_verified_at": "2026-08-20T17:52:57.617490-05:00",
-  "provenance_tier": "primary_official_terminology"
+  "terminology_verified_at": "2026-08-20T18:10:32.204719-05:00"
 }
