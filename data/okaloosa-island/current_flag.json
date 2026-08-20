@@ -2,11 +2,15 @@
   "flag": "Double Red",
   "label": "Double Red",
   "severity": 4,
-  "last_verified_at": "2026-08-20T09:43:33.919217-05:00",
+  "last_verified_at": "2026-08-20T10:15:22.089390-05:00",
   "source_name": "Okaloosa County Beach Safety / Destin Fire Control District",
   "source_url": "https://www.myokaloosa.com/ps/beach-safety",
   "official_authority": "Okaloosa County Beach Safety",
   "official_authority_url": "https://www.myokaloosa.com/ps/beach-safety",
   "method": "Synchronized Destin-Fort Walton Beach warning flag; Okaloosa County, City of Destin and Henderson Beach State Park use a common flag selection",
-  "stale_after_hours": 3
+  "stale_after_hours": 3,
+  "primary_flag": "Double Red",
+  "purple": false,
+  "flag_schema": "Florida Beach Warning Flag terminology v1",
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag."
 }
