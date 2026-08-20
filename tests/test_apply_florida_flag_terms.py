@@ -42,6 +42,12 @@ def test_generic_forecast_risk_is_not_a_flag():
     assert evidence is None
 
 
+def test_red_tide_wording_is_not_a_red_flag():
+    state, evidence = state_from_current_text('Current Conditions: no red tide observed; water clear')
+    assert state.primary is None
+    assert evidence is None
+
+
 def test_structured_status_is_beach_scoped():
     payload = {
         'reports': [
