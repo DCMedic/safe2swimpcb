@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/update-southwest-locations.yml'
       - 'scripts/update_southwest_locations.py'
+      - 'scripts/update_southwest_location.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_southwest_sources.py'
@@ -24,7 +25,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
         with:
@@ -36,15 +37,32 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Validate Southwest adapter and Florida terminology
         run: |
-          python -m py_compile scripts/update_southwest_locations.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+          python -m py_compile scripts/update_southwest_locations.py scripts/update_southwest_location.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
           pytest -q tests/test_southwest_sources.py tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
-      - name: Refresh Southwest sources with bounded retry
+      - name: Refresh Southwest sources in parallel with bounded runtime
+        shell: bash
         run: |
-          for attempt in 1 2 3; do
-            if python scripts/update_southwest_locations.py; then break; fi
-            if [[ "$attempt" -eq 3 ]]; then echo "Southwest collector failed after 3 attempts." >&2; exit 1; fi
-            sleep $((attempt * 10))
+          set -uo pipefail
+          mkdir -p tmp/southwest
+          slugs=(anna-maria-island siesta-key venice sanibel fort-myers-beach naples marco-island)
+          pids=()
+          for slug in "${slugs[@]}"; do
+            (
+              timeout 12m python scripts/update_southwest_location.py "$slug"
+            ) >"tmp/southwest/${slug}.log" 2>&1 &
+            pids+=("$!")
           done
+
+          failed=0
+          for i in "${!slugs[@]}"; do
+            slug="${slugs[$i]}"
+            if ! wait "${pids[$i]}"; then
+              echo "Southwest collector failed or timed out for ${slug}." >&2
+              failed=1
+            fi
+            cat "tmp/southwest/${slug}.log"
+          done
+          exit "$failed"
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py anna-maria-island siesta-key venice sanibel fort-myers-beach naples marco-island
       - name: Commit refreshed Southwest data

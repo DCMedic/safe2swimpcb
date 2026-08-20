@@ -24,7 +24,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
         with:
@@ -38,10 +38,10 @@ jobs:
       - run: pytest -q tests/test_eastern_panhandle_flags.py tests/test_florida_flag_terms.py tests/test_apply_florida_flag_terms.py
       - name: Refresh eastern Panhandle flags with bounded retry
         run: |
-          for attempt in 1 2 3; do
-            if python scripts/update_eastern_panhandle.py; then break; fi
-            if [[ "$attempt" -eq 3 ]]; then echo "Eastern collector failed after 3 attempts." >&2; exit 1; fi
-            sleep $((attempt * 10))
+          for attempt in 1 2; do
+            if timeout 7m python scripts/update_eastern_panhandle.py; then exit 0; fi
+            if [[ "$attempt" -eq 2 ]]; then echo "Eastern collector failed after 2 bounded attempts." >&2; exit 1; fi
+            sleep 15
           done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py south-walton cape-san-blas gulf-state-park-beaches st-joe-beach franklin-county
