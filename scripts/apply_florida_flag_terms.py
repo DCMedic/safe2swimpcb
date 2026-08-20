@@ -187,7 +187,9 @@ def extract_page_state(html: str, beach_names: list[str]) -> tuple[FloridaFlagSt
 
 def candidate_urls(slug: str, payload: dict) -> list[str]:
     urls: list[str] = []
-    for value in (payload.get("source_url"), payload.get("official_authority_url"), *EXTRA_SOURCE_URLS.get(slug, [])):
+    # Source priority is deliberate: the explicitly configured official authority
+    # must outrank a cached/secondary source and any generic fallback URLs.
+    for value in (payload.get("official_authority_url"), payload.get("source_url"), *EXTRA_SOURCE_URLS.get(slug, [])):
         if not isinstance(value, str) or not value.startswith("https://"):
             continue
         if not (urlparse(value).hostname or ""):
@@ -218,12 +220,25 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         except requests.RequestException:
             continue
         found, evidence = extract_page_state(r.text, beach_names)
-        if found.primary or found.purple:
-            verified = merge_states(verified, found)
+        if not (found.primary or found.purple):
+            continue
+
+        had_primary = verified.primary is not None
+        had_purple = verified.purple
+        verified = merge_states(verified, found)
+
+        # Preserve attribution to the highest-priority source that supplied the
+        # verified primary state. Later fallback sources may add Purple evidence,
+        # but they must never replace the authoritative primary source URL.
+        if verified_url is None or (found.primary and not had_primary):
             verified_url = url
             verified_evidence = evidence
-            if verified.primary and verified.purple:
-                break
+        elif found.purple and not had_purple and verified.primary is None:
+            verified_url = url
+            verified_evidence = evidence
+
+        if verified.primary and verified.purple:
+            break
 
     # Fresh explicitly-current official terminology takes priority over an older
     # cached or secondary-republication primary. Purple remains additive.
