@@ -39,14 +39,28 @@ def _clean(value: object) -> str:
 def interpret_florida_flag_terms(value: object) -> FloridaFlagState:
     """Interpret explicit Florida Beach Warning Flag terminology.
 
-    This function maps standardized *condition language*, not forecast risk.
-    For example, "High Hazard" maps to Red, while "High rip current risk"
-    deliberately does not. Purple is independent and can accompany a primary
-    surf-condition flag.
+    The function maps standardized condition language, not forecast risk.
+    "High Hazard" maps to Red; "High rip current risk" deliberately does not.
+    Purple is an independent dangerous-marine-life overlay.
     """
     text = _clean(value)
     if not text:
         return FloridaFlagState()
+
+    # Preserve canonical values already emitted by collectors without broadening
+    # arbitrary prose matching to bare color words.
+    exact_primary = {
+        "green": "Green",
+        "yellow": "Yellow",
+        "red": "Red",
+        "single red": "Red",
+        "double red": "Double Red",
+    }
+    if text in exact_primary:
+        primary = exact_primary[text]
+        return FloridaFlagState(primary=primary, primary_term=text)
+    if text == "purple":
+        return FloridaFlagState(purple=True, purple_term=text)
 
     primary = None
     primary_term = None
@@ -60,13 +74,13 @@ def interpret_florida_flag_terms(value: object) -> FloridaFlagState:
         r"\bsingle\s+red(?:\s+flag)?\b",
         r"\bred\s+flag\b",
         r"\bhigh\s+hazard\b",
-        r"\bhigh\s+surf\s+(?:and|and/or|or)\s+currents?\b",
+        r"\bhigh\s+surf\s+(?:and/or|and|or)\s+currents?\b",
     )
     yellow_patterns = (
         r"\byellow\s+flag\b",
         r"\bmedium\s+hazard\b",
         r"\bmoderate\s+hazard\b",
-        r"\bmoderate\s+surf\s+(?:and|and/or|or)\s+currents?\b",
+        r"\bmoderate\s+surf\s+(?:and/or|and|or)\s+currents?\b",
     )
     green_patterns = (
         r"\bgreen\s+flag\b",
