@@ -120,7 +120,7 @@ def normalize_flag(value: object) -> str | None:
         return "Double Red"
     if re.search(r"\bred\s+flag\b|\bhigh\s+hazard\b", text):
         return "Red"
-    if re.search(r"\byellow\s+flag\b|\bmedium\s+hazard\b", text):
+    if re.search(r"\byellow\s+flag\b|\bmedium\s+hazard\b|\bmoderate\s+hazard\b", text):
         return "Yellow"
     if re.search(r"\bgreen\s+flag\b|\blow\s+hazard\b", text):
         return "Green"
@@ -138,27 +138,56 @@ def iter_json_values(obj, path=""):
             yield from iter_json_values(v, f"{path}[{i}]")
 
 
-def _beach_hit(flat: list[tuple[str, object]], beach_names: list[str]) -> bool:
-    values = " ".join(str(v).lower() for _, v in flat if isinstance(v, (str, int, float)))
-    return any(name.lower() in values for name in beach_names)
+def _contains_beach(obj: object, beach_names: list[str]) -> bool:
+    for _, value in iter_json_values(obj):
+        if isinstance(value, (dict, list)):
+            continue
+        text = str(value or "").lower()
+        if any(name.lower() in text for name in beach_names):
+            return True
+    return False
 
 
-def extract_explicit_flag_from_json(obj: object, beach_names: list[str], require_beach=True) -> tuple[str | None, str | None]:
-    flat = list(iter_json_values(obj))
-    if require_beach and not _beach_hit(flat, beach_names):
-        return None, None
-    for path, value in flat:
+def _explicit_flag_in_obj(obj: object, prefix="") -> tuple[str | None, str | None]:
+    for path, value in iter_json_values(obj, prefix):
+        if isinstance(value, (dict, list)):
+            continue
         low_path = path.lower()
         low_value = str(value or "").lower()
-        # Only accept fields that explicitly represent a flag, or values that
-        # literally say "flag"/"water closed". Generic modeled hazard scores
-        # are intentionally excluded.
         explicit = "flag" in low_path or "flag" in low_value or "water closed" in low_value
         if not explicit:
             continue
         flag = normalize_flag(value)
         if flag:
             return flag, f"json:{path}"
+    return None, None
+
+
+def extract_explicit_flag_from_json(obj: object, beach_names: list[str], require_beach=True) -> tuple[str | None, str | None]:
+    if not require_beach:
+        return _explicit_flag_in_obj(obj)
+    if not _contains_beach(obj, beach_names):
+        return None, None
+    if isinstance(obj, list):
+        for i, item in enumerate(obj):
+            if _contains_beach(item, beach_names):
+                flag, evidence = extract_explicit_flag_from_json(item, beach_names, require_beach=True)
+                if flag:
+                    suffix = evidence.removeprefix("json:") if evidence else ""
+                    return flag, f"json:[{i}]{'.' if suffix and not suffix.startswith('[') else ''}{suffix}"
+        return None, None
+    if isinstance(obj, dict):
+        direct_values = [v for v in obj.values() if not isinstance(v, (dict, list))]
+        direct_text = " ".join(str(v or "").lower() for v in direct_values)
+        if any(name.lower() in direct_text for name in beach_names):
+            return _explicit_flag_in_obj(obj)
+        for key, child in obj.items():
+            if isinstance(child, (dict, list)) and _contains_beach(child, beach_names):
+                flag, evidence = extract_explicit_flag_from_json(child, beach_names, require_beach=True)
+                if flag:
+                    suffix = evidence.removeprefix("json:") if evidence else ""
+                    joiner = "" if suffix.startswith("[") else "."
+                    return flag, f"json:{key}{joiner}{suffix}"
     return None, None
 
 
@@ -175,19 +204,20 @@ def extract_explicit_flag(html: str, beach_names: list[str]) -> tuple[str | None
         flag, evidence = extract_explicit_flag_from_json(obj, beach_names)
         if flag:
             return flag, f"structured:{evidence.removeprefix('json:')}"
-
     text = " ".join(soup.stripped_strings)
     for beach in beach_names:
-        m = re.search(rf"{re.escape(beach)}(.{{0,700}})", text, re.I)
-        if not m:
-            continue
-        window = m.group(1)
-        # Page text must actually contain flag language or a closure phrase.
-        if not re.search(r"\bflag\b|water\s+closed", window, re.I):
-            continue
-        flag = normalize_flag(window)
-        if flag:
-            return flag, f"page-text-near:{beach}"
+        beach_pattern = re.escape(beach)
+        patterns = [
+            rf"{beach_pattern}.{{0,180}}(?:current|today(?:'s)?|posted)\s+(?:beach\s+)?(?:warning\s+)?(?:flag|status)\s*[:\-]?\s*(double\s+red(?:\s+flag)?|red\s+flag|yellow\s+flag|green\s+flag|water\s+closed)",
+            rf"(?:current|today(?:'s)?|posted)\s+(?:beach\s+)?(?:warning\s+)?(?:flag|status)\s+(?:for\s+)?{beach_pattern}\s*[:\-]?\s*(double\s+red(?:\s+flag)?|red\s+flag|yellow\s+flag|green\s+flag|water\s+closed)",
+        ]
+        for pattern in patterns:
+            m = re.search(pattern, text, re.I)
+            if not m:
+                continue
+            flag = normalize_flag(m.group(1))
+            if flag:
+                return flag, f"current-page-text:{beach}"
     return None, None
 
 
@@ -248,7 +278,6 @@ def discover_client_flag(s: requests.Session, source_url: str, beach_names: list
     diagnostics: list[str] = []
     first_status = None
     source_ok = False
-
     while queue and len(seen) < 20:
         url = queue.pop(0)
         if url in seen or not trusted_url(url):
@@ -264,21 +293,16 @@ def discover_client_flag(s: requests.Session, source_url: str, beach_names: list
         except Exception as exc:
             diagnostics.append(f"error {url}: {type(exc).__name__}")
             continue
-
-        # A beach-specific endpoint may omit the beach name because the URL is
-        # already scoped to that beach. Require a beach hit only on shared feeds.
         scoped = any(re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") in url.lower() for name in beach_names)
         flag, evidence = response_flag(r, beach_names, require_beach=not scoped)
         if flag:
             return flag, f"{evidence}@{url}", first_status, source_ok, diagnostics
-
         ctype = (r.headers.get("content-type") or "").lower()
         if "html" not in ctype and not r.text.lstrip().startswith("<"):
             continue
         for link in candidate_links(r.text, url, beach_names):
             if link not in seen and link not in queue:
                 queue.append(link)
-
         soup = BeautifulSoup(r.text, "html.parser")
         for script in soup.find_all("script", src=True)[:10]:
             script_url = urljoin(url, script.get("src"))
@@ -299,7 +323,6 @@ def collect(slug: str, cfg: dict) -> dict:
     now = datetime.now(TZ)
     s = session()
     flag, evidence, http_status, source_ok, diagnostics = discover_client_flag(s, cfg["source_url"], cfg["beaches"])
-
     if flag:
         status = "explicit_flag_verified"
         label = flag
@@ -312,7 +335,6 @@ def collect(slug: str, cfg: dict) -> dict:
         status = "official_conditions_source_unavailable"
         label = "Official current conditions unavailable"
         provenance = "unavailable"
-
     return {
         "location": cfg["name"],
         "county": cfg["county"],
@@ -334,7 +356,7 @@ def collect(slug: str, cfg: dict) -> dict:
         "stale_after_hours": 18,
         "update_note": cfg["update_note"],
         "adapter_diagnostics": diagnostics[-8:],
-        "safety_note": "Only an explicit upstream warning flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, or a generic hazard score into a Florida warning flag. Posted flags and lifeguard instructions control.",
+        "safety_note": "Only an explicit upstream warning flag is displayed as a flag. Know the Gulf never converts rip-current risk, weather, surf, red-tide status, water quality, a legend, or a generic hazard score into a Florida warning flag. Posted flags and lifeguard instructions control.",
     }
 
 
