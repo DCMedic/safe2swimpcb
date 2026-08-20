@@ -17,6 +17,11 @@ def test_literal_color_terms_are_supported():
     assert primary_flag('Single Red Flag') == 'Red'
     assert primary_flag('Yellow Flag') == 'Yellow'
     assert primary_flag('Green Flag') == 'Green'
+    assert primary_flag('Double Red') == 'Double Red'
+    assert primary_flag('Red') == 'Red'
+    assert primary_flag('Yellow') == 'Yellow'
+    assert primary_flag('Green') == 'Green'
+    assert interpret_florida_flag_terms('Purple').purple is True
 
 
 def test_purple_is_independent_overlay():
