@@ -1,10 +1,21 @@
-from scripts.apply_florida_flag_terms import extract_page_state, state_from_current_text, state_from_structured
+from scripts.apply_florida_flag_terms import (
+    extract_page_state,
+    state_from_current_text,
+    state_from_structured,
+    update_payload,
+)
 
 
 def test_current_status_high_hazard_maps_red():
     state, evidence = state_from_current_text('Current Status: High Hazard')
     assert state.primary == 'Red'
     assert 'High Hazard' in evidence
+
+
+def test_current_status_bare_color_is_supported():
+    state, evidence = state_from_current_text('Current Status: Yellow')
+    assert state.primary == 'Yellow'
+    assert 'Yellow' in evidence
 
 
 def test_current_status_surf_words_map_primary_and_purple():
@@ -60,3 +71,27 @@ def test_html_current_status_is_accepted_but_legend_is_ignored():
     '''
     state, _ = extract_page_state(html, [])
     assert state.primary == 'Green'
+
+
+class _Response:
+    text = '<html><body><h2>Current Status: High Hazard</h2></body></html>'
+
+    def raise_for_status(self):
+        return None
+
+
+class _Session:
+    def get(self, *_args, **_kwargs):
+        return _Response()
+
+
+def test_fresh_official_current_status_overrides_older_cached_primary():
+    payload = {
+        'flag': 'Yellow',
+        'label': 'Yellow',
+        'source_url': 'https://example.com/current',
+        'official_authority_url': 'https://example.com/current',
+    }
+    normalized, _ = update_payload('destin', payload, _Session())
+    assert normalized['flag'] == 'Red'
+    assert normalized['primary_flag'] == 'Red'
