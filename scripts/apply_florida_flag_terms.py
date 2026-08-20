@@ -53,7 +53,7 @@ EXTRA_SOURCE_URLS = {
 }
 
 TERM_PATTERN = re.compile(
-    r"\b(?:water\s+closed(?:\s+to\s+(?:the\s+)?public)?|double\s+red(?:\s+flag)?|two\s+red\s+flags?|single\s+red(?:\s+flag)?|red\s+flag|high\s+hazard|high\s+surf\s+(?:and/or|and|or)\s+currents?|yellow\s+flag|medium\s+hazard|moderate\s+hazard|moderate\s+surf\s+(?:and/or|and|or)\s+currents?|green\s+flag|low\s+hazard|calm\s+conditions(?:\s*,?\s*exercise\s+caution)?|purple\s+flag|dangerous\s+marine\s+life)\b",
+    r"\b(?:water\s+closed(?:\s+to\s+(?:the\s+)?public)?|double\s+red(?:\s+flag)?|two\s+red\s+flags?|single\s+red(?:\s+flag)?|red\s+flag|high\s+hazard|high\s+surf\s+(?:and/or|and|or)\s+currents?|yellow\s+flag|medium\s+hazard|moderate\s+hazard|moderate\s+surf\s+(?:and/or|and|or)\s+currents?|green\s+flag|low\s+hazard|calm\s+conditions(?:\s*,?\s*exercise\s+caution)?|purple\s+flag|dangerous\s+marine\s+life|red|yellow|green|purple)\b",
     re.I,
 )
 CURRENT_LINE = re.compile(
@@ -83,12 +83,10 @@ def state_from_current_text(text: str) -> tuple[FloridaFlagState, str | None]:
     evidence: list[str] = []
     for match in CURRENT_LINE.finditer(compact):
         segment = match.group(1)
-        # Stop at likely section/legend boundaries before interpreting the phrase.
         segment = re.split(r"\b(?:flag meanings?|warning flag system|what do the flags mean|legend)\b", segment, maxsplit=1, flags=re.I)[0]
         terms = list(TERM_PATTERN.finditer(segment))
         if not terms:
             continue
-        # A current status line can legitimately contain a primary flag plus Purple.
         for term in terms[:2]:
             parsed = interpret_florida_flag_terms(term.group(0))
             if parsed.primary or parsed.purple:
@@ -136,8 +134,6 @@ def state_from_record(record: object) -> tuple[FloridaFlagState, str | None]:
 
 
 def state_from_structured(obj: object, beach_names: list[str]) -> tuple[FloridaFlagState, str | None]:
-    # Only inspect the branch that actually names the target beach. This prevents
-    # a serialized educational flag legend from becoming a current status.
     if not beach_names or not contains_beach(obj, beach_names):
         return FloridaFlagState(), None
     if isinstance(obj, list):
@@ -225,7 +221,10 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
             if verified.primary and verified.purple:
                 break
 
-    final_state = merge_states(existing, verified)
+    # A fresh, explicitly current status from an official source takes priority
+    # over an older cached or secondary-republication primary flag. Existing Purple
+    # remains additive if the fresh page does not mention marine life.
+    final_state = merge_states(verified, existing)
     before = json.dumps(payload, sort_keys=True, default=str)
     payload["flag"] = final_state.primary
     payload["primary_flag"] = final_state.primary
