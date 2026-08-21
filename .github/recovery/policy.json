@@ -44,8 +44,13 @@
       "heartbeat_path": "data/okaloosa-island/current_flag.json",
       "heartbeat_field": "last_verified_at",
       "trigger_path": ".github/recovery/western.trigger",
-      "overdue_minutes": 1800,
-      "cooldown_minutes": 360,
+      "overdue_minutes": 180,
+      "cooldown_minutes": 240,
+      "active_window": {
+        "timezone": "America/Chicago",
+        "start_hour": 7,
+        "end_hour": 21
+      },
       "workflow": "Update western Gulf data"
     }
   }
