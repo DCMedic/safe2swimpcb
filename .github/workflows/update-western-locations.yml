@@ -55,27 +55,47 @@ jobs:
             previous="tmp/western-before/${slug}.json"
             current="data/${slug}/current_flag.json"
             if [[ -f "$previous" && -f "$current" ]]; then
-              python scripts/protect_current_flag.py --previous "$previous" --current "$current" --max-age-hours 3 --mode missing-flag
+              python scripts/protect_current_flag.py \
+                --previous "$previous" \
+                --current "$current" \
+                --max-age-hours 3 \
+                --mode missing-flag
             fi
           done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py okaloosa-island navarre-beach pensacola-beach
       - name: Preserve dedicated Destin current-condition ownership
-        run: git restore data/destin/current_flag.json
+        run: |
+          # update_western_locations.py also refreshes Destin's historical/environmental
+          # datasets. The dedicated Destin poller alone owns current_flag.json.
+          git restore data/destin/current_flag.json
       - name: Commit refreshed western Gulf data
         run: |
-          owned_paths=(data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)
+          owned_paths=(
+            data/destin
+            data/okaloosa-island
+            data/navarre-beach
+            data/pensacola-beach
+            data/western
+          )
+
           if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
             echo "No western Gulf data changes to commit."; exit 0
           fi
+
           git config user.name "knowthegulf-data-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -- "${owned_paths[@]}"
+
+          # current_flag.json was restored above and therefore cannot enter this
+          # commit. Fail closed if any other tracked change escaped the ownership set;
+          # otherwise a later git pull --rebase would reject the dirty worktree.
           if [[ -n "$(git status --porcelain --untracked-files=no | grep -v '^.. data/destin/current_flag.json$' | grep '^ [MADRCU?]' || true)" ]]; then
             echo "Western collector left unstaged tracked changes outside its ownership set:" >&2
             git status --short >&2
             exit 1
           fi
+
           git commit -m "data: refresh western Gulf beaches"
           for attempt in 1 2 3; do
             if git pull --rebase && git push; then exit 0; fi
