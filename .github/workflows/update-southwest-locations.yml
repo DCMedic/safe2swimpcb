@@ -90,7 +90,11 @@ jobs:
               previous="tmp/southwest-before/${slug}-${name}.json"
               current="data/${slug}/${name}.json"
               if [[ -f "$previous" && -f "$current" ]]; then
-                python scripts/protect_current_flag.py --previous "$previous" --current "$current" --max-age-hours 18 --mode missing-flag
+                python scripts/protect_current_flag.py \
+                  --previous "$previous" \
+                  --current "$current" \
+                  --max-age-hours 18 \
+                  --mode missing-flag
               fi
             done
           done
@@ -100,7 +104,11 @@ jobs:
               previous="tmp/southwest-before/${slug}-${name}.json"
               current="data/${slug}/${name}.json"
               if [[ -f "$previous" && -f "$current" ]]; then
-                python scripts/protect_current_flag.py --previous "$previous" --current "$current" --max-age-hours 18 --mode unavailable
+                python scripts/protect_current_flag.py \
+                  --previous "$previous" \
+                  --current "$current" \
+                  --max-age-hours 18 \
+                  --mode unavailable
               fi
             done
           done
