@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/update-eastern-panhandle.yml'
+      - '.github/recovery/eastern.trigger'
       - 'scripts/update_eastern_panhandle.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
