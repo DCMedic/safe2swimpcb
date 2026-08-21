@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/poll-destin-flag.yml'
+      - '.github/recovery/destin.trigger'
       - 'scripts/update_destin_current.py'
       - 'scripts/collector_resilience.py'
       - 'scripts/common.py'

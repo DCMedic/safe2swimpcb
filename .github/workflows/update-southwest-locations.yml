@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/update-southwest-locations.yml'
+      - '.github/recovery/southwest.trigger'
       - 'scripts/update_southwest_locations.py'
       - 'scripts/update_southwest_location.py'
       - 'scripts/collector_resilience.py'

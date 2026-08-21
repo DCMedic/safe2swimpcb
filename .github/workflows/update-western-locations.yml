@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/update-western-locations.yml'
+      - '.github/recovery/western.trigger'
       - 'scripts/update_western_locations.py'
       - 'scripts/collector_resilience.py'
       - 'scripts/protect_current_flag.py'

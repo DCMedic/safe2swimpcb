@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "repository": "DCMedic/safe2swimpcb",
+  "purpose": "Independent recovery policy for missed or delayed GitHub Actions schedules. Normal cron remains primary; an external watchdog updates only the overdue lane's trigger file.",
+  "lanes": {
+    "pcb": {
+      "heartbeat_path": "data/current_flag.json",
+      "heartbeat_field": "last_verified_at",
+      "trigger_path": ".github/recovery/pcb.trigger",
+      "overdue_minutes": 90,
+      "cooldown_minutes": 120,
+      "active_window": {
+        "timezone": "America/Chicago",
+        "start_hour": 6,
+        "end_hour": 23
+      },
+      "workflow": "Poll current PCB beach flag"
+    },
+    "destin": {
+      "heartbeat_path": "data/destin/current_flag.json",
+      "heartbeat_field": "last_verified_at",
+      "trigger_path": ".github/recovery/destin.trigger",
+      "overdue_minutes": 100,
+      "cooldown_minutes": 120,
+      "workflow": "Poll current Destin beach flag"
+    },
+    "eastern": {
+      "heartbeat_path": "data/franklin-county/current_flag.json",
+      "heartbeat_field": "last_verified_at",
+      "trigger_path": ".github/recovery/eastern.trigger",
+      "overdue_minutes": 110,
+      "cooldown_minutes": 150,
+      "workflow": "Update eastern Panhandle flags"
+    },
+    "southwest": {
+      "heartbeat_path": "data/anna-maria-island/current_flag.json",
+      "heartbeat_field": "last_verified_at",
+      "trigger_path": ".github/recovery/southwest.trigger",
+      "overdue_minutes": 110,
+      "cooldown_minutes": 150,
+      "workflow": "Update Southwest Florida locations"
+    },
+    "western": {
+      "heartbeat_path": "data/okaloosa-island/current_flag.json",
+      "heartbeat_field": "last_verified_at",
+      "trigger_path": ".github/recovery/western.trigger",
+      "overdue_minutes": 1800,
+      "cooldown_minutes": 360,
+      "workflow": "Update western Gulf data"
+    }
+  }
+}

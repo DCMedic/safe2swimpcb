@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/poll-current-flag.yml'
+      - '.github/recovery/pcb.trigger'
       - 'scripts/update_current_flag.py'
       - 'scripts/collector_resilience.py'
       - 'scripts/florida_flag_terms.py'
