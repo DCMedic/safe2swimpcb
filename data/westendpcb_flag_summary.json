@@ -3,39 +3,31 @@
   "source_url": "https://www.westendpcb.com/site-map/",
   "live_site_map_status": "loaded",
   "source_characterization": "Independent local/community site. Its current flag page says condition updates are posted when Beach & Surf Patrol sends a text, but it is not an official government archive.",
-  "all_explicitly_dated_flag_posts": 761,
+  "all_explicitly_dated_flag_posts": 81,
   "first_post_date": "2010-07-06",
-  "last_post_date": "2026-08-04",
+  "last_post_date": "2018-12-27",
   "posts_by_year": {
-    "2010": 39,
+    "2010": 36,
     "2011": 1,
-    "2016": 13,
-    "2017": 17,
-    "2018": 24,
-    "2019": 42,
-    "2020": 72,
-    "2021": 94,
-    "2022": 83,
-    "2023": 99,
-    "2024": 127,
-    "2025": 89,
-    "2026": 61
+    "2016": 11,
+    "2017": 11,
+    "2018": 22
   },
-  "pre2017_candidate_posts": 53,
+  "pre2017_candidate_posts": 48,
   "pre2017_candidate_days": 48,
   "pre2017_start": "2010-07-06",
   "pre2017_end": "2016-12-18",
   "pre2017_flag_counts": {
-    "Yellow": 35,
-    "Single Red": 14,
-    "Double Red": 4
+    "Yellow": 34,
+    "Single Red": 11,
+    "Double Red": 3
   },
   "overlap_audit": {
-    "overlap_posts": 596,
-    "base_match_posts": 525,
-    "base_match_pct": 88.09,
-    "exact_label_match_pct": 85.4
+    "overlap_posts": 1,
+    "base_match_posts": 1,
+    "base_match_pct": 100.0,
+    "exact_label_match_pct": 100.0
   },
   "policy": "These records are preserved as a separately auditable community-mirror candidate tier. They do not overwrite or automatically extend primary/NWS recovered Safe2Swim labels.",
-  "updated_at_utc": "2026-08-15T09:41:28.536085+00:00"
+  "updated_at_utc": "2026-08-22T09:43:42.001828+00:00"
 }
