@@ -1,17 +1,17 @@
 {
-  "primary_flag_days": 2211,
-  "nws_explicit_bay_flag_days": 2183,
-  "overlap_days": 2183,
+  "primary_flag_days": 2218,
+  "nws_explicit_bay_flag_days": 2190,
+  "overlap_days": 2190,
   "candidate_additional_days_not_in_primary": 0,
   "candidate_days_before_primary_archive": 0,
   "earliest_primary_date": "2017-08-30",
   "earliest_nws_flag_date": "2017-08-30",
-  "latest_nws_flag_date": "2026-08-16",
+  "latest_nws_flag_date": "2026-08-23",
   "latest_flag_agreement_pct": 99.54,
   "peak_flag_agreement_pct": 99.63,
   "any_flag_agreement_pct": 99.86,
   "latest_mismatch_days": 10,
   "peak_mismatch_days": 8,
   "method": "Primary ALERTBAY/PCBFLAGS observations are compared with explicit Bay flag reports recovered from NWS Tallahassee SRFTAE products. Latest and peak status are compared per calendar date; no recovered records are merged by this audit.",
-  "updated_at_utc": "2026-08-17T10:15:42.516128+00:00"
+  "updated_at_utc": "2026-08-24T10:22:01.358159+00:00"
 }
