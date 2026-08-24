@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
+import io
 import json
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -12,8 +13,8 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 HEALTH_PATH = ROOT / "data" / "x_publisher_health.json"
-ENGINE = ROOT / "scripts" / "x_content_engine.py"
 TZ = ZoneInfo("America/Chicago")
+MAX_POST_LENGTH = 280
 
 
 def parse_args() -> tuple[argparse.Namespace, list[str]]:
@@ -28,6 +29,36 @@ def parse_args() -> tuple[argparse.Namespace, list[str]]:
         forwarded.extend(["--force-slot", known.force_slot])
     forwarded.extend(unknown)
     return known, forwarded
+
+
+def _trim_words(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    if limit <= 1:
+        return text[:limit]
+    clipped = text[: limit - 1].rstrip()
+    if " " in clipped:
+        clipped = clipped.rsplit(" ", 1)[0].rstrip()
+    return clipped + "…"
+
+
+def fit_post(text: str, kind: str = "", contains_url: bool = False) -> str:
+    """Compact generated text to X's 280-character limit without breaking URLs."""
+    if len(text) <= MAX_POST_LENGTH:
+        return text
+
+    if contains_url and " → " in text:
+        prefix, url = text.rsplit(" → ", 1)
+        suffix = f" → {url}"
+        if len(suffix) < MAX_POST_LENGTH:
+            return _trim_words(prefix, MAX_POST_LENGTH - len(suffix)) + suffix
+
+    if kind == "flag-change":
+        suffix = " Follow locally posted flags and lifeguard instructions."
+        base = text.split(". Follow", 1)[0].rstrip(" .")
+        return _trim_words(base, MAX_POST_LENGTH - len(suffix)) + suffix
+
+    return _trim_words(text, MAX_POST_LENGTH)
 
 
 def classify(returncode: int, stdout: str, stderr: str) -> tuple[str, str | None]:
@@ -68,18 +99,62 @@ def write_health(now: datetime, publish: bool, slot: str | None, returncode: int
     HEALTH_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def run_engine(forwarded: list[str]) -> tuple[int, str, str]:
+    import x_content_engine as engine
+
+    original_choose = engine.choose_candidate
+    original_fresh_flag = engine.fresh_flag
+
+    def safe_fresh_flag(path, now):
+        result = original_fresh_flag(path, now)
+        if not result:
+            return None
+        label = str(result.get("label", "")).strip().lower()
+        if "unavailable" in label or label.startswith("official flag status"):
+            return None
+        return result
+
+    def safe_choose(state, now, forced):
+        candidate = original_choose(state, now, forced)
+        if candidate:
+            candidate.text = fit_post(candidate.text, candidate.kind, candidate.contains_url)
+        return candidate
+
+    engine.fresh_flag = safe_fresh_flag
+    engine.choose_candidate = safe_choose
+
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+    old_argv = sys.argv[:]
+    sys.argv = [str(Path(engine.__file__)), *forwarded]
+    try:
+        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            try:
+                returncode = int(engine.main() or 0)
+            except SystemExit as exc:
+                returncode = int(exc.code or 0)
+            except Exception as exc:
+                print(f"ERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
+                returncode = 1
+    finally:
+        sys.argv = old_argv
+        engine.choose_candidate = original_choose
+        engine.fresh_flag = original_fresh_flag
+    return returncode, stdout.getvalue(), stderr.getvalue()
+
+
 def main() -> int:
     args, forwarded = parse_args()
     now = datetime.now(TZ)
-    proc = subprocess.run([sys.executable, str(ENGINE), *forwarded], cwd=ROOT, text=True, capture_output=True)
-    if proc.stdout:
-        print(proc.stdout, end="")
-    if proc.stderr:
-        print(proc.stderr, end="", file=sys.stderr)
-    outcome, detail = classify(proc.returncode, proc.stdout, proc.stderr)
-    write_health(now, args.publish, args.force_slot, proc.returncode, outcome, detail)
+    returncode, stdout, stderr = run_engine(forwarded)
+    if stdout:
+        print(stdout, end="")
+    if stderr:
+        print(stderr, end="", file=sys.stderr)
+    outcome, detail = classify(returncode, stdout, stderr)
+    write_health(now, args.publish, args.force_slot, returncode, outcome, detail)
     print(f"PUBLISHER_HEALTH={outcome}")
-    return proc.returncode
+    return returncode
 
 
 if __name__ == "__main__":
