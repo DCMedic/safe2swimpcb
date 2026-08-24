@@ -1,10 +1,10 @@
 {
-  "exit_code": 1,
+  "exit_code": 0,
   "forced_slot": null,
-  "last_evaluated_at": "2026-08-24T15:51:30.151854-05:00",
+  "last_evaluated_at": "2026-08-24T15:52:56.925742-05:00",
   "last_failure_at": "2026-08-24T15:51:30.151854-05:00",
-  "last_outcome": "failed",
-  "last_outcome_detail": "ERROR: generated post exceeds 280 characters (332)",
+  "last_outcome": "dry_run",
+  "last_outcome_detail": null,
   "last_published_at": "2026-08-23T08:50:58.681338-05:00",
   "publish_requested": false,
   "version": 1
