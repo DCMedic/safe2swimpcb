@@ -18,7 +18,9 @@ on:
   push:
     paths:
       - '.github/workflows/x-production-publisher.yml'
+      - '.github/recovery/x.trigger'
       - 'scripts/x_content_engine.py'
+      - 'scripts/run_x_publisher.py'
       - 'scripts/post_to_x.py'
       - 'scripts/generate_x_condition_card.py'
       - 'scripts/fetch_x_environment.py'
@@ -70,7 +72,7 @@ jobs:
           PY
       - name: Validate publisher code
         run: |
-          python -m py_compile scripts/post_to_x.py scripts/x_content_engine.py scripts/generate_x_condition_card.py scripts/fetch_x_environment.py
+          python -m py_compile scripts/post_to_x.py scripts/x_content_engine.py scripts/run_x_publisher.py scripts/generate_x_condition_card.py scripts/fetch_x_environment.py
           python scripts/generate_x_condition_card.py --output tmp/x-condition-card-validation.png
           python - <<'PY'
           from PIL import Image
@@ -92,16 +94,19 @@ jobs:
           args=()
           if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then args+=(--publish); fi
           if [[ -n "$MANUAL_SLOT" && "$MANUAL_SLOT" != "auto" ]]; then args+=(--force-slot "$MANUAL_SLOT"); fi
-          python scripts/x_content_engine.py "${args[@]}"
-      - name: Persist publisher state
+          python scripts/run_x_publisher.py "${args[@]}"
+      - name: Persist publisher state and health
+        if: ${{ always() }}
         run: |
-          if [[ -z "$(git status --porcelain data/x_posting_state.json)" ]]; then echo "No publisher state change to persist."; exit 0; fi
+          paths=(data/x_posting_state.json data/x_publisher_health.json)
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then echo "No publisher state or health change to persist."; exit 0; fi
           git config user.name "knowthegulf-x-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/x_posting_state.json
+          git add -- "${paths[@]}"
           git commit -m "data: update X publisher state"
           for attempt in 1 2 3; do
             if git pull --rebase && git push; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
             if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist X publisher state after 3 attempts." >&2; exit 1; fi
             sleep $((attempt * 5))
           done
