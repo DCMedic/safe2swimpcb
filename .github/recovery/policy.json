@@ -52,6 +52,19 @@
         "end_hour": 21
       },
       "workflow": "Update western Gulf data"
+    },
+    "x": {
+      "heartbeat_path": "data/x_publisher_health.json",
+      "heartbeat_field": "last_evaluated_at",
+      "trigger_path": ".github/recovery/x.trigger",
+      "overdue_minutes": 300,
+      "cooldown_minutes": 360,
+      "active_window": {
+        "timezone": "America/Chicago",
+        "start_hour": 8,
+        "end_hour": 21
+      },
+      "workflow": "Publish Know the Gulf to X"
     }
   }
 }
