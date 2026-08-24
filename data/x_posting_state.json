@@ -1,6 +1,13 @@
 {
   "acquisition": {
     "campaigns": {
+      "ktg_destination_202608": {
+        "estimated_spend_usd": 0.2,
+        "landings": {
+          "Okaloosa Island": 1
+        },
+        "posts": 1
+      },
       "ktg_flags_202608": {
         "estimated_spend_usd": 0.2,
         "landings": {
@@ -16,7 +23,7 @@
         "posts": 1
       }
     },
-    "link_posts": 2
+    "link_posts": 3
   },
   "flag_state": {
     "Destin": "Double Red",
@@ -25,9 +32,9 @@
     "Panama City Beach": "Yellow",
     "Pensacola Beach": "Official flag status unavailable"
   },
-  "last_link_post_at": "2026-08-21T18:44:45.593296-05:00",
-  "last_posted_at": "2026-08-23T08:50:58.681338-05:00",
-  "lifetime_estimated_spend_usd": 0.61,
+  "last_link_post_at": "2026-08-24T15:54:41.557358-05:00",
+  "last_posted_at": "2026-08-24T15:54:41.557358-05:00",
+  "lifetime_estimated_spend_usd": 0.81,
   "recent_fingerprints": [
     "cbf77fef1cd79abb",
     "8362194d7e6e1b08",
@@ -43,9 +50,10 @@
     "a713ee1be9d78ba3",
     "acf7bc79ae6af194",
     "964118351198680d",
-    "5b77825678cb036e"
+    "5b77825678cb036e",
+    "e86aba47666cb3b2"
   ],
-  "sequence": 15,
+  "sequence": 16,
   "usage": {
     "2026-08": {
       "days": {
@@ -56,11 +64,12 @@
         "2026-08-20": 2,
         "2026-08-21": 2,
         "2026-08-22": 2,
-        "2026-08-23": 1
+        "2026-08-23": 1,
+        "2026-08-24": 1
       },
-      "estimated_spend_usd": 0.61,
-      "posts": 16,
-      "url_posts": 2
+      "estimated_spend_usd": 0.81,
+      "posts": 17,
+      "url_posts": 3
     }
   },
   "version": 1
