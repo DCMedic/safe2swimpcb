@@ -1,4 +1,4 @@
-from scripts.run_x_publisher import classify
+from scripts.run_x_publisher import classify, fit_post
 
 
 def test_classifies_published_run():
@@ -23,3 +23,18 @@ def test_classifies_api_failure_with_diagnostic_tail():
     outcome, detail = classify(1, "", "WARNING: media upload failed\nRuntimeError: X API returned HTTP 429")
     assert outcome == "failed"
     assert detail == "RuntimeError: X API returned HTTP 429"
+
+
+def test_compacts_long_flag_change_and_preserves_safety_instruction():
+    text = "⚠️ NORTHWEST FLORIDA FLAG CHANGES — " + ("Panama City Beach: Official flag status unavailable → Double Red; " * 6) + "Follow locally posted flags and lifeguard instructions."
+    compact = fit_post(text, kind="flag-change")
+    assert len(compact) <= 280
+    assert compact.endswith("Follow locally posted flags and lifeguard instructions.")
+
+
+def test_compacts_url_post_without_breaking_url():
+    url = "https://knowthegulf.com/rip-current-safety/?utm_source=x&utm_medium=social&utm_campaign=test&utm_content=rotation_1"
+    text = ("A very long acquisition hook about Gulf safety and preparation. " * 8).strip() + " → " + url
+    compact = fit_post(text, kind="acquisition", contains_url=True)
+    assert len(compact) <= 280
+    assert compact.endswith(url)
