@@ -17,6 +17,10 @@
     ['/marco-island/', 'Marco Island']
   ];
   const normalizedPath=()=>{let p=window.location.pathname||'/';if(!p.endsWith('/'))p+='/';return p.replace(/\/+/g,'/');};
+  function ensureSearchIntent(){
+    if(document.querySelector('script[data-ktg-search-intent]'))return;
+    const s=document.createElement('script');s.src='/assets/search-intent.js';s.defer=true;s.dataset.ktgSearchIntent='true';document.head.appendChild(s);
+  }
   function renderBeachNav(){
     const shell=document.querySelector('main.shell');if(!shell)return;
     let nav=document.querySelector('.location-switcher');
@@ -28,7 +32,7 @@
     const select=document.createElement('select');select.id='ktg-location-select';select.className='location-select';select.setAttribute('aria-label','Choose a Florida Gulf Coast beach');
     LOCATIONS.forEach(([href,name])=>{const option=document.createElement('option');option.value=href;option.textContent=name;if(current===href)option.selected=true;select.appendChild(option);});
     select.addEventListener('change',()=>{const target=select.value;if(target&&target!==current)window.location.assign(target);});
-    wrap.appendChild(select);nav.appendChild(label);nav.appendChild(wrap);
+    wrap.appendChild(select);nav.appendChild(label);nav.appendChild(wrap);ensureSearchIntent();
   }
   window.KTGBeachNav=renderBeachNav;if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',renderBeachNav,{once:true});else renderBeachNav();
 })();
