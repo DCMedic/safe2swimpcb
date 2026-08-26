@@ -3,6 +3,7 @@ name: Refresh measured NOAA and storm history
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/history-enrichment.yml'
       - 'scripts/update_ndbc_measured.py'
