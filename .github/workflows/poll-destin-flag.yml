@@ -47,37 +47,4 @@ jobs:
         run: python scripts/apply_florida_flag_terms.py destin
       - name: Commit Destin flag heartbeat
         shell: bash
-        run: |
-          git config user.name "knowthegulf-data-bot"
-          git config user.email "actions@users.noreply.github.com"
-
-          for attempt in 1 2 3; do
-            # Always rebuild the heartbeat from the latest main branch. This avoids
-            # replaying a conflicting current_flag.json commit when another writer
-            # advances main between checkout and persistence.
-            git fetch origin main
-            git reset --hard origin/main
-
-            python scripts/update_destin_current.py
-            python scripts/apply_florida_flag_terms.py destin
-
-            if [[ -z "$(git status --porcelain -- data/destin/current_flag.json)" ]]; then
-              echo "Destin heartbeat already current on main."
-              exit 0
-            fi
-
-            git add -- data/destin/current_flag.json
-            git commit -m "data: refresh Destin beach flag"
-
-            if git push origin HEAD:main; then
-              exit 0
-            fi
-
-            if [[ "$attempt" -eq 3 ]]; then
-              echo "Failed to persist Destin flag after 3 fresh-base attempts." >&2
-              exit 1
-            fi
-
-            echo "Main advanced during Destin persistence; rebuilding from latest main (attempt $((attempt + 1))/3)."
-            sleep $((attempt * 5))
-          done
+        run: bash scripts/persist_paths.sh "data: refresh Destin beach flag" data/destin/current_flag.json
