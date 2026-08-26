@@ -22,7 +22,7 @@
       "role": "offshore_wave_meteorology",
       "first_observation": "1995-12-12",
       "last_observation": "2026-08-26",
-      "observations_processed": 420018,
+      "observations_processed": 420016,
       "days": 9602,
       "historical_url_pattern": "https://www.ndbc.noaa.gov/data/historical/stdmet/42039hYYYY.txt.gz",
       "recent_url": "https://www.ndbc.noaa.gov/data/realtime2/42039.txt"
@@ -32,5 +32,5 @@
   "raw_observation_policy": "Timestamp-level raw measurements remain at NOAA/NDBC and are not mirrored into the GitHub repository. Safe2Swim processes them in memory and publishes daily derived measured features with source metadata.",
   "units_note": "Published daily derived fields use mph, feet, degrees F, seconds, and millibars. Raw NDBC source observations are SI where applicable.",
   "quality_note": "Historical annual files are NDBC quality-controlled archives. Recent realtime2 values have undergone NDBC gross error checking only and should remain contextual until archived.",
-  "updated_at_utc": "2026-08-26T22:11:05.885505+00:00"
+  "updated_at_utc": "2026-08-26T22:12:29.145720+00:00"
 }
