@@ -3,6 +3,7 @@ name: Backfill NWS Surf Zone history
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/backfill-nws-history.yml'
       - 'scripts/backfill_nws_srf.py'
@@ -27,6 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
