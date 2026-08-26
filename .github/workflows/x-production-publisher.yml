@@ -16,6 +16,7 @@ on:
         options: [auto, morning, afternoon, evening]
         default: auto
   push:
+    branches: [main]
     paths:
       - '.github/workflows/x-production-publisher.yml'
       - '.github/recovery/x.trigger'
@@ -41,7 +42,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with: {fetch-depth: 0}
+        with: {ref: main, fetch-depth: 0}
       - name: Set up Python
         uses: actions/setup-python@v6
         with: {python-version: '3.12'}
