@@ -15,7 +15,7 @@ on:
       - 'tests/test_destin_flag_parser.py'
       - 'tests/test_collector_resilience.py'
   schedule:
-    - cron: '27 * * * *'
+    - cron: '27,57 * * * *'
 
 permissions:
   contents: write
