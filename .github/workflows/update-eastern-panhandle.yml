@@ -12,7 +12,7 @@ on:
       - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_eastern_panhandle_flags.py'
   schedule:
-    - cron: '12 * * * *'
+    - cron: '12,42 * * * *'
 
 permissions:
   contents: write
