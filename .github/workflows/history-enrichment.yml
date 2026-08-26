@@ -75,12 +75,7 @@ jobs:
         run: |
           rm -f data/ndbc_measured_observations.csv
           if [[ -n "$(git status --porcelain data/)" ]]; then
-            git config user.name "knowthegulf-data-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git add data/
-            git commit -m "data: refresh measured NOAA, cyclone, and historical flag research"
-            git pull --rebase
-            git push
+            bash scripts/persist_paths.sh "data: refresh measured NOAA, cyclone, and historical flag research" data/
           else
             echo "No historical-enrichment changes to commit."
           fi
