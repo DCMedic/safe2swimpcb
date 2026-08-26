@@ -16,7 +16,7 @@ on:
       - 'tests/test_collector_resilience.py'
       - 'tests/test_southwest_sources.py'
   schedule:
-    - cron: '22 * * * *'
+    - cron: '22,52 * * * *'
 
 permissions:
   contents: write
