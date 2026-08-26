@@ -75,12 +75,7 @@ jobs:
       - name: Commit extended historical dataset
         run: |
           if [[ -n "$(git status --porcelain data/)" ]]; then
-            git config user.name "knowthegulf-data-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git add data/
-            git commit -m "data: extend PCB flag history with audited NWS recovery"
-            git pull --rebase
-            git push
+            bash scripts/persist_paths.sh "data: extend PCB flag history with audited NWS recovery" data/
           else
             echo "No extended historical-data changes to commit."
           fi
