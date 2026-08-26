@@ -101,13 +101,6 @@ jobs:
         run: |
           paths=(data/x_posting_state.json data/x_publisher_health.json)
           if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then echo "No publisher state or health change to persist."; exit 0; fi
-          git config user.name "knowthegulf-x-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add -- "${paths[@]}"
-          git commit -m "data: update X publisher state"
-          for attempt in 1 2 3; do
-            if git pull --rebase && git push; then exit 0; fi
-            git rebase --abort 2>/dev/null || true
-            if [[ "$attempt" -eq 3 ]]; then echo "Failed to persist X publisher state after 3 attempts." >&2; exit 1; fi
-            sleep $((attempt * 5))
-          done
+          GIT_PERSIST_USER_NAME="knowthegulf-x-bot" \
+          GIT_PERSIST_USER_EMAIL="actions@users.noreply.github.com" \
+            bash scripts/persist_paths.sh "data: update X publisher state" "${paths[@]}"
