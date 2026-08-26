@@ -39,8 +39,10 @@ jobs:
           for f in assets/app.js assets/menu.js assets/beach-nav.js assets/site-ui.js assets/western-location.js assets/eastern-location.js assets/southwest-location.js assets/location-page.js; do
             node --check "$f"
           done
-      - name: Validate Python entry points
-        run: python -m compileall -q scripts
+      - name: Validate Python and persistence entry points
+        run: |
+          python -m compileall -q scripts
+          bash -n scripts/persist_paths.sh
       - name: Run repository test suite
         run: pytest -q
       - name: Build standardized deployment HTML
