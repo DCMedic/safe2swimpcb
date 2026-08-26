@@ -47,4 +47,5 @@ jobs:
         run: python scripts/apply_florida_flag_terms.py destin
       - name: Commit Destin flag heartbeat
         shell: bash
-        run: bash scripts/persist_paths.sh "data: refresh Destin beach flag" data/destin/current_flag.json
+        run: |
+          bash scripts/persist_paths.sh "data: refresh Destin beach flag" data/destin/current_flag.json
