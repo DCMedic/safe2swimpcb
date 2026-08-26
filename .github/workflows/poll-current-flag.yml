@@ -54,51 +54,13 @@ jobs:
         id: commit_data
         shell: bash
         run: |
-          set -euo pipefail
           owned_paths=(data/current_flag.json data/flag_observations_auto.csv)
-
           if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          git config user.name "knowthegulf-data-bot"
-          git config user.email "actions@users.noreply.github.com"
-
-          for attempt in 1 2 3; do
-            if [[ "$attempt" -gt 1 ]]; then
-              # A concurrent repository writer may have advanced main after this
-              # run checked out. Rebuild the live heartbeat from the newest base
-              # instead of rebasing a stale generated JSON/CSV commit.
-              git fetch origin main
-              git reset --hard origin/main
-              python scripts/update_current_flag.py
-              python scripts/apply_florida_flag_terms.py pcb
-              python scripts/validate_data.py
-            fi
-
-            git add -- "${owned_paths[@]}"
-
-            if git diff --cached --quiet; then
-              echo "A newer main already contains an equivalent PCB refresh."
-              echo "changed=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-
-            git commit -m "data: refresh PCB beach flag"
-
-            if git push origin HEAD:main; then
-              echo "changed=true" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-
-            if [[ "$attempt" -eq 3 ]]; then
-              echo "Failed to persist PCB flag after 3 fresh-base attempts." >&2
-              exit 1
-            fi
-
-            sleep $((attempt * 5))
-          done
+          bash scripts/persist_paths.sh "data: refresh PCB beach flag" "${owned_paths[@]}"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
 
       # Derived daily/master research tables are rebuilt by the dedicated
       # research/history workflows, not by the latency-sensitive heartbeat poll.
