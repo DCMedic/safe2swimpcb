@@ -15,11 +15,17 @@ on:
   schedule:
     - cron: '7,37 6-22 * * *'
       timezone: 'America/Chicago'
+
 permissions:
   contents: write
+
+# Current-condition polling is latency-sensitive and owns only the live PCB
+# heartbeat plus its append-only automatic observation log. Keep it out of
+# the long-running research/history serialization lane.
 concurrency:
-  group: knowthegulf-core-data-write
+  group: knowthegulf-pcb-current-write
   cancel-in-progress: false
+
 jobs:
   poll:
     runs-on: ubuntu-latest
@@ -41,29 +47,58 @@ jobs:
         run: python scripts/update_current_flag.py
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py pcb
-      - run: python scripts/build_daily_flags.py
-      - run: python scripts/validate_data.py
-      - name: Commit status changes or verification heartbeat
+      - name: Validate repository data contract
+        run: python scripts/validate_data.py
+      - name: Commit PCB current condition and verification heartbeat
         id: commit_data
+        shell: bash
         run: |
-          if [[ -n "$(git status --porcelain data/current_flag.json data/flag_observations_auto.csv data/flag_daily_master.csv data/flag_daily_master.json data/flag_observations_master.csv data/flag_observations_master.json data/flag_summary.json)" ]]; then
-            git config user.name "knowthegulf-data-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git add data/current_flag.json data/flag_observations_auto.csv data/flag_daily_master.csv data/flag_daily_master.json data/flag_observations_master.csv data/flag_observations_master.json data/flag_summary.json
+          set -euo pipefail
+          owned_paths=(data/current_flag.json data/flag_observations_auto.csv)
+
+          if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "knowthegulf-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            if [[ "$attempt" -gt 1 ]]; then
+              # A concurrent repository writer may have advanced main after this
+              # run checked out. Rebuild the live heartbeat from the newest base
+              # instead of rebasing a stale generated JSON/CSV commit.
+              git fetch origin main
+              git reset --hard origin/main
+              python scripts/update_current_flag.py
+              python scripts/apply_florida_flag_terms.py pcb
+              python scripts/validate_data.py
+            fi
+
+            git add -- "${owned_paths[@]}"
+
+            if git diff --cached --quiet; then
+              echo "A newer main already contains an equivalent PCB refresh."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
             git commit -m "data: refresh PCB beach flag"
 
-            for attempt in 1 2 3; do
-              if git pull --rebase && git push; then
-                echo "changed=true" >> "$GITHUB_OUTPUT"
-                exit 0
-              fi
-              git rebase --abort 2>/dev/null || true
-              if [[ "$attempt" -eq 3 ]]; then
-                echo "Failed to persist PCB flag after 3 attempts." >&2
-                exit 1
-              fi
-              sleep $((attempt * 5))
-            done
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          fi
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            if [[ "$attempt" -eq 3 ]]; then
+              echo "Failed to persist PCB flag after 3 fresh-base attempts." >&2
+              exit 1
+            fi
+
+            sleep $((attempt * 5))
+          done
+
+      # Derived daily/master research tables are rebuilt by the dedicated
+      # research/history workflows, not by the latency-sensitive heartbeat poll.
+      # Pages deployment remains centralized in deploy-pages.yml.
