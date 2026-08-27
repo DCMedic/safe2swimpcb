@@ -44,7 +44,7 @@ def test_active_normal_run_suppresses_duplicate_recovery():
 
 def test_recent_dispatch_honors_cooldown():
     now = datetime(2026, 8, 27, 3, 0, tzinfo=timezone.utc)
-    runs = [{"id": 43, "event": "workflow_dispatch", "status": "completed", "created_at": "2026-08-27T02:30:00Z"}]
+    runs = [{"id": 43, "event": "workflow_dispatch", "status": "completed", "conclusion": "success", "created_at": "2026-08-27T02:30:00Z"}]
     reason = recovery_suppression_reason(runs, 120, 90, now)
     assert "within 120m cooldown" in reason
 
