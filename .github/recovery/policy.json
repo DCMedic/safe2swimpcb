@@ -1,70 +1,80 @@
 {
-  "version": 1,
+  "version": 2,
   "repository": "DCMedic/safe2swimpcb",
-  "purpose": "Independent recovery policy for missed or delayed GitHub Actions schedules. Normal cron remains primary; an external watchdog updates only the overdue lane's trigger file.",
+  "purpose": "Layered recovery policy for missed or delayed GitHub Actions schedules. The in-repository recovery controller dispatches overdue workflows directly; an external watchdog may still update only the overdue lane's trigger file as an independent fallback.",
   "lanes": {
     "pcb": {
       "heartbeat_path": "data/current_flag.json",
       "heartbeat_field": "last_verified_at",
       "trigger_path": ".github/recovery/pcb.trigger",
+      "workflow": "Poll current PCB beach flag",
+      "workflow_path": ".github/workflows/poll-current-flag.yml",
       "overdue_minutes": 90,
       "cooldown_minutes": 120,
       "active_window": {
         "timezone": "America/Chicago",
         "start_hour": 6,
         "end_hour": 23
-      },
-      "workflow": "Poll current PCB beach flag"
+      }
     },
     "destin": {
       "heartbeat_path": "data/destin/current_flag.json",
       "heartbeat_field": "last_verified_at",
       "trigger_path": ".github/recovery/destin.trigger",
+      "workflow": "Poll current Destin beach flag",
+      "workflow_path": ".github/workflows/poll-destin-flag.yml",
       "overdue_minutes": 100,
-      "cooldown_minutes": 120,
-      "workflow": "Poll current Destin beach flag"
+      "cooldown_minutes": 120
     },
     "eastern": {
       "heartbeat_path": "data/franklin-county/current_flag.json",
       "heartbeat_field": "last_verified_at",
       "trigger_path": ".github/recovery/eastern.trigger",
+      "workflow": "Update eastern Panhandle flags",
+      "workflow_path": ".github/workflows/update-eastern-panhandle.yml",
       "overdue_minutes": 110,
-      "cooldown_minutes": 150,
-      "workflow": "Update eastern Panhandle flags"
+      "cooldown_minutes": 150
     },
     "southwest": {
       "heartbeat_path": "data/anna-maria-island/current_flag.json",
       "heartbeat_field": "last_verified_at",
       "trigger_path": ".github/recovery/southwest.trigger",
+      "workflow": "Update Southwest Florida locations",
+      "workflow_path": ".github/workflows/update-southwest-locations.yml",
       "overdue_minutes": 110,
-      "cooldown_minutes": 150,
-      "workflow": "Update Southwest Florida locations"
+      "cooldown_minutes": 150
     },
     "western": {
       "heartbeat_path": "data/okaloosa-island/current_flag.json",
       "heartbeat_field": "last_verified_at",
       "trigger_path": ".github/recovery/western.trigger",
+      "workflow": "Update western Gulf data",
+      "workflow_path": ".github/workflows/update-western-locations.yml",
       "overdue_minutes": 180,
       "cooldown_minutes": 240,
       "active_window": {
         "timezone": "America/Chicago",
         "start_hour": 7,
         "end_hour": 21
-      },
-      "workflow": "Update western Gulf data"
+      }
     },
     "x": {
       "heartbeat_path": "data/x_publisher_health.json",
       "heartbeat_field": "last_evaluated_at",
       "trigger_path": ".github/recovery/x.trigger",
+      "workflow": "Publish Know the Gulf to X",
+      "workflow_path": ".github/workflows/x-production-publisher.yml",
+      "dispatch_inputs": {
+        "mode": "publish",
+        "slot": "auto"
+      },
       "overdue_minutes": 300,
       "cooldown_minutes": 360,
       "active_window": {
         "timezone": "America/Chicago",
         "start_hour": 8,
         "end_hour": 21
-      },
-      "workflow": "Publish Know the Gulf to X"
+      }
     }
   }
 }
