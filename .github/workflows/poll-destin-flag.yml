@@ -20,8 +20,12 @@ on:
 permissions:
   contents: write
 
+# Destin owns a separate current-condition heartbeat. It must never share a
+# concurrency group with the broader western collector: GitHub allows only one
+# running and one pending run per group, and a newer pending run can replace an
+# older pending run even when cancel-in-progress is false.
 concurrency:
-  group: knowthegulf-western-data-write
+  group: knowthegulf-destin-current-write
   cancel-in-progress: false
 
 jobs:

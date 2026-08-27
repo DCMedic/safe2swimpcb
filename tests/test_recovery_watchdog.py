@@ -7,6 +7,7 @@ from scripts.recovery_watchdog import (
     heartbeat_timestamp,
     in_active_window,
     recovery_suppression_reason,
+    split_active_runs,
 )
 
 
@@ -41,6 +42,31 @@ def test_active_normal_run_suppresses_duplicate_recovery():
     runs = [{"id": 42, "event": "schedule", "status": "in_progress", "created_at": "2026-08-27T02:59:00Z"}]
     reason = recovery_suppression_reason(runs, 120, 90, now)
     assert "already in_progress" in reason
+
+
+def test_stuck_active_run_does_not_suppress_recovery_forever():
+    now = datetime(2026, 8, 27, 3, 0, tzinfo=timezone.utc)
+    runs = [{"id": 420, "event": "schedule", "status": "queued", "created_at": "2026-08-27T01:00:00Z"}]
+    reason = recovery_suppression_reason(
+        runs,
+        120,
+        90,
+        now,
+        stuck_run_minutes=25,
+    )
+    assert reason is None
+
+
+def test_split_active_runs_marks_old_queued_run_stuck():
+    now = datetime(2026, 8, 27, 3, 0, tzinfo=timezone.utc)
+    runs = [
+        {"id": 421, "event": "schedule", "status": "queued", "created_at": "2026-08-27T01:00:00Z"},
+        {"id": 422, "event": "schedule", "status": "in_progress", "created_at": "2026-08-27T02:55:00Z"},
+        {"id": 423, "event": "schedule", "status": "completed", "created_at": "2026-08-27T02:00:00Z"},
+    ]
+    recent, stuck = split_active_runs(runs, 25, now)
+    assert [run["id"] for run in recent] == [422]
+    assert [run["id"] for run in stuck] == [421]
 
 
 def test_recent_dispatch_honors_cooldown():

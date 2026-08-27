@@ -33,6 +33,9 @@ def validate() -> list[str]:
             errors.append(f"{lane}: workflow lacks workflow_dispatch recovery entry point")
         if cfg["trigger_path"] not in text:
             errors.append(f"{lane}: workflow does not listen for configured trigger path")
+        stuck_run_minutes = cfg.get("stuck_run_minutes")
+        if not isinstance(stuck_run_minutes, int) or stuck_run_minutes <= 0:
+            errors.append(f"{lane}: recovery policy lacks a positive stuck_run_minutes bound")
 
     # Overnight-paused lanes must allow their first normal schedule to run before
     # recovery becomes active, otherwise every morning begins with a false recovery.
@@ -53,6 +56,23 @@ def validate() -> list[str]:
             errors.append(f"recovery controller redundantly subscribes to {noisy}")
     if "actions: write" not in recovery or "contents: read" not in recovery:
         errors.append("recovery controller permissions are not least-privilege read/actions-write")
+
+    latency_groups: dict[str, str] = {}
+    for lane in ("pcb", "destin", "eastern", "southwest", "western"):
+        cfg = policy["lanes"][lane]
+        workflow = ROOT / cfg["workflow_path"]
+        text = workflow.read_text(encoding="utf-8")
+        group_match = re.search(r"(?m)^\s*group:\s*([^\n]+)$", text)
+        if not group_match:
+            errors.append(f"{lane}: latency-sensitive workflow lacks a concurrency group")
+            continue
+        group = group_match.group(1).strip()
+        if group in latency_groups:
+            errors.append(
+                f"{lane}: shares latency-sensitive concurrency group {group} with "
+                f"{latency_groups[group]}; GitHub may replace pending runs"
+            )
+        latency_groups[group] = lane
 
     research_groups: dict[str, str] = {}
     for path in WORKFLOWS.glob("*.yml"):
