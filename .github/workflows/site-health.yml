@@ -14,6 +14,7 @@ on:
       - 'sitemap.xml'
       - 'requirements.txt'
       - '.github/workflows/**'
+      - '.github/recovery/**'
 
 permissions:
   contents: read
@@ -39,10 +40,11 @@ jobs:
           for f in assets/app.js assets/menu.js assets/beach-nav.js assets/site-ui.js assets/western-location.js assets/eastern-location.js assets/southwest-location.js assets/location-page.js; do
             node --check "$f"
           done
-      - name: Validate Python and persistence entry points
+      - name: Validate Python, persistence and workflow architecture
         run: |
           python -m compileall -q scripts
           bash -n scripts/persist_paths.sh
+          python scripts/validate_workflows.py
       - name: Run repository test suite
         run: pytest -q
       - name: Build standardized deployment HTML

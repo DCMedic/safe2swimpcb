@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -95,6 +96,9 @@ def validate_json(errors: list[str]) -> None:
         except Exception as exc:
             fail(f"invalid JSON {p.relative_to(ROOT)}: {exc}", errors)
     current_files = [ROOT / "data/current_flag.json"] + list((ROOT / "data").glob("*/current_flag.json"))
+    valid_flags = {None, "Green", "Yellow", "Single Red", "Double Red"}
+    severity = {"Green": 1, "Yellow": 2, "Single Red": 3, "Double Red": 4}
+    now = datetime.now(timezone.utc)
     for p in current_files:
         if not p.exists():
             continue
@@ -102,6 +106,46 @@ def validate_json(errors: list[str]) -> None:
         for key in ("label", "source_name", "source_url", "stale_after_hours"):
             if key not in d:
                 fail(f"{p.relative_to(ROOT)} missing current-status key: {key}", errors)
+
+        flag = d.get("flag")
+        if flag not in valid_flags:
+            fail(f"{p.relative_to(ROOT)} has invalid Florida flag value: {flag!r}", errors)
+        if flag is None and d.get("severity") is not None:
+            fail(f"{p.relative_to(ROOT)} has severity without an explicit flag", errors)
+        if flag in severity and d.get("severity") is not None and d.get("severity") != severity[flag]:
+            fail(f"{p.relative_to(ROOT)} severity contradicts flag {flag}", errors)
+
+        primary = d.get("primary_flag")
+        if primary is not None and flag is not None and primary != flag:
+            fail(f"{p.relative_to(ROOT)} primary_flag contradicts flag", errors)
+
+        try:
+            stale_hours = float(d.get("stale_after_hours"))
+            if stale_hours < 0:
+                raise ValueError
+        except (TypeError, ValueError):
+            fail(f"{p.relative_to(ROOT)} has invalid stale_after_hours", errors)
+
+        source_url = str(d.get("source_url") or "")
+        if source_url and not source_url.startswith(("https://", "http://")):
+            fail(f"{p.relative_to(ROOT)} has invalid source_url", errors)
+
+        verified = d.get("last_verified_at")
+        if not verified:
+            fail(f"{p.relative_to(ROOT)} missing last_verified_at", errors)
+        else:
+            try:
+                stamp = datetime.fromisoformat(str(verified).replace("Z", "+00:00"))
+                if stamp.tzinfo is None:
+                    raise ValueError("timezone required")
+                if stamp.astimezone(timezone.utc) > now + timedelta(minutes=15):
+                    fail(f"{p.relative_to(ROOT)} last_verified_at is implausibly in the future", errors)
+            except ValueError:
+                fail(f"{p.relative_to(ROOT)} has invalid last_verified_at", errors)
+
+        label = str(d.get("label") or "").lower()
+        if flag is None and d.get("source_check_status") == "verified" and "unavailable" in label:
+            fail(f"{p.relative_to(ROOT)} claims verified source while flag is unavailable", errors)
 
 
 def main() -> int:

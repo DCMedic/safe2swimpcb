@@ -6,10 +6,12 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/backfill-nws-history.yml'
+      - '.github/recovery/nws_backfill.trigger'
       - 'scripts/backfill_nws_srf.py'
       - 'scripts/audit_nws_flag_recovery.py'
       - 'scripts/promote_nws_recovered_flags.py'
       - 'scripts/build_daily_flags.py'
+      - 'scripts/write_workflow_health.py'
       - 'tests/test_nws_srf_parser.py'
   schedule:
     - cron: '41 4 * * 1'
@@ -25,12 +27,13 @@ concurrency:
 jobs:
   backfill:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -72,12 +75,33 @@ jobs:
           git restore data/environmental_daily.csv data/model_training.csv data/model_metrics.json || true
           echo "Historical flags were recovered successfully; environmental enrichment will retry during the normal daily refresh."
 
-      - name: Commit extended historical dataset
+      - name: Record NWS backfill success heartbeat
+        run: python scripts/write_workflow_health.py --workflow "Backfill NWS Surf Zone history" --output data/workflow_health/nws_backfill.json
+
+      - name: Commit only NWS-history owned paths
         run: |
-          if [[ -n "$(git status --porcelain data/)" ]]; then
-            bash scripts/persist_paths.sh "data: extend PCB flag history with audited NWS recovery" data/
-          else
-            echo "No extended historical-data changes to commit."
+          owned_paths=(
+            data/nws_srf_observations.csv
+            data/nws_srf_daily.csv
+            data/nws_flag_recovery.csv
+            data/nws_srf_summary.json
+            data/nws_flag_overlap_audit.csv
+            data/nws_flag_overlap_audit.json
+            data/flag_observations_recovered.csv
+            data/flag_recovery_summary.json
+            data/flag_observations_master.csv
+            data/flag_observations_master.json
+            data/flag_daily_master.csv
+            data/flag_daily_master.json
+            data/flag_summary.json
+            data/environmental_daily.csv
+            data/model_training.csv
+            data/model_metrics.json
+            data/workflow_health/nws_backfill.json
+          )
+          if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
+            echo "No extended historical-data changes to commit."; exit 0
           fi
+          bash scripts/persist_paths.sh "data: extend PCB flag history with audited NWS recovery" "${owned_paths[@]}"
 
       # Pages deployment is intentionally centralized in deploy-pages.yml.

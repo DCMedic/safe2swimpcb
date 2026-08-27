@@ -319,8 +319,24 @@ def discover_client_flag(s: requests.Session, source_url: str, beach_names: list
     return None, None, first_status, source_ok, diagnostics
 
 
+def verification_times(previous: dict, now: datetime, source_ok: bool) -> tuple[str | None, str]:
+    """Advance verification only when the official conditions source was reachable."""
+    verified = now.isoformat() if source_ok else previous.get("last_verified_at")
+    return verified, now.isoformat()
+
+
+def load_previous_flag(slug: str) -> dict:
+    path = DATA / slug / "current_flag.json"
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    return value if isinstance(value, dict) else {}
+
+
 def collect(slug: str, cfg: dict) -> dict:
     now = datetime.now(TZ)
+    previous = load_previous_flag(slug)
     s = session()
     flag, evidence, http_status, source_ok, diagnostics = discover_client_flag(s, cfg["source_url"], cfg["beaches"])
     if flag:
@@ -335,6 +351,7 @@ def collect(slug: str, cfg: dict) -> dict:
         status = "official_conditions_source_unavailable"
         label = "Official current conditions unavailable"
         provenance = "unavailable"
+    last_verified_at, last_checked_at = verification_times(previous, now, source_ok)
     return {
         "location": cfg["name"],
         "county": cfg["county"],
@@ -344,7 +361,9 @@ def collect(slug: str, cfg: dict) -> dict:
         "severity": FLAG_SEVERITY.get(flag),
         "status": status,
         "provenance_tier": provenance,
-        "last_verified_at": now.isoformat(),
+        "last_verified_at": last_verified_at,
+        "last_checked_at": last_checked_at,
+        "source_check_status": "verified" if source_ok else "unavailable",
         "source_name": cfg["source_system"],
         "source_url": cfg["source_url"],
         "official_authority": cfg["authority"],

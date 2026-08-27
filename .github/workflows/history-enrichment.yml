@@ -6,11 +6,13 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/history-enrichment.yml'
+      - '.github/recovery/history_enrichment.trigger'
       - 'scripts/update_ndbc_measured.py'
       - 'scripts/update_tropical_cyclones.py'
       - 'scripts/hunt_pre2017_flags.py'
       - 'scripts/backfill_westendpcb_flags.py'
       - 'scripts/build_model_dataset.py'
+      - 'scripts/write_workflow_health.py'
       - 'tests/test_history_enrichment.py'
   schedule:
     - cron: '17 4 * * 6'
@@ -29,13 +31,13 @@ jobs:
     timeout-minutes: 35
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -71,13 +73,32 @@ jobs:
           pytest -q
           node --check assets/app.js
 
-      - name: Commit historical enrichment
+      - name: Record history-enrichment success heartbeat
+        run: python scripts/write_workflow_health.py --workflow "Refresh measured NOAA and storm history" --output data/workflow_health/history_enrichment.json
+
+      - name: Commit only historical-enrichment owned paths
         run: |
           rm -f data/ndbc_measured_observations.csv
-          if [[ -n "$(git status --porcelain data/)" ]]; then
-            bash scripts/persist_paths.sh "data: refresh measured NOAA, cyclone, and historical flag research" data/
-          else
-            echo "No historical-enrichment changes to commit."
+          owned_paths=(
+            data/ndbc_measured_daily.csv
+            data/ndbc_measured_summary.json
+            data/tropical_cyclone_track_points_near_pcb.csv
+            data/tropical_cyclone_events_near_pcb.csv
+            data/tropical_cyclone_daily.csv
+            data/tropical_cyclone_summary.json
+            data/westendpcb_flag_posts.csv
+            data/pre2017_westendpcb_candidates.csv
+            data/westendpcb_flag_overlap_audit.csv
+            data/westendpcb_flag_summary.json
+            data/pre2017_flag_candidates.csv
+            data/pre2017_flag_hunt_summary.json
+            data/model_training.csv
+            data/model_metrics.json
+            data/workflow_health/history_enrichment.json
+          )
+          if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
+            echo "No historical-enrichment changes to commit."; exit 0
           fi
+          bash scripts/persist_paths.sh "data: refresh measured NOAA, cyclone, and historical flag research" "${owned_paths[@]}"
 
       # Pages deployment is intentionally centralized in deploy-pages.yml.

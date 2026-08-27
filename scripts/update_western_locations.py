@@ -101,17 +101,32 @@ def parse_destin_flag(html):
     return HAZARD_TO_FLAG[m.group(1).lower()]
 def verified_direct(cfg):
     r=session().get(cfg['official'],timeout=30);r.raise_for_status();return parse_hazard_flag(r.text)
+def verification_times(previous,now,flag):
+    checked=now.isoformat()
+    return (checked if flag else previous.get('last_verified_at')),checked
 def current_file(outdir,slug,cfg,destin_flag=None):
-    now=now_local();flag=None;method='';source_url=cfg['official'];source_name=cfg['authority']
+    now=now_local();flag=None;method='';source_url=cfg['official'];source_name=cfg['authority'];source_ok=False
+    try:
+        previous=json.loads((outdir/'current_flag.json').read_text(encoding='utf-8'))
+        if not isinstance(previous,dict):previous={}
+    except (FileNotFoundError,json.JSONDecodeError):
+        previous={}
     if slug=='destin':
-        flag=destin_flag or verified_direct(cfg);method='Scheduled direct official current-condition snapshot'
+        if destin_flag:
+            flag=destin_flag;source_ok=True
+        else:
+            try:flag=verified_direct(cfg);source_ok=True
+            except Exception:flag=None
+        method='Scheduled direct official current-condition snapshot'
     elif slug=='okaloosa-island' and destin_flag:
-        flag=destin_flag;method='Synchronized Destin-Fort Walton Beach warning flag; Okaloosa County, City of Destin and Henderson Beach State Park use a common flag selection';source_name='Okaloosa County Beach Safety / Destin Fire Control District'
+        flag=destin_flag;source_ok=True;method='Synchronized Destin-Fort Walton Beach warning flag; Okaloosa County, City of Destin and Henderson Beach State Park use a common flag selection';source_name='Okaloosa County Beach Safety / Destin Fire Control District'
     else:
-        try: flag=verified_direct(cfg)
-        except Exception: flag=None
+        try:flag=verified_direct(cfg);source_ok=True
+        except Exception:flag=None
         method='Scheduled direct official page snapshot; accepts only an explicit Low/Medium/Moderate/High Hazard or Water Closed status'
-    payload={'flag':flag,'label':flag if flag else 'Official flag status unavailable','severity':FLAG_SEVERITY.get(flag),'last_verified_at':now.isoformat(),'source_name':source_name,'source_url':source_url,'official_authority':cfg['authority'],'official_authority_url':cfg['official'],'method':method,'stale_after_hours':3 if flag else 0}
+    last_verified_at,last_checked_at=verification_times(previous,now,flag)
+    source_check_status='verified' if flag else 'degraded' if source_ok else 'unavailable'
+    payload={'flag':flag,'label':flag if flag else 'Official flag status unavailable','severity':FLAG_SEVERITY.get(flag),'last_verified_at':last_verified_at,'last_checked_at':last_checked_at,'source_check_status':source_check_status,'source_name':source_name,'source_url':source_url,'official_authority':cfg['authority'],'official_authority_url':cfg['official'],'method':method,'stale_after_hours':3 if flag else 0}
     (outdir/'current_flag.json').write_text(json.dumps(payload,indent=2)+'\n')
 def summarize(outdir,cfg,daily,env):
     merged=daily.merge(env,on='date',how='left') if not env.empty else daily.copy();merged.to_csv(outdir/'history_daily.csv',index=False);merged.to_json(outdir/'history_daily.json',orient='records');n=len(daily);high=int((daily.rip_current_risk=='High').sum());mod=int(daily.rip_current_risk.isin(['Moderate','High']).sum());(outdir/'summary.json').write_text(json.dumps({'start':str(daily.date.min()),'end':str(daily.date.max()),'days_with_data':n,'high_rip_days':high,'high_rip_pct':round(100*high/n,1) if n else None,'moderate_or_worse_days':mod,'moderate_or_worse_pct':round(100*mod/n,1) if n else None,'source':f"NWS Mobile/Pensacola SRFMOB + Open-Meteo ERA5/ERA5-Ocean + NOAA CO-OPS {cfg['station']} {cfg['tide_name']}",'updated_at':now_local().isoformat()},indent=2)+'\n')

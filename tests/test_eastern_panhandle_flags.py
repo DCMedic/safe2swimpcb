@@ -8,6 +8,7 @@ from scripts.update_eastern_panhandle import (
     parse_franklin_updated,
     parse_nws_flag_table,
     parse_nws_issued,
+    verification_state,
 )
 
 
@@ -115,3 +116,31 @@ def test_freshness_age_is_timezone_safe():
     source = datetime(2026, 8, 18, 12, 0, tzinfo=EASTERN)
     now = datetime(2026, 8, 18, 17, 30, tzinfo=EASTERN)
     assert hours_old(source, now) == 5.5
+
+
+def test_eastern_unavailable_output_does_not_advance_verification():
+    now = datetime(2026, 8, 27, 10, 0, tzinfo=EASTERN)
+    previous = {"last_verified_at": "2026-08-27T08:00:00-04:00"}
+    verified, checked, status = verification_state(
+        previous, now, None, cached=False, nws_flag=None, nws_fresh=False
+    )
+    assert verified == previous["last_verified_at"]
+    assert checked == now.isoformat()
+    assert status == "unavailable"
+
+
+def test_cached_franklin_advances_only_when_fresh_nws_corroborates():
+    now = datetime(2026, 8, 27, 10, 0, tzinfo=EASTERN)
+    previous = {"last_verified_at": "2026-08-27T08:00:00-04:00"}
+
+    verified, _, status = verification_state(
+        previous, now, "Yellow", cached=True, nws_flag="Yellow", nws_fresh=True
+    )
+    assert verified == now.isoformat()
+    assert status == "verified"
+
+    verified, _, status = verification_state(
+        previous, now, "Yellow", cached=True, nws_flag="Red", nws_fresh=True
+    )
+    assert verified == previous["last_verified_at"]
+    assert status == "degraded"
