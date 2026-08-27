@@ -6,11 +6,13 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/history-enrichment.yml'
+      - '.github/recovery/history_enrichment.trigger'
       - 'scripts/update_ndbc_measured.py'
       - 'scripts/update_tropical_cyclones.py'
       - 'scripts/hunt_pre2017_flags.py'
       - 'scripts/backfill_westendpcb_flags.py'
       - 'scripts/build_model_dataset.py'
+      - 'scripts/write_workflow_health.py'
       - 'tests/test_history_enrichment.py'
   schedule:
     - cron: '17 4 * * 6'
@@ -71,6 +73,9 @@ jobs:
           pytest -q
           node --check assets/app.js
 
+      - name: Record history-enrichment success heartbeat
+        run: python scripts/write_workflow_health.py --workflow "Refresh measured NOAA and storm history" --output data/workflow_health/history_enrichment.json
+
       - name: Commit only historical-enrichment owned paths
         run: |
           rm -f data/ndbc_measured_observations.csv
@@ -89,6 +94,7 @@ jobs:
             data/pre2017_flag_hunt_summary.json
             data/model_training.csv
             data/model_metrics.json
+            data/workflow_health/history_enrichment.json
           )
           if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
             echo "No historical-enrichment changes to commit."; exit 0
