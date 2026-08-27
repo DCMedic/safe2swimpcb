@@ -12,31 +12,35 @@ HEALTH_PATH = ROOT / "data" / "x_publisher_health.json"
 TZ = ZoneInfo("America/Chicago")
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--detail", required=True)
-    parser.add_argument("--publish-requested", action="store_true")
-    args = parser.parse_args()
-
+def write_failure(detail: str, publish_requested: bool, now: datetime | None = None) -> dict:
     previous = {}
     try:
         previous = json.loads(HEALTH_PATH.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
         pass
 
-    now = datetime.now(TZ)
+    now = now or datetime.now(TZ)
     payload = {
         "version": 1,
         "last_evaluated_at": now.isoformat(),
         "last_outcome": "failed",
-        "last_outcome_detail": args.detail[:1000],
-        "publish_requested": args.publish_requested,
+        "last_outcome_detail": detail[:1000],
+        "publish_requested": publish_requested,
         "forced_slot": previous.get("forced_slot"),
         "exit_code": 1,
         "last_published_at": previous.get("last_published_at"),
         "last_failure_at": now.isoformat(),
     }
     HEALTH_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return payload
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--detail", required=True)
+    parser.add_argument("--publish-requested", action="store_true")
+    args = parser.parse_args()
+    write_failure(args.detail, args.publish_requested)
     print("PUBLISHER_HEALTH=failed")
     return 0
 
