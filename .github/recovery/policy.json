@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "repository": "DCMedic/safe2swimpcb",
   "purpose": "Layered recovery policy for missed or delayed GitHub Actions schedules. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly, while external trigger-file pushes remain an independent fallback. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
   "lanes": {
@@ -81,6 +81,51 @@
         "end_hour": 21
       },
       "failure_retry_minutes": 90
+    },
+    "daily_research": {
+      "heartbeat_path": "data/workflow_health/daily_research.json",
+      "heartbeat_field": "last_success_at",
+      "trigger_path": ".github/recovery/daily_research.trigger",
+      "workflow": "Refresh Know the Gulf research dataset",
+      "workflow_path": ".github/workflows/daily-refresh.yml",
+      "overdue_minutes": 1500,
+      "cooldown_minutes": 180,
+      "failure_retry_minutes": 90,
+      "active_window": {
+        "timezone": "America/Chicago",
+        "start_hour": 7,
+        "end_hour": 23
+      }
+    },
+    "history_enrichment": {
+      "heartbeat_path": "data/workflow_health/history_enrichment.json",
+      "heartbeat_field": "last_success_at",
+      "trigger_path": ".github/recovery/history_enrichment.trigger",
+      "workflow": "Refresh measured NOAA and storm history",
+      "workflow_path": ".github/workflows/history-enrichment.yml",
+      "overdue_minutes": 11520,
+      "cooldown_minutes": 720,
+      "failure_retry_minutes": 180,
+      "active_window": {
+        "timezone": "America/Chicago",
+        "start_hour": 7,
+        "end_hour": 23
+      }
+    },
+    "nws_backfill": {
+      "heartbeat_path": "data/workflow_health/nws_backfill.json",
+      "heartbeat_field": "last_success_at",
+      "trigger_path": ".github/recovery/nws_backfill.trigger",
+      "workflow": "Backfill NWS Surf Zone history",
+      "workflow_path": ".github/workflows/backfill-nws-history.yml",
+      "overdue_minutes": 11520,
+      "cooldown_minutes": 720,
+      "failure_retry_minutes": 180,
+      "active_window": {
+        "timezone": "America/Chicago",
+        "start_hour": 7,
+        "end_hour": 23
+      }
     }
   }
 }
