@@ -5,15 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/history-enrichment.yml'
       - '.github/recovery/history_enrichment.trigger'
-      - 'scripts/update_ndbc_measured.py'
-      - 'scripts/update_tropical_cyclones.py'
-      - 'scripts/hunt_pre2017_flags.py'
-      - 'scripts/backfill_westendpcb_flags.py'
-      - 'scripts/build_model_dataset.py'
-      - 'scripts/write_workflow_health.py'
-      - 'tests/test_history_enrichment.py'
   schedule:
     - cron: '17 4 * * 6'
       timezone: 'America/Chicago'
@@ -22,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: knowthegulf-core-data-write
+  group: knowthegulf-history-enrichment-write
   cancel-in-progress: false
 
 jobs:
