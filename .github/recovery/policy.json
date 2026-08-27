@@ -1,7 +1,7 @@
 {
-  "version": 4,
+  "version": 5,
   "repository": "DCMedic/safe2swimpcb",
-  "purpose": "Layered recovery policy for missed or delayed GitHub Actions schedules. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly, while external trigger-file pushes remain an independent fallback. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
+  "purpose": "Layered recovery policy for missed, delayed, or stuck GitHub Actions runs. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly, cancels stale queued/in-progress runs that would otherwise suppress recovery indefinitely, while external trigger-file pushes remain an independent fallback. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
   "lanes": {
     "pcb": {
       "heartbeat_path": "data/current_flag.json",
@@ -11,6 +11,7 @@
       "workflow_path": ".github/workflows/poll-current-flag.yml",
       "overdue_minutes": 90,
       "cooldown_minutes": 120,
+      "stuck_run_minutes": 25,
       "active_window": {
         "timezone": "America/Chicago",
         "start_hour": 7,
@@ -26,6 +27,7 @@
       "workflow_path": ".github/workflows/poll-destin-flag.yml",
       "overdue_minutes": 100,
       "cooldown_minutes": 120,
+      "stuck_run_minutes": 25,
       "failure_retry_minutes": 90
     },
     "eastern": {
@@ -36,6 +38,7 @@
       "workflow_path": ".github/workflows/update-eastern-panhandle.yml",
       "overdue_minutes": 110,
       "cooldown_minutes": 150,
+      "stuck_run_minutes": 45,
       "failure_retry_minutes": 90
     },
     "southwest": {
@@ -46,6 +49,7 @@
       "workflow_path": ".github/workflows/update-southwest-locations.yml",
       "overdue_minutes": 110,
       "cooldown_minutes": 150,
+      "stuck_run_minutes": 45,
       "failure_retry_minutes": 90
     },
     "western": {
@@ -56,6 +60,7 @@
       "workflow_path": ".github/workflows/update-western-locations.yml",
       "overdue_minutes": 180,
       "cooldown_minutes": 240,
+      "stuck_run_minutes": 75,
       "active_window": {
         "timezone": "America/Chicago",
         "start_hour": 8,
@@ -75,6 +80,7 @@
       },
       "overdue_minutes": 300,
       "cooldown_minutes": 360,
+      "stuck_run_minutes": 45,
       "active_window": {
         "timezone": "America/Chicago",
         "start_hour": 9,
@@ -90,6 +96,7 @@
       "workflow_path": ".github/workflows/daily-refresh.yml",
       "overdue_minutes": 1500,
       "cooldown_minutes": 180,
+      "stuck_run_minutes": 120,
       "failure_retry_minutes": 90,
       "active_window": {
         "timezone": "America/Chicago",
@@ -105,6 +112,7 @@
       "workflow_path": ".github/workflows/history-enrichment.yml",
       "overdue_minutes": 11520,
       "cooldown_minutes": 720,
+      "stuck_run_minutes": 120,
       "failure_retry_minutes": 180,
       "active_window": {
         "timezone": "America/Chicago",
@@ -120,6 +128,7 @@
       "workflow_path": ".github/workflows/backfill-nws-history.yml",
       "overdue_minutes": 11520,
       "cooldown_minutes": 720,
+      "stuck_run_minutes": 120,
       "failure_retry_minutes": 180,
       "active_window": {
         "timezone": "America/Chicago",
