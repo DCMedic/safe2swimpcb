@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_POLICY = ROOT / ".github" / "recovery" / "policy.json"
+ACTIVE_RUN_STATES = {"queued", "in_progress", "waiting", "requested", "pending"}
 
 
 def parse_time(value: str) -> datetime:
@@ -58,21 +59,35 @@ def github_json(url: str, token: str) -> dict:
         return json.loads(response.read().decode("utf-8"))
 
 
-def recent_dispatch_exists(repo: str, workflow_path: str, cooldown_minutes: int, now: datetime, token: str) -> bool:
-    encoded = urllib.parse.quote(workflow_path, safe="")
-    url = (
-        f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/runs"
-        "?event=workflow_dispatch&per_page=10"
-    )
-    data = github_json(url, token)
-    for run in data.get("workflow_runs", []):
+def recovery_suppression_reason(runs: list[dict], cooldown_minutes: int, now: datetime) -> str | None:
+    for run in runs:
+        if run.get("status") in ACTIVE_RUN_STATES:
+            return f"workflow run {run.get('id', 'unknown')} already {run.get('status')}"
+
+    for run in runs:
+        if run.get("event") != "workflow_dispatch":
+            continue
         created = run.get("created_at")
         if not created:
             continue
         age = (now - parse_time(created).astimezone(now.tzinfo)).total_seconds() / 60.0
         if 0 <= age < cooldown_minutes:
-            return True
-    return False
+            return f"recovery dispatch {run.get('id', 'unknown')} is {age:.1f}m old within {cooldown_minutes}m cooldown"
+
+    return None
+
+
+def workflow_recovery_suppression(
+    repo: str,
+    workflow_path: str,
+    cooldown_minutes: int,
+    now: datetime,
+    token: str,
+) -> str | None:
+    encoded = urllib.parse.quote(workflow_path, safe="")
+    url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/runs?per_page=20"
+    data = github_json(url, token)
+    return recovery_suppression_reason(data.get("workflow_runs", []), cooldown_minutes, now)
 
 
 def dispatch_workflow(repo: str, workflow_path: str, inputs: dict, token: str) -> None:
@@ -130,8 +145,9 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
 
         cooldown = int(cfg.get("cooldown_minutes", 120))
         try:
-            if recent_dispatch_exists(repo, workflow_path, cooldown, now, token):
-                print(f"{lane}: stale age={age_text}; recovery dispatch already within {cooldown}m cooldown")
+            suppression = workflow_recovery_suppression(repo, workflow_path, cooldown, now, token)
+            if suppression:
+                print(f"{lane}: stale age={age_text}; recovery suppressed because {suppression}")
                 continue
             dispatch_workflow(repo, workflow_path, cfg.get("dispatch_inputs", {}), token)
             print(f"{lane}: stale age={age_text}; dispatched {workflow_path}")
