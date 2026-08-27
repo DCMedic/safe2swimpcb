@@ -1,0 +1,4 @@
+lane=history_enrichment
+requested_at=seed
+requested_by=repository-bootstrap
+reason=initial trigger placeholder
