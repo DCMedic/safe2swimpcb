@@ -12,12 +12,13 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -27,12 +28,21 @@ jobs:
       - run: python scripts/build_model_dataset.py
       - run: python scripts/validate_data.py
       - run: pytest -q
-      - name: Commit finalized/provisional research data
+      - name: Commit only daily-research owned paths
         run: |
-          if [[ -n "$(git status --porcelain data/)" ]]; then
-            bash scripts/persist_paths.sh "data: daily weather wave tide and model refresh" data/
-          else
-            echo "No research-data changes to commit."
+          owned_paths=(
+            data/flag_observations_master.csv
+            data/flag_observations_master.json
+            data/flag_daily_master.csv
+            data/flag_daily_master.json
+            data/flag_summary.json
+            data/environmental_daily.csv
+            data/model_training.csv
+            data/model_metrics.json
+          )
+          if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
+            echo "No research-data changes to commit."; exit 0
           fi
+          bash scripts/persist_paths.sh "data: daily weather wave tide and model refresh" "${owned_paths[@]}"
 
       # Pages deployment is intentionally centralized in deploy-pages.yml.
