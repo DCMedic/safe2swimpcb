@@ -34,15 +34,22 @@ def in_active_window(now: datetime, window: dict | None) -> bool:
     return local.hour >= start or local.hour < end
 
 
-def heartbeat_age_minutes(path: Path, field: str, now: datetime) -> float | None:
+def heartbeat_timestamp(path: Path, field: str) -> datetime | None:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
         stamp = payload.get(field)
         if not stamp:
             return None
-        return (now - parse_time(stamp).astimezone(now.tzinfo)).total_seconds() / 60.0
+        return parse_time(str(stamp))
     except Exception:
         return None
+
+
+def heartbeat_age_minutes(path: Path, field: str, now: datetime) -> float | None:
+    stamp = heartbeat_timestamp(path, field)
+    if stamp is None:
+        return None
+    return (now - stamp.astimezone(now.tzinfo)).total_seconds() / 60.0
 
 
 def github_json(url: str, token: str) -> dict:
@@ -64,6 +71,7 @@ def recovery_suppression_reason(
     cooldown_minutes: int,
     failure_retry_minutes: int,
     now: datetime,
+    heartbeat_at: datetime | None = None,
 ) -> str | None:
     for run in runs:
         if run.get("status") in ACTIVE_RUN_STATES:
@@ -75,7 +83,13 @@ def recovery_suppression_reason(
         created = run.get("created_at")
         if not created:
             continue
-        age = (now - parse_time(created).astimezone(now.tzinfo)).total_seconds() / 60.0
+        created_at = parse_time(created)
+        if heartbeat_at is not None and created_at <= heartbeat_at:
+            # This dispatch belongs to an earlier stale episode that already
+            # self-healed. It must not suppress recovery if the heartbeat later
+            # becomes stale again.
+            continue
+        age = (now - created_at.astimezone(now.tzinfo)).total_seconds() / 60.0
         conclusion = run.get("conclusion")
         if conclusion == "success" and 0 <= age < cooldown_minutes:
             return f"successful recovery dispatch {run.get('id', 'unknown')} is {age:.1f}m old within {cooldown_minutes}m cooldown"
@@ -92,6 +106,7 @@ def workflow_recovery_suppression(
     failure_retry_minutes: int,
     now: datetime,
     token: str,
+    heartbeat_at: datetime | None = None,
 ) -> str | None:
     encoded = urllib.parse.quote(workflow_path, safe="")
     url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/runs?per_page=20"
@@ -101,6 +116,7 @@ def workflow_recovery_suppression(
         cooldown_minutes,
         failure_retry_minutes,
         now,
+        heartbeat_at,
     )
 
 
@@ -135,6 +151,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             continue
 
         heartbeat = ROOT / cfg["heartbeat_path"]
+        heartbeat_at = heartbeat_timestamp(heartbeat, cfg["heartbeat_field"])
         age = heartbeat_age_minutes(heartbeat, cfg["heartbeat_field"], now)
         overdue = int(cfg["overdue_minutes"])
         if age is not None and age <= overdue:
@@ -167,6 +184,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
                 failure_retry,
                 now,
                 token,
+                heartbeat_at,
             )
             if suppression:
                 print(f"{lane}: stale age={age_text}; recovery suppressed because {suppression}")
