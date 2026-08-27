@@ -4,21 +4,14 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/daily-refresh.yml'
       - '.github/recovery/daily_research.trigger'
-      - 'scripts/build_daily_flags.py'
-      - 'scripts/update_environment.py'
-      - 'scripts/build_model_dataset.py'
-      - 'scripts/write_workflow_health.py'
-      - 'scripts/validate_data.py'
-      - 'tests/**'
   schedule:
     - cron: '23 5 * * *'
       timezone: 'America/Chicago'
 permissions:
   contents: write
 concurrency:
-  group: knowthegulf-core-data-write
+  group: knowthegulf-daily-research-write
   cancel-in-progress: false
 jobs:
   refresh:
