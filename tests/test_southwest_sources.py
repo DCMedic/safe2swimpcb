@@ -1,8 +1,12 @@
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 from scripts.update_southwest_locations import (
     extract_explicit_flag,
     extract_explicit_flag_from_json,
     normalize_flag,
     urls_from_javascript,
+    verification_times,
 )
 
 
@@ -71,3 +75,18 @@ def test_javascript_datafetch_url_discovery():
     js = 'const endpoint="https://datafetch.visitbeaches.org/api/reports";'
     urls = urls_from_javascript(js)
     assert urls == ['https://datafetch.visitbeaches.org/api/reports']
+
+
+def test_source_failure_does_not_advance_verification_time():
+    now = datetime(2026, 8, 27, 10, 0, tzinfo=ZoneInfo("America/New_York"))
+    previous = {"last_verified_at": "2026-08-27T08:00:00-04:00"}
+    verified, checked = verification_times(previous, now, source_ok=False)
+    assert verified == previous["last_verified_at"]
+    assert checked == now.isoformat()
+
+
+def test_reachable_conditions_source_advances_verification_time_even_without_flag():
+    now = datetime(2026, 8, 27, 10, 0, tzinfo=ZoneInfo("America/New_York"))
+    verified, checked = verification_times({}, now, source_ok=True)
+    assert verified == now.isoformat()
+    assert checked == now.isoformat()
