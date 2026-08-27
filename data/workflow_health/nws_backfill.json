@@ -1,7 +1,10 @@
 {
-  "version": 1,
-  "workflow": "Backfill NWS Surf Zone history",
+  "event_name": "push",
+  "head_sha": "1c98714bffb2d245db187b6519ee55ddc00bcdae",
+  "last_success_at": "2026-08-27T16:00:43.690063+00:00",
+  "run_attempt": "1",
+  "run_id": "33090803940",
   "status": "success",
-  "last_success_at": "2026-08-26T22:14:10+00:00",
-  "seed_source": "latest successful data commit f46b10775a9adebc83fd7b27794139d0b028ac7e"
+  "version": 1,
+  "workflow": "Backfill NWS Surf Zone history"
 }
