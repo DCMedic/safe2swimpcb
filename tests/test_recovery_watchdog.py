@@ -2,7 +2,11 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 
-from scripts.recovery_watchdog import heartbeat_age_minutes, in_active_window
+from scripts.recovery_watchdog import (
+    heartbeat_age_minutes,
+    in_active_window,
+    recovery_suppression_reason,
+)
 
 
 def test_active_window_same_day():
@@ -29,3 +33,23 @@ def test_missing_heartbeat_field_is_unreadable(tmp_path: Path):
     path.write_text("{}", encoding="utf-8")
     now = datetime(2026, 8, 26, 18, 30, tzinfo=timezone.utc)
     assert heartbeat_age_minutes(path, "last_verified_at", now) is None
+
+
+def test_active_normal_run_suppresses_duplicate_recovery():
+    now = datetime(2026, 8, 27, 3, 0, tzinfo=timezone.utc)
+    runs = [{"id": 42, "event": "schedule", "status": "in_progress", "created_at": "2026-08-27T02:59:00Z"}]
+    reason = recovery_suppression_reason(runs, 120, now)
+    assert "already in_progress" in reason
+
+
+def test_recent_dispatch_honors_cooldown():
+    now = datetime(2026, 8, 27, 3, 0, tzinfo=timezone.utc)
+    runs = [{"id": 43, "event": "workflow_dispatch", "status": "completed", "created_at": "2026-08-27T02:30:00Z"}]
+    reason = recovery_suppression_reason(runs, 120, now)
+    assert "within 120m cooldown" in reason
+
+
+def test_old_completed_schedule_does_not_block_recovery():
+    now = datetime(2026, 8, 27, 3, 0, tzinfo=timezone.utc)
+    runs = [{"id": 44, "event": "schedule", "status": "completed", "created_at": "2026-08-27T00:00:00Z"}]
+    assert recovery_suppression_reason(runs, 120, now) is None
