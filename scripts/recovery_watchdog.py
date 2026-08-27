@@ -59,7 +59,12 @@ def github_json(url: str, token: str) -> dict:
         return json.loads(response.read().decode("utf-8"))
 
 
-def recovery_suppression_reason(runs: list[dict], cooldown_minutes: int, now: datetime) -> str | None:
+def recovery_suppression_reason(
+    runs: list[dict],
+    cooldown_minutes: int,
+    failure_retry_minutes: int,
+    now: datetime,
+) -> str | None:
     for run in runs:
         if run.get("status") in ACTIVE_RUN_STATES:
             return f"workflow run {run.get('id', 'unknown')} already {run.get('status')}"
@@ -71,8 +76,11 @@ def recovery_suppression_reason(runs: list[dict], cooldown_minutes: int, now: da
         if not created:
             continue
         age = (now - parse_time(created).astimezone(now.tzinfo)).total_seconds() / 60.0
-        if 0 <= age < cooldown_minutes:
-            return f"recovery dispatch {run.get('id', 'unknown')} is {age:.1f}m old within {cooldown_minutes}m cooldown"
+        conclusion = run.get("conclusion")
+        if conclusion == "success" and 0 <= age < cooldown_minutes:
+            return f"successful recovery dispatch {run.get('id', 'unknown')} is {age:.1f}m old within {cooldown_minutes}m cooldown"
+        if conclusion not in (None, "success") and 0 <= age < failure_retry_minutes:
+            return f"failed recovery dispatch {run.get('id', 'unknown')} is {age:.1f}m old within {failure_retry_minutes}m failure retry delay"
 
     return None
 
@@ -81,13 +89,19 @@ def workflow_recovery_suppression(
     repo: str,
     workflow_path: str,
     cooldown_minutes: int,
+    failure_retry_minutes: int,
     now: datetime,
     token: str,
 ) -> str | None:
     encoded = urllib.parse.quote(workflow_path, safe="")
     url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/runs?per_page=20"
     data = github_json(url, token)
-    return recovery_suppression_reason(data.get("workflow_runs", []), cooldown_minutes, now)
+    return recovery_suppression_reason(
+        data.get("workflow_runs", []),
+        cooldown_minutes,
+        failure_retry_minutes,
+        now,
+    )
 
 
 def dispatch_workflow(repo: str, workflow_path: str, inputs: dict, token: str) -> None:
@@ -144,8 +158,16 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             continue
 
         cooldown = int(cfg.get("cooldown_minutes", 120))
+        failure_retry = int(cfg.get("failure_retry_minutes", min(90, cooldown)))
         try:
-            suppression = workflow_recovery_suppression(repo, workflow_path, cooldown, now, token)
+            suppression = workflow_recovery_suppression(
+                repo,
+                workflow_path,
+                cooldown,
+                failure_retry,
+                now,
+                token,
+            )
             if suppression:
                 print(f"{lane}: stale age={age_text}; recovery suppressed because {suppression}")
                 continue
