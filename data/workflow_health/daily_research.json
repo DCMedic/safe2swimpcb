@@ -1,7 +1,10 @@
 {
-  "version": 1,
-  "workflow": "Refresh Know the Gulf research dataset",
+  "event_name": "push",
+  "head_sha": "1c98714bffb2d245db187b6519ee55ddc00bcdae",
+  "last_success_at": "2026-08-27T16:01:42.653735+00:00",
+  "run_attempt": "1",
+  "run_id": "33090804271",
   "status": "success",
-  "last_success_at": "2026-08-26T10:55:16+00:00",
-  "seed_source": "latest successful data commit 1ce5a16debf9224a7d7429624ab34c56eb5c0916"
+  "version": 1,
+  "workflow": "Refresh Know the Gulf research dataset"
 }
