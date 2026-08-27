@@ -317,6 +317,32 @@ def cached_franklin_observation(now: datetime) -> dict[str, object | None] | Non
     }
 
 
+def verification_state(
+    previous: dict,
+    now: datetime,
+    flag: str | None,
+    *,
+    cached: bool,
+    nws_flag: str | None,
+    nws_fresh: bool,
+) -> tuple[str | None, str, str]:
+    """Return last_verified_at, last_checked_at, and source-check status.
+
+    A failed authoritative-source check must never manufacture a new verification
+    heartbeat. A cached Franklin observation may advance only when a fresh NWS
+    report independently corroborates the same explicit flag.
+    """
+    checked = now.isoformat()
+    previous_verified = previous.get("last_verified_at")
+    if flag is None:
+        return previous_verified, checked, "unavailable"
+    if cached:
+        if nws_fresh and nws_flag == flag:
+            return checked, checked, "verified"
+        return previous_verified, checked, "degraded"
+    return checked, checked, "verified"
+
+
 def write_payload(
     slug: str,
     cfg: dict,
@@ -329,6 +355,7 @@ def write_payload(
     out = DATA / slug
     out.mkdir(parents=True, exist_ok=True)
     now = datetime.now(cfg["timezone"])
+    previous = load_previous_payload(slug) or {}
     nws_flag = nws_flags.get(cfg["nws_key"])
     nws_age = hours_old(nws_issued_at, now)
     nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= MAX_OFFICIAL_AGE_HOURS)
@@ -375,13 +402,24 @@ def write_payload(
         stale_after_hours = 0
         stale_reason = "Authoritative flag evidence is missing or older than the accepted freshness window"
 
+    last_verified_at, last_checked_at, source_check_status = verification_state(
+        previous,
+        now,
+        flag,
+        cached=cached,
+        nws_flag=nws_flag,
+        nws_fresh=nws_fresh,
+    )
+
     payload = {
         "location": cfg["name"],
         "flag": flag,
         "label": flag if flag else "Official flag status unavailable",
         "severity": FLAG_SEVERITY.get(flag),
         "provenance_tier": tier,
-        "last_verified_at": now.isoformat(),
+        "last_verified_at": last_verified_at,
+        "last_checked_at": last_checked_at,
+        "source_check_status": source_check_status,
         "official_updated_text": official_updated_text,
         "official_updated_at": official_updated_at.isoformat() if isinstance(official_updated_at, datetime) else None,
         "official_observed_at": evidence_at.isoformat() if isinstance(evidence_at, datetime) else None,
