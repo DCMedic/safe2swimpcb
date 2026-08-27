@@ -4,6 +4,7 @@ from pathlib import Path
 
 from scripts.recovery_watchdog import (
     heartbeat_age_minutes,
+    heartbeat_timestamp,
     in_active_window,
     recovery_suppression_reason,
 )
@@ -66,3 +67,38 @@ def test_recent_failed_dispatch_uses_short_retry_delay():
     runs = [{"id": 46, "event": "workflow_dispatch", "status": "completed", "conclusion": "failure", "created_at": "2026-08-27T02:30:00Z"}]
     reason = recovery_suppression_reason(runs, 120, 90, now)
     assert "failure retry delay" in reason
+
+
+def test_successful_recovery_from_prior_episode_does_not_block_new_stale_episode():
+    now = datetime(2026, 8, 27, 16, 2, tzinfo=timezone.utc)
+    heartbeat = datetime(2026, 8, 27, 14, 5, 41, tzinfo=timezone.utc)
+    runs = [{
+        "id": 47,
+        "event": "workflow_dispatch",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-08-27T14:05:10Z",
+    }]
+    assert recovery_suppression_reason(runs, 120, 90, now, heartbeat) is None
+
+
+def test_recovery_after_current_heartbeat_still_honors_cooldown():
+    now = datetime(2026, 8, 27, 16, 2, tzinfo=timezone.utc)
+    heartbeat = datetime(2026, 8, 27, 14, 5, 0, tzinfo=timezone.utc)
+    runs = [{
+        "id": 48,
+        "event": "workflow_dispatch",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-08-27T15:30:00Z",
+    }]
+    reason = recovery_suppression_reason(runs, 120, 90, now, heartbeat)
+    assert "within 120m cooldown" in reason
+
+
+def test_heartbeat_timestamp_is_timezone_aware(tmp_path: Path):
+    path = tmp_path / "heartbeat.json"
+    path.write_text(json.dumps({"last_verified_at": "2026-08-27T09:05:41-05:00"}), encoding="utf-8")
+    stamp = heartbeat_timestamp(path, "last_verified_at")
+    assert stamp is not None
+    assert stamp.utcoffset() is not None
