@@ -9,6 +9,21 @@ on:
       - '.github/recovery/policy.json'
       - 'scripts/recovery_watchdog.py'
       - 'tests/test_recovery_watchdog.py'
+  workflow_run:
+    workflows:
+      - Poll current PCB beach flag
+      - Poll current Destin beach flag
+      - Update western Gulf data
+      - Update eastern Panhandle flags
+      - Update Southwest Florida locations
+      - Publish Know the Gulf to X
+      - Refresh Know the Gulf research dataset
+      - Refresh measured NOAA and storm history
+      - Backfill NWS Surf Zone history
+      - Validate Know the Gulf site health
+      - Deploy Know the Gulf to GitHub Pages
+    types: [completed]
+    branches: [main]
   schedule:
     - cron: '11,31,51 * * * *'
 
@@ -16,9 +31,12 @@ permissions:
   contents: read
   actions: write
 
+# Recovery checks are short and idempotent. Never cancel an older check merely
+# because another production workflow completed; cancellation could otherwise
+# starve recovery during a burst of overlapping workflow completions.
 concurrency:
   group: knowthegulf-recovery-controller
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   recover:
