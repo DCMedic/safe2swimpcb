@@ -25,6 +25,7 @@ on:
       - 'scripts/post_to_x.py'
       - 'scripts/generate_x_condition_card.py'
       - 'scripts/fetch_x_environment.py'
+      - 'scripts/mark_x_publisher_failure.py'
   schedule:
     - cron: '23 8,11,15,18,20 * * *'
       timezone: 'America/Chicago'
@@ -73,7 +74,7 @@ jobs:
           PY
       - name: Validate publisher code
         run: |
-          python -m py_compile scripts/post_to_x.py scripts/x_content_engine.py scripts/run_x_publisher.py scripts/generate_x_condition_card.py scripts/fetch_x_environment.py
+          python -m py_compile scripts/post_to_x.py scripts/x_content_engine.py scripts/run_x_publisher.py scripts/generate_x_condition_card.py scripts/fetch_x_environment.py scripts/mark_x_publisher_failure.py
           python scripts/generate_x_condition_card.py --output tmp/x-condition-card-validation.png
           python - <<'PY'
           from PIL import Image
@@ -96,6 +97,23 @@ jobs:
           if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then args+=(--publish); fi
           if [[ -n "$MANUAL_SLOT" && "$MANUAL_SLOT" != "auto" ]]; then args+=(--force-slot "$MANUAL_SLOT"); fi
           python scripts/run_x_publisher.py "${args[@]}"
+      - name: Record pre-publisher workflow failure
+        if: ${{ always() && failure() }}
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          MANUAL_MODE: ${{ inputs.mode }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if git diff --quiet -- data/x_publisher_health.json; then
+            args=(--detail "workflow failed before publisher health was recorded; run=${RUN_URL}")
+            if [[ "$EVENT_NAME" == "schedule" || "$MANUAL_MODE" == "publish" ]]; then
+              args+=(--publish-requested)
+            fi
+            python scripts/mark_x_publisher_failure.py "${args[@]}"
+          else
+            echo "Publisher already recorded detailed failure health; preserving it."
+          fi
+
       - name: Persist publisher state and health
         if: ${{ always() }}
         run: |
