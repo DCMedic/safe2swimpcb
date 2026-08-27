@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "version": 3,
   "repository": "DCMedic/safe2swimpcb",
-  "purpose": "Layered recovery policy for missed or delayed GitHub Actions schedules. The in-repository recovery controller dispatches overdue workflows directly; an external watchdog may still update only the overdue lane's trigger file as an independent fallback.",
+  "purpose": "Layered recovery policy for missed or delayed GitHub Actions schedules. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly, while external trigger-file pushes remain an independent fallback. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
   "lanes": {
     "pcb": {
       "heartbeat_path": "data/current_flag.json",
@@ -13,9 +13,10 @@
       "cooldown_minutes": 120,
       "active_window": {
         "timezone": "America/Chicago",
-        "start_hour": 6,
+        "start_hour": 7,
         "end_hour": 23
-      }
+      },
+      "failure_retry_minutes": 90
     },
     "destin": {
       "heartbeat_path": "data/destin/current_flag.json",
@@ -24,7 +25,8 @@
       "workflow": "Poll current Destin beach flag",
       "workflow_path": ".github/workflows/poll-destin-flag.yml",
       "overdue_minutes": 100,
-      "cooldown_minutes": 120
+      "cooldown_minutes": 120,
+      "failure_retry_minutes": 90
     },
     "eastern": {
       "heartbeat_path": "data/franklin-county/current_flag.json",
@@ -33,7 +35,8 @@
       "workflow": "Update eastern Panhandle flags",
       "workflow_path": ".github/workflows/update-eastern-panhandle.yml",
       "overdue_minutes": 110,
-      "cooldown_minutes": 150
+      "cooldown_minutes": 150,
+      "failure_retry_minutes": 90
     },
     "southwest": {
       "heartbeat_path": "data/anna-maria-island/current_flag.json",
@@ -42,7 +45,8 @@
       "workflow": "Update Southwest Florida locations",
       "workflow_path": ".github/workflows/update-southwest-locations.yml",
       "overdue_minutes": 110,
-      "cooldown_minutes": 150
+      "cooldown_minutes": 150,
+      "failure_retry_minutes": 90
     },
     "western": {
       "heartbeat_path": "data/okaloosa-island/current_flag.json",
@@ -54,9 +58,10 @@
       "cooldown_minutes": 240,
       "active_window": {
         "timezone": "America/Chicago",
-        "start_hour": 7,
+        "start_hour": 8,
         "end_hour": 21
-      }
+      },
+      "failure_retry_minutes": 90
     },
     "x": {
       "heartbeat_path": "data/x_publisher_health.json",
@@ -72,9 +77,10 @@
       "cooldown_minutes": 360,
       "active_window": {
         "timezone": "America/Chicago",
-        "start_hour": 8,
+        "start_hour": 9,
         "end_hour": 21
-      }
+      },
+      "failure_retry_minutes": 90
     }
   }
 }
