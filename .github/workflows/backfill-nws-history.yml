@@ -5,23 +5,16 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/backfill-nws-history.yml'
       - '.github/recovery/nws_backfill.trigger'
-      - 'scripts/backfill_nws_srf.py'
-      - 'scripts/audit_nws_flag_recovery.py'
-      - 'scripts/promote_nws_recovered_flags.py'
-      - 'scripts/build_daily_flags.py'
-      - 'scripts/write_workflow_health.py'
-      - 'tests/test_nws_srf_parser.py'
   schedule:
-    - cron: '41 4 * * 1'
+    - cron: '41 3 * * 1'
       timezone: 'America/Chicago'
 
 permissions:
   contents: write
 
 concurrency:
-  group: knowthegulf-core-data-write
+  group: knowthegulf-nws-backfill-write
   cancel-in-progress: false
 
 jobs:
