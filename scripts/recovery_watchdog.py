@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -52,6 +53,32 @@ def heartbeat_age_minutes(path: Path, field: str, now: datetime) -> float | None
     return (now - stamp.astimezone(now.tzinfo)).total_seconds() / 60.0
 
 
+def run_age_minutes(run: dict, now: datetime) -> float | None:
+    created = run.get("created_at") or run.get("run_started_at")
+    if not created:
+        return None
+    created_at = parse_time(str(created))
+    return (now - created_at.astimezone(now.tzinfo)).total_seconds() / 60.0
+
+
+def split_active_runs(
+    runs: list[dict],
+    stuck_run_minutes: int,
+    now: datetime,
+) -> tuple[list[dict], list[dict]]:
+    recent: list[dict] = []
+    stuck: list[dict] = []
+    for run in runs:
+        if run.get("status") not in ACTIVE_RUN_STATES:
+            continue
+        age = run_age_minutes(run, now)
+        if age is None or age < stuck_run_minutes:
+            recent.append(run)
+        else:
+            stuck.append(run)
+    return recent, stuck
+
+
 def github_json(url: str, token: str) -> dict:
     req = urllib.request.Request(
         url,
@@ -72,10 +99,14 @@ def recovery_suppression_reason(
     failure_retry_minutes: int,
     now: datetime,
     heartbeat_at: datetime | None = None,
+    stuck_run_minutes: int = 60,
 ) -> str | None:
-    for run in runs:
-        if run.get("status") in ACTIVE_RUN_STATES:
-            return f"workflow run {run.get('id', 'unknown')} already {run.get('status')}"
+    recent_active, _ = split_active_runs(runs, stuck_run_minutes, now)
+    if recent_active:
+        run = recent_active[0]
+        age = run_age_minutes(run, now)
+        age_text = "unknown age" if age is None else f"{age:.1f}m old"
+        return f"workflow run {run.get('id', 'unknown')} already {run.get('status')} ({age_text})"
 
     for run in runs:
         if run.get("event") != "workflow_dispatch":
@@ -99,25 +130,56 @@ def recovery_suppression_reason(
     return None
 
 
-def workflow_recovery_suppression(
+def workflow_recovery_state(
     repo: str,
     workflow_path: str,
     cooldown_minutes: int,
     failure_retry_minutes: int,
+    stuck_run_minutes: int,
     now: datetime,
     token: str,
     heartbeat_at: datetime | None = None,
-) -> str | None:
+) -> tuple[str | None, list[dict]]:
     encoded = urllib.parse.quote(workflow_path, safe="")
     url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/runs?per_page=20"
     data = github_json(url, token)
-    return recovery_suppression_reason(
-        data.get("workflow_runs", []),
+    runs = data.get("workflow_runs", [])
+    suppression = recovery_suppression_reason(
+        runs,
         cooldown_minutes,
         failure_retry_minutes,
         now,
         heartbeat_at,
+        stuck_run_minutes,
     )
+    _, stuck_runs = split_active_runs(runs, stuck_run_minutes, now)
+    return suppression, stuck_runs
+
+
+def cancel_workflow_run(repo: str, run_id: int, token: str) -> None:
+    url = f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/cancel"
+    req = urllib.request.Request(
+        url,
+        data=b"{}",
+        method="POST",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "Content-Type": "application/json",
+            "User-Agent": "knowthegulf-recovery-watchdog",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as response:
+            if response.status not in (202, 204):
+                raise RuntimeError(f"workflow cancel returned HTTP {response.status}")
+    except urllib.error.HTTPError as exc:
+        # A run can finish between the state query and the cancel request. In
+        # that race GitHub returns a conflict/unprocessable response; recovery
+        # should continue because the stale run no longer needs cancellation.
+        if exc.code not in (409, 422):
+            raise
 
 
 def dispatch_workflow(repo: str, workflow_path: str, inputs: dict, token: str) -> None:
@@ -176,12 +238,14 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
 
         cooldown = int(cfg.get("cooldown_minutes", 120))
         failure_retry = int(cfg.get("failure_retry_minutes", min(90, cooldown)))
+        stuck_run = int(cfg.get("stuck_run_minutes", 60))
         try:
-            suppression = workflow_recovery_suppression(
+            suppression, stuck_runs = workflow_recovery_state(
                 repo,
                 workflow_path,
                 cooldown,
                 failure_retry,
+                stuck_run,
                 now,
                 token,
                 heartbeat_at,
@@ -189,6 +253,17 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             if suppression:
                 print(f"{lane}: stale age={age_text}; recovery suppressed because {suppression}")
                 continue
+
+            for run in stuck_runs:
+                run_id = int(run["id"])
+                run_age = run_age_minutes(run, now)
+                run_age_text = "unknown" if run_age is None else f"{run_age:.1f}m"
+                cancel_workflow_run(repo, run_id, token)
+                print(
+                    f"{lane}: cancelled stuck {run.get('status')} run {run_id} "
+                    f"age={run_age_text} before recovery"
+                )
+
             dispatch_workflow(repo, workflow_path, cfg.get("dispatch_inputs", {}), token)
             print(f"{lane}: stale age={age_text}; dispatched {workflow_path}")
         except Exception as exc:
