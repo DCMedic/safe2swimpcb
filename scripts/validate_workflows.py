@@ -54,6 +54,7 @@ def validate() -> list[str]:
     if "actions: write" not in recovery or "contents: read" not in recovery:
         errors.append("recovery controller permissions are not least-privilege read/actions-write")
 
+    research_groups: dict[str, str] = {}
     for path in WORKFLOWS.glob("*.yml"):
         text = path.read_text(encoding="utf-8")
         for action in ("actions/checkout", "actions/setup-python"):
@@ -65,6 +66,32 @@ def validate() -> list[str]:
                 errors.append(f"{path.name}: core research workflow lacks a job timeout")
             if re.search(r"persist_paths\.sh[^\n]*\sdata/\s*$", text, re.M):
                 errors.append(f"{path.name}: broad data/ persistence violates explicit ownership")
+
+            group_match = re.search(r"(?m)^\s*group:\s*([^\n]+)$", text)
+            if not group_match:
+                errors.append(f"{path.name}: core research workflow lacks a concurrency group")
+            else:
+                group = group_match.group(1).strip()
+                if group in research_groups:
+                    errors.append(
+                        f"{path.name}: shares concurrency group {group} with {research_groups[group]}; "
+                        "GitHub may replace pending runs in a shared group"
+                    )
+                research_groups[group] = path.name
+
+            push_match = re.search(r"(?ms)^\s*push:\s*\n\s*branches:.*?\n\s*paths:\s*\n(.*?)(?=^\s*(?:schedule|workflow_dispatch|permissions|concurrency|jobs):)", text)
+            if push_match:
+                push_paths = re.findall(r"['\"]([^'\"]+)['\"]", push_match.group(1))
+                unexpected = [value for value in push_paths if not value.startswith(".github/recovery/")]
+                if unexpected:
+                    errors.append(
+                        f"{path.name}: production research push trigger includes non-recovery paths: "
+                        + ", ".join(unexpected)
+                    )
+
+    nws_backfill = (WORKFLOWS / "backfill-nws-history.yml").read_text(encoding="utf-8")
+    if "cron: '41 3 * * 1'" not in nws_backfill:
+        errors.append("NWS backfill schedule is not sufficiently separated from the daily research window")
 
     site_health = (WORKFLOWS / "site-health.yml").read_text(encoding="utf-8")
     if ".github/recovery/**" not in site_health:
