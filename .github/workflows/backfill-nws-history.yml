@@ -6,10 +6,12 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/backfill-nws-history.yml'
+      - '.github/recovery/nws_backfill.trigger'
       - 'scripts/backfill_nws_srf.py'
       - 'scripts/audit_nws_flag_recovery.py'
       - 'scripts/promote_nws_recovered_flags.py'
       - 'scripts/build_daily_flags.py'
+      - 'scripts/write_workflow_health.py'
       - 'tests/test_nws_srf_parser.py'
   schedule:
     - cron: '41 4 * * 1'
@@ -73,6 +75,9 @@ jobs:
           git restore data/environmental_daily.csv data/model_training.csv data/model_metrics.json || true
           echo "Historical flags were recovered successfully; environmental enrichment will retry during the normal daily refresh."
 
+      - name: Record NWS backfill success heartbeat
+        run: python scripts/write_workflow_health.py --workflow "Backfill NWS Surf Zone history" --output data/workflow_health/nws_backfill.json
+
       - name: Commit only NWS-history owned paths
         run: |
           owned_paths=(
@@ -92,6 +97,7 @@ jobs:
             data/environmental_daily.csv
             data/model_training.csv
             data/model_metrics.json
+            data/workflow_health/nws_backfill.json
           )
           if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
             echo "No extended historical-data changes to commit."; exit 0
