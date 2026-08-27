@@ -98,7 +98,8 @@ def dispatch_workflow(repo: str, workflow_path: str, inputs: dict, token: str) -
 
 def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry_run: bool) -> int:
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
-    problems = 0
+    failures = 0
+
     for lane, cfg in policy["lanes"].items():
         if not in_active_window(now, cfg.get("active_window")):
             print(f"{lane}: outside active window")
@@ -111,10 +112,10 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             print(f"{lane}: healthy age={age:.1f}m threshold={overdue}m")
             continue
 
-        problems += 1
         age_text = "unreadable" if age is None else f"{age:.1f}m"
         workflow_path = cfg.get("workflow_path")
         if not workflow_path:
+            failures += 1
             print(f"{lane}: stale age={age_text}; no workflow_path configured", file=sys.stderr)
             continue
 
@@ -123,6 +124,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             continue
 
         if not token:
+            failures += 1
             print(f"{lane}: stale age={age_text}; GITHUB_TOKEN missing", file=sys.stderr)
             continue
 
@@ -134,8 +136,10 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             dispatch_workflow(repo, workflow_path, cfg.get("dispatch_inputs", {}), token)
             print(f"{lane}: stale age={age_text}; dispatched {workflow_path}")
         except Exception as exc:
+            failures += 1
             print(f"{lane}: recovery dispatch failed: {type(exc).__name__}: {exc}", file=sys.stderr)
-    return 0 if problems == 0 or dry_run else 0
+
+    return 1 if failures else 0
 
 
 def main() -> int:
