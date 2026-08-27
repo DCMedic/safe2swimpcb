@@ -2,6 +2,13 @@ name: Recover stale data lanes
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/recover-stale-lanes.yml'
+      - '.github/recovery/policy.json'
+      - 'scripts/recovery_watchdog.py'
+      - 'tests/test_recovery_watchdog.py'
   schedule:
     - cron: '11,31,51 * * * *'
 
