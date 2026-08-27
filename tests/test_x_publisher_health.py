@@ -1,3 +1,8 @@
+import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+import scripts.mark_x_publisher_failure as failure_health
 from scripts.run_x_publisher import classify, fit_post
 
 
@@ -38,3 +43,25 @@ def test_compacts_url_post_without_breaking_url():
     compact = fit_post(text, kind="acquisition", contains_url=True)
     assert len(compact) <= 280
     assert compact.endswith(url)
+
+
+def test_pre_publisher_failure_records_failed_health(tmp_path, monkeypatch):
+    health = tmp_path / "x_publisher_health.json"
+    health.write_text(json.dumps({
+        "last_published_at": "2026-08-26T09:09:44-05:00",
+        "forced_slot": None,
+    }), encoding="utf-8")
+    monkeypatch.setattr(failure_health, "HEALTH_PATH", health)
+    now = datetime(2026, 8, 27, 9, 0, tzinfo=ZoneInfo("America/Chicago"))
+
+    payload = failure_health.write_failure(
+        "environment fetch failed",
+        publish_requested=True,
+        now=now,
+    )
+
+    assert payload["last_outcome"] == "failed"
+    assert payload["exit_code"] == 1
+    assert payload["publish_requested"] is True
+    assert payload["last_failure_at"] == now.isoformat()
+    assert payload["last_published_at"] == "2026-08-26T09:09:44-05:00"
