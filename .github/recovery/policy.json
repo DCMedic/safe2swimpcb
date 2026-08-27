@@ -1,12 +1,12 @@
 {
-  "version": 5,
+  "version": 6,
   "repository": "DCMedic/safe2swimpcb",
-  "purpose": "Layered recovery policy for missed, delayed, or stuck GitHub Actions runs. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly, cancels stale queued/in-progress runs that would otherwise suppress recovery indefinitely, while external trigger-file pushes remain an independent fallback. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
+  "purpose": "Layered recovery policy for missed, delayed, or stuck GitHub Actions runs. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly and cancels stale queued/in-progress runs. External repository-health recovery uses ordinary top-level recovery/*.trigger content files so integrations do not require special .github-path write handling. Legacy .github/recovery/*.trigger listeners remain temporarily for backward compatibility. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
   "lanes": {
     "pcb": {
       "heartbeat_path": "data/current_flag.json",
       "heartbeat_field": "last_verified_at",
-      "trigger_path": ".github/recovery/pcb.trigger",
+      "trigger_path": "recovery/pcb.trigger",
       "workflow": "Poll current PCB beach flag",
       "workflow_path": ".github/workflows/poll-current-flag.yml",
       "overdue_minutes": 90,
@@ -22,7 +22,7 @@
     "destin": {
       "heartbeat_path": "data/destin/current_flag.json",
       "heartbeat_field": "last_verified_at",
-      "trigger_path": ".github/recovery/destin.trigger",
+      "trigger_path": "recovery/destin.trigger",
       "workflow": "Poll current Destin beach flag",
       "workflow_path": ".github/workflows/poll-destin-flag.yml",
       "overdue_minutes": 100,
@@ -33,7 +33,7 @@
     "eastern": {
       "heartbeat_path": "data/franklin-county/current_flag.json",
       "heartbeat_field": "last_verified_at",
-      "trigger_path": ".github/recovery/eastern.trigger",
+      "trigger_path": "recovery/eastern.trigger",
       "workflow": "Update eastern Panhandle flags",
       "workflow_path": ".github/workflows/update-eastern-panhandle.yml",
       "overdue_minutes": 110,
@@ -44,7 +44,7 @@
     "southwest": {
       "heartbeat_path": "data/anna-maria-island/current_flag.json",
       "heartbeat_field": "last_verified_at",
-      "trigger_path": ".github/recovery/southwest.trigger",
+      "trigger_path": "recovery/southwest.trigger",
       "workflow": "Update Southwest Florida locations",
       "workflow_path": ".github/workflows/update-southwest-locations.yml",
       "overdue_minutes": 110,
@@ -55,7 +55,7 @@
     "western": {
       "heartbeat_path": "data/okaloosa-island/current_flag.json",
       "heartbeat_field": "last_verified_at",
-      "trigger_path": ".github/recovery/western.trigger",
+      "trigger_path": "recovery/western.trigger",
       "workflow": "Update western Gulf data",
       "workflow_path": ".github/workflows/update-western-locations.yml",
       "overdue_minutes": 180,
@@ -71,7 +71,7 @@
     "x": {
       "heartbeat_path": "data/x_publisher_health.json",
       "heartbeat_field": "last_evaluated_at",
-      "trigger_path": ".github/recovery/x.trigger",
+      "trigger_path": "recovery/x.trigger",
       "workflow": "Publish Know the Gulf to X",
       "workflow_path": ".github/workflows/x-production-publisher.yml",
       "dispatch_inputs": {
@@ -91,7 +91,7 @@
     "daily_research": {
       "heartbeat_path": "data/workflow_health/daily_research.json",
       "heartbeat_field": "last_success_at",
-      "trigger_path": ".github/recovery/daily_research.trigger",
+      "trigger_path": "recovery/daily_research.trigger",
       "workflow": "Refresh Know the Gulf research dataset",
       "workflow_path": ".github/workflows/daily-refresh.yml",
       "overdue_minutes": 1500,
@@ -107,7 +107,7 @@
     "history_enrichment": {
       "heartbeat_path": "data/workflow_health/history_enrichment.json",
       "heartbeat_field": "last_success_at",
-      "trigger_path": ".github/recovery/history_enrichment.trigger",
+      "trigger_path": "recovery/history_enrichment.trigger",
       "workflow": "Refresh measured NOAA and storm history",
       "workflow_path": ".github/workflows/history-enrichment.yml",
       "overdue_minutes": 11520,
@@ -123,7 +123,7 @@
     "nws_backfill": {
       "heartbeat_path": "data/workflow_health/nws_backfill.json",
       "heartbeat_field": "last_success_at",
-      "trigger_path": ".github/recovery/nws_backfill.trigger",
+      "trigger_path": "recovery/nws_backfill.trigger",
       "workflow": "Backfill NWS Surf Zone history",
       "workflow_path": ".github/workflows/backfill-nws-history.yml",
       "overdue_minutes": 11520,
