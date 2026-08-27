@@ -33,8 +33,8 @@
     "Pensacola Beach": "Official flag status unavailable"
   },
   "last_link_post_at": "2026-08-24T15:54:41.557358-05:00",
-  "last_posted_at": "2026-08-26T09:09:44.611640-05:00",
-  "lifetime_estimated_spend_usd": 0.84,
+  "last_posted_at": "2026-08-27T16:00:29.185104-05:00",
+  "lifetime_estimated_spend_usd": 0.855,
   "recent_fingerprints": [
     "cbf77fef1cd79abb",
     "8362194d7e6e1b08",
@@ -53,9 +53,10 @@
     "5b77825678cb036e",
     "e86aba47666cb3b2",
     "91c035c75a13a75d",
-    "b66ac916b0eceddc"
+    "b66ac916b0eceddc",
+    "d10c877653c0cdab"
   ],
-  "sequence": 18,
+  "sequence": 19,
   "usage": {
     "2026-08": {
       "days": {
@@ -69,10 +70,11 @@
         "2026-08-23": 1,
         "2026-08-24": 1,
         "2026-08-25": 1,
-        "2026-08-26": 1
+        "2026-08-26": 1,
+        "2026-08-27": 1
       },
-      "estimated_spend_usd": 0.84,
-      "posts": 19,
+      "estimated_spend_usd": 0.855,
+      "posts": 20,
       "url_posts": 3
     }
   },
