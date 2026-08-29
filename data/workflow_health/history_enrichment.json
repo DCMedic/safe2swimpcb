@@ -1,7 +1,10 @@
 {
-  "version": 1,
-  "workflow": "Refresh measured NOAA and storm history",
+  "event_name": "schedule",
+  "head_sha": "7584b2d64d95a79035cd25c8f0a8e67e45ec46da",
+  "last_success_at": "2026-08-29T14:35:25.337192+00:00",
+  "run_attempt": "1",
+  "run_id": "33257684481",
   "status": "success",
-  "last_success_at": "2026-08-26T22:12:40+00:00",
-  "seed_source": "latest successful data commit a6d36eca1123ffce971958f2385fa0cd5e9a7580"
+  "version": 1,
+  "workflow": "Refresh measured NOAA and storm history"
 }
