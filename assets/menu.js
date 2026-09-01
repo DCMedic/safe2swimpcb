@@ -36,9 +36,13 @@ async function applyPcbPollingAwareFreshness(){
   const status=document.getElementById('flagFreshness');
   if(canonical!=='https://knowthegulf.com/'||!status)return;
   try{
-    const response=await fetch('/data/current_flag.json',{cache:'no-store'});
-    if(!response.ok)return;
-    const current=await response.json();
+    let current=window.__KTG_CURRENT_FLAG_DATA;
+    if(!current){
+      const response=await fetch('/data/current_flag.json',{cache:'no-store'});
+      if(!response.ok)return;
+      current=await response.json();
+      window.__KTG_CURRENT_FLAG_DATA=current;
+    }
     if(!current.last_verified_at)return;
     const verified=new Date(current.last_verified_at);
     const stale=pcbIsStale(current.last_verified_at,current.stale_after_hours);

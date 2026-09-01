@@ -90,8 +90,13 @@
   async function syncCanonicalFlagVisual(){
     const url=FLAG_PATHS[normalizedPath()];if(!url)return;
     try{
-      const r=await fetch(url,{cache:'no-store'});if(!r.ok)return;
-      const c=await r.json();const label=c.label||(c.primary_flag||c.flag)||(c.purple?'Purple':null);
+      let c=url==='/data/current_flag.json'?window.__KTG_CURRENT_FLAG_DATA:null;
+      if(!c){
+        const r=await fetch(url,{cache:'no-store'});if(!r.ok)return;
+        c=await r.json();
+        if(url==='/data/current_flag.json')window.__KTG_CURRENT_FLAG_DATA=c;
+      }
+      const label=c.label||(c.primary_flag||c.flag)||(c.purple?'Purple':null);
       if(!label)return;
       const name=document.getElementById('currentFlag')||document.getElementById('currentStatus');if(name)name.textContent=label;
       renderCanonicalPole(document.getElementById('flagPole'),c);
