@@ -122,3 +122,31 @@ After the new domain is live and redirects are active:
 ## 13. Data retention rule
 
 Do not delete or rewrite `data/flag_observations_archive.csv`. Historical records may contain legacy Safe2Swim source labels because those labels are part of the provenance at the time the observation was collected. Future product-facing labels use Know the Gulf. Master, daily, environmental, and modeling tables remain reproducible derived data.
+
+
+## 14. Infrastructure hardening and future edge/VPS cutover
+
+The repository includes `infra/caddy/Caddyfile`, `infra/policy.json`, and `scripts/validate_infrastructure.py` for the next production hosting layer.
+
+The infrastructure policy addresses hosting-layer findings that GitHub Pages cannot fully control:
+
+- HSTS;
+- Cross-Origin-Opener-Policy;
+- HTTP clickjacking protection;
+- HTTP response CSP for `frame-ancestors`, `object-src`, and `base-uri`;
+- MIME-sniffing and referrer protection;
+- explicit cache-control separation between live safety JSON and static assets;
+- gzip/Zstandard compression; and
+- canonical `www` redirects.
+
+Do not change production DNS merely because these files exist. Activate them only after a staging deployment passes:
+
+1. HTTPS certificate provisioning.
+2. Homepage and all destination routes.
+3. `/data/current_flag.json` and all destination current-flag JSON with `Cache-Control: no-store`.
+4. Static assets with the bounded cache policy from `infra/policy.json`.
+5. Security headers matching `infra/policy.json`.
+6. Sitemap, robots, canonical URLs, and redirect preservation.
+7. Rollback to the prior GitHub Pages origin.
+
+GitHub remains the source-control and CI system even after an edge/VPS cutover.
