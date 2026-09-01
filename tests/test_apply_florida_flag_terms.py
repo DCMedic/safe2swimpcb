@@ -121,3 +121,27 @@ def test_fresh_official_current_status_overrides_older_cached_primary():
     assert normalized['source_url'] == 'https://official.example/current'
     assert normalized['secondary_source_url'] == 'https://secondary.example/report'
     assert normalized['provenance_tier'] == 'primary_official_terminology'
+
+
+def test_successful_official_verification_clears_degraded_cache_metadata():
+    payload = {
+        'flag': 'Yellow',
+        'label': 'Yellow',
+        'cached': True,
+        'source_check_status': 'degraded',
+        'source_error': 'parser miss',
+        'cache_age_hours': 1.5,
+        'cached_from_provenance_tier': 'primary_official',
+        'stale_reason': 'live verification failed',
+        'source_name': 'Visit PCB',
+        'source_url': 'https://official.example/current',
+        'official_authority_url': 'https://official.example/current',
+    }
+    normalized, _ = update_payload('destin', payload, _Session())
+    assert normalized['cached'] is False
+    assert normalized['source_check_status'] == 'verified'
+    assert normalized['stale_reason'] is None
+    assert normalized['last_checked_at'] == normalized['last_verified_at']
+    assert 'source_error' not in normalized
+    assert 'cache_age_hours' not in normalized
+    assert 'cached_from_provenance_tier' not in normalized
