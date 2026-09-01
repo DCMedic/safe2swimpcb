@@ -27,8 +27,13 @@ def parse_status(html: str):
     strings = list(soup.stripped_strings)
     windows = []
     for i, value in enumerate(strings):
-        if re.search(r'Current Beach Conditions', value, re.I):
-            window = []
+        marker = re.search(r'Current Beach Conditions\s*:?', value, re.I)
+        if marker:
+            # The official page may place the current flag wording either in the
+            # same text node as the heading or in the immediately following node.
+            # Keep parsing scoped to this section so legend colors elsewhere on the
+            # page can never be mistaken for the current condition.
+            window = [value[marker.end():].strip()] if value[marker.end():].strip() else []
             for item in strings[i + 1:i + 8]:
                 if re.search(r'Beach conditions are provided', item, re.I) or re.search(r'Beach Warning Flags', item, re.I):
                     break
@@ -37,16 +42,16 @@ def parse_status(html: str):
     for window in windows:
         text = ' | '.join(window)
         base = None
-        if re.search(r'Double\s+Red\s+Flags?', text, re.I):
+        if re.search(r'\bDouble\s+Red(?:\s+Flags?)?\b', text, re.I):
             base = 'Double Red'
-        elif re.search(r'\bRed\s+Flags?', text, re.I):
+        elif re.search(r'\b(?:Single\s+Red|Red)(?:\s+Flags?)?\b', text, re.I):
             base = 'Single Red'
-        elif re.search(r'Yellow\s+Flags?', text, re.I):
+        elif re.search(r'\bYellow(?:\s+Flags?)?\b', text, re.I):
             base = 'Yellow'
-        elif re.search(r'Green\s+Flags?', text, re.I):
+        elif re.search(r'\bGreen(?:\s+Flags?)?\b', text, re.I):
             base = 'Green'
         if base:
-            purple = bool(re.search(r'Purple\s+Flags?', text, re.I))
+            purple = bool(re.search(r'\b(?:Purple(?:\s+Flags?)?|Dangerous\s+Marine\s+Life)\b', text, re.I))
             return base, purple, base + (' + Purple' if purple else '')
     raise RuntimeError('Could not identify a flag within the Current Beach Conditions section')
 
