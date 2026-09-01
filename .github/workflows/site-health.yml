@@ -15,6 +15,7 @@ on:
       - 'requirements.txt'
       - '.github/workflows/**'
       - '.github/recovery/**'
+      - 'infra/**'
 
 permissions:
   contents: read
@@ -45,6 +46,7 @@ jobs:
           python -m compileall -q scripts
           bash -n scripts/persist_paths.sh
           python scripts/validate_workflows.py
+          python scripts/validate_infrastructure.py
       - name: Run repository test suite
         run: pytest -q
       - name: Build standardized deployment HTML

@@ -21,3 +21,8 @@ The current official flag is visually separated from all historical statistics a
 - `safe2swimpcb.com` should permanently redirect to the equivalent `https://knowthegulf.com/` path so legacy links and QR codes continue to work.
 
 See `DEPLOYMENT.md` for the GitHub Actions-based Pages deployment, custom-domain verification, DNS setup, HTTPS, redirect strategy, and first-run automation procedure.
+
+
+## Infrastructure readiness
+
+Hosting-layer security and caching policy is versioned under `infra/`. GitHub Pages remains the current production host; the Caddy configuration is staged for a future VPS or configurable edge deployment and is validated by the repository health suite.

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "canonical_host": "knowthegulf.com",
+  "redirect_hosts": ["www.knowthegulf.com"],
+  "security_headers": {
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+    "Content-Security-Policy": "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+  },
+  "cache_policy": {
+    "current_condition_json": "no-store, max-age=0, must-revalidate",
+    "health_state_json": "no-store, max-age=0, must-revalidate",
+    "static_assets": "public, max-age=3600, stale-while-revalidate=86400",
+    "images": "public, max-age=604800, stale-while-revalidate=2592000",
+    "html": "no-cache"
+  },
+  "trusted_types": {
+    "enabled": false,
+    "reason": "Frontend DOM sinks must be migrated before enforcement."
+  }
+}
