@@ -54,7 +54,7 @@ def validate_html(errors: list[str]) -> None:
         if ".git" in page.parts:
             continue
         text = page.read_text(encoding="utf-8")
-        for needle in ("<meta name=\"viewport\"", "rel=\"canonical\"", "assets/app.css"):
+        for needle in ("<meta name=\"viewport\"", "rel=\"canonical\"", "assets/app.css", "Content-Security-Policy", "name=\"referrer\""):
             if needle not in text:
                 fail(f"{page.relative_to(ROOT)} missing required UI/SEO marker: {needle}", errors)
         ids = id_re.findall(text)
