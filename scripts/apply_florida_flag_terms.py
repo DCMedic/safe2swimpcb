@@ -271,7 +271,19 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
             payload["source_name"] = payload.get("official_authority") or prior_name or "Official beach-safety authority"
             payload["method"] = "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions"
             payload["provenance_tier"] = "primary_official_terminology"
+            payload["cached"] = False
+            payload["source_check_status"] = "verified"
             payload["last_verified_at"] = verified_at
+            payload["last_checked_at"] = verified_at
+            payload["stale_reason"] = None
+            # A successful direct official verification supersedes any degraded
+            # cache metadata left by an earlier collector attempt in the same run.
+            for transient_key in (
+                "source_error",
+                "cache_age_hours",
+                "cached_from_provenance_tier",
+            ):
+                payload.pop(transient_key, None)
     after = json.dumps(payload, sort_keys=True, default=str)
     return payload, before != after
 
