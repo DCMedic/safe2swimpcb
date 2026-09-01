@@ -1,0 +1,46 @@
+{
+	servers {
+		protocols h1 h2 h3
+	}
+}
+
+(ktg_security) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		Cross-Origin-Opener-Policy "same-origin"
+		X-Frame-Options "DENY"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		Content-Security-Policy "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"
+		-Server
+	}
+}
+
+www.knowthegulf.com {
+	redir https://knowthegulf.com{uri} permanent
+}
+
+knowthegulf.com {
+	import ktg_security
+
+	root * /srv/knowthegulf/current
+	encode zstd gzip
+
+	@live_flags path_regexp liveflags ^/data/(?:current_flag\.json|[^/]+/current_flag\.json)$
+	header @live_flags Cache-Control "no-store, max-age=0, must-revalidate"
+
+	@health_state path /data/x_publisher_health.json /data/workflow_health/*
+	header @health_state Cache-Control "no-store, max-age=0, must-revalidate"
+
+	@static_assets path /assets/*
+	header @static_assets Cache-Control "public, max-age=3600, stale-while-revalidate=86400"
+
+	@images path /assets/images/* /assets/*.svg /favicon.ico
+	header @images Cache-Control "public, max-age=604800, stale-while-revalidate=2592000"
+
+	@html path *.html /
+	header @html Cache-Control "no-cache"
+
+	file_server
+}
