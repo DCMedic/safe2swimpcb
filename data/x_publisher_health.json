@@ -1,11 +1,11 @@
 {
   "exit_code": 0,
   "forced_slot": null,
-  "last_evaluated_at": "2026-09-07T01:13:43.337312-05:00",
+  "last_evaluated_at": "2026-09-07T09:26:45.437097-05:00",
   "last_failure_at": "2026-08-24T15:51:30.151854-05:00",
-  "last_outcome": "no_post",
-  "last_outcome_detail": "duplicate fingerprint",
+  "last_outcome": "dry_run",
+  "last_outcome_detail": null,
   "last_published_at": "2026-09-06T09:06:25.213745-05:00",
-  "publish_requested": true,
+  "publish_requested": false,
   "version": 1
 }
