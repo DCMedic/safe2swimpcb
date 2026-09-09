@@ -70,10 +70,25 @@
     if(primary==='Red'||primary==='Single Red'||primary==='Double Red')return'var(--red)';
     return'var(--yellow)';
   }
-  function renderCanonicalPole(pole,c){
+  function canonicalFlagLabel(c){
+    const primary=c.primary_flag||c.flag||null,purple=c.purple===true;
+    if(primary&&purple)return`${primary} + Purple`;
+    if(primary)return primary;
+    if(purple)return'Purple';
+    return null;
+  }
+  function flagFreshness(c){
+    const verified=c.last_verified_at?new Date(c.last_verified_at):null;
+    const validTime=verified&&!Number.isNaN(verified.getTime());
+    const age=validTime?(Date.now()-verified.getTime())/36e5:Infinity;
+    const limit=Number(c.stale_after_hours||0);
+    const hasFlag=Boolean(c.primary_flag||c.flag||c.purple===true);
+    return{verified:validTime?verified:null,stale:hasFlag&&(!validTime||limit<=0||age>limit)};
+  }
+  function renderCanonicalPole(pole,c,stale=false){
     if(!pole)return;
     const primary=c.primary_flag||c.flag||null,purple=c.purple===true;
-    if(!primary&&!purple)return;
+    if(!primary&&!purple){pole.hidden=true;pole.innerHTML='';return;}
     const shapes=[];
     if(primary==='Double Red'){
       shapes.push(flagColor(primary),flagColor(primary));
@@ -84,8 +99,9 @@
     pole.className='flagpole';pole.hidden=false;
     pole.style.height=shapes.length>=3?'106px':shapes.length===2?'82px':'70px';
     pole.innerHTML=shapes.map((color,i)=>`<span class="flagshape" style="top:${5+i*31}px;background:${color}"></span>`).join('');
-    const label=primary&&purple?`${primary} + Purple`:primary||'Purple';
-    pole.setAttribute('role','img');pole.setAttribute('aria-label',`Current beach flag${primary&&purple?'s':''}: ${label}`);
+    const label=canonicalFlagLabel(c);
+    pole.setAttribute('role','img');
+    pole.setAttribute('aria-label',`${stale?'Last verified':'Current'} beach flag${primary&&purple?'s':''}: ${label}`);
   }
   async function syncCanonicalFlagVisual(){
     const url=FLAG_PATHS[normalizedPath()];if(!url)return;
@@ -96,10 +112,14 @@
         c=await r.json();
         if(url==='/data/current_flag.json')window.__KTG_CURRENT_FLAG_DATA=c;
       }
-      const label=c.label||(c.primary_flag||c.flag)||(c.purple?'Purple':null);
-      if(!label)return;
-      const name=document.getElementById('currentFlag')||document.getElementById('currentStatus');if(name)name.textContent=label;
-      renderCanonicalPole(document.getElementById('flagPole'),c);
+      const flagLabel=canonicalFlagLabel(c);
+      const {stale}=flagFreshness(c);
+      const displayLabel=flagLabel?(stale?`Last verified flag: ${flagLabel}`:flagLabel):(c.label||null);
+      if(displayLabel){
+        const name=document.getElementById('currentFlag')||document.getElementById('currentStatus');
+        if(name)name.textContent=displayLabel;
+      }
+      renderCanonicalPole(document.getElementById('flagPole'),c,stale);
     }catch(_){/* Existing page-specific fallback remains authoritative on fetch failure. */}
   }
   ready(()=>{
