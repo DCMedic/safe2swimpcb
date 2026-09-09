@@ -7,11 +7,14 @@ on:
       - '.github/workflows/update-western-locations.yml'
       - '.github/recovery/western.trigger'
       - 'scripts/update_western_locations.py'
+      - 'scripts/refresh_western_current_flags.py'
       - 'scripts/collector_resilience.py'
       - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_collector_resilience.py'
+      - 'tests/test_western_current.py'
+      - 'tests/test_western_current_evidence.py'
   schedule:
     - cron: '17 7,9,11,13,15,17,19,21 * * *'
       timezone: 'America/Chicago'
@@ -35,9 +38,9 @@ jobs:
           cache: pip
       - run: pip install requests beautifulsoup4 pandas pytest
       - name: Validate western collector entry points
-        run: python -m py_compile scripts/update_western_locations.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
-      - name: Run collector resilience regression tests
-        run: pytest -q tests/test_collector_resilience.py
+        run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+      - name: Run western collector regression tests
+        run: pytest -q tests/test_collector_resilience.py tests/test_western_current.py tests/test_western_current_evidence.py
       - name: Snapshot last-known western official flags
         shell: bash
         run: |
@@ -65,6 +68,8 @@ jobs:
           done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py okaloosa-island navarre-beach pensacola-beach
+      - name: Require explicit current-status evidence for western display flags
+        run: python scripts/refresh_western_current_flags.py
       - name: Preserve dedicated Destin current-condition ownership
         run: |
           # update_western_locations.py also refreshes Destin's historical/environmental
@@ -86,9 +91,8 @@ jobs:
 
           git add -- "${owned_paths[@]}"
 
-          # current_flag.json was restored above and therefore cannot enter this
-          # commit. Fail closed if any other tracked change escaped the ownership set;
-          # otherwise a later git pull --rebase would reject the dirty worktree.
+          # Destin current_flag.json was restored above and therefore cannot enter
+          # this commit. Fail closed if any other tracked change escaped ownership.
           if [[ -n "$(git status --porcelain --untracked-files=no | grep -v '^.. data/destin/current_flag.json$' | grep '^ [MADRCU?]' || true)" ]]; then
             echo "Western collector left unstaged tracked changes outside its ownership set:" >&2
             git status --short >&2
