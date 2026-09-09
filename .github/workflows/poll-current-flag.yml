@@ -10,8 +10,11 @@ on:
       - 'scripts/collector_resilience.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
+      - 'scripts/apply_visitbeaches_confidence.py'
+      - 'data/visitbeaches/pcb.json'
       - 'tests/test_flag_parser.py'
       - 'tests/test_collector_resilience.py'
+      - 'tests/test_visitbeaches_confidence.py'
   schedule:
     - cron: '7,37 6-22 * * *'
       timezone: 'America/Chicago'
@@ -41,13 +44,15 @@ jobs:
           cache: pip
       - run: pip install requests beautifulsoup4 pandas pytest
       - name: Validate PCB collector entry points
-        run: python -m py_compile scripts/update_current_flag.py scripts/collector_resilience.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+        run: python -m py_compile scripts/update_current_flag.py scripts/collector_resilience.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/apply_visitbeaches_confidence.py
       - name: Run PCB collector regression tests
-        run: pytest -q tests/test_flag_parser.py tests/test_collector_resilience.py
+        run: pytest -q tests/test_flag_parser.py tests/test_collector_resilience.py tests/test_visitbeaches_confidence.py
       - name: Refresh official PCB flag
         run: python scripts/update_current_flag.py
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py pcb
+      - name: Reapply VisitBeaches corroboration and safe gap fill
+        run: python scripts/apply_visitbeaches_confidence.py pcb
       - name: Validate repository data contract
         run: python scripts/validate_data.py
       - name: Commit PCB current condition and verification heartbeat
