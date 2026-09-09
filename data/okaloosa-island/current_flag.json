@@ -2,8 +2,8 @@
   "flag": null,
   "label": "Official flag status unavailable",
   "severity": null,
-  "last_verified_at": "2026-09-09T13:42:11.990026-05:00",
-  "last_checked_at": "2026-09-09T13:42:14.870568-05:00",
+  "last_verified_at": "2026-09-09T13:48:16.316846-05:00",
+  "last_checked_at": "2026-09-09T13:48:19.166555-05:00",
   "source_check_status": "degraded",
   "source_name": "Okaloosa County Beach Safety",
   "source_url": "https://www.myokaloosa.com/ps/beach-safety",
@@ -14,8 +14,8 @@
   "primary_flag": null,
   "purple": false,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Image verification is additive only: candidates must be inside explicit current/today/posted-condition context, legend/education images are excluded, and pixels never override stronger text evidence.",
+  "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Current status must come from explicit current evidence. Forecast values never become the current flag.",
   "current_flag_image_evidence": [],
   "provenance_tier": "official_source_no_verified_current_status",
-  "stale_reason": "Official source is reachable, but neither explicit current-status text nor a high-confidence eligible current-status image produced a publishable current flag"
+  "stale_reason": "Official source did not provide publishable current flag evidence"
 }

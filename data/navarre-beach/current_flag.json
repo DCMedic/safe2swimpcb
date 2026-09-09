@@ -2,8 +2,8 @@
   "flag": "Yellow",
   "label": "Yellow + Purple",
   "severity": 2,
-  "last_verified_at": "2026-09-09T13:42:15.324367-05:00",
-  "last_checked_at": "2026-09-09T13:42:15.324367-05:00",
+  "last_verified_at": "2026-09-09T13:48:19.423067-05:00",
+  "last_checked_at": "2026-09-09T13:48:19.423067-05:00",
   "source_check_status": "verified",
   "source_name": "Santa Rosa County / Navarre Beach Safety",
   "source_url": "https://www.santarosa.fl.gov/",
@@ -14,10 +14,10 @@
   "primary_flag": "Yellow",
   "purple": true,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Image verification is additive only: candidates must be inside explicit current/today/posted-condition context, legend/education images are excluded, and pixels never override stronger text evidence.",
+  "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Current status must come from explicit current evidence. Forecast values never become the current flag.",
   "current_flag_image_evidence": [],
   "provenance_tier": "primary_official_current_status",
   "terminology_evidence": "Current Surf Conditions Moderate Hazard",
-  "terminology_verified_at": "2026-09-09T13:42:15.324367-05:00",
+  "terminology_verified_at": "2026-09-09T13:48:19.423067-05:00",
   "terminology_verified_url": "https://www.santarosa.fl.gov/"
 }
