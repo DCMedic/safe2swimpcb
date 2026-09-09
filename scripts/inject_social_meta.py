@@ -9,6 +9,8 @@ X_PROFILE = "https://x.com/knowthegulf"
 X_HANDLE = "@knowthegulf"
 CONTACT_EMAIL = "contact@knowthegulf.com"
 SITE_UI = '<script defer src="/assets/site-ui.js"></script>'
+QUALITY_UI = '<script defer src="/assets/quality-ui.js"></script>'
+QUALITY_CSS = '<link rel="stylesheet" href="/assets/quality-polish.css">'
 REFERRER_META = '<meta name="referrer" content="strict-origin-when-cross-origin">'
 
 OG_IMAGE_RE = re.compile(r'<meta\s+property=["\']og:image["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
@@ -18,6 +20,8 @@ TW_ALT_RE = re.compile(r'<meta\s+name=["\']twitter:image:alt["\']\s+content=["\'
 TW_SITE_RE = re.compile(r'<meta\s+name=["\']twitter:site["\']\s+content=["\'][^"\']*["\']\s*/?>', re.I)
 IDENTITY_RE = re.compile(r'<script id="ktg-social-identity" type="application/ld\+json">.*?</script>', re.I | re.S)
 SITE_UI_RE = re.compile(r'<script[^>]+src=["\']/assets/site-ui\.js["\'][^>]*></script>', re.I)
+QUALITY_UI_RE = re.compile(r'<script[^>]+src=["\']/assets/quality-ui\.js["\'][^>]*></script>', re.I)
+QUALITY_CSS_RE = re.compile(r'<link[^>]+href=["\']/assets/quality-polish\.css["\'][^>]*>', re.I)
 CSP_RE = re.compile(r'<meta\s+http-equiv=["\']Content-Security-Policy["\'][^>]*>', re.I)
 REFERRER_RE = re.compile(r'<meta\s+name=["\']referrer["\'][^>]*>', re.I)
 INLINE_SCRIPT_RE = re.compile(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', re.I | re.S)
@@ -71,6 +75,10 @@ def inject_or_replace(html: str) -> str:
 
     if not SITE_UI_RE.search(html):
         html = html.replace("</head>", SITE_UI + "</head>", 1)
+    if not QUALITY_UI_RE.search(html):
+        html = html.replace("</head>", QUALITY_UI + "</head>", 1)
+    if not QUALITY_CSS_RE.search(html):
+        html = html.replace("</head>", QUALITY_CSS + "</head>", 1)
 
     if REFERRER_RE.search(html):
         html = REFERRER_RE.sub(REFERRER_META, html, count=1)
