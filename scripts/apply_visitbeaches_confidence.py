@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -148,7 +149,11 @@ def apply(slug: str, *, now: datetime | None = None) -> str:
 
 
 def main() -> None:
-    for slug in LOCATIONS:
+    requested = sys.argv[1:] or LOCATIONS
+    invalid = [slug for slug in requested if slug not in LOCATIONS]
+    if invalid:
+        raise SystemExit(f"unknown location slug(s): {', '.join(invalid)}")
+    for slug in requested:
         print(slug, apply(slug))
 
 
