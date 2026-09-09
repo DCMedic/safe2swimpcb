@@ -40,16 +40,6 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Inspect Escambia beach-condition widget wiring
-        shell: bash
-        run: |
-          python - <<'PY'
-          import requests
-          u='https://myescambia.com/Assets/JS/widget-beach-conditions.js'
-          r=requests.get(u,timeout=25,headers={'User-Agent':'KnowTheGulf/1.0 (+https://knowthegulf.com)'})
-          print('widget-status',r.status_code,'bytes',len(r.content))
-          print(r.text[:16000])
-          PY
       - name: Validate western collector entry points
         run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/flag_image_verification.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
       - name: Run western collector regression tests
@@ -81,7 +71,7 @@ jobs:
           done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py okaloosa-island navarre-beach pensacola-beach
-      - name: Require explicit current-status evidence with guarded image fallback
+      - name: Require explicit current-status evidence with guarded image/API fallback
         run: python scripts/refresh_western_current_flags.py
       - name: Preserve dedicated Destin current-condition ownership
         run: git restore data/destin/current_flag.json
