@@ -14,6 +14,13 @@ def png_bytes(draw_fn):
     return buf.getvalue()
 
 
+def svg_bytes(fill: str) -> bytes:
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="200" height="120" viewBox="0 0 200 120">
+      <rect width="200" height="120" fill="white"/>
+      <rect x="20" y="20" width="160" height="80" fill="{fill}"/>
+    </svg>'''.encode()
+
+
 def test_yellow_flag_image_can_be_publishable():
     data = png_bytes(lambda d: d.rectangle((20, 20, 180, 100), fill=(245, 205, 20)))
     result = classify_flag_image_bytes(data)
@@ -27,6 +34,28 @@ def test_green_flag_image_can_be_publishable():
     result = classify_flag_image_bytes(data)
     assert result.primary == "Green"
     assert result.publishable is True
+
+
+def test_self_contained_yellow_svg_can_be_publishable():
+    result = classify_flag_image_bytes(svg_bytes("#f5cd14"))
+    assert result.primary == "Yellow"
+    assert result.publishable is True
+
+
+def test_self_contained_green_svg_can_be_publishable():
+    result = classify_flag_image_bytes(svg_bytes("#149646"))
+    assert result.primary == "Green"
+    assert result.publishable is True
+
+
+def test_svg_with_external_resource_reference_is_rejected():
+    data = b'''<svg xmlns="http://www.w3.org/2000/svg" width="200" height="120">
+      <image href="https://example.com/flag.png" width="200" height="120"/>
+    </svg>'''
+    result = classify_flag_image_bytes(data)
+    assert result.publishable is False
+    assert result.primary is None
+    assert "SVG contains" in result.reason
 
 
 def test_red_image_is_never_published_without_single_double_evidence():
