@@ -1,0 +1,152 @@
+{
+  "mode": "shadow_only",
+  "publication_effect": "none",
+  "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+  "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+  "locations": {
+    "pcb": {
+      "matched_beaches": 1,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Yellow",
+      "visitbeaches_purple": true,
+      "flag_conflict": false,
+      "comparison": "agree",
+      "error": null
+    },
+    "destin": {
+      "matched_beaches": 1,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "okaloosa-island": {
+      "matched_beaches": 0,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "navarre-beach": {
+      "matched_beaches": 1,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Yellow",
+      "visitbeaches_purple": true,
+      "flag_conflict": false,
+      "comparison": "agree",
+      "error": null
+    },
+    "pensacola-beach": {
+      "matched_beaches": 1,
+      "fresh_observations": 2,
+      "visitbeaches_flag": "Yellow",
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "agree",
+      "error": null
+    },
+    "south-walton": {
+      "matched_beaches": 0,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "cape-san-blas": {
+      "matched_beaches": 1,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "st-joe-beach": {
+      "matched_beaches": 1,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "franklin-county": {
+      "matched_beaches": 1,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "anna-maria-island": {
+      "matched_beaches": 2,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "siesta-key": {
+      "matched_beaches": 0,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "venice": {
+      "matched_beaches": 3,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Green",
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "visitbeaches_fills_current_gap",
+      "error": null
+    },
+    "sanibel": {
+      "matched_beaches": 1,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Green",
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "visitbeaches_fills_current_gap",
+      "error": null
+    },
+    "fort-myers-beach": {
+      "matched_beaches": 0,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "naples": {
+      "matched_beaches": 4,
+      "fresh_observations": 4,
+      "visitbeaches_flag": "Green",
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "visitbeaches_fills_current_gap",
+      "error": null
+    },
+    "marco-island": {
+      "matched_beaches": 1,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Green",
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "visitbeaches_fills_current_gap",
+      "error": null
+    }
+  }
+}
