@@ -17,7 +17,7 @@ MIN_PRIMARY_PURITY = 0.72
 MIN_PURPLE_FRACTION = 0.08
 MIN_BBOX_FILL = 0.30
 SVG_EXTERNAL_REFERENCE = re.compile(
-    rb"(?:https?:|file:|ftp:|data:|<\s*image\b|\b(?:href|xlink:href)\s*=\s*['\"]\s*(?:https?:|//|file:|ftp:|data:)|url\s*\(\s*['\"]?\s*(?:https?:|//|file:|ftp:|data:))",
+    rb"(?:<\s*image\b|\b(?:href|xlink:href)\s*=\s*['\"]\s*(?:https?:|//|file:|ftp:|data:)|url\s*\(\s*['\"]?\s*(?:https?:|//|file:|ftp:|data:))",
     re.I,
 )
 
@@ -71,7 +71,8 @@ def _decode_image(data: bytes) -> Image.Image:
     if _looks_like_svg(data):
         # Current-condition SVGs are accepted only when self-contained. This keeps
         # vector rasterization from following network/file/data references hidden
-        # inside an otherwise trusted official SVG asset.
+        # inside an otherwise trusted official SVG asset. Standard namespace URLs
+        # remain valid because only resource-bearing attributes/elements are gated.
         if SVG_EXTERNAL_REFERENCE.search(data):
             raise ValueError("SVG contains an external or embedded resource reference")
         png = cairosvg.svg2png(bytestring=data, output_width=400)
