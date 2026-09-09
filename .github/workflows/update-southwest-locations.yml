@@ -9,12 +9,14 @@ on:
       - '.github/recovery/southwest.trigger'
       - 'scripts/update_southwest_locations.py'
       - 'scripts/update_southwest_location.py'
+      - 'scripts/visitbeaches_graphql.py'
       - 'scripts/collector_resilience.py'
       - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
       - 'tests/test_collector_resilience.py'
       - 'tests/test_southwest_sources.py'
+      - 'tests/test_visitbeaches_graphql.py'
   schedule:
     - cron: '22,52 * * * *'
 
@@ -40,9 +42,9 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Validate Southwest adapter entry points
-        run: python -m py_compile scripts/update_southwest_locations.py scripts/update_southwest_location.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+        run: python -m py_compile scripts/update_southwest_locations.py scripts/update_southwest_location.py scripts/visitbeaches_graphql.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
       - name: Run Southwest collector regression tests
-        run: pytest -q tests/test_collector_resilience.py tests/test_southwest_sources.py
+        run: pytest -q tests/test_collector_resilience.py tests/test_southwest_sources.py tests/test_visitbeaches_graphql.py
       - name: Snapshot last-known Southwest status
         shell: bash
         run: |
@@ -94,7 +96,7 @@ jobs:
                 python scripts/protect_current_flag.py \
                   --previous "$previous" \
                   --current "$current" \
-                  --max-age-hours 18 \
+                  --max-age-hours 24 \
                   --mode missing-flag
               fi
             done
@@ -108,7 +110,7 @@ jobs:
                 python scripts/protect_current_flag.py \
                   --previous "$previous" \
                   --current "$current" \
-                  --max-age-hours 18 \
+                  --max-age-hours 24 \
                   --mode unavailable
               fi
             done
