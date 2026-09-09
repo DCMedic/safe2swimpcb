@@ -50,6 +50,26 @@ def test_static_legend_is_not_current_status():
     assert evidence is None
 
 
+def test_current_heading_cannot_reach_later_warning_section():
+    state, evidence = state_from_current_text(
+        'Current Conditions: For Gulf conditions and flag updates text SAFETY to 31279. '
+        'Beach Flag Warnings Image Entering the Gulf during double red flag conditions can result in a fine.'
+    )
+    assert state.primary is None
+    assert state.purple is False
+    assert evidence is None
+
+
+def test_current_heading_cannot_reach_later_rules_or_faq():
+    state, evidence = state_from_current_text(
+        'Current Conditions: Check the local authority. Rules Double Red means water closed. '
+        'Frequently Asked Questions What do purple flags mean? Dangerous Marine Life.'
+    )
+    assert state.primary is None
+    assert state.purple is False
+    assert evidence is None
+
+
 def test_generic_forecast_risk_is_not_a_flag():
     state, evidence = state_from_current_text('Current rip current risk: High')
     assert state.primary is None
@@ -121,6 +141,21 @@ def test_fresh_official_current_status_overrides_older_cached_primary():
     assert normalized['source_url'] == 'https://official.example/current'
     assert normalized['secondary_source_url'] == 'https://secondary.example/report'
     assert normalized['provenance_tier'] == 'primary_official_terminology'
+
+
+def test_fresh_primary_does_not_inherit_stale_purple_overlay():
+    payload = {
+        'flag': 'Yellow',
+        'label': 'Yellow + Purple',
+        'purple': True,
+        'source_name': 'Official Beach Safety',
+        'source_url': 'https://official.example/current',
+        'official_authority_url': 'https://official.example/current',
+    }
+    normalized, _ = update_payload('destin', payload, _Session())
+    assert normalized['flag'] == 'Red'
+    assert normalized['purple'] is False
+    assert normalized['label'] == 'Red'
 
 
 def test_successful_official_verification_clears_degraded_cache_metadata():
