@@ -12,8 +12,15 @@ on:
       - 'scripts/apply_florida_flag_terms.py'
       - 'scripts/flag_image_verification.py'
       - 'scripts/refresh_south_walton_current_flag.py'
+      - 'scripts/apply_visitbeaches_confidence.py'
+      - 'data/visitbeaches/south-walton.json'
+      - 'data/visitbeaches/cape-san-blas.json'
+      - 'data/visitbeaches/st-joe-beach.json'
+      - 'data/visitbeaches/franklin-county.json'
+      - 'requirements.txt'
       - 'tests/test_eastern_panhandle_flags.py'
       - 'tests/test_south_walton_current_visual.py'
+      - 'tests/test_visitbeaches_confidence.py'
   schedule:
     - cron: '12,42 * * * *'
 
@@ -37,17 +44,19 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pillow pytest
+      - run: pip install -r requirements.txt
       - name: Validate Eastern collector entry points
-        run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/flag_image_verification.py scripts/refresh_south_walton_current_flag.py
+        run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/flag_image_verification.py scripts/refresh_south_walton_current_flag.py scripts/apply_visitbeaches_confidence.py
       - name: Run Eastern collector regression tests
-        run: python -m pytest -q tests/test_eastern_panhandle_flags.py tests/test_south_walton_current_visual.py
+        run: python -m pytest -q tests/test_eastern_panhandle_flags.py tests/test_south_walton_current_visual.py tests/test_visitbeaches_confidence.py
       - name: Refresh eastern Panhandle flags
         run: timeout 8m python scripts/update_eastern_panhandle.py
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py south-walton cape-san-blas gulf-state-park-beaches st-joe-beach franklin-county
       - name: Re-verify South Walton from bounded Current Conditions visual evidence
         run: python scripts/refresh_south_walton_current_flag.py
+      - name: Reapply VisitBeaches corroboration and safe gap fill
+        run: python scripts/apply_visitbeaches_confidence.py south-walton cape-san-blas st-joe-beach franklin-county
       - name: Commit refreshed eastern Panhandle flags
         run: |
           if [[ -z "$(git status --porcelain data/south-walton data/cape-san-blas data/gulf-state-park-beaches data/st-joe-beach data/franklin-county)" ]]; then
