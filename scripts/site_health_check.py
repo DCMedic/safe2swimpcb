@@ -96,8 +96,8 @@ def validate_json(errors: list[str]) -> None:
         except Exception as exc:
             fail(f"invalid JSON {p.relative_to(ROOT)}: {exc}", errors)
     current_files = [ROOT / "data/current_flag.json"] + list((ROOT / "data").glob("*/current_flag.json"))
-    valid_flags = {None, "Green", "Yellow", "Single Red", "Double Red"}
-    severity = {"Green": 1, "Yellow": 2, "Single Red": 3, "Double Red": 4}
+    valid_flags = {None, "Green", "Yellow", "Red", "Single Red", "Double Red"}
+    severity = {"Green": 1, "Yellow": 2, "Red": 3, "Single Red": 3, "Double Red": 4}
     now = datetime.now(timezone.utc)
     for p in current_files:
         if not p.exists():
