@@ -16,42 +16,32 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests
-      - name: Inspect VisitBeaches map and same-origin scripts
+      - name: Inspect VisitBeaches GraphQL schema and report structure
         shell: bash
         run: |
           python - <<'PY'
-          import re, requests
-          from urllib.parse import urljoin, urlparse
+          import json,re,requests
           s=requests.Session()
           s.headers.update({'User-Agent':'KnowTheGulf/1.0 (+https://knowthegulf.com)'})
-          base='https://visitbeaches.org/map'
-          r=s.get(base,timeout=25)
-          print('PAGE',r.status_code,r.url,len(r.content),r.headers.get('content-type'))
-          html=r.text
-          print('HTML_START')
-          for line in html.splitlines():
-              low=line.lower()
-              if any(k in low for k in ('script','api','report','beach','flag','__next','vite','webpack')):
-                  print(line[:2000])
-          print('HTML_END')
-          scripts=[]
-          for m in re.finditer(r'<script[^>]+src=["\']([^"\']+)',html,re.I):
-              u=urljoin(r.url,m.group(1).replace('&amp;','&'))
-              if urlparse(u).netloc.endswith('visitbeaches.org'):
-                  scripts.append(u)
-          print('SCRIPTS',len(scripts))
-          for u in scripts[:40]:
+          js=s.get('https://visitbeaches.org/static/js/main.5c06dc4b.js',timeout=30).text
+          for needle in ('lastThreeDaysOfReports','BeachReport on Report','ParameterValue on ParameterValue','fragment Beach on Beach','query Beaches','Beach Ambassador Reports'):
+              print('\n=== CONTEXT',needle,'===')
+              pos=js.find(needle)
+              print('pos',pos)
+              if pos>=0: print(js[max(0,pos-2200):pos+5000])
+          endpoint='https://api.visitbeaches.org/graphql'
+          def gql(query, variables=None):
+              r=s.post(endpoint,json={'query':query,'variables':variables or {}},timeout=30)
+              print('GRAPHQL_STATUS',r.status_code,r.headers.get('content-type'))
               try:
-                  x=s.get(u,timeout=25)
-                  print('\nSCRIPT',x.status_code,u,len(x.content),x.headers.get('content-type'))
-                  text=x.text
-                  hits=[]
-                  for pat in (r'https?://[^"\'\s)]+', r'/api/[^"\'\s)]+', r'api[^"\']{0,120}', r'flag[^"\']{0,160}', r'report[^"\']{0,160}', r'beach[^"\']{0,160}'):
-                      for mm in re.finditer(pat,text,re.I):
-                          v=mm.group(0)
-                          if v not in hits:
-                              hits.append(v)
-                  for h in hits[:120]: print('HIT',h[:500])
-              except Exception as e:
-                  print('SCRIPT_ERROR',u,repr(e))
+                  data=r.json()
+              except Exception:
+                  print(r.text[:4000]); return None
+              print(json.dumps(data,indent=2)[:30000])
+              return data
+          for typename in ('Beach','Report','BeachReport','ReportParameter','Parameter','ParameterValue','User'):
+              print('\n=== TYPE',typename,'===')
+              gql('query($name:String!){__type(name:$name){name kind fields{name type{kind name ofType{kind name ofType{kind name}}} args{name type{kind name ofType{kind name}}}}}}}',{'name':typename})
+          print('\n=== QUERY ROOT ===')
+          gql('{__schema{queryType{fields{name type{kind name ofType{kind name}} args{name type{kind name ofType{kind name}}}}}}}')
           PY
