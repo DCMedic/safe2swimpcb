@@ -64,6 +64,11 @@
     '/naples/':'/data/naples/current_flag.json',
     '/marco-island/':'/data/marco-island/current_flag.json'
   };
+  const VISITBEACHES_SLUGS={
+    '/':'pcb','/destin/':'destin','/okaloosa-island/':'okaloosa-island','/navarre-beach/':'navarre-beach','/pensacola-beach/':'pensacola-beach',
+    '/south-walton/':'south-walton','/cape-san-blas/':'cape-san-blas','/st-george-island/':'franklin-county','/anna-maria-island/':'anna-maria-island',
+    '/siesta-key/':'siesta-key','/venice/':'venice','/sanibel/':'sanibel','/fort-myers-beach/':'fort-myers-beach','/naples/':'naples','/marco-island/':'marco-island'
+  };
   function normalizedPath(){let p=location.pathname||'/';if(!p.endsWith('/'))p+='/';return p.replace(/\/+/g,'/');}
   function flagColor(primary){
     if(primary==='Green')return'var(--good)';
@@ -122,10 +127,67 @@
       renderCanonicalPole(document.getElementById('flagPole'),c,stale);
     }catch(_){/* Existing page-specific fallback remains authoritative on fetch failure. */}
   }
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const clean=s=>String(s??'').replace(/\s+/g,' ').trim();
+  function paramValue(obs,name){
+    const target=name.toLowerCase();
+    const p=(obs.parameters||[]).find(x=>clean(x.parameter).toLowerCase()===target);
+    if(!p)return null;
+    if(p.value!==null&&p.value!==undefined&&String(p.value)!=='')return{value:p.value,unit:p.unit||''};
+    const vals=(p.selected_values||[]).map(v=>v.name).filter(Boolean);
+    return vals.length?{value:vals.join(', '),unit:p.unit||''}:null;
+  }
+  function firstParam(obs,names){for(const name of names){const v=paramValue(obs,name);if(v)return v}return null;}
+  function fmtValue(v){if(!v)return null;const value=clean(v.value);if(!value)return null;return `${value}${v.unit?` ${clean(v.unit)}`:''}`.trim();}
+  function observationMetrics(obs){
+    const n=obs.normalized_conditions||{};
+    const temp=n.water_temperature?fmtValue(n.water_temperature):fmtValue(firstParam(obs,['Water Surface Temperature','Water Temperature']));
+    const air=fmtValue(firstParam(obs,['Air Temperature']));
+    const uv=fmtValue(firstParam(obs,['UV Index']));
+    const surfHeight=fmtValue(firstParam(obs,['Surf Height','Wave Height']));
+    const surfType=fmtValue(firstParam(obs,['Surf Type']));
+    const rip=fmtValue(firstParam(obs,['Rip Currents','Rip Current']));
+    const windSpeed=fmtValue(firstParam(obs,['Wind Speed'])),windDir=fmtValue(firstParam(obs,['Wind Direction']));
+    const wind=[windDir,windSpeed].filter(Boolean).join(' · ')||null;
+    const tide=fmtValue(firstParam(obs,['Tides','Tide']));
+    const waterColor=n.water_color?clean(n.water_color):fmtValue(firstParam(obs,['Water Color']));
+    const respiratory=n.respiratory_irritation?clean(n.respiratory_irritation):fmtValue(firstParam(obs,['Respiratory Irritation']));
+    const deadFish=n.dead_fish?clean(n.dead_fish):fmtValue(firstParam(obs,['Dead Fish']));
+    const crowds=n.crowd?clean(n.crowd):fmtValue(firstParam(obs,['Crowds','Crowd']));
+    const jelly=fmtValue(firstParam(obs,['Jellyfish']));
+    const algae=fmtValue(firstParam(obs,['Drift Algae','Algae']));
+    const debris=fmtValue(firstParam(obs,['Beach Debris','Debris']));
+    return[
+      ['Water temperature',temp,'Observed'],['Surf height',surfHeight,surfType||'Observed surf'],['Rip currents',rip,'Ambassador observation'],['Wind',wind,'Observed'],
+      ['Tides',tide,'Reported tide times'],['Water color',waterColor,'Observed'],['Jellyfish',jelly,'Observed'],['Respiratory irritation',respiratory,'Observed'],
+      ['Dead fish',deadFish,'Observed'],['Crowds',crowds,'Observed'],['Drift algae',algae,'Observed'],['Beach debris',debris,'Observed'],['Air temperature',air,'Observed'],['UV index',uv,'Reported']
+    ].filter(x=>x[1]);
+  }
+  function metricHtml(label,value,sub){return `<div class="metric"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div><div class="sub">${esc(sub)}</div></div>`;}
+  async function renderVisitBeachesObservation(){
+    const slug=VISITBEACHES_SLUGS[normalizedPath()];if(!slug)return;
+    try{
+      const r=await fetch(`/data/visitbeaches/${slug}.json`,{cache:'no-store'});if(!r.ok)return;
+      const d=await r.json(),observations=Array.isArray(d.observations)?d.observations:[];
+      const obs=observations.find(x=>x&&x.fresh&&observationMetrics(x).length)||observations.find(x=>x&&observationMetrics(x).length);
+      if(!obs)return;
+      const metrics=observationMetrics(obs);if(!metrics.length)return;
+      const main=document.querySelector('main.shell');if(!main||document.getElementById('ktgAmbassadorObservation'))return;
+      const anchor=main.querySelector('.flag-card')||main.querySelector('.flag-card-wide')||main.querySelector('.today-grid')||main.querySelector('.hero');if(!anchor)return;
+      const stamp=obs.created_at?new Date(obs.created_at):null,validStamp=stamp&&!Number.isNaN(stamp.getTime());
+      const fresh=obs.fresh===true;
+      const section=document.createElement('section');section.id='ktgAmbassadorObservation';section.className='card';section.setAttribute('aria-labelledby','ktgAmbassadorTitle');
+      const status=fresh?'Fresh Beach Ambassador observation':'Last Beach Ambassador observation';
+      const confidence=d.knowthegulf_comparison?.state||null;
+      section.innerHTML=`<div class="eyebrow">Mote Marine Laboratory · VisitBeaches</div><h2 id="ktgAmbassadorTitle">Beach Ambassador Observation</h2><p>${esc(status)}${obs.beach_name?` for <strong>${esc(obs.beach_name)}</strong>`:''}${validStamp?` · ${esc(stamp.toLocaleString())}`:''}. These are observational conditions and do not replace posted flags or lifeguard instructions.</p><div class="pillrow"><span class="pill">Beach Ambassador report</span>${confidence?`<span class="pill">Source comparison: ${esc(confidence.replaceAll('_',' '))}</span>`:''}</div><div class="grid metrics" style="margin-top:14px">${metrics.map(x=>metricHtml(...x)).join('')}</div><p class="small" style="margin-top:14px"><a href="https://visitbeaches.org/map" target="_blank" rel="noopener">Open VisitBeaches source ↗</a></p>`;
+      anchor.insertAdjacentElement('afterend',section);
+    }catch(_){/* Rich observational data is optional; core safety status remains available. */}
+  }
   ready(()=>{
     document.body.classList.add('ktg-standard-ui');
     accessibility();standardizeBrand();ensureBreadcrumb();ensureBeachNav();standardizeSafety();standardizeFooter();
     setTimeout(syncCanonicalFlagVisual,250);
-    window.addEventListener('load',()=>setTimeout(syncCanonicalFlagVisual,50),{once:true});
+    setTimeout(renderVisitBeachesObservation,300);
+    window.addEventListener('load',()=>{setTimeout(syncCanonicalFlagVisual,50);setTimeout(renderVisitBeachesObservation,80)},{once:true});
   });
 })();
