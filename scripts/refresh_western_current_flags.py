@@ -26,15 +26,14 @@ LOCATIONS = {
     },
     "navarre-beach": {
         "source_name": "Santa Rosa County / Navarre Beach Safety",
-        # Santa Rosa publishes the live Navarre surf-condition banner in the
-        # county-wide page chrome/homepage. The older Water Safety page is an
-        # educational page and is not the live-condition source.
         "source_url": "https://www.santarosa.fl.gov/",
         "official_url": "https://www.santarosa.fl.gov/318/Navarre-Beach-Pavilions",
     },
     "pensacola-beach": {
         "source_name": "Escambia County / Pensacola Beach Lifeguards",
-        "source_url": "https://myescambia.com/pensacola-beach/pensacola-beach-lifeguards",
+        "source_url": "https://myescambia.com/pensacola-beach",
+        "official_url": "https://myescambia.com/pensacola-beach/pensacola-beach-lifeguards",
+        "api_url": "https://myescambia.com/api/BeachCondition",
     },
 }
 
@@ -49,6 +48,7 @@ HAZARD_TO_FLAG = {
     "water closed": "Double Red",
     "water closed to public": "Double Red",
 }
+ESCAMBIA_LEVEL_TO_FLAG = {1: "Green", 2: "Yellow", 3: "Single Red", 4: "Double Red"}
 SEVERITY = {"Green": 1, "Yellow": 2, "Single Red": 3, "Double Red": 4}
 
 CURRENT_CONTEXT = re.compile(
@@ -71,6 +71,7 @@ CURRENT_STATUS = re.compile(
     re.I,
 )
 DANGEROUS_MARINE_LIFE = re.compile(r"\bdangerous\s+marine\s+life\b|\bpurple\s+flag\b", re.I)
+DOTNET_DATE = re.compile(r"^/Date\(([-+]?\d+)(?:[-+]\d+)?\)/$")
 
 
 def normalize_condition(value: str) -> str | None:
@@ -87,11 +88,65 @@ def parse_explicit_current_status(html: str) -> tuple[str | None, str | None, bo
     flag = normalize_condition(match.group(1))
     if not flag:
         return None, None, False
-    # Purple is additive only when it appears immediately with the explicit
-    # current-condition block, not elsewhere in a legend or education section.
     nearby = text[match.start(): min(len(text), match.end() + 120)]
     purple = bool(DANGEROUS_MARINE_LIFE.search(nearby))
     return flag, match.group(0), purple
+
+
+def parse_escambia_datetime(value: object) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    raw = value.strip()
+    dotnet = DOTNET_DATE.match(raw)
+    if dotnet:
+        try:
+            return datetime.fromtimestamp(int(dotnet.group(1)) / 1000, tz=ZoneInfo("UTC")).astimezone(CENTRAL)
+        except (ValueError, OverflowError, OSError):
+            return None
+    try:
+        parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        # Escambia's widget treats DateTimeCreated as UTC before displaying CT.
+        parsed = parsed.replace(tzinfo=ZoneInfo("UTC"))
+    return parsed.astimezone(CENTRAL)
+
+
+def parse_pensacola_api_payload(data: object) -> tuple[str | None, bool, dict]:
+    """Parse only Escambia's CURRENT fields. Forecast percentages never affect current flags."""
+    if not isinstance(data, dict):
+        return None, False, {}
+    level = data.get("CurrentHazardLevel")
+    try:
+        level = int(level)
+    except (TypeError, ValueError):
+        level = None
+    flag = ESCAMBIA_LEVEL_TO_FLAG.get(level)
+    purple = bool(data.get("IsDangerousMarineLifePresent")) if flag else False
+    updated = parse_escambia_datetime(data.get("DateTimeCreated"))
+    metadata = {
+        "current_hazard_level": level,
+        "current_water_temp_f": data.get("CurrentWaterTemp"),
+        "official_updated_at": updated.isoformat() if updated else None,
+        "official_updated_text": data.get("DateTimeCreated"),
+    }
+    return flag, purple, metadata
+
+
+def fetch_pensacola_current(api_url: str) -> tuple[str | None, bool, dict, str | None]:
+    session = requests.Session()
+    session.headers.update({"User-Agent": "KnowTheGulf/1.0 (+https://knowthegulf.com)", "Accept": "application/json"})
+    try:
+        response = session.get(api_url, timeout=25)
+        response.raise_for_status()
+        data = response.json()
+    except (requests.RequestException, ValueError) as exc:
+        return None, False, {}, str(exc)
+    flag, purple, metadata = parse_pensacola_api_payload(data)
+    if not flag:
+        return None, False, metadata, "Escambia BeachCondition API returned no recognized current hazard level"
+    return flag, purple, metadata, None
 
 
 def image_context(img) -> str:
@@ -109,7 +164,6 @@ def image_context(img) -> str:
 
 
 def eligible_current_flag_images(html: str, base_url: str) -> list[dict[str, str]]:
-    """Return images only when local DOM context explicitly identifies current conditions."""
     soup = BeautifulSoup(html, "html.parser")
     candidates: list[dict[str, str]] = []
     for img in soup.find_all("img"):
@@ -121,11 +175,7 @@ def eligible_current_flag_images(html: str, base_url: str) -> list[dict[str, str
             continue
         if LEGEND_CONTEXT.search(context):
             continue
-        candidates.append({
-            "url": urljoin(base_url, src),
-            "context": context[:500],
-            "alt": str(img.get("alt") or ""),
-        })
+        candidates.append({"url": urljoin(base_url, src), "context": context[:500], "alt": str(img.get("alt") or "")})
     return candidates
 
 
@@ -146,15 +196,13 @@ def analyze_image_candidates(candidates: list[dict[str, str]], session: requests
         results.append(record)
         if result.publishable and result.primary:
             publishable.append((result.primary, result.purple, result.confidence, candidate["url"]))
-
     if not publishable:
         return None, False, results, None
     primaries = {item[0] for item in publishable}
     if len(primaries) != 1:
         return None, False, results, "eligible current-status images disagree on primary flag color"
     best = max(publishable, key=lambda item: item[2])
-    purple = any(item[1] for item in publishable)
-    return best[0], purple, results, None
+    return best[0], any(item[1] for item in publishable), results, None
 
 
 def fetch_current_evidence(url: str) -> tuple[str | None, str | None, str | None, list[dict], str | None, bool]:
@@ -165,13 +213,9 @@ def fetch_current_evidence(url: str) -> tuple[str | None, str | None, str | None
         response.raise_for_status()
     except requests.RequestException as exc:
         return None, None, str(exc), [], None, False
-
     text_flag, evidence, text_purple = parse_explicit_current_status(response.text)
     candidates = eligible_current_flag_images(response.text, response.url)
     image_flag, image_purple, analyzed, image_conflict = analyze_image_candidates(candidates, session)
-
-    # Existing text evidence remains primary. Images are corroboration when they agree,
-    # or a fallback only when no stronger current-status evidence exists.
     if text_flag:
         if image_flag and image_flag != text_flag:
             return text_flag, evidence, None, analyzed, f"text={text_flag}; image={image_flag}", text_purple
@@ -192,31 +236,49 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
     except (FileNotFoundError, json.JSONDecodeError):
         previous = {}
 
-    now = datetime.now(CENTRAL).isoformat()
-    flag, evidence, fetch_error, image_results, conflict, image_purple = fetch_current_evidence(cfg["source_url"])
+    now_dt = datetime.now(CENTRAL)
+    now = now_dt.isoformat()
+    api_metadata: dict = {}
+    if slug == "pensacola-beach" and cfg.get("api_url"):
+        flag, purple, api_metadata, fetch_error = fetch_pensacola_current(cfg["api_url"])
+        evidence = f"Escambia BeachCondition API CurrentHazardLevel={api_metadata.get('current_hazard_level')}" if flag else None
+        image_results: list[dict] = []
+        conflict = None
+    else:
+        flag, evidence, fetch_error, image_results, conflict, purple = fetch_current_evidence(cfg["source_url"])
 
     payload = dict(previous)
     official_url = cfg.get("official_url", cfg["source_url"])
+    source_updated_at = api_metadata.get("official_updated_at")
+    verified_at = source_updated_at or now
     payload.update({
         "flag": flag,
         "primary_flag": flag,
-        "purple": image_purple if flag else False,
-        "label": (flag + (" + Purple" if image_purple else "")) if flag else "Official flag status unavailable",
+        "purple": purple if flag else False,
+        "label": (flag + (" + Purple" if purple else "")) if flag else "Official flag status unavailable",
         "severity": SEVERITY.get(flag),
         "last_checked_at": now,
         "source_name": cfg["source_name"],
         "source_url": cfg["source_url"],
         "official_authority": cfg["source_name"],
         "official_authority_url": official_url,
-        "method": "Official current-status text/structured evidence first; guarded current-status image verification is additive fallback/corroboration only",
-        "stale_after_hours": 24 if slug == "navarre-beach" and flag else (3 if flag else 0),
+        "method": (
+            "Direct Escambia County BeachCondition API current fields; forecast percentages are excluded from current flag determination"
+            if slug == "pensacola-beach" else
+            "Official current-status text/structured evidence first; guarded current-status image verification is additive fallback/corroboration only"
+        ),
+        "stale_after_hours": 24 if slug in {"navarre-beach", "pensacola-beach"} and flag else (3 if flag else 0),
         "flag_schema": "Florida Beach Warning Flag terminology v1",
         "flag_terms_note": (
             "Official flag-definition text remains authoritative for terminology normalization. "
-            "Image verification is additive only: candidates must be inside explicit current/today/posted-condition context, legend/education images are excluded, and pixels never override stronger text evidence."
+            "Current status must come from explicit current evidence. Forecast values never become the current flag."
         ),
         "current_flag_image_evidence": image_results,
     })
+    if cfg.get("api_url"):
+        payload["source_data_url"] = cfg["api_url"]
+    if api_metadata:
+        payload.update({k: v for k, v in api_metadata.items() if v is not None})
 
     if conflict:
         payload["evidence_conflict"] = conflict
@@ -224,21 +286,21 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         payload.pop("evidence_conflict", None)
 
     if flag:
-        payload["last_verified_at"] = now
+        payload["last_verified_at"] = verified_at
         payload["source_check_status"] = "verified_with_conflict" if conflict else "verified"
-        payload["provenance_tier"] = "primary_official_current_status" if evidence != "high-confidence eligible current-status image" else "primary_official_current_image"
+        if slug == "pensacola-beach":
+            payload["provenance_tier"] = "primary_official_current_widget_api"
+        else:
+            payload["provenance_tier"] = "primary_official_current_status" if evidence != "high-confidence eligible current-status image" else "primary_official_current_image"
         payload["terminology_evidence"] = evidence
         payload["terminology_verified_at"] = now
-        payload["terminology_verified_url"] = cfg["source_url"]
+        payload["terminology_verified_url"] = cfg.get("api_url", cfg["source_url"])
         payload.pop("source_error", None)
         payload.pop("stale_reason", None)
     else:
         payload["source_check_status"] = "unavailable" if fetch_error else ("conflict" if conflict else "degraded")
         payload["provenance_tier"] = "official_source_evidence_conflict" if conflict else "official_source_no_verified_current_status"
-        payload["stale_reason"] = (
-            "Official source was unreachable" if fetch_error else
-            "Official source is reachable, but neither explicit current-status text nor a high-confidence eligible current-status image produced a publishable current flag"
-        )
+        payload["stale_reason"] = "Official current-condition source was unreachable or returned no recognized current flag" if fetch_error else "Official source did not provide publishable current flag evidence"
         if fetch_error:
             payload["source_error"] = fetch_error
         else:
