@@ -4,8 +4,8 @@
   "label": "Yellow + Purple",
   "severity": 2,
   "provenance_tier": "primary_official_current_visual",
-  "last_verified_at": "2026-09-09T12:50:53.572758-05:00",
-  "last_checked_at": "2026-09-09T12:50:53.572758-05:00",
+  "last_verified_at": "2026-09-09T12:58:32.404293-05:00",
+  "last_checked_at": "2026-09-09T12:58:32.404293-05:00",
   "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
@@ -22,7 +22,7 @@
   "nws_reported_flag": "Yellow",
   "nws_issued_text": "1246 PM EDT Wed Sep 9 2026",
   "nws_issued_at": "2026-09-09T12:46:00-04:00",
-  "nws_age_hours": 1.08,
+  "nws_age_hours": 1.21,
   "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0",
   "corroborating_flag": null,
   "corroborates_primary": null,
@@ -32,12 +32,6 @@
   "purple": true,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
   "flag_terms_note": "Official flag definitions remain authoritative for terminology. South Walton current-state parsing is bounded to the explicit Current Conditions region and stops before Beach Flag Warnings/legend content.",
-  "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
-  "terminology_evidence": "bounded-current-conditions-visual",
-  "terminology_verified_at": "2026-09-09T12:50:53.572758-05:00",
-  "secondary_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0",
-  "secondary_source_name": "NWS Tallahassee SRFTAE, based on communication with area beach officials",
-  "cached": false,
   "current_flag_image_evidence": [
     {
       "semantic_evidence": [
@@ -69,5 +63,8 @@
         "bbox_fill": 0.0
       }
     }
-  ]
+  ],
+  "terminology_evidence": "bounded-current-conditions-visual",
+  "terminology_verified_at": "2026-09-09T12:58:32.404293-05:00",
+  "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/"
 }
