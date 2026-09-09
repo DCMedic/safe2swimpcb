@@ -60,6 +60,12 @@ CURRENT_LINE = re.compile(
     r"\b(?:current\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|warning\s+condition|flag(?:s)?|flag\s+condition(?:s)?|beach\s+flag(?:s)?|beach\s+flag\s+condition(?:s)?)|today(?:'s)?\s+(?:status|condition(?:s)?|beach\s+condition(?:s)?|flag(?:s)?|flag\s+condition(?:s)?|warning\s+condition)|posted\s+(?:flag(?:s)?|warning\s+condition))\b\s*(?:is|are|:|-)?\s*(.{0,180})",
     re.I,
 )
+CURRENT_SECTION_BOUNDARY = re.compile(
+    r"\b(?:beach\s+flag\s+warnings?|beach\s+warning\s+flags?|flag\s+warnings?|flag\s+meanings?|"
+    r"warning\s+flag\s+system|beach\s+warning\s+flag\s+system|what\s+do\s+the\s+flags\s+mean|"
+    r"what\s+each\s+flag\s+means|legend|rules|frequently\s+asked\s+questions|safety\s+tips?)\b",
+    re.I,
+)
 BARE_CURRENT_COLOR = re.compile(r"^\s*(double\s+red|single\s+red|red|yellow|green|purple)\b", re.I)
 
 
@@ -83,8 +89,7 @@ def state_from_current_text(text: str) -> tuple[FloridaFlagState, str | None]:
     state = FloridaFlagState()
     evidence: list[str] = []
     for match in CURRENT_LINE.finditer(compact):
-        segment = match.group(1)
-        segment = re.split(r"\b(?:flag meanings?|warning flag system|what do the flags mean|legend)\b", segment, maxsplit=1, flags=re.I)[0]
+        segment = CURRENT_SECTION_BOUNDARY.split(match.group(1), maxsplit=1)[0]
         bare = BARE_CURRENT_COLOR.search(segment)
         if bare:
             parsed = interpret_florida_flag_terms(bare.group(1))
@@ -187,8 +192,6 @@ def extract_page_state(html: str, beach_names: list[str]) -> tuple[FloridaFlagSt
 
 def candidate_urls(slug: str, payload: dict) -> list[str]:
     urls: list[str] = []
-    # Source priority is deliberate: the explicitly configured official authority
-    # must outrank a cached/secondary source and any generic fallback URLs.
     for value in (payload.get("official_authority_url"), payload.get("source_url"), *EXTRA_SOURCE_URLS.get(slug, [])):
         if not isinstance(value, str) or not value.startswith("https://"):
             continue
@@ -226,23 +229,25 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         had_primary = verified.primary is not None
         had_purple = verified.purple
         verified = merge_states(verified, found)
-
-        # Preserve attribution to the highest-priority source that supplied the
-        # verified primary state. Later fallback sources may add Purple evidence,
-        # but they must never replace the authoritative primary source URL.
         if verified_url is None or (found.primary and not had_primary):
             verified_url = url
             verified_evidence = evidence
         elif found.purple and not had_purple and verified.primary is None:
             verified_url = url
             verified_evidence = evidence
-
         if verified.primary and verified.purple:
             break
 
-    # Fresh explicitly-current official terminology takes priority over an older
-    # cached or secondary-republication primary. Purple remains additive.
-    final_state = merge_states(verified, existing)
+    # A fresh verified primary is a complete current primary observation. It must
+    # not inherit a stale Purple overlay from the previous cache. If the only new
+    # evidence is Purple, preserve the existing primary and add the overlay.
+    if verified.primary:
+        final_state = verified
+    elif verified.purple:
+        final_state = merge_states(existing, verified)
+    else:
+        final_state = existing
+
     before = json.dumps(payload, sort_keys=True, default=str)
     payload["flag"] = final_state.primary
     payload["primary_flag"] = final_state.primary
@@ -254,7 +259,8 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         "Official current wording is normalized as: Water Closed to Public=Double Red; "
         "High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; "
         "Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. "
-        "Purple is an independent overlay. Forecast rip-current risk is not converted into a flag."
+        "Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. "
+        "Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections."
     )
     if verified_url:
         verified_at = datetime.now(CENTRAL).isoformat()
@@ -276,13 +282,7 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
             payload["last_verified_at"] = verified_at
             payload["last_checked_at"] = verified_at
             payload["stale_reason"] = None
-            # A successful direct official verification supersedes any degraded
-            # cache metadata left by an earlier collector attempt in the same run.
-            for transient_key in (
-                "source_error",
-                "cache_age_hours",
-                "cached_from_provenance_tier",
-            ):
+            for transient_key in ("source_error", "cache_age_hours", "cached_from_provenance_tier"):
                 payload.pop(transient_key, None)
     after = json.dumps(payload, sort_keys=True, default=str)
     return payload, before != after
