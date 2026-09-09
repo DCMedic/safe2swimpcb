@@ -4,8 +4,8 @@
   "label": "Yellow + Purple",
   "severity": 2,
   "provenance_tier": "primary_official_current_visual",
-  "last_verified_at": "2026-09-09T12:58:32.404293-05:00",
-  "last_checked_at": "2026-09-09T12:58:32.404293-05:00",
+  "last_verified_at": "2026-09-09T14:15:58.064927-05:00",
+  "last_checked_at": "2026-09-09T14:15:58.064927-05:00",
   "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
@@ -22,7 +22,7 @@
   "nws_reported_flag": "Yellow",
   "nws_issued_text": "1246 PM EDT Wed Sep 9 2026",
   "nws_issued_at": "2026-09-09T12:46:00-04:00",
-  "nws_age_hours": 1.21,
+  "nws_age_hours": 2.5,
   "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0",
   "corroborating_flag": null,
   "corroborates_primary": null,
@@ -42,30 +42,40 @@
     {
       "url": "https://cdn.visitsouthwalton.com/img/flags/flag-yellow.svg",
       "visual_analysis": {
-        "primary": null,
+        "primary": "Yellow",
         "purple": false,
-        "confidence": 0.0,
-        "publishable": false,
-        "reason": "image could not be decoded",
-        "color_fractions": {},
-        "bbox_fill": 0.0
+        "confidence": 1.0,
+        "publishable": true,
+        "reason": "high-confidence eligible current-status image",
+        "color_fractions": {
+          "red": 0.0,
+          "yellow": 0.4026,
+          "green": 0.0,
+          "purple": 0.0
+        },
+        "bbox_fill": 1.0
       }
     },
     {
       "url": "https://cdn.visitsouthwalton.com/img/flags/flag-purple.svg",
       "visual_analysis": {
         "primary": null,
-        "purple": false,
+        "purple": true,
         "confidence": 0.0,
         "publishable": false,
-        "reason": "image could not be decoded",
-        "color_fractions": {},
+        "reason": "no primary flag color occupies enough of the eligible image",
+        "color_fractions": {
+          "red": 0.0,
+          "yellow": 0.0,
+          "green": 0.0,
+          "purple": 0.4012
+        },
         "bbox_fill": 0.0
       }
     }
   ],
   "terminology_evidence": "bounded-current-conditions-visual",
-  "terminology_verified_at": "2026-09-09T12:58:32.404293-05:00",
+  "terminology_verified_at": "2026-09-09T14:15:58.064927-05:00",
   "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
