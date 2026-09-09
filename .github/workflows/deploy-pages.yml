@@ -47,6 +47,7 @@ jobs:
           node --check assets/menu.js
           node --check assets/beach-nav.js
           node --check assets/site-ui.js
+          node --check assets/quality-ui.js
           node --check assets/western-location.js
           node --check assets/eastern-location.js
           node --check assets/southwest-location.js
