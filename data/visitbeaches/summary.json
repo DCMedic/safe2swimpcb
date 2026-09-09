@@ -46,7 +46,7 @@
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "primary_flag_agrees_overlay_differs",
       "error": null
     },
     "south-walton": {
@@ -86,7 +86,7 @@
       "error": null
     },
     "anna-maria-island": {
-      "matched_beaches": 2,
+      "matched_beaches": 3,
       "fresh_observations": 0,
       "visitbeaches_flag": null,
       "visitbeaches_purple": false,
@@ -95,21 +95,21 @@
       "error": null
     },
     "siesta-key": {
-      "matched_beaches": 0,
-      "fresh_observations": 0,
-      "visitbeaches_flag": null,
+      "matched_beaches": 2,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Double Red",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "no_fresh_visitbeaches_flag",
+      "comparison": "visitbeaches_fills_current_gap",
       "error": null
     },
     "venice": {
       "matched_beaches": 3,
       "fresh_observations": 1,
-      "visitbeaches_flag": "Green",
+      "visitbeaches_flag": "Red",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "flag_disagreement",
       "error": null
     },
     "sanibel": {
@@ -122,7 +122,7 @@
       "error": null
     },
     "fort-myers-beach": {
-      "matched_beaches": 0,
+      "matched_beaches": 2,
       "fresh_observations": 0,
       "visitbeaches_flag": null,
       "visitbeaches_purple": false,

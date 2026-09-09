@@ -3,12 +3,13 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-09T19:14:26.638754+00:00",
+  "checked_at": "2026-09-09T19:42:22.867030+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Manatee Public Beach",
     "Coquina Beach",
-    "Cortez Beach"
+    "Cortez Beach",
+    "Anna Maria Island"
   ],
   "matched_beaches": [
     {
@@ -33,6 +34,20 @@
       "longitude": -82.697559,
       "city": {
         "name": "Bradenton Beach",
+        "state": {
+          "name": "Florida",
+          "abbreviation": "FL"
+        }
+      }
+    },
+    {
+      "id": "62",
+      "name": "Anna Maria Island",
+      "location": "Anna Maria, FL",
+      "latitude": 27.521275,
+      "longitude": -82.732588,
+      "city": {
+        "name": "Anna Maria",
         "state": {
           "name": "Florida",
           "abbreviation": "FL"
@@ -402,7 +417,7 @@
       "beach_location": "Bradenton Beach, FL",
       "beach_latitude": 27.450425579573142,
       "beach_longitude": -82.69287391693884,
-      "age_hours": 749.095,
+      "age_hours": 749.561,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -767,7 +782,7 @@
       "beach_location": "Bradenton Beach, FL",
       "beach_latitude": 27.450425579573142,
       "beach_longitude": -82.69287391693884,
-      "age_hours": 12195.887,
+      "age_hours": 12196.353,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1166,7 +1181,7 @@
       "beach_location": "Bradenton Beach, FL",
       "beach_latitude": 27.450425579573142,
       "beach_longitude": -82.69287391693884,
-      "age_hours": 12650.057,
+      "age_hours": 12650.522,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1538,7 +1553,7 @@
     "beach_location": "Bradenton Beach, FL",
     "beach_latitude": 27.450425579573142,
     "beach_longitude": -82.69287391693884,
-    "age_hours": 749.095,
+    "age_hours": 749.561,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },

@@ -4,14 +4,14 @@
   "beaches": [
     "Siesta Beach"
   ],
-  "flag": null,
-  "primary_flag": null,
+  "flag": "Double Red",
+  "primary_flag": "Double Red",
   "purple": false,
-  "label": "Official conditions available \u2014 no explicit flag published",
-  "severity": null,
-  "status": "official_conditions_source_reachable",
-  "provenance_tier": "primary_visitbeaches_ambassador_no_flag",
-  "last_verified_at": "2026-09-09T19:08:10.319546+00:00",
+  "label": "Double Red",
+  "severity": 4,
+  "status": "explicit_flag_verified",
+  "provenance_tier": "primary_visitbeaches_ambassador_gap_fill",
+  "last_verified_at": "2026-09-09T19:42:00+00:00",
   "last_checked_at": "2026-09-09T19:08:10.319546+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
@@ -20,9 +20,9 @@
   "official_authority": "Sarasota County Fire Department Lifeguard Operations",
   "official_authority_url": "https://www.scgov.net/government/emergency-services/lifeguard-operations",
   "source_reachable": true,
-  "explicit_flag_evidence": null,
+  "explicit_flag_evidence": "Fresh consistent VisitBeaches Beach Ambassador report(s): Double Red",
   "flag_expected_from_source": true,
-  "stale_after_hours": 24,
+  "stale_after_hours": 24.0,
   "update_note": "Sarasota County directs visitors to VisitBeaches for lifeguard-updated beach conditions; posted flags and lifeguards control.",
   "visitbeaches_source_class": "Beach Ambassador Reports only; Community Reports excluded",
   "visitbeaches_matched_beaches": [],
@@ -39,17 +39,30 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "primary_only",
-    "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
-    "flag": null,
+    "state": "visitbeaches_gap_fill",
+    "reason": "No primary flag is available and a fresh consistent VisitBeaches Ambassador flag is available",
+    "flag": "Double Red",
     "purple": false,
-    "report_at": null,
-    "fresh_observation_count": 0,
-    "matched_beaches": [],
+    "report_at": "2026-09-09T19:42:00+00:00",
+    "fresh_observation_count": 1,
+    "matched_beaches": [
+      {
+        "id": "2",
+        "name": "Siesta Key Beach",
+        "location": "Sarasota, FL"
+      },
+      {
+        "id": "60",
+        "name": "Turtle Beach",
+        "location": "Sarasota, FL"
+      }
+    ],
     "flag_conflict": false,
-    "fresh_distinct_flags": [],
-    "checked_at": "2026-09-09T19:14:27.583486+00:00",
-    "publication_action": "corroboration_only"
+    "fresh_distinct_flags": [
+      "Double Red"
+    ],
+    "checked_at": "2026-09-09T19:42:24.285300+00:00",
+    "publication_action": "filled_missing_or_stale_primary"
   },
-  "multi_source_confidence": "primary_only"
+  "multi_source_confidence": "visitbeaches_gap_filled"
 }

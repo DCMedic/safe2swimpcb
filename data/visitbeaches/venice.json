@@ -3,12 +3,13 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-09T19:14:27.719788+00:00",
+  "checked_at": "2026-09-09T19:42:25.708649+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
     "Nokomis Beach",
     "North Jetty",
+    "Venice North Jetty Beach",
     "Manasota Beach"
   ],
   "matched_beaches": [
@@ -57,26 +58,26 @@
   ],
   "observations": [
     {
-      "report_id": "74374",
-      "created_at": "2026-09-09T14:20:19+00:00",
+      "report_id": "74388",
+      "created_at": "2026-09-09T19:26:26+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Red",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ESE",
+            "value": "SSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "6.91",
+            "value": "10.36",
             "unit": "Mph"
           }
         ],
@@ -131,6 +132,12 @@
               "name": "Green",
               "value": "green",
               "description": "Low Hazard; calm conditions; exercise caution."
+            },
+            {
+              "id": "2",
+              "name": "Red",
+              "value": "red",
+              "description": "High Hazard; high surf, and/or strong currents."
             }
           ]
         },
@@ -171,7 +178,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ESE",
+          "value": "SSW",
           "selected_values": []
         },
         {
@@ -181,7 +188,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "6.91",
+          "value": "10.36",
           "selected_values": []
         },
         {
@@ -191,7 +198,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "85.17",
+          "value": "88.59",
           "selected_values": []
         },
         {
@@ -417,7 +424,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 4.902,
+      "age_hours": 0.267,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -782,7 +789,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 24.731,
+      "age_hours": 25.197,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1147,7 +1154,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 46.642,
+      "age_hours": 47.108,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1512,7 +1519,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 48.47,
+      "age_hours": 48.936,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1877,7 +1884,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 48.477,
+      "age_hours": 48.943,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2242,7 +2249,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 70.19,
+      "age_hours": 70.656,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2607,7 +2614,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 70.197,
+      "age_hours": 70.663,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2972,7 +2979,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 95.512,
+      "age_hours": 95.979,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3388,40 +3395,40 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 95.519,
+      "age_hours": 95.985,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
   "fresh_observation_count": 1,
-  "flag": "Green",
+  "flag": "Red",
   "purple": false,
   "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Green"
+    "Red"
   ],
-  "newest_report_at": "2026-09-09T14:20:19+00:00",
+  "newest_report_at": "2026-09-09T19:26:26+00:00",
   "newest_flag_report": {
-    "report_id": "74374",
-    "created_at": "2026-09-09T14:20:19+00:00",
+    "report_id": "74388",
+    "created_at": "2026-09-09T19:26:26+00:00",
     "latitude": 27.099903,
     "longitude": -82.460239,
     "ambassador": {
       "id": "1",
       "name": "Sarasota County"
     },
-    "flag": "Green",
+    "flag": "Red",
     "purple": false,
     "normalized_conditions": {
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "ESE",
+          "value": "SSW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "6.91",
+          "value": "10.36",
           "unit": "Mph"
         }
       ],
@@ -3476,6 +3483,12 @@
             "name": "Green",
             "value": "green",
             "description": "Low Hazard; calm conditions; exercise caution."
+          },
+          {
+            "id": "2",
+            "name": "Red",
+            "value": "red",
+            "description": "High Hazard; high surf, and/or strong currents."
           }
         ]
       },
@@ -3516,7 +3529,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "ESE",
+        "value": "SSW",
         "selected_values": []
       },
       {
@@ -3526,7 +3539,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "6.91",
+        "value": "10.36",
         "selected_values": []
       },
       {
@@ -3536,7 +3549,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "85.17",
+        "value": "88.59",
         "selected_values": []
       },
       {
@@ -3762,19 +3775,19 @@
     "beach_location": "Venice, FL",
     "beach_latitude": 27.099903,
     "beach_longitude": -82.460239,
-    "age_hours": 4.902,
+    "age_hours": 0.267,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
+    "state": "flag_disagreement",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
     "knowthegulf_last_verified_at": "2026-09-09T14:20:19+00:00",
-    "visitbeaches_flag": "Green",
+    "visitbeaches_flag": "Red",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-09-09T14:20:19+00:00",
+    "visitbeaches_newest_report_at": "2026-09-09T19:26:26+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },

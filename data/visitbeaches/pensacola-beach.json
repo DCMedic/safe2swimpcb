@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-09T19:14:23.564500+00:00",
+  "checked_at": "2026-09-09T19:42:19.102946+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -386,7 +386,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 4.618,
+      "age_hours": 5.084,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -751,7 +751,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 20.022,
+      "age_hours": 20.487,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1116,7 +1116,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 44.038,
+      "age_hours": 44.504,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1490,16 +1490,16 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 4.618,
+    "age_hours": 5.084,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
+    "state": "primary_flag_agrees_overlay_differs",
     "knowthegulf_flag": "Yellow",
-    "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-09T09:35:41.943000-05:00",
+    "knowthegulf_purple": true,
+    "knowthegulf_last_verified_at": "2026-09-09T14:13:51.680000-05:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-09T14:37:17+00:00",

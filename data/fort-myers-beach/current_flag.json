@@ -43,12 +43,23 @@
     "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
     "flag": null,
     "purple": false,
-    "report_at": null,
+    "report_at": "2026-08-14T12:54:12+00:00",
     "fresh_observation_count": 0,
-    "matched_beaches": [],
+    "matched_beaches": [
+      {
+        "id": "11",
+        "name": "Lynn Hall Beach Park",
+        "location": "Fort Myers Beach, FL"
+      },
+      {
+        "id": "141",
+        "name": "Bowditch Point Park",
+        "location": "Fort Myers Beach, FL"
+      }
+    ],
     "flag_conflict": false,
     "fresh_distinct_flags": [],
-    "checked_at": "2026-09-09T19:14:30.343263+00:00",
+    "checked_at": "2026-09-09T19:42:29.064908+00:00",
     "publication_action": "corroboration_only"
   },
   "multi_source_confidence": "primary_only"

@@ -3,11 +3,12 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-09T19:14:25.836932+00:00",
+  "checked_at": "2026-09-09T19:42:22.032392+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. George Island",
-    "St George Island"
+    "St George Island",
+    "Dr. Julian G. Bruce St. George Island State Park"
   ],
   "matched_beaches": [
     {
@@ -373,7 +374,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 55.225,
+      "age_hours": 55.691,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -724,7 +725,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 79.332,
+      "age_hours": 79.797,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1075,7 +1076,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 247.32,
+      "age_hours": 247.785,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1433,7 +1434,7 @@
     "beach_location": "St. George Island, FL",
     "beach_latitude": 29.662236,
     "beach_longitude": -84.861462,
-    "age_hours": 55.225,
+    "age_hours": 55.691,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
@@ -1442,7 +1443,7 @@
     "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-09T12:58:32.177333-05:00",
+    "knowthegulf_last_verified_at": "2026-09-09T14:28:44.093880-05:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-07T12:00:56+00:00",
