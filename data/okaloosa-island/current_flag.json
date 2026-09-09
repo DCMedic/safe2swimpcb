@@ -17,5 +17,23 @@
   "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Current status must come from explicit current evidence. Forecast values never become the current flag.",
   "current_flag_image_evidence": [],
   "provenance_tier": "official_source_no_verified_current_status",
-  "stale_reason": "Official source did not provide publishable current flag evidence"
+  "stale_reason": "Official source did not provide publishable current flag evidence",
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "primary_only",
+    "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
+    "flag": null,
+    "purple": false,
+    "report_at": null,
+    "fresh_observation_count": 0,
+    "matched_beaches": [],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [],
+    "checked_at": "2026-09-09T19:14:22.546957+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "primary_only"
 }

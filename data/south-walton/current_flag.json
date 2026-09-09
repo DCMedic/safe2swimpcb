@@ -66,5 +66,23 @@
   ],
   "terminology_evidence": "bounded-current-conditions-visual",
   "terminology_verified_at": "2026-09-09T12:58:32.404293-05:00",
-  "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/"
+  "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "primary_only",
+    "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
+    "flag": null,
+    "purple": false,
+    "report_at": null,
+    "fresh_observation_count": 0,
+    "matched_beaches": [],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [],
+    "checked_at": "2026-09-09T19:14:24.195282+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "primary_only"
 }

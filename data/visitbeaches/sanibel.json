@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-09T19:06:44.346070+00:00",
+  "checked_at": "2026-09-09T19:14:29.618598+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Sanibel",
@@ -387,7 +387,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 5.707,
+      "age_hours": 5.836,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -803,7 +803,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 30.356,
+      "age_hours": 30.486,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1168,7 +1168,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 54.069,
+      "age_hours": 54.199,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1542,16 +1542,16 @@
     "beach_location": "Captiva, FL",
     "beach_latitude": 26.522131,
     "beach_longitude": -82.193346,
-    "age_hours": 5.707,
+    "age_hours": 5.836,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_fills_current_gap",
-    "knowthegulf_flag": null,
+    "state": "agree",
+    "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-09T14:02:32.624688-04:00",
+    "knowthegulf_last_verified_at": "2026-09-09T13:24:20+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-09T13:24:20+00:00",

@@ -35,5 +35,29 @@
   "terminology_verified_url": "https://www.franklincountyparks.com/parks-recreation/beach-flag-warnings/",
   "terminology_evidence": "current-text:High Hazard",
   "terminology_verified_at": "2026-09-09T12:58:32.177333-05:00",
-  "cached": false
+  "cached": false,
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "primary_only",
+    "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
+    "flag": null,
+    "purple": false,
+    "report_at": "2026-09-07T12:00:56+00:00",
+    "fresh_observation_count": 0,
+    "matched_beaches": [
+      {
+        "id": "24",
+        "name": "St George Island (Bayside)",
+        "location": "St. George Island, FL"
+      }
+    ],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [],
+    "checked_at": "2026-09-09T19:14:25.836932+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "primary_only"
 }

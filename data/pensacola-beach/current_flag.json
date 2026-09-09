@@ -24,5 +24,31 @@
   "provenance_tier": "primary_official_current_widget_api",
   "terminology_evidence": "Escambia BeachCondition API CurrentHazardLevel=2",
   "terminology_verified_at": "2026-09-09T13:49:13.434397-05:00",
-  "terminology_verified_url": "https://myescambia.com/api/BeachCondition"
+  "terminology_verified_url": "https://myescambia.com/api/BeachCondition",
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "corroborated",
+    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
+    "flag": "Yellow",
+    "purple": false,
+    "report_at": "2026-09-09T14:37:17+00:00",
+    "fresh_observation_count": 2,
+    "matched_beaches": [
+      {
+        "id": "18",
+        "name": "Pensacola Beach",
+        "location": "Pensacola, FL"
+      }
+    ],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [
+      "Yellow"
+    ],
+    "checked_at": "2026-09-09T19:14:23.564500+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "corroborated"
 }

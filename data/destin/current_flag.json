@@ -20,5 +20,29 @@
   "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
   "terminology_verified_url": "https://www.destinfire.gov/today-s-warning-condition-beach-flags",
   "terminology_evidence": "current-text:Water Closed to Public",
-  "terminology_verified_at": "2026-09-09T12:58:29.539731-05:00"
+  "terminology_verified_at": "2026-09-09T12:58:29.539731-05:00",
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "primary_only",
+    "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
+    "flag": null,
+    "purple": false,
+    "report_at": null,
+    "fresh_observation_count": 0,
+    "matched_beaches": [
+      {
+        "id": "19",
+        "name": "Henderson Beach State Park",
+        "location": "Destin, FL"
+      }
+    ],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [],
+    "checked_at": "2026-09-09T19:14:21.946911+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "primary_only"
 }

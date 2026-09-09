@@ -20,5 +20,31 @@
   "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
   "terminology_verified_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
   "terminology_evidence": "current-text:yellow; Dangerous Marine Life",
-  "terminology_verified_at": "2026-09-09T13:29:54.163268-05:00"
+  "terminology_verified_at": "2026-09-09T13:29:54.163268-05:00",
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "corroborated",
+    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
+    "flag": "Yellow",
+    "purple": true,
+    "report_at": "2026-09-09T11:43:41+00:00",
+    "fresh_observation_count": 1,
+    "matched_beaches": [
+      {
+        "id": "73",
+        "name": "Panama City Beach",
+        "location": "Panama City Beach, FL"
+      }
+    ],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [
+      "Yellow"
+    ],
+    "checked_at": "2026-09-09T19:14:20.979215+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "corroborated"
 }

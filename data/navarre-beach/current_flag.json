@@ -19,5 +19,31 @@
   "provenance_tier": "primary_official_current_status",
   "terminology_evidence": "Current Surf Conditions Moderate Hazard",
   "terminology_verified_at": "2026-09-09T13:49:12.489079-05:00",
-  "terminology_verified_url": "https://www.santarosa.fl.gov/"
+  "terminology_verified_url": "https://www.santarosa.fl.gov/",
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "corroborated",
+    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
+    "flag": "Yellow",
+    "purple": true,
+    "report_at": "2026-09-09T13:41:03+00:00",
+    "fresh_observation_count": 1,
+    "matched_beaches": [
+      {
+        "id": "95",
+        "name": "Navarre Beach",
+        "location": "Navarre Beach, FL"
+      }
+    ],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [
+      "Yellow"
+    ],
+    "checked_at": "2026-09-09T19:14:22.903136+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "corroborated"
 }
