@@ -12,8 +12,11 @@ on:
       - 'scripts/common.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
+      - 'scripts/apply_visitbeaches_confidence.py'
+      - 'data/visitbeaches/destin.json'
       - 'tests/test_destin_flag_parser.py'
       - 'tests/test_collector_resilience.py'
+      - 'tests/test_visitbeaches_confidence.py'
   schedule:
     - cron: '27,57 * * * *'
 
@@ -42,13 +45,15 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install --disable-pip-version-check requests beautifulsoup4 pytest
       - name: Validate Destin collector and terminology layer
-        run: python -m py_compile scripts/update_destin_current.py scripts/collector_resilience.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+        run: python -m py_compile scripts/update_destin_current.py scripts/collector_resilience.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/apply_visitbeaches_confidence.py
       - name: Run Destin collector regression tests
-        run: pytest -q tests/test_destin_flag_parser.py tests/test_collector_resilience.py
+        run: pytest -q tests/test_destin_flag_parser.py tests/test_collector_resilience.py tests/test_visitbeaches_confidence.py
       - name: Refresh official Destin flag
         run: python scripts/update_destin_current.py
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py destin
+      - name: Reapply VisitBeaches corroboration and safe gap fill
+        run: python scripts/apply_visitbeaches_confidence.py destin
       - name: Commit Destin flag heartbeat
         shell: bash
         run: |
