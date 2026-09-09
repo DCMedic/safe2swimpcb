@@ -8,13 +8,16 @@ on:
       - '.github/recovery/western.trigger'
       - 'scripts/update_western_locations.py'
       - 'scripts/refresh_western_current_flags.py'
+      - 'scripts/flag_image_verification.py'
       - 'scripts/collector_resilience.py'
       - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
+      - 'requirements.txt'
       - 'tests/test_collector_resilience.py'
       - 'tests/test_western_current.py'
       - 'tests/test_western_current_evidence.py'
+      - 'tests/test_flag_image_verification.py'
   schedule:
     - cron: '17 7,9,11,13,15,17,19,21 * * *'
       timezone: 'America/Chicago'
@@ -36,11 +39,11 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pandas pytest
+      - run: pip install requests beautifulsoup4 pandas Pillow pytest
       - name: Validate western collector entry points
-        run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
+        run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/flag_image_verification.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
       - name: Run western collector regression tests
-        run: pytest -q tests/test_collector_resilience.py tests/test_western_current.py tests/test_western_current_evidence.py
+        run: pytest -q tests/test_collector_resilience.py tests/test_western_current.py tests/test_western_current_evidence.py tests/test_flag_image_verification.py
       - name: Snapshot last-known western official flags
         shell: bash
         run: |
@@ -68,7 +71,7 @@ jobs:
           done
       - name: Apply canonical Florida warning-flag terminology
         run: python scripts/apply_florida_flag_terms.py okaloosa-island navarre-beach pensacola-beach
-      - name: Require explicit current-status evidence for western display flags
+      - name: Require explicit current-status evidence with guarded image fallback
         run: python scripts/refresh_western_current_flags.py
       - name: Preserve dedicated Destin current-condition ownership
         run: |
