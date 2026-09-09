@@ -14,9 +14,10 @@ def test_definition_legend_is_not_current_status():
       <p>Double Red Flag - Water Closed to Public</p>
     </body></html>
     """
-    flag, evidence = parse_explicit_current_status(html)
+    flag, evidence, purple = parse_explicit_current_status(html)
     assert flag is None
     assert evidence is None
+    assert purple is False
 
 
 def test_explicit_current_status_is_accepted():
@@ -28,9 +29,10 @@ def test_explicit_current_status_is_accepted():
       <p>Yellow Flag - Medium Hazard</p>
     </body></html>
     """
-    flag, evidence = parse_explicit_current_status(html)
+    flag, evidence, purple = parse_explicit_current_status(html)
     assert flag == "Double Red"
     assert "Current Status" in evidence
+    assert purple is False
 
 
 def test_current_status_wins_despite_other_legend_terms():
@@ -43,8 +45,38 @@ def test_current_status_wins_despite_other_legend_terms():
       </section>
     </body></html>
     """
-    flag, _ = parse_explicit_current_status(html)
+    flag, _, purple = parse_explicit_current_status(html)
     assert flag == "Yellow"
+    assert purple is False
+
+
+def test_navarre_current_surf_conditions_maps_yellow_plus_purple():
+    html = """
+    <html><body>
+      <div class="surf-condition-banner">
+        <strong>Current Surf Conditions</strong>
+        <span>Moderate Hazard</span>
+        <span>Dangerous Marine Life</span>
+      </div>
+    </body></html>
+    """
+    flag, evidence, purple = parse_explicit_current_status(html)
+    assert flag == "Yellow"
+    assert "Current Surf Conditions" in evidence
+    assert purple is True
+
+
+def test_distant_purple_legend_does_not_attach_to_current_yellow():
+    html = """
+    <html><body>
+      <div>Current Surf Conditions: Moderate Hazard</div>
+      <div>""" + ("ordinary beach information " * 20) + """</div>
+      <section><h2>Flag System</h2><p>Purple Flag - Dangerous Marine Life</p></section>
+    </body></html>
+    """
+    flag, _, purple = parse_explicit_current_status(html)
+    assert flag == "Yellow"
+    assert purple is False
 
 
 def test_legend_images_are_never_current_candidates():
