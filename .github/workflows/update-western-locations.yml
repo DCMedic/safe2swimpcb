@@ -44,20 +44,11 @@ jobs:
         shell: bash
         run: |
           python - <<'PY'
-          import re, requests
-          from urllib.parse import urljoin
-          url='https://myescambia.com/pensacola-beach'
-          r=requests.get(url,timeout=25,headers={'User-Agent':'KnowTheGulf/1.0 (+https://knowthegulf.com)'})
-          print('page-status',r.status_code,'bytes',len(r.content))
-          html=r.text
-          for m in re.finditer(r'<script[^>]+src=["\']([^"\']+)',html,re.I):
-              src=urljoin(r.url,m.group(1))
-              if any(k in src.lower() for k in ('beach','escambia','sitefinity','widget','script','js')):
-                  print('script',src)
-          for line in html.splitlines():
-              low=line.lower()
-              if any(k in low for k in ('beachcondition','beach-condition','flagforecast','flag forecast','water temperature','current pensacola beach conditions')):
-                  print('html-clue',line.strip()[:1000])
+          import requests
+          u='https://myescambia.com/Assets/JS/widget-beach-conditions.js'
+          r=requests.get(u,timeout=25,headers={'User-Agent':'KnowTheGulf/1.0 (+https://knowthegulf.com)'})
+          print('widget-status',r.status_code,'bytes',len(r.content))
+          print(r.text[:16000])
           PY
       - name: Validate western collector entry points
         run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/flag_image_verification.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
@@ -93,24 +84,11 @@ jobs:
       - name: Require explicit current-status evidence with guarded image fallback
         run: python scripts/refresh_western_current_flags.py
       - name: Preserve dedicated Destin current-condition ownership
-        run: |
-          git restore data/destin/current_flag.json
+        run: git restore data/destin/current_flag.json
       - name: Commit refreshed western Gulf data
         run: |
-          owned_paths=(
-            data/destin
-            data/okaloosa-island
-            data/navarre-beach
-            data/pensacola-beach
-            data/western
-          )
-          if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
-            echo "No western Gulf data changes to commit."; exit 0
-          fi
+          owned_paths=(data/destin data/okaloosa-island data/navarre-beach data/pensacola-beach data/western)
+          if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then echo "No western Gulf data changes to commit."; exit 0; fi
           git add -- "${owned_paths[@]}"
-          if [[ -n "$(git status --porcelain --untracked-files=no | grep -v '^.. data/destin/current_flag.json$' | grep '^ [MADRCU?]' || true)" ]]; then
-            echo "Western collector left unstaged tracked changes outside its ownership set:" >&2
-            git status --short >&2
-            exit 1
-          fi
+          if [[ -n "$(git status --porcelain --untracked-files=no | grep -v '^.. data/destin/current_flag.json$' | grep '^ [MADRCU?]' || true)" ]]; then git status --short >&2; exit 1; fi
           bash scripts/persist_paths.sh "data: refresh western Gulf beaches" "${owned_paths[@]}"
