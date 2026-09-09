@@ -26,7 +26,11 @@ LOCATIONS = {
     },
     "navarre-beach": {
         "source_name": "Santa Rosa County / Navarre Beach Safety",
-        "source_url": "https://santarosa.fl.gov/269/Water-Safety",
+        # Santa Rosa publishes the live Navarre surf-condition banner in the
+        # county-wide page chrome/homepage. The older Water Safety page is an
+        # educational page and is not the live-condition source.
+        "source_url": "https://www.santarosa.fl.gov/",
+        "official_url": "https://www.santarosa.fl.gov/318/Navarre-Beach-Pavilions",
     },
     "pensacola-beach": {
         "source_name": "Escambia County / Pensacola Beach Lifeguards",
@@ -58,14 +62,15 @@ LEGEND_CONTEXT = re.compile(
     re.I,
 )
 CURRENT_STATUS = re.compile(
-    r"\b(?:current\s+(?:status|condition(?:s)?|warning\s+condition|flag(?:s)?|beach\s+flag(?:s)?)|"
-    r"today(?:'s)?\s+(?:status|condition(?:s)?|warning\s+condition|flag(?:s)?)|"
+    r"\b(?:current\s+(?:status|condition(?:s)?|surf\s+condition(?:s)?|warning\s+condition|flag(?:s)?|beach\s+flag(?:s)?)|"
+    r"today(?:'s)?\s+(?:status|condition(?:s)?|surf\s+condition(?:s)?|warning\s+condition|flag(?:s)?)|"
     r"posted\s+(?:status|condition|flag(?:s)?))\b\s*(?:is|are|:|-)?\s*"
     r"(water\s+closed(?:\s+to\s+(?:the\s+)?public)?|high\s+hazard|medium\s+hazard|"
     r"moderate\s+hazard|low\s+hazard|calm\s+conditions|moderate\s+surf\s+and/or\s+currents|"
     r"high\s+surf\s+and/or\s+strong\s+currents)",
     re.I,
 )
+DANGEROUS_MARINE_LIFE = re.compile(r"\bdangerous\s+marine\s+life\b|\bpurple\s+flag\b", re.I)
 
 
 def normalize_condition(value: str) -> str | None:
@@ -74,13 +79,19 @@ def normalize_condition(value: str) -> str | None:
     return HAZARD_TO_FLAG.get(key)
 
 
-def parse_explicit_current_status(html: str) -> tuple[str | None, str | None]:
+def parse_explicit_current_status(html: str) -> tuple[str | None, str | None, bool]:
     text = " ".join(BeautifulSoup(html, "html.parser").stripped_strings)
     match = CURRENT_STATUS.search(text)
     if not match:
-        return None, None
+        return None, None, False
     flag = normalize_condition(match.group(1))
-    return flag, match.group(0) if flag else (None, None)
+    if not flag:
+        return None, None, False
+    # Purple is additive only when it appears immediately with the explicit
+    # current-condition block, not elsewhere in a legend or education section.
+    nearby = text[match.start(): min(len(text), match.end() + 120)]
+    purple = bool(DANGEROUS_MARINE_LIFE.search(nearby))
+    return flag, match.group(0), purple
 
 
 def image_context(img) -> str:
@@ -155,7 +166,7 @@ def fetch_current_evidence(url: str) -> tuple[str | None, str | None, str | None
     except requests.RequestException as exc:
         return None, None, str(exc), [], None, False
 
-    text_flag, evidence = parse_explicit_current_status(response.text)
+    text_flag, evidence, text_purple = parse_explicit_current_status(response.text)
     candidates = eligible_current_flag_images(response.text, response.url)
     image_flag, image_purple, analyzed, image_conflict = analyze_image_candidates(candidates, session)
 
@@ -163,8 +174,8 @@ def fetch_current_evidence(url: str) -> tuple[str | None, str | None, str | None
     # or a fallback only when no stronger current-status evidence exists.
     if text_flag:
         if image_flag and image_flag != text_flag:
-            return text_flag, evidence, None, analyzed, f"text={text_flag}; image={image_flag}", False
-        return text_flag, evidence, None, analyzed, image_conflict, image_purple
+            return text_flag, evidence, None, analyzed, f"text={text_flag}; image={image_flag}", text_purple
+        return text_flag, evidence, None, analyzed, image_conflict, (text_purple or image_purple)
     if image_conflict:
         return None, None, None, analyzed, image_conflict, False
     if image_flag:
@@ -185,6 +196,7 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
     flag, evidence, fetch_error, image_results, conflict, image_purple = fetch_current_evidence(cfg["source_url"])
 
     payload = dict(previous)
+    official_url = cfg.get("official_url", cfg["source_url"])
     payload.update({
         "flag": flag,
         "primary_flag": flag,
@@ -195,9 +207,9 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         "source_name": cfg["source_name"],
         "source_url": cfg["source_url"],
         "official_authority": cfg["source_name"],
-        "official_authority_url": cfg["source_url"],
+        "official_authority_url": official_url,
         "method": "Official current-status text/structured evidence first; guarded current-status image verification is additive fallback/corroboration only",
-        "stale_after_hours": 3 if flag else 0,
+        "stale_after_hours": 24 if slug == "navarre-beach" and flag else (3 if flag else 0),
         "flag_schema": "Florida Beach Warning Flag terminology v1",
         "flag_terms_note": (
             "Official flag-definition text remains authoritative for terminology normalization. "
