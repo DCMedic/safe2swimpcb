@@ -11,6 +11,11 @@ from zoneinfo import ZoneInfo
 import requests
 from bs4 import BeautifulSoup
 
+try:
+    from .flag_image_verification import fetch_and_classify_flag_image
+except ImportError:
+    from flag_image_verification import fetch_and_classify_flag_image
+
 ROOT = Path(__file__).resolve().parents[1]
 CENTRAL = ZoneInfo("America/Chicago")
 
@@ -93,11 +98,7 @@ def image_context(img) -> str:
 
 
 def eligible_current_flag_images(html: str, base_url: str) -> list[dict[str, str]]:
-    """Return only images whose local DOM context explicitly describes current conditions.
-
-    Educational flag charts, legends, galleries, and generic safety graphics are rejected
-    even when their pixels contain valid Florida warning-flag colors.
-    """
+    """Return images only when local DOM context explicitly identifies current conditions."""
     soup = BeautifulSoup(html, "html.parser")
     candidates: list[dict[str, str]] = []
     for img in soup.find_all("img"):
@@ -117,17 +118,58 @@ def eligible_current_flag_images(html: str, base_url: str) -> list[dict[str, str
     return candidates
 
 
-def fetch_explicit_current_status(url: str) -> tuple[str | None, str | None, str | None, list[dict[str, str]]]:
+def analyze_image_candidates(candidates: list[dict[str, str]], session: requests.Session) -> tuple[str | None, bool, list[dict], str | None]:
+    results: list[dict] = []
+    publishable: list[tuple[str, bool, float, str]] = []
+    for candidate in candidates[:4]:
+        result, error = fetch_and_classify_flag_image(candidate["url"], session)
+        record = dict(candidate)
+        if error:
+            record["analysis_error"] = error[:300]
+            results.append(record)
+            continue
+        if result is None:
+            results.append(record)
+            continue
+        record["visual_analysis"] = result.to_dict()
+        results.append(record)
+        if result.publishable and result.primary:
+            publishable.append((result.primary, result.purple, result.confidence, candidate["url"]))
+
+    if not publishable:
+        return None, False, results, None
+    primaries = {item[0] for item in publishable}
+    if len(primaries) != 1:
+        return None, False, results, "eligible current-status images disagree on primary flag color"
+    best = max(publishable, key=lambda item: item[2])
+    purple = any(item[1] for item in publishable)
+    return best[0], purple, results, None
+
+
+def fetch_current_evidence(url: str) -> tuple[str | None, str | None, str | None, list[dict], str | None, bool]:
     session = requests.Session()
     session.headers.update({"User-Agent": "KnowTheGulf/1.0 (+https://knowthegulf.com)"})
     try:
         response = session.get(url, timeout=25)
         response.raise_for_status()
     except requests.RequestException as exc:
-        return None, None, str(exc), []
-    flag, evidence = parse_explicit_current_status(response.text)
-    images = eligible_current_flag_images(response.text, response.url)
-    return flag, evidence, None, images
+        return None, None, str(exc), [], None, False
+
+    text_flag, evidence = parse_explicit_current_status(response.text)
+    candidates = eligible_current_flag_images(response.text, response.url)
+    image_flag, image_purple, analyzed, image_conflict = analyze_image_candidates(candidates, session)
+
+    # Existing text evidence remains primary. Images are corroboration when they agree,
+    # or a fallback only when no stronger current-status evidence exists.
+    if text_flag:
+        if image_flag and image_flag != text_flag:
+            return text_flag, evidence, None, analyzed, f"text={text_flag}; image={image_flag}", False
+        return text_flag, evidence, None, analyzed, image_conflict, image_purple
+    if image_conflict:
+        return None, None, None, analyzed, image_conflict, False
+    if image_flag:
+        return image_flag, "high-confidence eligible current-status image", None, analyzed, None, image_purple
+    return None, None, None, analyzed, None, False
 
 
 def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
@@ -140,47 +182,50 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         previous = {}
 
     now = datetime.now(CENTRAL).isoformat()
-    flag, evidence, fetch_error, image_candidates = fetch_explicit_current_status(cfg["source_url"])
+    flag, evidence, fetch_error, image_results, conflict, image_purple = fetch_current_evidence(cfg["source_url"])
 
     payload = dict(previous)
-    payload.update(
-        {
-            "flag": flag,
-            "primary_flag": flag,
-            "purple": False,
-            "label": flag if flag else "Official flag status unavailable",
-            "severity": SEVERITY.get(flag),
-            "last_checked_at": now,
-            "source_name": cfg["source_name"],
-            "source_url": cfg["source_url"],
-            "official_authority": cfg["source_name"],
-            "official_authority_url": cfg["source_url"],
-            "method": "Direct official source; current flag accepted only from explicit current-status evidence",
-            "stale_after_hours": 3 if flag else 0,
-            "flag_schema": "Florida Beach Warning Flag terminology v1",
-            "flag_terms_note": (
-                "Official flag-definition text is authoritative for terminology normalization. "
-                "Current-status image candidates are considered only when their local page context explicitly identifies current/today/posted conditions; legends and educational charts are excluded before image analysis."
-            ),
-            "current_flag_image_candidates": image_candidates,
-        }
-    )
+    payload.update({
+        "flag": flag,
+        "primary_flag": flag,
+        "purple": image_purple if flag else False,
+        "label": (flag + (" + Purple" if image_purple else "")) if flag else "Official flag status unavailable",
+        "severity": SEVERITY.get(flag),
+        "last_checked_at": now,
+        "source_name": cfg["source_name"],
+        "source_url": cfg["source_url"],
+        "official_authority": cfg["source_name"],
+        "official_authority_url": cfg["source_url"],
+        "method": "Official current-status text/structured evidence first; guarded current-status image verification is additive fallback/corroboration only",
+        "stale_after_hours": 3 if flag else 0,
+        "flag_schema": "Florida Beach Warning Flag terminology v1",
+        "flag_terms_note": (
+            "Official flag-definition text remains authoritative for terminology normalization. "
+            "Image verification is additive only: candidates must be inside explicit current/today/posted-condition context, legend/education images are excluded, and pixels never override stronger text evidence."
+        ),
+        "current_flag_image_evidence": image_results,
+    })
+
+    if conflict:
+        payload["evidence_conflict"] = conflict
+    else:
+        payload.pop("evidence_conflict", None)
 
     if flag:
         payload["last_verified_at"] = now
-        payload["source_check_status"] = "verified"
-        payload["provenance_tier"] = "primary_official_current_status"
+        payload["source_check_status"] = "verified_with_conflict" if conflict else "verified"
+        payload["provenance_tier"] = "primary_official_current_status" if evidence != "high-confidence eligible current-status image" else "primary_official_current_image"
         payload["terminology_evidence"] = evidence
         payload["terminology_verified_at"] = now
         payload["terminology_verified_url"] = cfg["source_url"]
         payload.pop("source_error", None)
         payload.pop("stale_reason", None)
     else:
-        payload["source_check_status"] = "unavailable" if fetch_error else "degraded"
-        payload["provenance_tier"] = "official_source_no_explicit_current_status"
+        payload["source_check_status"] = "unavailable" if fetch_error else ("conflict" if conflict else "degraded")
+        payload["provenance_tier"] = "official_source_evidence_conflict" if conflict else "official_source_no_verified_current_status"
         payload["stale_reason"] = (
             "Official source was unreachable" if fetch_error else
-            "Official source is reachable but does not expose explicit current status in parseable text; eligible image candidates are recorded but do not yet publish a color without validated image classification"
+            "Official source is reachable, but neither explicit current-status text nor a high-confidence eligible current-status image produced a publishable current flag"
         )
         if fetch_error:
             payload["source_error"] = fetch_error
@@ -192,7 +237,7 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(slug, payload["label"], payload["source_check_status"], f"image_candidates={len(image_candidates)}")
+    print(slug, payload["label"], payload["source_check_status"], f"image_evidence={len(image_results)}")
 
 
 def main() -> None:
