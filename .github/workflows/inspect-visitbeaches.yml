@@ -1,0 +1,56 @@
+name: Inspect VisitBeaches data wiring
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/inspect-visitbeaches.yml'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Inspect VisitBeaches map and same-origin scripts
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re, requests
+          from urllib.parse import urljoin, urlparse
+          s=requests.Session()
+          s.headers.update({'User-Agent':'KnowTheGulf/1.0 (+https://knowthegulf.com)'})
+          base='https://visitbeaches.org/map'
+          r=s.get(base,timeout=25)
+          print('PAGE',r.status_code,r.url,len(r.content),r.headers.get('content-type'))
+          html=r.text
+          print('HTML_START')
+          for line in html.splitlines():
+              low=line.lower()
+              if any(k in low for k in ('script','api','report','beach','flag','__next','vite','webpack')):
+                  print(line[:2000])
+          print('HTML_END')
+          scripts=[]
+          for m in re.finditer(r'<script[^>]+src=["\']([^"\']+)',html,re.I):
+              u=urljoin(r.url,m.group(1).replace('&amp;','&'))
+              if urlparse(u).netloc.endswith('visitbeaches.org'):
+                  scripts.append(u)
+          print('SCRIPTS',len(scripts))
+          for u in scripts[:40]:
+              try:
+                  x=s.get(u,timeout=25)
+                  print('\nSCRIPT',x.status_code,u,len(x.content),x.headers.get('content-type'))
+                  text=x.text
+                  hits=[]
+                  for pat in (r'https?://[^"\'\s)]+', r'/api/[^"\'\s)]+', r'api[^"\']{0,120}', r'flag[^"\']{0,160}', r'report[^"\']{0,160}', r'beach[^"\']{0,160}'):
+                      for mm in re.finditer(pat,text,re.I):
+                          v=mm.group(0)
+                          if v not in hits:
+                              hits.append(v)
+                  for h in hits[:120]: print('HIT',h[:500])
+              except Exception as e:
+                  print('SCRIPT_ERROR',u,repr(e))
+          PY
