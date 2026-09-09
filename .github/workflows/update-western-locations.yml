@@ -39,7 +39,26 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install requests beautifulsoup4 pandas Pillow pytest
+      - run: pip install -r requirements.txt
+      - name: Inspect Escambia beach-condition widget wiring
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re, requests
+          from urllib.parse import urljoin
+          url='https://myescambia.com/pensacola-beach'
+          r=requests.get(url,timeout=25,headers={'User-Agent':'KnowTheGulf/1.0 (+https://knowthegulf.com)'})
+          print('page-status',r.status_code,'bytes',len(r.content))
+          html=r.text
+          for m in re.finditer(r'<script[^>]+src=["\']([^"\']+)',html,re.I):
+              src=urljoin(r.url,m.group(1))
+              if any(k in src.lower() for k in ('beach','escambia','sitefinity','widget','script','js')):
+                  print('script',src)
+          for line in html.splitlines():
+              low=line.lower()
+              if any(k in low for k in ('beachcondition','beach-condition','flagforecast','flag forecast','water temperature','current pensacola beach conditions')):
+                  print('html-clue',line.strip()[:1000])
+          PY
       - name: Validate western collector entry points
         run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/flag_image_verification.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
       - name: Run western collector regression tests
@@ -75,8 +94,6 @@ jobs:
         run: python scripts/refresh_western_current_flags.py
       - name: Preserve dedicated Destin current-condition ownership
         run: |
-          # update_western_locations.py also refreshes Destin's historical/environmental
-          # datasets. The dedicated Destin poller alone owns current_flag.json.
           git restore data/destin/current_flag.json
       - name: Commit refreshed western Gulf data
         run: |
@@ -87,22 +104,13 @@ jobs:
             data/pensacola-beach
             data/western
           )
-
           if [[ -z "$(git status --porcelain -- "${owned_paths[@]}")" ]]; then
             echo "No western Gulf data changes to commit."; exit 0
           fi
-
           git add -- "${owned_paths[@]}"
-
-          # Destin current_flag.json was restored above and therefore cannot enter
-          # this commit. Fail closed if any other tracked change escaped ownership.
           if [[ -n "$(git status --porcelain --untracked-files=no | grep -v '^.. data/destin/current_flag.json$' | grep '^ [MADRCU?]' || true)" ]]; then
             echo "Western collector left unstaged tracked changes outside its ownership set:" >&2
             git status --short >&2
             exit 1
           fi
-
           bash scripts/persist_paths.sh "data: refresh western Gulf beaches" "${owned_paths[@]}"
-
-      # Destin current_flag.json is intentionally owned only by poll-destin-flag.yml.
-      # Pages deployment is intentionally centralized in deploy-pages.yml.
