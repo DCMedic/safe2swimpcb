@@ -3,8 +3,10 @@ from __future__ import annotations
 
 import colorsys
 import io
+import re
 from dataclasses import asdict, dataclass
 
+import cairosvg
 import requests
 from PIL import Image
 
@@ -14,6 +16,10 @@ MIN_PRIMARY_FRACTION = 0.18
 MIN_PRIMARY_PURITY = 0.72
 MIN_PURPLE_FRACTION = 0.08
 MIN_BBOX_FILL = 0.30
+SVG_EXTERNAL_REFERENCE = re.compile(
+    rb"(?:https?:|file:|ftp:|data:|<\s*image\b|\b(?:href|xlink:href)\s*=\s*['\"]\s*(?:https?:|//|file:|ftp:|data:)|url\s*\(\s*['\"]?\s*(?:https?:|//|file:|ftp:|data:))",
+    re.I,
+)
 
 
 @dataclass(frozen=True)
@@ -56,14 +62,35 @@ def _bbox_fill(mask_points: list[tuple[int, int]]) -> float:
     return len(mask_points) / area if area else 0.0
 
 
+def _looks_like_svg(data: bytes) -> bool:
+    head = data[:4096].lstrip().lower()
+    return head.startswith(b"<svg") or (head.startswith(b"<?xml") and b"<svg" in head)
+
+
+def _decode_image(data: bytes) -> Image.Image:
+    if _looks_like_svg(data):
+        # Current-condition SVGs are accepted only when self-contained. This keeps
+        # vector rasterization from following network/file/data references hidden
+        # inside an otherwise trusted official SVG asset.
+        if SVG_EXTERNAL_REFERENCE.search(data):
+            raise ValueError("SVG contains an external or embedded resource reference")
+        png = cairosvg.svg2png(bytestring=data, output_width=400)
+        return Image.open(io.BytesIO(png)).convert("RGB")
+    image = Image.open(io.BytesIO(data)).convert("RGB")
+    image.thumbnail((400, 400))
+    return image
+
+
 def classify_flag_image_bytes(data: bytes) -> ImageFlagResult:
     if not data or len(data) > MAX_IMAGE_BYTES:
         return ImageFlagResult(None, False, 0.0, False, "image missing or exceeds size limit", {}, 0.0)
     try:
-        image = Image.open(io.BytesIO(data)).convert("RGB")
-        image.thumbnail((400, 400))
-    except Exception:
-        return ImageFlagResult(None, False, 0.0, False, "image could not be decoded", {}, 0.0)
+        image = _decode_image(data)
+    except Exception as exc:
+        reason = str(exc).strip() or "image could not be decoded"
+        if "SVG contains" not in reason:
+            reason = "image could not be decoded"
+        return ImageFlagResult(None, False, 0.0, False, reason, {}, 0.0)
 
     width, height = image.size
     total = max(width * height, 1)
