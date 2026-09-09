@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const $ = id => document.getElementById(id);
   const j = async u => { const r = await fetch(u, {cache:'no-store'}); if (!r.ok) throw Error(r.status); return r.json(); };
   const cls = f => f === 'Green' ? 'green' : (f === 'Red' || f === 'Single Red') ? 'red' : f === 'Double Red' ? 'double' : '';
-  const esc = s => String(s ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const freshness = c => {
     const verified = c.last_verified_at ? new Date(c.last_verified_at) : null;
     const validTime = verified && !Number.isNaN(verified.getTime());
