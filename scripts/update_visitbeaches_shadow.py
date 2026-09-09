@@ -13,21 +13,21 @@ OUT = DATA / "visitbeaches"
 
 LOCATIONS: dict[str, list[str]] = {
     "pcb": ["Panama City Beach", "Russell-Fields Pier", "M.B. Miller County Pier"],
-    "destin": ["Destin", "Henderson Beach State Park"],
-    "okaloosa-island": ["Okaloosa Island", "John Beasley Park"],
+    "destin": ["Destin", "Henderson Beach State Park", "Henderson Beach"],
+    "okaloosa-island": ["Okaloosa Island", "Okaloosa Island Pier", "John Beasley Park", "Beasley Park", "Fort Walton Beach"],
     "navarre-beach": ["Navarre Beach"],
     "pensacola-beach": ["Pensacola Beach"],
-    "south-walton": ["Miramar Beach", "Grayton Beach", "Seaside", "Santa Rosa Beach"],
-    "cape-san-blas": ["Cape San Blas", "St. Joseph Peninsula State Park"],
-    "st-joe-beach": ["St. Joe Beach"],
-    "franklin-county": ["St. George Island", "St George Island"],
-    "anna-maria-island": ["Manatee Public Beach", "Coquina Beach", "Cortez Beach"],
-    "siesta-key": ["Siesta Beach"],
-    "venice": ["Venice Beach", "Nokomis Beach", "North Jetty", "Manasota Beach"],
-    "sanibel": ["Sanibel", "Captiva"],
-    "fort-myers-beach": ["Fort Myers Beach"],
+    "south-walton": ["Miramar Beach", "Grayton Beach", "Grayton Beach State Park", "Seaside", "Santa Rosa Beach", "Seagrove Beach", "Blue Mountain Beach", "Dune Allen Beach"],
+    "cape-san-blas": ["Cape San Blas", "St. Joseph Peninsula State Park", "St Joseph Peninsula State Park"],
+    "st-joe-beach": ["St. Joe Beach", "St Joe Beach"],
+    "franklin-county": ["St. George Island", "St George Island", "Dr. Julian G. Bruce St. George Island State Park"],
+    "anna-maria-island": ["Manatee Public Beach", "Coquina Beach", "Cortez Beach", "Anna Maria Island"],
+    "siesta-key": ["Siesta Beach", "Siesta Key Beach", "Crescent Beach", "Turtle Beach"],
+    "venice": ["Venice Beach", "Nokomis Beach", "North Jetty", "Venice North Jetty Beach", "Manasota Beach"],
+    "sanibel": ["Sanibel", "Sanibel Island", "Captiva", "Captiva Island"],
+    "fort-myers-beach": ["Fort Myers Beach", "Lynn Hall Memorial Park", "Lynn Hall Beach Park", "Bowditch Point Park"],
     "naples": ["Vanderbilt Beach", "Seagate Beach", "Naples Pier", "Barefoot Beach"],
-    "marco-island": ["South Marco Beach", "Marco Island"],
+    "marco-island": ["South Marco Beach", "South Marco Island Beach", "Marco Island"],
 }
 
 CURRENT_PATHS = {
