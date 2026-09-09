@@ -1,6 +1,7 @@
 from scripts.refresh_western_current_flags import (
     eligible_current_flag_images,
     parse_explicit_current_status,
+    parse_pensacola_api_payload,
 )
 
 
@@ -77,6 +78,55 @@ def test_distant_purple_legend_does_not_attach_to_current_yellow():
     flag, _, purple = parse_explicit_current_status(html)
     assert flag == "Yellow"
     assert purple is False
+
+
+def test_pensacola_api_uses_current_level_not_tomorrow_forecast():
+    payload = {
+        "CurrentHazardLevel": 2,
+        "CurrentWaterTemp": 86,
+        "IsDangerousMarineLifePresent": False,
+        "DateTimeCreated": "2026-09-09T14:35:00Z",
+        "Level1ForecastPercentage": 30,
+        "Level2ForecastPercentage": 70,
+        "Level3ForecastPercentage": 0,
+        "Level4ForecastPercentage": 0,
+        "DangerousMarineLifeForecastPercentage": 20,
+    }
+    flag, purple, metadata = parse_pensacola_api_payload(payload)
+    assert flag == "Yellow"
+    assert purple is False
+    assert metadata["current_hazard_level"] == 2
+    assert metadata["current_water_temp_f"] == 86
+    assert metadata["official_updated_at"].endswith("-05:00")
+
+
+def test_pensacola_current_purple_is_independent_of_forecast_purple():
+    payload = {
+        "CurrentHazardLevel": 2,
+        "IsDangerousMarineLifePresent": True,
+        "DangerousMarineLifeForecastPercentage": 0,
+    }
+    flag, purple, _ = parse_pensacola_api_payload(payload)
+    assert flag == "Yellow"
+    assert purple is True
+
+
+def test_pensacola_forecast_only_payload_cannot_publish_current_flag():
+    payload = {
+        "Level1ForecastPercentage": 30,
+        "Level2ForecastPercentage": 70,
+        "DangerousMarineLifeForecastPercentage": 20,
+    }
+    flag, purple, _ = parse_pensacola_api_payload(payload)
+    assert flag is None
+    assert purple is False
+
+
+def test_pensacola_api_level_mapping():
+    assert parse_pensacola_api_payload({"CurrentHazardLevel": 1})[0] == "Green"
+    assert parse_pensacola_api_payload({"CurrentHazardLevel": 2})[0] == "Yellow"
+    assert parse_pensacola_api_payload({"CurrentHazardLevel": 3})[0] == "Single Red"
+    assert parse_pensacola_api_payload({"CurrentHazardLevel": 4})[0] == "Double Red"
 
 
 def test_legend_images_are_never_current_candidates():
