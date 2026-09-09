@@ -1,4 +1,4 @@
-name: Update VisitBeaches shadow data
+name: Update VisitBeaches observations and confidence
 
 on:
   workflow_dispatch:
@@ -8,7 +8,9 @@ on:
       - '.github/workflows/update-visitbeaches-shadow.yml'
       - 'scripts/visitbeaches_graphql.py'
       - 'scripts/update_visitbeaches_shadow.py'
+      - 'scripts/apply_visitbeaches_confidence.py'
       - 'tests/test_visitbeaches_graphql.py'
+      - 'tests/test_visitbeaches_confidence.py'
       - 'requirements.txt'
   schedule:
     - cron: '37 7,9,11,13,15,17,19,21 * * *'
@@ -18,7 +20,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: knowthegulf-visitbeaches-shadow
+  group: knowthegulf-visitbeaches-confidence
   cancel-in-progress: false
 
 jobs:
@@ -35,13 +37,15 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Validate VisitBeaches adapter
-        run: python -m py_compile scripts/visitbeaches_graphql.py scripts/update_visitbeaches_shadow.py
+      - name: Validate VisitBeaches adapters
+        run: python -m py_compile scripts/visitbeaches_graphql.py scripts/update_visitbeaches_shadow.py scripts/apply_visitbeaches_confidence.py
       - name: Run VisitBeaches regression tests
-        run: pytest -q tests/test_visitbeaches_graphql.py
-      - name: Refresh VisitBeaches Ambassador shadow observations
+        run: pytest -q tests/test_visitbeaches_graphql.py tests/test_visitbeaches_confidence.py
+      - name: Refresh VisitBeaches Ambassador observations
         run: python scripts/update_visitbeaches_shadow.py
-      - name: Validate generated shadow JSON
+      - name: Apply multi-source confidence and safe gap-fill policy
+        run: python scripts/apply_visitbeaches_confidence.py
+      - name: Validate generated VisitBeaches and public JSON
         run: |
           python - <<'PY'
           import json
@@ -49,14 +53,22 @@ jobs:
           root=Path('data/visitbeaches')
           summary=json.loads((root/'summary.json').read_text())
           assert summary['mode']=='shadow_only'
-          assert summary['publication_effect']=='none'
           for p in root.glob('*.json'):
               json.loads(p.read_text())
-          print('VisitBeaches shadow JSON valid:', len(list(root.glob('*.json'))), 'files')
+          public=[Path('data/current_flag.json')] + list(Path('data').glob('*/current_flag.json'))
+          for p in public:
+              if p.exists(): json.loads(p.read_text())
+          print('VisitBeaches observations and public JSON valid')
           PY
-      - name: Commit VisitBeaches shadow data
+      - name: Commit VisitBeaches evidence and confidence updates
         run: |
-          if [[ -z "$(git status --porcelain data/visitbeaches)" ]]; then
-            echo "No VisitBeaches shadow changes to commit."; exit 0
+          owned=(
+            data/visitbeaches data/current_flag.json data/destin data/okaloosa-island
+            data/navarre-beach data/pensacola-beach data/south-walton data/cape-san-blas
+            data/st-joe-beach data/franklin-county data/anna-maria-island data/siesta-key
+            data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island
+          )
+          if [[ -z "$(git status --porcelain -- "${owned[@]}")" ]]; then
+            echo "No VisitBeaches confidence changes to commit."; exit 0
           fi
-          bash scripts/persist_paths.sh "data: refresh VisitBeaches Ambassador shadow" data/visitbeaches
+          bash scripts/persist_paths.sh "data: refresh VisitBeaches confidence layer" "${owned[@]}"
