@@ -1,4 +1,7 @@
-from scripts.refresh_western_current_flags import parse_explicit_current_status
+from scripts.refresh_western_current_flags import (
+    eligible_current_flag_images,
+    parse_explicit_current_status,
+)
 
 
 def test_definition_legend_is_not_current_status():
@@ -42,3 +45,50 @@ def test_current_status_wins_despite_other_legend_terms():
     """
     flag, _ = parse_explicit_current_status(html)
     assert flag == "Yellow"
+
+
+def test_legend_images_are_never_current_candidates():
+    html = """
+    <html><body>
+      <section>
+        <h2>Beach Warning Flag System</h2>
+        <p>What each flag means</p>
+        <img src="/green.png" alt="Green flag - Low Hazard">
+        <img src="/yellow.png" alt="Yellow flag - Medium Hazard">
+        <img src="/red.png" alt="Red flag - High Hazard">
+      </section>
+    </body></html>
+    """
+    assert eligible_current_flag_images(html, "https://example.gov/page") == []
+
+
+def test_explicit_current_condition_image_is_candidate():
+    html = """
+    <html><body>
+      <section>
+        <h2>Today's Beach Flag Conditions</h2>
+        <div class="current-condition">
+          <img src="/media/today-flag.png" alt="Current beach flag">
+        </div>
+      </section>
+    </body></html>
+    """
+    images = eligible_current_flag_images(html, "https://example.gov/status")
+    assert len(images) == 1
+    assert images[0]["url"] == "https://example.gov/media/today-flag.png"
+
+
+def test_current_heading_does_not_override_nested_legend():
+    html = """
+    <html><body>
+      <main>
+        <h1>Current Beach Information</h1>
+        <section>
+          <h2>Flag System</h2>
+          <p>Safety guide and flag meanings</p>
+          <img src="/chart.png" alt="Flag warning system chart">
+        </section>
+      </main>
+    </body></html>
+    """
+    assert eligible_current_flag_images(html, "https://example.gov/") == []
