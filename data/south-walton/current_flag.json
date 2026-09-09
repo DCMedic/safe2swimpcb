@@ -1,11 +1,11 @@
 {
   "location": "South Walton / 30A",
-  "flag": "Double Red",
-  "label": "Double Red",
-  "severity": 4,
-  "provenance_tier": "primary_official_terminology",
-  "last_verified_at": "2026-09-09T11:34:45.726343-05:00",
-  "last_checked_at": "2026-09-09T11:34:45.726343-05:00",
+  "flag": "Yellow",
+  "label": "Yellow + Purple",
+  "severity": 2,
+  "provenance_tier": "primary_official_current_visual",
+  "last_verified_at": "2026-09-09T12:50:53.572758-05:00",
+  "last_checked_at": "2026-09-09T12:50:53.572758-05:00",
   "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
@@ -16,24 +16,58 @@
   "source_url": "https://www.visitsouthwalton.com/beach-safety/",
   "official_authority": "Walton County beach officials / South Walton Fire District",
   "official_authority_url": "https://www.visitsouthwalton.com/beach-safety/",
-  "method": "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions",
-  "stale_after_hours": 0,
+  "method": "Direct South Walton Current Conditions visual/semantic evidence; existing NWS and terminology systems remain independent corroborating layers",
+  "stale_after_hours": 3,
   "stale_reason": null,
-  "nws_reported_flag": null,
-  "nws_issued_text": "205 AM EDT Wed Sep 9 2026",
-  "nws_issued_at": "2026-09-09T02:05:00-04:00",
-  "nws_age_hours": 10.5,
-  "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0&version=8",
+  "nws_reported_flag": "Yellow",
+  "nws_issued_text": "1246 PM EDT Wed Sep 9 2026",
+  "nws_issued_at": "2026-09-09T12:46:00-04:00",
+  "nws_age_hours": 1.08,
+  "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0",
   "corroborating_flag": null,
   "corroborates_primary": null,
   "source_note": "NWS Tallahassee republishes the flag reported by Walton-area beach officials; Visit South Walton supplies the public beach-safety program.",
   "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag.",
-  "primary_flag": "Double Red",
-  "purple": false,
+  "primary_flag": "Yellow",
+  "purple": true,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag.",
+  "flag_terms_note": "Official flag definitions remain authoritative for terminology. South Walton current-state parsing is bounded to the explicit Current Conditions region and stops before Beach Flag Warnings/legend content.",
   "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
-  "terminology_evidence": "current-text:double red",
-  "terminology_verified_at": "2026-09-09T11:34:45.726343-05:00",
-  "cached": false
+  "terminology_evidence": "bounded-current-conditions-visual",
+  "terminology_verified_at": "2026-09-09T12:50:53.572758-05:00",
+  "secondary_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0",
+  "secondary_source_name": "NWS Tallahassee SRFTAE, based on communication with area beach officials",
+  "cached": false,
+  "current_flag_image_evidence": [
+    {
+      "semantic_evidence": [
+        "semantic:yellow",
+        "semantic:purple"
+      ]
+    },
+    {
+      "url": "https://cdn.visitsouthwalton.com/img/flags/flag-yellow.svg",
+      "visual_analysis": {
+        "primary": null,
+        "purple": false,
+        "confidence": 0.0,
+        "publishable": false,
+        "reason": "image could not be decoded",
+        "color_fractions": {},
+        "bbox_fill": 0.0
+      }
+    },
+    {
+      "url": "https://cdn.visitsouthwalton.com/img/flags/flag-purple.svg",
+      "visual_analysis": {
+        "primary": null,
+        "purple": false,
+        "confidence": 0.0,
+        "publishable": false,
+        "reason": "image could not be decoded",
+        "color_fractions": {},
+        "bbox_fill": 0.0
+      }
+    }
+  ]
 }
