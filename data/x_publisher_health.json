@@ -1,11 +1,11 @@
 {
   "exit_code": 0,
   "forced_slot": null,
-  "last_evaluated_at": "2026-09-10T09:32:55.158167-05:00",
+  "last_evaluated_at": "2026-09-10T12:02:31.293640-05:00",
   "last_failure_at": "2026-08-24T15:51:30.151854-05:00",
   "last_outcome": "no_post",
-  "last_outcome_detail": "minimum interval",
+  "last_outcome_detail": "no scheduled slot or verified flag change",
   "last_published_at": "2026-09-10T09:31:34.160572-05:00",
-  "publish_requested": false,
+  "publish_requested": true,
   "version": 1
 }
