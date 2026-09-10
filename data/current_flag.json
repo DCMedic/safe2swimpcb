@@ -3,16 +3,16 @@
   "purple": true,
   "label": "Yellow + Purple",
   "severity": 2,
-  "provenance_tier": "primary_visitbeaches_ambassador_gap_fill",
+  "provenance_tier": "primary_official_terminology",
   "cached": false,
-  "last_verified_at": "2026-09-09T11:43:41+00:00",
-  "last_checked_at": "2026-09-09T21:59:16.479710-05:00",
+  "last_verified_at": "2026-09-10T01:35:00.802559-05:00",
+  "last_checked_at": "2026-09-10T01:35:00.802559-05:00",
   "status_changed_at": "2026-08-07T15:45:44.632498-05:00",
-  "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
-  "source_url": "https://visitbeaches.org/map",
+  "source_name": "Visit Panama City Beach / Beach & Surf Patrol",
+  "source_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
   "source_check_status": "verified",
   "method": "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions",
-  "stale_after_hours": 24.0,
+  "stale_after_hours": 2,
   "stale_reason": null,
   "note": "last_verified_at is the most recent successful Know the Gulf poll. status_changed_at is when Know the Gulf first observed the current flag status. Polling time is not guaranteed to equal the exact official issuance time.",
   "primary_flag": "Yellow",
@@ -20,14 +20,14 @@
   "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
   "terminology_verified_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
   "terminology_evidence": "current-text:yellow; Dangerous Marine Life",
-  "terminology_verified_at": "2026-09-09T21:59:16.479710-05:00",
+  "terminology_verified_at": "2026-09-10T01:35:00.802559-05:00",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "visitbeaches_newer_than_stale_primary",
-    "reason": "Primary observation is stale and a fresh consistent VisitBeaches Ambassador flag is available",
+    "state": "corroborated",
+    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
     "flag": "Yellow",
     "purple": true,
     "report_at": "2026-09-09T11:43:41+00:00",
@@ -44,10 +44,7 @@
       "Yellow"
     ],
     "checked_at": "2026-09-10T05:08:15.775376+00:00",
-    "publication_action": "filled_missing_or_stale_primary"
+    "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "visitbeaches_gap_filled",
-  "status": "explicit_flag_verified",
-  "source_data_url": "https://api.visitbeaches.org/graphql",
-  "explicit_flag_evidence": "Fresh consistent VisitBeaches Beach Ambassador report(s): Yellow"
+  "multi_source_confidence": "corroborated"
 }
