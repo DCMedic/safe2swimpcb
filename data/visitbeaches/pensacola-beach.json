@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-09T22:42:56.907406+00:00",
+  "checked_at": "2026-09-10T05:08:19.456115+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -26,8 +26,8 @@
   ],
   "observations": [
     {
-      "report_id": "74375",
-      "created_at": "2026-09-09T14:37:17+00:00",
+      "report_id": "74391",
+      "created_at": "2026-09-09T23:08:54+00:00",
       "latitude": 30.330943,
       "longitude": -87.142206,
       "ambassador": {
@@ -35,17 +35,17 @@
         "name": "Pensacola Beach"
       },
       "flag": "Yellow",
-      "purple": false,
+      "purple": true,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "E",
+            "value": "S",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "13.8",
+            "value": "6.91",
             "unit": "Mph"
           }
         ],
@@ -76,7 +76,7 @@
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "86",
           "unit": "\u00b0F"
@@ -100,6 +100,12 @@
               "name": "Yellow",
               "value": "yellow",
               "description": "Medium Hazard; moderate surf and/or currents."
+            },
+            {
+              "id": "5",
+              "name": "Purple",
+              "value": "purple",
+              "description": "Stinging Marine Life; Man o' War, Jellyfish, Stingrays"
             }
           ]
         },
@@ -140,7 +146,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "E",
+          "value": "S",
           "selected_values": []
         },
         {
@@ -150,7 +156,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "13.8",
+          "value": "6.91",
           "selected_values": []
         },
         {
@@ -160,7 +166,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "82.33",
+          "value": "87.26",
           "selected_values": []
         },
         {
@@ -170,7 +176,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -261,10 +267,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -356,10 +362,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "56",
-              "name": "Some",
-              "value": "some",
-              "description": "There are 1 to 2 jellyfish in sight."
+              "id": "57",
+              "name": "Many",
+              "value": "many",
+              "description": "More than 2 jellyfish in sight."
             }
           ]
         },
@@ -386,7 +392,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 8.094,
+      "age_hours": 5.99,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -751,8 +757,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 23.497,
-      "fresh": true,
+      "age_hours": 29.92,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1116,22 +1122,22 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 47.514,
+      "age_hours": 53.937,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
+  "fresh_observation_count": 1,
   "flag": "Yellow",
-  "purple": false,
+  "purple": true,
   "flag_conflict": false,
   "fresh_distinct_flags": [
     "Yellow"
   ],
-  "newest_report_at": "2026-09-09T14:37:17+00:00",
+  "newest_report_at": "2026-09-09T23:08:54+00:00",
   "newest_flag_report": {
-    "report_id": "74375",
-    "created_at": "2026-09-09T14:37:17+00:00",
+    "report_id": "74391",
+    "created_at": "2026-09-09T23:08:54+00:00",
     "latitude": 30.330943,
     "longitude": -87.142206,
     "ambassador": {
@@ -1139,17 +1145,17 @@
       "name": "Pensacola Beach"
     },
     "flag": "Yellow",
-    "purple": false,
+    "purple": true,
     "normalized_conditions": {
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "E",
+          "value": "S",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "13.8",
+          "value": "6.91",
           "unit": "Mph"
         }
       ],
@@ -1180,7 +1186,7 @@
           "unit": null
         }
       ],
-      "water_color": "Clear",
+      "water_color": "Moderate",
       "water_temperature": {
         "value": "86",
         "unit": "\u00b0F"
@@ -1204,6 +1210,12 @@
             "name": "Yellow",
             "value": "yellow",
             "description": "Medium Hazard; moderate surf and/or currents."
+          },
+          {
+            "id": "5",
+            "name": "Purple",
+            "value": "purple",
+            "description": "Stinging Marine Life; Man o' War, Jellyfish, Stingrays"
           }
         ]
       },
@@ -1244,7 +1256,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "E",
+        "value": "S",
         "selected_values": []
       },
       {
@@ -1254,7 +1266,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "13.8",
+        "value": "6.91",
         "selected_values": []
       },
       {
@@ -1264,7 +1276,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "82.33",
+        "value": "87.26",
         "selected_values": []
       },
       {
@@ -1274,7 +1286,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Clear",
+        "value": "Clouds",
         "selected_values": []
       },
       {
@@ -1365,10 +1377,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "20",
-            "name": "Clear",
-            "value": "clear",
-            "description": "Able to see the bottom in shallow water."
+            "id": "21",
+            "name": "Moderate",
+            "value": "moderate",
+            "description": "A light tint."
           }
         ]
       },
@@ -1460,10 +1472,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "56",
-            "name": "Some",
-            "value": "some",
-            "description": "There are 1 to 2 jellyfish in sight."
+            "id": "57",
+            "name": "Many",
+            "value": "many",
+            "description": "More than 2 jellyfish in sight."
           }
         ]
       },
@@ -1490,20 +1502,20 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 8.094,
+    "age_hours": 5.99,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "primary_flag_agrees_overlay_differs",
+    "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": true,
-    "knowthegulf_last_verified_at": "2026-09-09T14:13:51.680000-05:00",
+    "knowthegulf_last_verified_at": "2026-09-09T18:09:11.223000-05:00",
     "visitbeaches_flag": "Yellow",
-    "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-09-09T14:37:17+00:00",
-    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_purple": true,
+    "visitbeaches_newest_report_at": "2026-09-09T23:08:54+00:00",
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
