@@ -4,15 +4,15 @@
   "beaches": [
     "South Marco Beach"
   ],
-  "flag": "Green",
-  "primary_flag": "Green",
+  "flag": "Yellow",
+  "primary_flag": "Yellow",
   "purple": false,
-  "label": "Green",
-  "severity": 1,
+  "label": "Yellow",
+  "severity": 2,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-09-10T11:01:50+00:00",
-  "last_checked_at": "2026-09-10T17:04:40.461989+00:00",
+  "last_verified_at": "2026-09-10T17:23:53+00:00",
+  "last_checked_at": "2026-09-10T18:33:28.510729+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -20,7 +20,7 @@
   "official_authority": "Collier County Pollution Control / Mote Marine Laboratory",
   "official_authority_url": "https://www.collier.gov/County-Development/Transportation-Management/Pollution-Control/Red-Tide/Red-Tide-Status",
   "source_reachable": true,
-  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Green",
+  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Yellow",
   "flag_expected_from_source": false,
   "stale_after_hours": 24,
   "update_note": "Collier County directs users to VisitBeaches for current conditions. A flag is displayed only when explicitly reported upstream.",
@@ -44,30 +44,30 @@
   "visitbeaches_fresh_observation_count": 1,
   "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
-    "Green"
+    "Yellow"
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "74394",
-      "created_at": "2026-09-10T11:01:50+00:00",
+      "report_id": "74428",
+      "created_at": "2026-09-10T17:23:53+00:00",
       "latitude": 25.911738,
       "longitude": -81.72877,
       "ambassador": {
         "id": "28",
         "name": "Collier County"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NE",
+            "value": "SSE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "4.61",
+            "value": "12.12",
             "unit": "Mph"
           }
         ],
@@ -79,7 +79,7 @@
           },
           {
             "parameter": "Rip Currents",
-            "value": "None",
+            "value": "Present",
             "unit": null
           },
           {
@@ -98,7 +98,7 @@
             "unit": null
           }
         ],
-        "water_color": "Moderate",
+        "water_color": "Clear",
         "respiratory_irritation": "None",
         "dead_fish": "None",
         "crowd": "None"
@@ -114,10 +114,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -158,7 +158,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NE",
+          "value": "SSE",
           "selected_values": []
         },
         {
@@ -168,7 +168,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4.61",
+          "value": "12.12",
           "selected_values": []
         },
         {
@@ -178,7 +178,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "78.8",
+          "value": "86",
           "selected_values": []
         },
         {
@@ -211,9 +211,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "19",
-              "name": "None",
-              "value": "none",
+              "id": "18",
+              "name": "Present",
+              "value": "present",
               "description": null
             }
           ]
@@ -279,10 +279,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "21",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": "A light tint."
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
             }
           ]
         },
@@ -394,7 +394,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 6.047,
+      "age_hours": 1.16,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -745,7 +745,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 30.027,
+      "age_hours": 31.507,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1096,7 +1096,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 54.033,
+      "age_hours": 55.513,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
