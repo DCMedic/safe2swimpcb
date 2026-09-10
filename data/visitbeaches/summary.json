@@ -6,11 +6,11 @@
   "locations": {
     "pcb": {
       "matched_beaches": 1,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Yellow",
-      "visitbeaches_purple": true,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "no_fresh_visitbeaches_flag",
       "error": null
     },
     "destin": {
@@ -33,16 +33,16 @@
     },
     "navarre-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Yellow",
-      "visitbeaches_purple": true,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "no_fresh_visitbeaches_flag",
       "error": null
     },
     "pensacola-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 1,
+      "fresh_observations": 2,
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": true,
       "flag_conflict": false,
@@ -96,20 +96,20 @@
     },
     "siesta-key": {
       "matched_beaches": 2,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Double Red",
+      "fresh_observations": 2,
+      "visitbeaches_flag": null,
       "visitbeaches_purple": false,
-      "flag_conflict": false,
-      "comparison": "agree",
+      "flag_conflict": true,
+      "comparison": "visitbeaches_internal_conflict",
       "error": null
     },
     "venice": {
       "matched_beaches": 3,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Red",
+      "fresh_observations": 4,
+      "visitbeaches_flag": null,
       "visitbeaches_purple": false,
-      "flag_conflict": false,
-      "comparison": "agree",
+      "flag_conflict": true,
+      "comparison": "visitbeaches_internal_conflict",
       "error": null
     },
     "sanibel": {
