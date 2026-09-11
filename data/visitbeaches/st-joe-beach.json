@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-11T05:06:14.833571+00:00",
+  "checked_at": "2026-09-11T16:43:45.195388+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. Joe Beach",
@@ -438,7 +438,7 @@
       "beach_location": "Port St. Joe, FL",
       "beach_latitude": 29.852801,
       "beach_longitude": -85.338433,
-      "age_hours": 281.493,
+      "age_hours": 293.118,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -888,7 +888,7 @@
       "beach_location": "Port St. Joe, FL",
       "beach_latitude": 29.852801,
       "beach_longitude": -85.338433,
-      "age_hours": 497.659,
+      "age_hours": 509.284,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1338,7 +1338,7 @@
       "beach_location": "Port St. Joe, FL",
       "beach_latitude": 29.852801,
       "beach_longitude": -85.338433,
-      "age_hours": 593.74,
+      "age_hours": 605.365,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1761,16 +1761,16 @@
     "beach_location": "Port St. Joe, FL",
     "beach_latitude": 29.852801,
     "beach_longitude": -85.338433,
-    "age_hours": 281.493,
+    "age_hours": 293.118,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
     "state": "no_fresh_visitbeaches_flag",
-    "knowthegulf_flag": null,
+    "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-10T12:10:51.175152-04:00",
+    "knowthegulf_last_verified_at": "2026-09-11T12:28:48.220622-04:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-08-30T11:36:40+00:00",
