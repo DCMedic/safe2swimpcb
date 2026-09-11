@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-10T21:08:26.716283+00:00",
+  "checked_at": "2026-09-11T00:28:27.089257+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -26,8 +26,8 @@
   ],
   "observations": [
     {
-      "report_id": "74420",
-      "created_at": "2026-09-10T14:34:51+00:00",
+      "report_id": "74437",
+      "created_at": "2026-09-10T23:08:11+00:00",
       "latitude": 30.330943,
       "longitude": -87.142206,
       "ambassador": {
@@ -45,7 +45,7 @@
           },
           {
             "parameter": "Wind Speed",
-            "value": "9.22",
+            "value": "5.75",
             "unit": "Mph"
           }
         ],
@@ -57,12 +57,12 @@
           },
           {
             "parameter": "Rip Currents",
-            "value": "Present",
+            "value": "None",
             "unit": null
           },
           {
             "parameter": "Surf Height",
-            "value": "1-2 feet (0.3-0.6 m)",
+            "value": "0-1 feet (0-0.3 m)",
             "unit": null
           },
           {
@@ -156,7 +156,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "9.22",
+          "value": "5.75",
           "selected_values": []
         },
         {
@@ -166,7 +166,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "82.45",
+          "value": "82.65",
           "selected_values": []
         },
         {
@@ -199,9 +199,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "18",
-              "name": "Present",
-              "value": "present",
+              "id": "19",
+              "name": "None",
+              "value": "none",
               "description": null
             }
           ]
@@ -216,9 +216,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "15",
-              "name": "1-2 feet (0.3-0.6 m)",
-              "value": "1-2",
+              "id": "14",
+              "name": "0-1 feet (0-0.3 m)",
+              "value": "0-1",
               "description": null
             }
           ]
@@ -392,7 +392,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 6.56,
+      "age_hours": 1.338,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -763,8 +763,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 21.992,
-      "fresh": true,
+      "age_hours": 25.326,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1128,22 +1128,22 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 45.922,
+      "age_hours": 49.256,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
+  "fresh_observation_count": 1,
   "flag": "Yellow",
   "purple": true,
   "flag_conflict": false,
   "fresh_distinct_flags": [
     "Yellow"
   ],
-  "newest_report_at": "2026-09-10T14:34:51+00:00",
+  "newest_report_at": "2026-09-10T23:08:11+00:00",
   "newest_flag_report": {
-    "report_id": "74420",
-    "created_at": "2026-09-10T14:34:51+00:00",
+    "report_id": "74437",
+    "created_at": "2026-09-10T23:08:11+00:00",
     "latitude": 30.330943,
     "longitude": -87.142206,
     "ambassador": {
@@ -1161,7 +1161,7 @@
         },
         {
           "parameter": "Wind Speed",
-          "value": "9.22",
+          "value": "5.75",
           "unit": "Mph"
         }
       ],
@@ -1173,12 +1173,12 @@
         },
         {
           "parameter": "Rip Currents",
-          "value": "Present",
+          "value": "None",
           "unit": null
         },
         {
           "parameter": "Surf Height",
-          "value": "1-2 feet (0.3-0.6 m)",
+          "value": "0-1 feet (0-0.3 m)",
           "unit": null
         },
         {
@@ -1272,7 +1272,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "9.22",
+        "value": "5.75",
         "selected_values": []
       },
       {
@@ -1282,7 +1282,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "82.45",
+        "value": "82.65",
         "selected_values": []
       },
       {
@@ -1315,9 +1315,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "18",
-            "name": "Present",
-            "value": "present",
+            "id": "19",
+            "name": "None",
+            "value": "none",
             "description": null
           }
         ]
@@ -1332,9 +1332,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "15",
-            "name": "1-2 feet (0.3-0.6 m)",
-            "value": "1-2",
+            "id": "14",
+            "name": "0-1 feet (0-0.3 m)",
+            "value": "0-1",
             "description": null
           }
         ]
@@ -1508,7 +1508,7 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 6.56,
+    "age_hours": 1.338,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1517,11 +1517,11 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": true,
-    "knowthegulf_last_verified_at": "2026-09-10T09:34:10.760000-05:00",
+    "knowthegulf_last_verified_at": "2026-09-10T18:07:31.640000-05:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": true,
-    "visitbeaches_newest_report_at": "2026-09-10T14:34:51+00:00",
-    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_newest_report_at": "2026-09-10T23:08:11+00:00",
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
