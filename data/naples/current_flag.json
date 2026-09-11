@@ -14,8 +14,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-09-10T19:43:17+00:00",
-  "last_checked_at": "2026-09-11T08:22:27.320629+00:00",
+  "last_verified_at": "2026-09-11T11:20:31+00:00",
+  "last_checked_at": "2026-09-11T11:32:37.273330+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -86,12 +86,714 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 4,
+  "visitbeaches_fresh_observation_count": 5,
   "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
     "Green"
   ],
   "visitbeaches_observations": [
+    {
+      "report_id": "74443",
+      "created_at": "2026-09-11T11:20:31+00:00",
+      "latitude": 26.131679,
+      "longitude": -81.806322,
+      "ambassador": {
+        "id": "28",
+        "name": "Collier County"
+      },
+      "flag": "Green",
+      "purple": false,
+      "normalized_conditions": {
+        "wind": [
+          {
+            "parameter": "Wind Direction",
+            "value": "NE",
+            "unit": ""
+          },
+          {
+            "parameter": "Wind Speed",
+            "value": "3.44",
+            "unit": "Mph"
+          }
+        ],
+        "surf": [
+          {
+            "parameter": "Tides",
+            "value": "12:49 AM High\n06:56 AM Low\n01:09 PM High\n07:24 PM Low",
+            "unit": null
+          },
+          {
+            "parameter": "Rip Currents",
+            "value": "Present",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Height",
+            "value": "0-1 feet (0-0.3 m)",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Type",
+            "value": "Calm",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Intensity",
+            "value": "Calm",
+            "unit": null
+          }
+        ],
+        "water_color": "Clear",
+        "respiratory_irritation": "None",
+        "dead_fish": "None",
+        "crowd": "None"
+      },
+      "parameters": [
+        {
+          "parameter_id": "1",
+          "parameter": "Flag",
+          "prompt": null,
+          "unit": null,
+          "category": "Flag",
+          "category_slug": "flag",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "4",
+              "name": "Green",
+              "value": "green",
+              "description": "Low Hazard; calm conditions; exercise caution."
+            }
+          ]
+        },
+        {
+          "parameter_id": "8",
+          "parameter": "UV Index",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "10.5",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "7",
+          "parameter": "Sunset",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "07:36:35 PM",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "6",
+          "parameter": "Sunrise",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "07:11:27 AM",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "5",
+          "parameter": "Wind Direction",
+          "prompt": null,
+          "unit": "",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "NE",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "4",
+          "parameter": "Wind Speed",
+          "prompt": null,
+          "unit": "Mph",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "3.44",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "3",
+          "parameter": "Air Temperature",
+          "prompt": null,
+          "unit": "\u00b0F",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "75.15",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "2",
+          "parameter": "Weather Summary",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "Clouds",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "41",
+          "parameter": "Tides",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": "12:49 AM High\n06:56 AM Low\n01:09 PM High\n07:24 PM Low",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "12",
+          "parameter": "Rip Currents",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "18",
+              "name": "Present",
+              "value": "present",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "11",
+          "parameter": "Surf Height",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "14",
+              "name": "0-1 feet (0-0.3 m)",
+              "value": "0-1",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "10",
+          "parameter": "Surf Type",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "9",
+              "name": "Calm",
+              "value": "calm",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "9",
+          "parameter": "Surf Intensity",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "6",
+              "name": "Calm",
+              "value": "calm",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "14",
+          "parameter": "Water Color",
+          "prompt": null,
+          "unit": null,
+          "category": "Water Conditions",
+          "category_slug": "water-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
+            }
+          ]
+        },
+        {
+          "parameter_id": "15",
+          "parameter": "Drift Algae",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "23",
+              "name": "None",
+              "value": "none",
+              "description": "No drift algae in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "18",
+          "parameter": "Beach Debris",
+          "prompt": null,
+          "unit": null,
+          "category": "Beach Debris",
+          "category_slug": "beach-debris",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "33",
+              "name": "None",
+              "value": "none",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "22",
+          "parameter": "Respiratory Irritation",
+          "prompt": null,
+          "unit": null,
+          "category": "Respiratory Irritation",
+          "category_slug": "respiratory-irritation",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "45",
+              "name": "None",
+              "value": "none",
+              "description": "No coughing observed due to airborne toxins."
+            }
+          ]
+        },
+        {
+          "parameter_id": "23",
+          "parameter": "Dead Fish",
+          "prompt": null,
+          "unit": null,
+          "category": "Dead Fish",
+          "category_slug": "dead-fish",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "49",
+              "name": "None",
+              "value": "none",
+              "description": "No dead fish in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "25",
+          "parameter": "Jellyfish",
+          "prompt": null,
+          "unit": null,
+          "category": "Jellyfish",
+          "category_slug": "jellyfish",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "55",
+              "name": "None",
+              "value": "none",
+              "description": "No jellyfish in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "26",
+          "parameter": "Crowds",
+          "prompt": null,
+          "unit": null,
+          "category": "Crowds",
+          "category_slug": "crowds",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "58",
+              "name": "None",
+              "value": "none",
+              "description": "Sporadic beachgoers."
+            }
+          ]
+        }
+      ],
+      "beach_id": "49",
+      "beach_name": "Naples Pier",
+      "beach_location": "Naples, FL",
+      "beach_latitude": 26.131679,
+      "beach_longitude": -81.806322,
+      "age_hours": 0.201,
+      "fresh": true,
+      "source_class": "Beach Ambassador Report"
+    },
+    {
+      "report_id": "74441",
+      "created_at": "2026-09-11T11:17:49+00:00",
+      "latitude": 26.253502,
+      "longitude": -81.823303,
+      "ambassador": {
+        "id": "28",
+        "name": "Collier County"
+      },
+      "flag": "Green",
+      "purple": false,
+      "normalized_conditions": {
+        "wind": [
+          {
+            "parameter": "Wind Direction",
+            "value": "NE",
+            "unit": ""
+          },
+          {
+            "parameter": "Wind Speed",
+            "value": "3.44",
+            "unit": "Mph"
+          }
+        ],
+        "surf": [
+          {
+            "parameter": "Tides",
+            "value": "02:02 AM High\n08:19 AM Low\n02:25 PM High\n08:49 PM Low",
+            "unit": null
+          },
+          {
+            "parameter": "Rip Currents",
+            "value": "None",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Height",
+            "value": "0-1 feet (0-0.3 m)",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Type",
+            "value": "Calm",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Intensity",
+            "value": "Calm",
+            "unit": null
+          }
+        ],
+        "water_color": "Clear",
+        "respiratory_irritation": "None",
+        "dead_fish": "None",
+        "crowd": "None"
+      },
+      "parameters": [
+        {
+          "parameter_id": "1",
+          "parameter": "Flag",
+          "prompt": null,
+          "unit": null,
+          "category": "Flag",
+          "category_slug": "flag",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "4",
+              "name": "Green",
+              "value": "green",
+              "description": "Low Hazard; calm conditions; exercise caution."
+            }
+          ]
+        },
+        {
+          "parameter_id": "8",
+          "parameter": "UV Index",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "10.49",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "7",
+          "parameter": "Sunset",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "07:36:41 PM",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "6",
+          "parameter": "Sunrise",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "07:11:27 AM",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "5",
+          "parameter": "Wind Direction",
+          "prompt": null,
+          "unit": "",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "NE",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "4",
+          "parameter": "Wind Speed",
+          "prompt": null,
+          "unit": "Mph",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "3.44",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "3",
+          "parameter": "Air Temperature",
+          "prompt": null,
+          "unit": "\u00b0F",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "75.09",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "2",
+          "parameter": "Weather Summary",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "Clouds",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "41",
+          "parameter": "Tides",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": "02:02 AM High\n08:19 AM Low\n02:25 PM High\n08:49 PM Low",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "12",
+          "parameter": "Rip Currents",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "19",
+              "name": "None",
+              "value": "none",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "11",
+          "parameter": "Surf Height",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "14",
+              "name": "0-1 feet (0-0.3 m)",
+              "value": "0-1",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "10",
+          "parameter": "Surf Type",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "9",
+              "name": "Calm",
+              "value": "calm",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "9",
+          "parameter": "Surf Intensity",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "6",
+              "name": "Calm",
+              "value": "calm",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "14",
+          "parameter": "Water Color",
+          "prompt": null,
+          "unit": null,
+          "category": "Water Conditions",
+          "category_slug": "water-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
+            }
+          ]
+        },
+        {
+          "parameter_id": "15",
+          "parameter": "Drift Algae",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "23",
+              "name": "None",
+              "value": "none",
+              "description": "No drift algae in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "18",
+          "parameter": "Beach Debris",
+          "prompt": null,
+          "unit": null,
+          "category": "Beach Debris",
+          "category_slug": "beach-debris",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "33",
+              "name": "None",
+              "value": "none",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "22",
+          "parameter": "Respiratory Irritation",
+          "prompt": null,
+          "unit": null,
+          "category": "Respiratory Irritation",
+          "category_slug": "respiratory-irritation",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "45",
+              "name": "None",
+              "value": "none",
+              "description": "No coughing observed due to airborne toxins."
+            }
+          ]
+        },
+        {
+          "parameter_id": "23",
+          "parameter": "Dead Fish",
+          "prompt": null,
+          "unit": null,
+          "category": "Dead Fish",
+          "category_slug": "dead-fish",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "49",
+              "name": "None",
+              "value": "none",
+              "description": "No dead fish in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "25",
+          "parameter": "Jellyfish",
+          "prompt": null,
+          "unit": null,
+          "category": "Jellyfish",
+          "category_slug": "jellyfish",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "55",
+              "name": "None",
+              "value": "none",
+              "description": "No jellyfish in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "26",
+          "parameter": "Crowds",
+          "prompt": null,
+          "unit": null,
+          "category": "Crowds",
+          "category_slug": "crowds",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "58",
+              "name": "None",
+              "value": "none",
+              "description": "Sporadic beachgoers."
+            }
+          ]
+        }
+      ],
+      "beach_id": "29",
+      "beach_name": "Vanderbilt Beach",
+      "beach_location": "North Naples, FL",
+      "beach_latitude": 26.253502,
+      "beach_longitude": -81.823303,
+      "age_hours": 0.246,
+      "fresh": true,
+      "source_class": "Beach Ambassador Report"
+    },
     {
       "report_id": "74434",
       "created_at": "2026-09-10T19:43:17+00:00",
@@ -453,7 +1155,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 12.652,
+      "age_hours": 15.822,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -818,7 +1520,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 12.666,
+      "age_hours": 15.835,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1169,7 +1871,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 20.142,
+      "age_hours": 23.312,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1571,8 +2273,8 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 21.285,
-      "fresh": true,
+      "age_hours": 24.454,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1936,7 +2638,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 39.469,
+      "age_hours": 42.638,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2301,7 +3003,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 40.944,
+      "age_hours": 44.113,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2666,7 +3368,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 43.161,
+      "age_hours": 46.33,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3017,737 +3719,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 44.462,
-      "fresh": false,
-      "source_class": "Beach Ambassador Report"
-    },
-    {
-      "report_id": "74322",
-      "created_at": "2026-09-08T15:50:40+00:00",
-      "latitude": 26.253502,
-      "longitude": -81.823303,
-      "ambassador": {
-        "id": "28",
-        "name": "Collier County"
-      },
-      "flag": "Green",
-      "purple": false,
-      "normalized_conditions": {
-        "wind": [
-          {
-            "parameter": "Wind Direction",
-            "value": "SSW",
-            "unit": ""
-          },
-          {
-            "parameter": "Wind Speed",
-            "value": "7.61",
-            "unit": "Mph"
-          }
-        ],
-        "surf": [
-          {
-            "parameter": "Tides",
-            "value": "12:43 AM High\n05:56 AM Low\n12:06 PM High\n06:46 PM Low",
-            "unit": null
-          },
-          {
-            "parameter": "Rip Currents",
-            "value": "Present",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Type",
-            "value": "Shore Break",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Intensity",
-            "value": "Calm",
-            "unit": null
-          }
-        ],
-        "water_color": "Moderate",
-        "water_temperature": {
-          "value": "86",
-          "unit": "\u00b0F"
-        },
-        "respiratory_irritation": "None",
-        "dead_fish": "None",
-        "crowd": "Many"
-      },
-      "parameters": [
-        {
-          "parameter_id": "1",
-          "parameter": "Flag",
-          "prompt": null,
-          "unit": null,
-          "category": "Flag",
-          "category_slug": "flag",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
-            }
-          ]
-        },
-        {
-          "parameter_id": "8",
-          "parameter": "UV Index",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "10.53",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "7",
-          "parameter": "Sunset",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "07:40:03 PM",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "6",
-          "parameter": "Sunrise",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "07:10:16 AM",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "5",
-          "parameter": "Wind Direction",
-          "prompt": null,
-          "unit": "",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "SSW",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "4",
-          "parameter": "Wind Speed",
-          "prompt": null,
-          "unit": "Mph",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "7.61",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "3",
-          "parameter": "Air Temperature",
-          "prompt": null,
-          "unit": "\u00b0F",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "87.08",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "2",
-          "parameter": "Weather Summary",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "Clouds",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "41",
-          "parameter": "Tides",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": "12:43 AM High\n05:56 AM Low\n12:06 PM High\n06:46 PM Low",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "12",
-          "parameter": "Rip Currents",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "18",
-              "name": "Present",
-              "value": "present",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "11",
-          "parameter": "Surf Height",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "10",
-          "parameter": "Surf Type",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "11",
-              "name": "Shore Break",
-              "value": "shore-break",
-              "description": "Waves breaking close to shore or shallow water."
-            }
-          ]
-        },
-        {
-          "parameter_id": "9",
-          "parameter": "Surf Intensity",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "14",
-          "parameter": "Water Color",
-          "prompt": null,
-          "unit": null,
-          "category": "Water Conditions",
-          "category_slug": "water-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "21",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": "A light tint."
-            }
-          ]
-        },
-        {
-          "parameter_id": "13",
-          "parameter": "Water Surface Temperature",
-          "prompt": null,
-          "unit": "\u00b0F",
-          "category": "Water Conditions",
-          "category_slug": "water-conditions",
-          "value": "86",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "15",
-          "parameter": "Drift Algae",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "23",
-              "name": "None",
-              "value": "none",
-              "description": "No drift algae in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "18",
-          "parameter": "Beach Debris",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "33",
-              "name": "None",
-              "value": "none",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "22",
-          "parameter": "Respiratory Irritation",
-          "prompt": null,
-          "unit": null,
-          "category": "Respiratory Irritation",
-          "category_slug": "respiratory-irritation",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "45",
-              "name": "None",
-              "value": "none",
-              "description": "No coughing observed due to airborne toxins."
-            }
-          ]
-        },
-        {
-          "parameter_id": "23",
-          "parameter": "Dead Fish",
-          "prompt": null,
-          "unit": null,
-          "category": "Dead Fish",
-          "category_slug": "dead-fish",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "49",
-              "name": "None",
-              "value": "none",
-              "description": "No dead fish in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "25",
-          "parameter": "Jellyfish",
-          "prompt": null,
-          "unit": null,
-          "category": "Jellyfish",
-          "category_slug": "jellyfish",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "55",
-              "name": "None",
-              "value": "none",
-              "description": "No jellyfish in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "26",
-          "parameter": "Crowds",
-          "prompt": null,
-          "unit": null,
-          "category": "Crowds",
-          "category_slug": "crowds",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "60",
-              "name": "Many",
-              "value": "many",
-              "description": "Continous crowds along the shore."
-            }
-          ]
-        }
-      ],
-      "beach_id": "29",
-      "beach_name": "Vanderbilt Beach",
-      "beach_location": "North Naples, FL",
-      "beach_latitude": 26.253502,
-      "beach_longitude": -81.823303,
-      "age_hours": 64.529,
-      "fresh": false,
-      "source_class": "Beach Ambassador Report"
-    },
-    {
-      "report_id": "74315",
-      "created_at": "2026-09-08T14:29:37+00:00",
-      "latitude": 26.131679,
-      "longitude": -81.806322,
-      "ambassador": {
-        "id": "80",
-        "name": "City of Naples"
-      },
-      "flag": "Yellow",
-      "purple": false,
-      "normalized_conditions": {
-        "wind": [
-          {
-            "parameter": "Wind Direction",
-            "value": "ENE",
-            "unit": ""
-          },
-          {
-            "parameter": "Wind Speed",
-            "value": "4.61",
-            "unit": "Mph"
-          }
-        ],
-        "surf": [
-          {
-            "parameter": "Tides",
-            "value": "04:35 AM Low\n10:47 AM High\n05:23 PM Low",
-            "unit": null
-          },
-          {
-            "parameter": "Rip Currents",
-            "value": "None",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Height",
-            "value": "1-2 feet (0.3-0.6 m)",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Type",
-            "value": "Shore Break",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Intensity",
-            "value": "Moderate",
-            "unit": null
-          }
-        ],
-        "water_color": "Moderate",
-        "water_temperature": {
-          "value": "81",
-          "unit": "\u00b0F"
-        },
-        "respiratory_irritation": "None",
-        "dead_fish": "None",
-        "crowd": "None"
-      },
-      "parameters": [
-        {
-          "parameter_id": "1",
-          "parameter": "Flag",
-          "prompt": null,
-          "unit": null,
-          "category": "Flag",
-          "category_slug": "flag",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "3",
-              "name": "Yellow",
-              "value": "yellow",
-              "description": "Medium Hazard; moderate surf and/or currents."
-            }
-          ]
-        },
-        {
-          "parameter_id": "8",
-          "parameter": "UV Index",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "10.77",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "7",
-          "parameter": "Sunset",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "07:39:55 PM",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "6",
-          "parameter": "Sunrise",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "07:10:16 AM",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "5",
-          "parameter": "Wind Direction",
-          "prompt": null,
-          "unit": "",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "ENE",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "4",
-          "parameter": "Wind Speed",
-          "prompt": null,
-          "unit": "Mph",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "4.61",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "3",
-          "parameter": "Air Temperature",
-          "prompt": null,
-          "unit": "\u00b0F",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "84.15",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "2",
-          "parameter": "Weather Summary",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "Clouds",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "41",
-          "parameter": "Tides",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": "04:35 AM Low\n10:47 AM High\n05:23 PM Low",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "12",
-          "parameter": "Rip Currents",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "19",
-              "name": "None",
-              "value": "none",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "11",
-          "parameter": "Surf Height",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "15",
-              "name": "1-2 feet (0.3-0.6 m)",
-              "value": "1-2",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "10",
-          "parameter": "Surf Type",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "11",
-              "name": "Shore Break",
-              "value": "shore-break",
-              "description": "Waves breaking close to shore or shallow water."
-            }
-          ]
-        },
-        {
-          "parameter_id": "9",
-          "parameter": "Surf Intensity",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "7",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "14",
-          "parameter": "Water Color",
-          "prompt": null,
-          "unit": null,
-          "category": "Water Conditions",
-          "category_slug": "water-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "21",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": "A light tint."
-            }
-          ]
-        },
-        {
-          "parameter_id": "13",
-          "parameter": "Water Surface Temperature",
-          "prompt": null,
-          "unit": "\u00b0F",
-          "category": "Water Conditions",
-          "category_slug": "water-conditions",
-          "value": "81",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "15",
-          "parameter": "Drift Algae",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "23",
-              "name": "None",
-              "value": "none",
-              "description": "No drift algae in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "18",
-          "parameter": "Beach Debris",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "33",
-              "name": "None",
-              "value": "none",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "22",
-          "parameter": "Respiratory Irritation",
-          "prompt": null,
-          "unit": null,
-          "category": "Respiratory Irritation",
-          "category_slug": "respiratory-irritation",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "45",
-              "name": "None",
-              "value": "none",
-              "description": "No coughing observed due to airborne toxins."
-            }
-          ]
-        },
-        {
-          "parameter_id": "23",
-          "parameter": "Dead Fish",
-          "prompt": null,
-          "unit": null,
-          "category": "Dead Fish",
-          "category_slug": "dead-fish",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "49",
-              "name": "None",
-              "value": "none",
-              "description": "No dead fish in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "25",
-          "parameter": "Jellyfish",
-          "prompt": null,
-          "unit": null,
-          "category": "Jellyfish",
-          "category_slug": "jellyfish",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "55",
-              "name": "None",
-              "value": "none",
-              "description": "No jellyfish in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "26",
-          "parameter": "Crowds",
-          "prompt": null,
-          "unit": null,
-          "category": "Crowds",
-          "category_slug": "crowds",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
-            }
-          ]
-        }
-      ],
-      "beach_id": "49",
-      "beach_name": "Naples Pier",
-      "beach_location": "Naples, FL",
-      "beach_latitude": 26.131679,
-      "beach_longitude": -81.806322,
-      "age_hours": 65.88,
+      "age_hours": 47.631,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4132,7 +4104,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 69.072,
+      "age_hours": 72.241,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4534,7 +4506,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 69.169,
+      "age_hours": 72.339,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
