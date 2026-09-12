@@ -11,8 +11,8 @@
   "severity": null,
   "status": "official_conditions_source_reachable",
   "provenance_tier": "officially_directed_conditions_source",
-  "last_verified_at": "2026-09-12T13:16:38.758479-04:00",
-  "last_checked_at": "2026-09-12T13:16:38.758479-04:00",
+  "last_verified_at": "2026-09-12T15:08:36.733848-04:00",
+  "last_checked_at": "2026-09-12T15:08:36.733848-04:00",
   "source_check_status": "verified",
   "source_name": "Safe Beach Day / Manatee County",
   "source_url": "https://safebeachday.com/county/manatee-county/",
@@ -34,39 +34,5 @@
   "primary_flag": null,
   "purple": false,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
-  "visitbeaches_evidence": {
-    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
-    "source_url": "https://visitbeaches.org/map",
-    "source_data_url": "https://api.visitbeaches.org/graphql",
-    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "primary_only",
-    "reason": "No fresh explicit VisitBeaches Ambassador flag is available",
-    "flag": null,
-    "purple": false,
-    "report_at": "2026-08-09T14:08:43+00:00",
-    "fresh_observation_count": 0,
-    "matched_beaches": [
-      {
-        "id": "8",
-        "name": "Coquina Beach",
-        "location": "Bradenton Beach, FL"
-      },
-      {
-        "id": "154",
-        "name": "Cortez Beach",
-        "location": "Bradenton Beach, FL"
-      },
-      {
-        "id": "62",
-        "name": "Anna Maria Island",
-        "location": "Anna Maria, FL"
-      }
-    ],
-    "flag_conflict": false,
-    "fresh_distinct_flags": [],
-    "checked_at": "2026-09-12T18:40:03.498028+00:00",
-    "publication_action": "corroboration_only"
-  },
-  "multi_source_confidence": "primary_only"
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections."
 }
