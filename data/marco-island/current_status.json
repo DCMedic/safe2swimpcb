@@ -12,7 +12,7 @@
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-09-12T11:02:26+00:00",
-  "last_checked_at": "2026-09-12T11:17:53.586113+00:00",
+  "last_checked_at": "2026-09-12T13:39:38.661113+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -394,7 +394,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 0.257,
+      "age_hours": 2.62,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -745,7 +745,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 24.167,
+      "age_hours": 26.53,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1096,7 +1096,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 41.9,
+      "age_hours": 44.262,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
