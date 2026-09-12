@@ -97,10 +97,10 @@
     "siesta-key": {
       "matched_beaches": 2,
       "fresh_observations": 1,
-      "visitbeaches_flag": "Green",
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "flag_disagreement",
       "error": null
     },
     "venice": {
@@ -145,7 +145,7 @@
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "flag_disagreement",
+      "comparison": "agree",
       "error": null
     }
   }
