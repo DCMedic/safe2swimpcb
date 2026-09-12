@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-12T15:46:38.174572+00:00",
+  "checked_at": "2026-09-12T18:40:07.522541+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
@@ -418,8 +418,8 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 23.25,
-      "fresh": true,
+      "age_hours": 26.141,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -783,8 +783,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 23.718,
-      "fresh": true,
+      "age_hours": 26.609,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1148,8 +1148,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 23.728,
-      "fresh": true,
+      "age_hours": 26.619,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1513,7 +1513,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 44.888,
+      "age_hours": 47.779,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1878,7 +1878,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 47.431,
+      "age_hours": 50.322,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2243,7 +2243,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 47.442,
+      "age_hours": 50.333,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2614,7 +2614,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 68.337,
+      "age_hours": 71.228,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2979,7 +2979,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 117.006,
+      "age_hours": 119.898,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3344,18 +3344,16 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 117.013,
+      "age_hours": 119.904,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 3,
-  "flag": "Green",
+  "fresh_observation_count": 0,
+  "flag": null,
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [
-    "Green"
-  ],
+  "fresh_distinct_flags": [],
   "newest_report_at": "2026-09-11T16:31:39+00:00",
   "newest_flag_report": {
     "report_id": "74472",
@@ -3718,20 +3716,20 @@
     "beach_location": "Venice, FL",
     "beach_latitude": 27.099903,
     "beach_longitude": -82.460239,
-    "age_hours": 23.25,
-    "fresh": true,
+    "age_hours": 26.141,
+    "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
+    "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
     "knowthegulf_last_verified_at": "2026-09-11T16:31:39+00:00",
-    "visitbeaches_flag": "Green",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-11T16:31:39+00:00",
-    "visitbeaches_fresh_observation_count": 3,
+    "visitbeaches_fresh_observation_count": 0,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
