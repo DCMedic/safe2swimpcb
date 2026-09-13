@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-13T16:36:06.810601+00:00",
+  "checked_at": "2026-09-13T18:56:33.308728+00:00",
   "freshness_hours": 24,
   "aliases": [
     "South Marco Beach",
@@ -374,7 +374,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 5.471,
+      "age_hours": 7.812,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -725,8 +725,8 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 22.111,
-      "fresh": true,
+      "age_hours": 24.452,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1076,18 +1076,17 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 53.471,
+      "age_hours": 55.812,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
-  "flag": null,
+  "fresh_observation_count": 1,
+  "flag": "Green",
   "purple": false,
-  "flag_conflict": true,
+  "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Green",
-    "Yellow"
+    "Green"
   ],
   "newest_report_at": "2026-09-13T11:07:50+00:00",
   "newest_flag_report": {
@@ -1437,21 +1436,21 @@
     "beach_location": "Marco Island, FL",
     "beach_latitude": 25.911738,
     "beach_longitude": -81.72877,
-    "age_hours": 5.471,
+    "age_hours": 7.812,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_internal_conflict",
-    "knowthegulf_flag": null,
+    "state": "agree",
+    "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
     "knowthegulf_last_verified_at": "2026-09-13T11:07:50+00:00",
-    "visitbeaches_flag": null,
+    "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-13T11:07:50+00:00",
-    "visitbeaches_fresh_observation_count": 2,
-    "visitbeaches_flag_conflict": true
+    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
   "publication_effect": "none",
