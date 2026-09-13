@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-12T22:30:15.570101+00:00",
+  "checked_at": "2026-09-13T00:12:28.591613+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -26,8 +26,8 @@
   ],
   "observations": [
     {
-      "report_id": "74512",
-      "created_at": "2026-09-12T14:36:14+00:00",
+      "report_id": "74522",
+      "created_at": "2026-09-12T23:09:05+00:00",
       "latitude": 30.330943,
       "longitude": -87.142206,
       "ambassador": {
@@ -40,12 +40,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "E",
+            "value": "SW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "3.44",
+            "value": "8.03",
             "unit": "Mph"
           }
         ],
@@ -76,9 +76,9 @@
             "unit": null
           }
         ],
-        "water_color": "Moderate",
+        "water_color": "Clear",
         "water_temperature": {
-          "value": "87",
+          "value": "82",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
@@ -140,7 +140,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "E",
+          "value": "SW",
           "selected_values": []
         },
         {
@@ -150,7 +150,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "3.44",
+          "value": "8.03",
           "selected_values": []
         },
         {
@@ -160,7 +160,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "80.91",
+          "value": "83.66",
           "selected_values": []
         },
         {
@@ -170,7 +170,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Rain",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -261,10 +261,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "21",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": "A light tint."
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
             }
           ]
         },
@@ -275,7 +275,7 @@
           "unit": "\u00b0F",
           "category": "Water Conditions",
           "category_slug": "water-conditions",
-          "value": "87",
+          "value": "82",
           "selected_values": []
         },
         {
@@ -356,10 +356,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "56",
-              "name": "Some",
-              "value": "some",
-              "description": "There are 1 to 2 jellyfish in sight."
+              "id": "55",
+              "name": "None",
+              "value": "none",
+              "description": "No jellyfish in sight."
             }
           ]
         },
@@ -386,7 +386,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 7.9,
+      "age_hours": 1.057,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -751,8 +751,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 23.403,
-      "fresh": true,
+      "age_hours": 25.107,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1122,22 +1122,22 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 47.368,
+      "age_hours": 49.072,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
+  "fresh_observation_count": 1,
   "flag": "Yellow",
   "purple": false,
   "flag_conflict": false,
   "fresh_distinct_flags": [
     "Yellow"
   ],
-  "newest_report_at": "2026-09-12T14:36:14+00:00",
+  "newest_report_at": "2026-09-12T23:09:05+00:00",
   "newest_flag_report": {
-    "report_id": "74512",
-    "created_at": "2026-09-12T14:36:14+00:00",
+    "report_id": "74522",
+    "created_at": "2026-09-12T23:09:05+00:00",
     "latitude": 30.330943,
     "longitude": -87.142206,
     "ambassador": {
@@ -1150,12 +1150,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "E",
+          "value": "SW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "3.44",
+          "value": "8.03",
           "unit": "Mph"
         }
       ],
@@ -1186,9 +1186,9 @@
           "unit": null
         }
       ],
-      "water_color": "Moderate",
+      "water_color": "Clear",
       "water_temperature": {
-        "value": "87",
+        "value": "82",
         "unit": "\u00b0F"
       },
       "respiratory_irritation": "None",
@@ -1250,7 +1250,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "E",
+        "value": "SW",
         "selected_values": []
       },
       {
@@ -1260,7 +1260,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "3.44",
+        "value": "8.03",
         "selected_values": []
       },
       {
@@ -1270,7 +1270,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "80.91",
+        "value": "83.66",
         "selected_values": []
       },
       {
@@ -1280,7 +1280,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Rain",
+        "value": "Clouds",
         "selected_values": []
       },
       {
@@ -1371,10 +1371,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "21",
-            "name": "Moderate",
-            "value": "moderate",
-            "description": "A light tint."
+            "id": "20",
+            "name": "Clear",
+            "value": "clear",
+            "description": "Able to see the bottom in shallow water."
           }
         ]
       },
@@ -1385,7 +1385,7 @@
         "unit": "\u00b0F",
         "category": "Water Conditions",
         "category_slug": "water-conditions",
-        "value": "87",
+        "value": "82",
         "selected_values": []
       },
       {
@@ -1466,10 +1466,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "56",
-            "name": "Some",
-            "value": "some",
-            "description": "There are 1 to 2 jellyfish in sight."
+            "id": "55",
+            "name": "None",
+            "value": "none",
+            "description": "No jellyfish in sight."
           }
         ]
       },
@@ -1496,7 +1496,7 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 7.9,
+    "age_hours": 1.057,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1505,11 +1505,11 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-12T09:35:46.823000-05:00",
+    "knowthegulf_last_verified_at": "2026-09-12T18:08:40.890000-05:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-09-12T14:36:14+00:00",
-    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_newest_report_at": "2026-09-12T23:09:05+00:00",
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
