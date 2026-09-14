@@ -37,7 +37,7 @@
       "visitbeaches_flag": "Green",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "flag_disagreement",
       "error": null
     },
     "pensacola-beach": {
@@ -46,7 +46,7 @@
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "flag_disagreement",
+      "comparison": "agree",
       "error": null
     },
     "south-walton": {
