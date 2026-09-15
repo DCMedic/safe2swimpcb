@@ -3,16 +3,16 @@
   "purple": false,
   "label": "Yellow",
   "severity": 2,
-  "provenance_tier": "primary_official_terminology",
+  "provenance_tier": "primary_visitbeaches_ambassador_gap_fill",
   "cached": false,
-  "last_verified_at": "2026-09-14T23:40:22.039484-05:00",
+  "last_verified_at": "2026-09-14T12:42:55+00:00",
   "last_checked_at": "2026-09-14T23:40:22.039484-05:00",
   "status_changed_at": "2026-09-10T12:03:13.283552-05:00",
-  "source_name": "Visit Panama City Beach / Beach & Surf Patrol",
-  "source_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
+  "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
+  "source_url": "https://visitbeaches.org/map",
   "source_check_status": "verified",
   "method": "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions",
-  "stale_after_hours": 2,
+  "stale_after_hours": 24.0,
   "stale_reason": null,
   "note": "last_verified_at is the most recent successful Know the Gulf poll. status_changed_at is when Know the Gulf first observed the current flag status. Polling time is not guaranteed to equal the exact official issuance time.",
   "primary_flag": "Yellow",
@@ -26,8 +26,8 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "corroborated",
-    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
+    "state": "visitbeaches_newer_than_stale_primary",
+    "reason": "Primary observation is stale and a fresh consistent VisitBeaches Ambassador flag is available",
     "flag": "Yellow",
     "purple": false,
     "report_at": "2026-09-14T12:42:55+00:00",
@@ -43,8 +43,11 @@
     "fresh_distinct_flags": [
       "Yellow"
     ],
-    "checked_at": "2026-09-15T00:51:35.715048+00:00",
-    "publication_action": "corroboration_only"
+    "checked_at": "2026-09-15T08:00:05.353311+00:00",
+    "publication_action": "filled_missing_or_stale_primary"
   },
-  "multi_source_confidence": "corroborated"
+  "multi_source_confidence": "visitbeaches_gap_filled",
+  "status": "explicit_flag_verified",
+  "source_data_url": "https://api.visitbeaches.org/graphql",
+  "explicit_flag_evidence": "Fresh consistent VisitBeaches Beach Ambassador report(s): Yellow"
 }
