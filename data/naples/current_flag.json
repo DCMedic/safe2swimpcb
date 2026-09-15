@@ -15,7 +15,7 @@
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-09-15T13:36:21+00:00",
-  "last_checked_at": "2026-09-15T17:07:51.200022+00:00",
+  "last_checked_at": "2026-09-15T18:59:19.122046+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -453,7 +453,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 3.524,
+      "age_hours": 5.382,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -804,7 +804,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 4.971,
+      "age_hours": 6.828,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1155,7 +1155,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 5.806,
+      "age_hours": 7.664,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1520,7 +1520,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 26.598,
+      "age_hours": 28.455,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1871,7 +1871,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 28.887,
+      "age_hours": 30.745,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2222,7 +2222,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 29.705,
+      "age_hours": 31.562,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2573,7 +2573,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 29.976,
+      "age_hours": 31.833,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2938,7 +2938,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 48.177,
+      "age_hours": 50.035,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3303,7 +3303,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 51.912,
+      "age_hours": 53.77,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3654,7 +3654,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 53.513,
+      "age_hours": 55.371,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4005,7 +4005,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 54.079,
+      "age_hours": 55.936,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4370,7 +4370,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 76.139,
+      "age_hours": 77.997,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -4378,46 +4378,5 @@
   "method": "Structured Mote Marine Laboratory BCRS GraphQL Beach Ambassador reports. Community Reports are excluded. A regional flag is published only when fresh explicit Ambassador flag observations agree; stale explicit reports remain visible as last verified information.",
   "safety_note": "Only an explicit Beach Ambassador warning-flag observation is displayed as a flag. Community Reports, rip-current risk, weather, surf, red-tide status, water quality, legends, and generic hazard scores are never converted into a Florida warning flag. Posted flags and lifeguard instructions control.",
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
-  "visitbeaches_evidence": {
-    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
-    "source_url": "https://visitbeaches.org/map",
-    "source_data_url": "https://api.visitbeaches.org/graphql",
-    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "corroborated",
-    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
-    "flag": "Green",
-    "purple": false,
-    "report_at": "2026-09-15T13:36:21+00:00",
-    "fresh_observation_count": 3,
-    "matched_beaches": [
-      {
-        "id": "29",
-        "name": "Vanderbilt Beach",
-        "location": "North Naples, FL"
-      },
-      {
-        "id": "30",
-        "name": "Seagate Beach",
-        "location": "Naples, FL"
-      },
-      {
-        "id": "49",
-        "name": "Naples Pier",
-        "location": "Naples, FL"
-      },
-      {
-        "id": "28",
-        "name": "Barefoot Beach",
-        "location": "Bonita Springs, FL"
-      }
-    ],
-    "flag_conflict": false,
-    "fresh_distinct_flags": [
-      "Green"
-    ],
-    "checked_at": "2026-09-15T17:14:38.480385+00:00",
-    "publication_action": "corroboration_only"
-  },
-  "multi_source_confidence": "corroborated"
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections."
 }
