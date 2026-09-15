@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-15T08:00:12.497116+00:00",
+  "checked_at": "2026-09-15T17:14:25.922548+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. George Island",
@@ -374,8 +374,8 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 20.067,
-      "fresh": true,
+      "age_hours": 29.304,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -725,7 +725,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 43.935,
+      "age_hours": 53.172,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1076,18 +1076,16 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 187.988,
+      "age_hours": 197.225,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 1,
-  "flag": "Yellow",
+  "fresh_observation_count": 0,
+  "flag": null,
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [
-    "Yellow"
-  ],
+  "fresh_distinct_flags": [],
   "newest_report_at": "2026-09-14T11:56:11+00:00",
   "newest_flag_report": {
     "report_id": "74577",
@@ -1436,20 +1434,20 @@
     "beach_location": "St. George Island, FL",
     "beach_latitude": 29.662236,
     "beach_longitude": -84.861462,
-    "age_hours": 20.067,
-    "fresh": true,
+    "age_hours": 29.304,
+    "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
-    "knowthegulf_flag": "Yellow",
+    "state": "no_fresh_visitbeaches_flag",
+    "knowthegulf_flag": "Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-15T01:40:37.481659-05:00",
-    "visitbeaches_flag": "Yellow",
+    "knowthegulf_last_verified_at": "2026-09-15T11:54:33.439806-05:00",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-14T11:56:11+00:00",
-    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_fresh_observation_count": 0,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
