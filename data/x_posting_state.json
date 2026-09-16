@@ -50,14 +50,14 @@
   },
   "flag_state": {
     "Destin": "Double Red",
-    "Navarre Beach": "Yellow",
+    "Navarre Beach": "Single Red",
     "Okaloosa Island": "Double Red",
     "Panama City Beach": "Yellow",
-    "Pensacola Beach": "Yellow"
+    "Pensacola Beach": "Single Red"
   },
   "last_link_post_at": "2026-09-11T20:16:35.580650-05:00",
-  "last_posted_at": "2026-09-16T09:18:57.831542-05:00",
-  "lifetime_estimated_spend_usd": 2.2,
+  "last_posted_at": "2026-09-16T12:39:29.903735-05:00",
+  "lifetime_estimated_spend_usd": 2.215,
   "recent_fingerprints": [
     "cbf77fef1cd79abb",
     "8362194d7e6e1b08",
@@ -105,9 +105,10 @@
     "0bfd43ead828b08f",
     "514de4f39206a211",
     "fba220ada4082d54",
-    "7a0e41cf352e35b1"
+    "7a0e41cf352e35b1",
+    "128ba9f2170e3a78"
   ],
-  "sequence": 47,
+  "sequence": 48,
   "usage": {
     "2026-08": {
       "days": {
@@ -146,10 +147,10 @@
         "2026-09-12": 2,
         "2026-09-13": 2,
         "2026-09-14": 2,
-        "2026-09-16": 1
+        "2026-09-16": 2
       },
-      "estimated_spend_usd": 0.9,
-      "posts": 23,
+      "estimated_spend_usd": 0.915,
+      "posts": 24,
       "url_posts": 3
     }
   },
