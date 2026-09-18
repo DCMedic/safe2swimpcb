@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-18T07:35:38.914656+00:00",
+  "checked_at": "2026-09-18T16:40:57.705647+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Cape San Blas",
@@ -37,9 +37,9 @@
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
     "state": "no_fresh_visitbeaches_flag",
-    "knowthegulf_flag": null,
+    "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-17T10:41:05.087250-04:00",
+    "knowthegulf_last_verified_at": "2026-09-18T12:21:10.609441-04:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": null,
