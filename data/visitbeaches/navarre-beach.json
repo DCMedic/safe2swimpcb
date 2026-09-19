@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-19T18:48:00.775096+00:00",
+  "checked_at": "2026-09-19T22:26:58.619800+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Navarre Beach"
@@ -420,7 +420,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 0.049,
+      "age_hours": 3.699,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -785,7 +785,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 29.872,
+      "age_hours": 33.521,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1150,7 +1150,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 126.81,
+      "age_hours": 130.459,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1558,7 +1558,7 @@
     "beach_location": "Navarre Beach, FL",
     "beach_latitude": 30.382,
     "beach_longitude": -86.8624,
-    "age_hours": 0.049,
+    "age_hours": 3.699,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1567,7 +1567,7 @@
     "state": "flag_disagreement",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-19T13:37:12.340173-05:00",
+    "knowthegulf_last_verified_at": "2026-09-19T17:20:14.375754-05:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-19T18:45:03+00:00",
