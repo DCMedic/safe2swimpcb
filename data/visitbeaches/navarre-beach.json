@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-19T04:57:19.884169+00:00",
+  "checked_at": "2026-09-19T16:02:06.123817+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Navarre Beach"
@@ -386,8 +386,8 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 16.027,
-      "fresh": true,
+      "age_hours": 27.107,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -751,7 +751,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 112.965,
+      "age_hours": 124.045,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1116,18 +1116,16 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 133.65,
+      "age_hours": 144.729,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 1,
-  "flag": "Red",
+  "fresh_observation_count": 0,
+  "flag": null,
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [
-    "Red"
-  ],
+  "fresh_distinct_flags": [],
   "newest_report_at": "2026-09-18T12:55:42+00:00",
   "newest_flag_report": {
     "report_id": "74790",
@@ -1490,20 +1488,20 @@
     "beach_location": "Navarre Beach, FL",
     "beach_latitude": 30.382,
     "beach_longitude": -86.8624,
-    "age_hours": 16.027,
-    "fresh": true,
+    "age_hours": 27.107,
+    "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "flag_disagreement",
+    "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-18T19:20:25.535732-05:00",
-    "visitbeaches_flag": "Red",
+    "knowthegulf_last_verified_at": "2026-09-19T10:52:59.296060-05:00",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-18T12:55:42+00:00",
-    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_fresh_observation_count": 0,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
