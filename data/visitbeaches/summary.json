@@ -42,11 +42,11 @@
     },
     "pensacola-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 2,
+      "fresh_observations": 1,
       "visitbeaches_flag": "Yellow",
-      "visitbeaches_purple": false,
+      "visitbeaches_purple": true,
       "flag_conflict": false,
-      "comparison": "primary_flag_agrees_overlay_differs",
+      "comparison": "agree",
       "error": null
     },
     "south-walton": {
