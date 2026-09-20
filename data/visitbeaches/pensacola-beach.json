@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-20T00:19:24.587186+00:00",
+  "checked_at": "2026-09-20T05:19:32.635643+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -392,7 +392,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 1.23,
+      "age_hours": 6.232,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -757,7 +757,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 25.185,
+      "age_hours": 30.188,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1122,7 +1122,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 48.73,
+      "age_hours": 53.732,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1502,7 +1502,7 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 1.23,
+    "age_hours": 6.232,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1511,7 +1511,7 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": true,
-    "knowthegulf_last_verified_at": "2026-09-19T12:54:20.213000-05:00",
+    "knowthegulf_last_verified_at": "2026-09-19T18:04:53.747000-05:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": true,
     "visitbeaches_newest_report_at": "2026-09-19T23:05:36+00:00",
