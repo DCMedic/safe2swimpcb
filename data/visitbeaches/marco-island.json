@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-20T16:27:02.150770+00:00",
+  "checked_at": "2026-09-20T19:00:54.661641+00:00",
   "freshness_hours": 24,
   "aliases": [
     "South Marco Beach",
@@ -374,7 +374,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 5.307,
+      "age_hours": 7.872,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -725,7 +725,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 25.334,
+      "age_hours": 27.899,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1076,7 +1076,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 49.28,
+      "age_hours": 51.845,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1436,14 +1436,14 @@
     "beach_location": "Marco Island, FL",
     "beach_latitude": 25.911738,
     "beach_longitude": -81.72877,
-    "age_hours": 5.307,
+    "age_hours": 7.872,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_fills_current_gap",
-    "knowthegulf_flag": null,
+    "state": "agree",
+    "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
     "knowthegulf_last_verified_at": "2026-09-20T11:08:36+00:00",
     "visitbeaches_flag": "Green",
