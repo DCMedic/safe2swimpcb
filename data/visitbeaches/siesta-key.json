@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-21T18:18:30.017447+00:00",
+  "checked_at": "2026-09-21T22:09:12.071172+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Siesta Beach",
@@ -454,8 +454,8 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 22.686,
-      "fresh": true,
+      "age_hours": 26.531,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -819,7 +819,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 47.306,
+      "age_hours": 51.151,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1269,7 +1269,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 53.789,
+      "age_hours": 57.634,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1719,7 +1719,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 98.607,
+      "age_hours": 102.452,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2084,7 +2084,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 99.53,
+      "age_hours": 103.375,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2500,18 +2500,16 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 173.046,
+      "age_hours": 176.891,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 1,
-  "flag": "Green",
+  "fresh_observation_count": 0,
+  "flag": null,
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [
-    "Green"
-  ],
+  "fresh_distinct_flags": [],
   "newest_report_at": "2026-09-20T19:37:22+00:00",
   "newest_flag_report": {
     "report_id": "74912",
@@ -2925,20 +2923,20 @@
     "beach_location": "Sarasota, FL",
     "beach_latitude": 27.264289,
     "beach_longitude": -82.551447,
-    "age_hours": 22.686,
-    "fresh": true,
+    "age_hours": 26.531,
+    "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_fills_current_gap",
+    "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": null,
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-21T16:32:00.678284+00:00",
-    "visitbeaches_flag": "Green",
+    "knowthegulf_last_verified_at": "2026-09-21T22:00:07.549753+00:00",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-20T19:37:22+00:00",
-    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_fresh_observation_count": 0,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,

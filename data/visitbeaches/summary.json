@@ -96,11 +96,11 @@
     },
     "siesta-key": {
       "matched_beaches": 2,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Green",
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "visitbeaches_fills_current_gap",
+      "comparison": "no_fresh_visitbeaches_flag",
       "error": null
     },
     "venice": {
