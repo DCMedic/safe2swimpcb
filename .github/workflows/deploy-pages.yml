@@ -57,11 +57,17 @@ jobs:
         run: |
           python -m py_compile scripts/inject_social_meta.py scripts/site_health_check.py
 
-      - name: Inject standardized UI and social metadata
-        run: python scripts/inject_social_meta.py
+      - name: Build optimized deployment HTML
+        run: |
+          python scripts/prerender_current_status.py
+          python scripts/inject_social_meta.py
+          python scripts/generate_sitemap.py
 
       - name: Repository-wide site health gate
         run: python scripts/site_health_check.py
+
+      - name: Write deployment health marker
+        run: python scripts/write_build_health.py
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
