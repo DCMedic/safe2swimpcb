@@ -50,6 +50,25 @@ jobs:
       - name: Run repository test suite
         run: pytest -q
       - name: Build standardized deployment HTML
-        run: python scripts/inject_social_meta.py
+        run: |
+          python scripts/prerender_current_status.py
+          python scripts/inject_social_meta.py
+          python scripts/generate_sitemap.py
       - name: Validate routes, assets, sitemap and data contracts
         run: python scripts/site_health_check.py
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Build deployment HTML
+        run: |
+          python scripts/prerender_current_status.py
+          python scripts/inject_social_meta.py
+          python scripts/generate_sitemap.py
+      - name: Lighthouse performance budget
+        run: npx --yes @lhci/cli@0.15.x autorun
