@@ -3,7 +3,7 @@
   "label": "Green",
   "severity": 1,
   "last_verified_at": "2026-09-23T09:16:59.630000-05:00",
-  "last_checked_at": "2026-09-23T11:56:54.859805-05:00",
+  "last_checked_at": "2026-09-23T15:31:19.514273-05:00",
   "source_check_status": "verified",
   "source_name": "Escambia County / Pensacola Beach Lifeguards",
   "source_url": "https://myescambia.com/pensacola-beach",
@@ -23,7 +23,7 @@
   "official_updated_text": "2026-09-23T14:16:59.63Z",
   "provenance_tier": "primary_official_current_widget_api",
   "terminology_evidence": "Escambia BeachCondition API CurrentHazardLevel=1",
-  "terminology_verified_at": "2026-09-23T11:56:54.859805-05:00",
+  "terminology_verified_at": "2026-09-23T15:31:19.514273-05:00",
   "terminology_verified_url": "https://myescambia.com/api/BeachCondition",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
@@ -51,10 +51,5 @@
     "checked_at": "2026-09-23T17:25:45.465432+00:00",
     "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "conflict",
-  "cached_from_provenance_tier": "primary_official_current_widget_api",
-  "cached": true,
-  "cache_age_hours": 2.66,
-  "fallback_trigger": "missing-flag",
-  "guarded_current_output": true
+  "multi_source_confidence": "conflict"
 }
