@@ -30,12 +30,12 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "conflict",
-    "reason": "VisitBeaches has conflicting fresh Ambassador flag observations",
-    "flag": null,
+    "state": "corroborated",
+    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
+    "flag": "Yellow",
     "purple": false,
-    "report_at": "2026-09-23T14:16:28+00:00",
-    "fresh_observation_count": 2,
+    "report_at": "2026-09-23T23:02:07+00:00",
+    "fresh_observation_count": 1,
     "matched_beaches": [
       {
         "id": "18",
@@ -43,13 +43,12 @@
         "location": "Pensacola, FL"
       }
     ],
-    "flag_conflict": true,
+    "flag_conflict": false,
     "fresh_distinct_flags": [
-      "Green",
       "Yellow"
     ],
-    "checked_at": "2026-09-23T21:43:14.277298+00:00",
+    "checked_at": "2026-09-24T00:49:59.196691+00:00",
     "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "conflict"
+  "multi_source_confidence": "corroborated"
 }
