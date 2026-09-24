@@ -34,8 +34,8 @@
     "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
     "flag": "Yellow",
     "purple": false,
-    "report_at": "2026-09-23T23:02:07+00:00",
-    "fresh_observation_count": 1,
+    "report_at": "2026-09-24T14:02:16+00:00",
+    "fresh_observation_count": 2,
     "matched_beaches": [
       {
         "id": "18",
@@ -47,7 +47,7 @@
     "fresh_distinct_flags": [
       "Yellow"
     ],
-    "checked_at": "2026-09-24T07:47:11.924430+00:00",
+    "checked_at": "2026-09-24T17:30:39.898378+00:00",
     "publication_action": "corroboration_only"
   },
   "multi_source_confidence": "corroborated"
