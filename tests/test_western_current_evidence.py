@@ -1,5 +1,6 @@
 from scripts.refresh_western_current_flags import (
     eligible_current_flag_images,
+    load_synchronized_official_flag,
     parse_explicit_current_status,
     parse_pensacola_api_payload,
 )
@@ -174,3 +175,75 @@ def test_current_heading_does_not_override_nested_legend():
     </body></html>
     """
     assert eligible_current_flag_images(html, "https://example.gov/") == []
+
+
+def test_okaloosa_synchronized_fallback_accepts_fresh_verified_official_flag(tmp_path, monkeypatch):
+    from scripts import refresh_western_current_flags as module
+    source = tmp_path / "data" / "destin"
+    source.mkdir(parents=True)
+    source.joinpath("current_flag.json").write_text(
+        '{"flag":"Double Red","primary_flag":"Double Red","purple":false,'
+        '"source_check_status":"verified","source_name":"Destin Fire Control District / Destin Beach Safety",'
+        '"source_url":"https://www.destinfire.gov/today-s-warning-condition-beach-flags",'
+        '"last_verified_at":"2026-09-24T09:00:00-05:00"}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    now = module.datetime.fromisoformat("2026-09-24T10:00:00-05:00")
+    flag, purple, metadata = load_synchronized_official_flag(
+        {
+            "synchronized_source_path": "data/destin/current_flag.json",
+            "synchronization_authority_url": "https://myokaloosa.com/official-sync.pdf",
+        },
+        now,
+    )
+    assert flag == "Double Red"
+    assert purple is False
+    assert metadata["synchronized_from"] == "data/destin/current_flag.json"
+    assert metadata["synchronization_authority_url"] == "https://myokaloosa.com/official-sync.pdf"
+
+
+def test_okaloosa_synchronized_fallback_rejects_stale_flag(tmp_path, monkeypatch):
+    from scripts import refresh_western_current_flags as module
+    source = tmp_path / "data" / "destin"
+    source.mkdir(parents=True)
+    source.joinpath("current_flag.json").write_text(
+        '{"flag":"Yellow","source_check_status":"verified",'
+        '"last_verified_at":"2026-09-24T05:00:00-05:00"}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    now = module.datetime.fromisoformat("2026-09-24T10:00:00-05:00")
+    flag, purple, metadata = load_synchronized_official_flag(
+        {
+            "synchronized_source_path": "data/destin/current_flag.json",
+            "synchronization_authority_url": "https://myokaloosa.com/official-sync.pdf",
+        },
+        now,
+    )
+    assert flag is None
+    assert purple is False
+    assert metadata == {}
+
+
+def test_okaloosa_synchronized_fallback_requires_verified_source(tmp_path, monkeypatch):
+    from scripts import refresh_western_current_flags as module
+    source = tmp_path / "data" / "destin"
+    source.mkdir(parents=True)
+    source.joinpath("current_flag.json").write_text(
+        '{"flag":"Yellow","source_check_status":"degraded",'
+        '"last_verified_at":"2026-09-24T09:30:00-05:00"}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    now = module.datetime.fromisoformat("2026-09-24T10:00:00-05:00")
+    flag, purple, metadata = load_synchronized_official_flag(
+        {
+            "synchronized_source_path": "data/destin/current_flag.json",
+            "synchronization_authority_url": "https://myokaloosa.com/official-sync.pdf",
+        },
+        now,
+    )
+    assert flag is None
+    assert purple is False
+    assert metadata == {}
