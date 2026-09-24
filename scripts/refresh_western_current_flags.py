@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urljoin
 from zoneinfo import ZoneInfo
@@ -23,6 +23,8 @@ LOCATIONS = {
     "okaloosa-island": {
         "source_name": "Okaloosa County Beach Safety",
         "source_url": "https://www.myokaloosa.com/ps/beach-safety",
+        "synchronized_source_path": "data/destin/current_flag.json",
+        "synchronization_authority_url": "https://myokaloosa.com/sites/default/files/users/piouser/BeachSafetyDFWB.pdf",
     },
     "navarre-beach": {
         "source_name": "Santa Rosa County / Navarre Beach Safety",
@@ -227,6 +229,48 @@ def fetch_current_evidence(url: str) -> tuple[str | None, str | None, str | None
     return None, None, None, analyzed, None, False
 
 
+
+def load_synchronized_official_flag(cfg: dict[str, str], now_dt: datetime) -> tuple[str | None, bool, dict]:
+    """Use a fresh official synchronized flag only when the county documents common flag selection."""
+    rel_path = cfg.get("synchronized_source_path")
+    authority_url = cfg.get("synchronization_authority_url")
+    if not rel_path or not authority_url:
+        return None, False, {}
+    try:
+        data = json.loads((ROOT / rel_path).read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return None, False, {}
+    if not isinstance(data, dict) or data.get("source_check_status") not in {"verified", "verified_with_conflict"}:
+        return None, False, {}
+    raw_flag = data.get("primary_flag") or data.get("flag")
+    flag = {"Red": "Single Red"}.get(raw_flag, raw_flag)
+    if flag not in SEVERITY:
+        return None, False, {}
+    raw_verified = data.get("last_verified_at")
+    if not isinstance(raw_verified, str):
+        return None, False, {}
+    try:
+        verified = datetime.fromisoformat(raw_verified.replace("Z", "+00:00"))
+        if verified.tzinfo is None:
+            return None, False, {}
+        age = now_dt - verified.astimezone(CENTRAL)
+    except ValueError:
+        return None, False, {}
+    if age < timedelta(0) or age > timedelta(hours=3):
+        return None, False, {}
+    return flag, bool(data.get("purple")), {
+        "synchronized_from": rel_path,
+        "synchronized_source_name": data.get("source_name"),
+        "synchronized_source_url": data.get("source_url"),
+        "synchronized_verified_at": verified.astimezone(CENTRAL).isoformat(),
+        "synchronization_authority_url": authority_url,
+        "synchronization_basis": (
+            "Okaloosa County documents synchronized beach warning flag selection across "
+            "Okaloosa County, the City of Destin, and Henderson Beach State Park."
+        ),
+    }
+
+
 def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
     path = ROOT / "data" / slug / "current_flag.json"
     try:
@@ -246,6 +290,15 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         conflict = None
     else:
         flag, evidence, fetch_error, image_results, conflict, purple = fetch_current_evidence(cfg["source_url"])
+
+    synchronized_metadata: dict = {}
+    if slug == "okaloosa-island" and not flag and not conflict:
+        synchronized_flag, synchronized_purple, synchronized_metadata = load_synchronized_official_flag(cfg, now_dt)
+        if synchronized_flag:
+            flag = synchronized_flag
+            purple = synchronized_purple
+            evidence = "fresh synchronized official Destin-Fort Walton Beach warning flag"
+            fetch_error = None
 
     payload = dict(previous)
     official_url = cfg.get("official_url", cfg["source_url"])
@@ -279,6 +332,12 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         payload["source_data_url"] = cfg["api_url"]
     if api_metadata:
         payload.update({k: v for k, v in api_metadata.items() if v is not None})
+    if synchronized_metadata:
+        payload.update(synchronized_metadata)
+    else:
+        for key in ("synchronized_from", "synchronized_source_name", "synchronized_source_url",
+                    "synchronized_verified_at", "synchronization_authority_url", "synchronization_basis"):
+            payload.pop(key, None)
 
     if conflict:
         payload["evidence_conflict"] = conflict
@@ -290,6 +349,13 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         payload["source_check_status"] = "verified_with_conflict" if conflict else "verified"
         if slug == "pensacola-beach":
             payload["provenance_tier"] = "primary_official_current_widget_api"
+        elif slug == "okaloosa-island" and synchronized_metadata:
+            payload["provenance_tier"] = "primary_official_synchronized_current_status"
+            payload["method"] = (
+                "Okaloosa County webpage checked first; when it has no explicit current flag, "
+                "use the fresh Destin official current flag under Okaloosa County's documented "
+                "synchronized Destin-Fort Walton Beach flag-selection policy."
+            )
         else:
             payload["provenance_tier"] = "primary_official_current_status" if evidence != "high-confidence eligible current-status image" else "primary_official_current_image"
         payload["terminology_evidence"] = evidence
