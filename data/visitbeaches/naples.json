@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-25T17:30:26.880824+00:00",
+  "checked_at": "2026-09-25T21:47:33.744985+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Vanderbilt Beach",
@@ -431,7 +431,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 0.054,
+      "age_hours": 4.339,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -796,7 +796,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 4.026,
+      "age_hours": 8.311,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1161,7 +1161,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 4.036,
+      "age_hours": 8.321,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1597,7 +1597,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 5.419,
+      "age_hours": 9.704,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1962,7 +1962,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 24.7,
+      "age_hours": 28.985,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2327,7 +2327,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 28.246,
+      "age_hours": 32.532,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2692,7 +2692,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 28.258,
+      "age_hours": 32.543,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3128,7 +3128,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 30.061,
+      "age_hours": 34.346,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3493,7 +3493,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 50.217,
+      "age_hours": 54.502,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3858,7 +3858,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 52.081,
+      "age_hours": 56.366,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4209,7 +4209,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 53.717,
+      "age_hours": 58.002,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4560,7 +4560,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 54.356,
+      "age_hours": 58.641,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -4935,7 +4935,7 @@
     "beach_location": "Bonita Springs, FL",
     "beach_latitude": 26.301713,
     "beach_longitude": -81.834758,
-    "age_hours": 0.054,
+    "age_hours": 4.339,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -4944,7 +4944,7 @@
     "state": "visitbeaches_internal_conflict",
     "knowthegulf_flag": null,
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-25T13:28:55+00:00",
+    "knowthegulf_last_verified_at": "2026-09-25T17:27:13+00:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-25T17:27:13+00:00",

@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-25T17:30:19.053470+00:00",
+  "checked_at": "2026-09-25T21:47:27.731564+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
@@ -58,8 +58,8 @@
   ],
   "observations": [
     {
-      "report_id": "75146",
-      "created_at": "2026-09-25T15:23:16+00:00",
+      "report_id": "75157",
+      "created_at": "2026-09-25T20:00:32+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
@@ -72,12 +72,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "WNW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "11.5",
+            "value": "5.99",
             "unit": "Mph"
           }
         ],
@@ -104,7 +104,7 @@
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Moderate",
+            "value": "Calm",
             "unit": null
           }
         ],
@@ -172,7 +172,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "WNW",
           "selected_values": []
         },
         {
@@ -182,7 +182,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "11.5",
+          "value": "5.99",
           "selected_values": []
         },
         {
@@ -192,7 +192,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "79.43",
+          "value": "84.61",
           "selected_values": []
         },
         {
@@ -202,7 +202,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -276,9 +276,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "7",
-              "name": "Moderate",
-              "value": "moderate",
+              "id": "6",
+              "name": "Calm",
+              "value": "calm",
               "description": null
             }
           ]
@@ -418,7 +418,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 2.118,
+      "age_hours": 1.782,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -783,7 +783,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 2.7,
+      "age_hours": 6.986,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1148,7 +1148,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 2.744,
+      "age_hours": 7.029,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1513,7 +1513,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 45.241,
+      "age_hours": 49.527,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1878,7 +1878,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 73.418,
+      "age_hours": 77.704,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2243,7 +2243,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 73.428,
+      "age_hours": 77.714,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2608,7 +2608,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 74.153,
+      "age_hours": 78.439,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2973,7 +2973,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 93.681,
+      "age_hours": 97.966,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3338,7 +3338,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 93.691,
+      "age_hours": 97.977,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -3350,10 +3350,10 @@
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-09-25T15:23:16+00:00",
+  "newest_report_at": "2026-09-25T20:00:32+00:00",
   "newest_flag_report": {
-    "report_id": "75146",
-    "created_at": "2026-09-25T15:23:16+00:00",
+    "report_id": "75157",
+    "created_at": "2026-09-25T20:00:32+00:00",
     "latitude": 27.099903,
     "longitude": -82.460239,
     "ambassador": {
@@ -3366,12 +3366,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "N",
+          "value": "WNW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "11.5",
+          "value": "5.99",
           "unit": "Mph"
         }
       ],
@@ -3398,7 +3398,7 @@
         },
         {
           "parameter": "Surf Intensity",
-          "value": "Moderate",
+          "value": "Calm",
           "unit": null
         }
       ],
@@ -3466,7 +3466,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "N",
+        "value": "WNW",
         "selected_values": []
       },
       {
@@ -3476,7 +3476,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "11.5",
+        "value": "5.99",
         "selected_values": []
       },
       {
@@ -3486,7 +3486,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "79.43",
+        "value": "84.61",
         "selected_values": []
       },
       {
@@ -3496,7 +3496,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Clear",
+        "value": "Clouds",
         "selected_values": []
       },
       {
@@ -3570,9 +3570,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "7",
-            "name": "Moderate",
-            "value": "moderate",
+            "id": "6",
+            "name": "Calm",
+            "value": "calm",
             "description": null
           }
         ]
@@ -3712,7 +3712,7 @@
     "beach_location": "Venice, FL",
     "beach_latitude": 27.099903,
     "beach_longitude": -82.460239,
-    "age_hours": 2.118,
+    "age_hours": 1.782,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -3721,10 +3721,10 @@
     "state": "agree",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-25T15:23:16+00:00",
+    "knowthegulf_last_verified_at": "2026-09-25T20:00:32+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-09-25T15:23:16+00:00",
+    "visitbeaches_newest_report_at": "2026-09-25T20:00:32+00:00",
     "visitbeaches_fresh_observation_count": 3,
     "visitbeaches_flag_conflict": false
   },
