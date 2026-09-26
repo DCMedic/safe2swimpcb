@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-26T16:41:16.331724+00:00",
+  "checked_at": "2026-09-26T21:26:30.380539+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
@@ -58,26 +58,26 @@
   ],
   "observations": [
     {
-      "report_id": "75190",
-      "created_at": "2026-09-26T16:20:56+00:00",
+      "report_id": "75197",
+      "created_at": "2026-09-26T19:19:59+00:00",
       "latitude": 27.1136,
       "longitude": -82.469,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NNE",
+            "value": "WNW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "9.22",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -94,17 +94,17 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
@@ -128,10 +128,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -172,7 +172,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NNE",
+          "value": "WNW",
           "selected_values": []
         },
         {
@@ -182,7 +182,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "9.22",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -192,7 +192,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.59",
+          "value": "82.83",
           "selected_values": []
         },
         {
@@ -242,9 +242,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -259,10 +259,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -276,9 +276,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -418,31 +418,31 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 0.339,
+      "age_hours": 2.109,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "75189",
-      "created_at": "2026-09-26T16:20:22+00:00",
+      "report_id": "75196",
+      "created_at": "2026-09-26T19:19:25+00:00",
       "latitude": 27.124129,
       "longitude": -82.47093,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NNE",
+            "value": "WNW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "9.22",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -459,17 +459,17 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
@@ -493,10 +493,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -537,7 +537,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NNE",
+          "value": "WNW",
           "selected_values": []
         },
         {
@@ -547,7 +547,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "9.22",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -557,7 +557,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.48",
+          "value": "82.8",
           "selected_values": []
         },
         {
@@ -607,9 +607,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -624,10 +624,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -641,9 +641,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -783,7 +783,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 0.348,
+      "age_hours": 2.118,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1148,7 +1148,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 2.453,
+      "age_hours": 7.207,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1513,8 +1513,8 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 20.679,
-      "fresh": true,
+      "age_hours": 25.433,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1878,7 +1878,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 25.883,
+      "age_hours": 30.636,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2243,7 +2243,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 25.926,
+      "age_hours": 30.68,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2608,7 +2608,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 68.424,
+      "age_hours": 73.178,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2973,7 +2973,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 96.601,
+      "age_hours": 101.355,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3338,40 +3338,41 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 96.611,
+      "age_hours": 101.365,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 4,
-  "flag": "Green",
+  "fresh_observation_count": 3,
+  "flag": null,
   "purple": false,
-  "flag_conflict": false,
+  "flag_conflict": true,
   "fresh_distinct_flags": [
-    "Green"
+    "Green",
+    "Yellow"
   ],
-  "newest_report_at": "2026-09-26T16:20:56+00:00",
+  "newest_report_at": "2026-09-26T19:19:59+00:00",
   "newest_flag_report": {
-    "report_id": "75190",
-    "created_at": "2026-09-26T16:20:56+00:00",
+    "report_id": "75197",
+    "created_at": "2026-09-26T19:19:59+00:00",
     "latitude": 27.1136,
     "longitude": -82.469,
     "ambassador": {
       "id": "1",
       "name": "Sarasota County"
     },
-    "flag": "Green",
+    "flag": "Yellow",
     "purple": false,
     "normalized_conditions": {
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "NNE",
+          "value": "WNW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "9.22",
+          "value": "11.5",
           "unit": "Mph"
         }
       ],
@@ -3388,17 +3389,17 @@
         },
         {
           "parameter": "Surf Height",
-          "value": "0-1 feet (0-0.3 m)",
+          "value": "1-2 feet (0.3-0.6 m)",
           "unit": null
         },
         {
           "parameter": "Surf Type",
-          "value": "Calm",
+          "value": "Wind Chop",
           "unit": null
         },
         {
           "parameter": "Surf Intensity",
-          "value": "Calm",
+          "value": "Moderate",
           "unit": null
         }
       ],
@@ -3422,10 +3423,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "4",
-            "name": "Green",
-            "value": "green",
-            "description": "Low Hazard; calm conditions; exercise caution."
+            "id": "3",
+            "name": "Yellow",
+            "value": "yellow",
+            "description": "Medium Hazard; moderate surf and/or currents."
           }
         ]
       },
@@ -3466,7 +3467,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "NNE",
+        "value": "WNW",
         "selected_values": []
       },
       {
@@ -3476,7 +3477,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "9.22",
+        "value": "11.5",
         "selected_values": []
       },
       {
@@ -3486,7 +3487,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "81.59",
+        "value": "82.83",
         "selected_values": []
       },
       {
@@ -3536,9 +3537,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "14",
-            "name": "0-1 feet (0-0.3 m)",
-            "value": "0-1",
+            "id": "15",
+            "name": "1-2 feet (0.3-0.6 m)",
+            "value": "1-2",
             "description": null
           }
         ]
@@ -3553,10 +3554,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "9",
-            "name": "Calm",
-            "value": "calm",
-            "description": null
+            "id": "10",
+            "name": "Wind Chop",
+            "value": "wind-chop",
+            "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
           }
         ]
       },
@@ -3570,9 +3571,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "6",
-            "name": "Calm",
-            "value": "calm",
+            "id": "7",
+            "name": "Moderate",
+            "value": "moderate",
             "description": null
           }
         ]
@@ -3712,21 +3713,21 @@
     "beach_location": "Nokomis, FL",
     "beach_latitude": 27.1136,
     "beach_longitude": -82.469,
-    "age_hours": 0.339,
+    "age_hours": 2.109,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
+    "state": "visitbeaches_internal_conflict",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-09-26T14:14:06+00:00",
-    "visitbeaches_flag": "Green",
+    "knowthegulf_last_verified_at": "2026-09-26T16:20:56+00:00",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-09-26T16:20:56+00:00",
-    "visitbeaches_fresh_observation_count": 4,
-    "visitbeaches_flag_conflict": false
+    "visitbeaches_newest_report_at": "2026-09-26T19:19:59+00:00",
+    "visitbeaches_fresh_observation_count": 3,
+    "visitbeaches_flag_conflict": true
   },
   "shadow_mode": true,
   "publication_effect": "none",
