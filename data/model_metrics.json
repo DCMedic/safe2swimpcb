@@ -77,68 +77,68 @@
   "research_context": {
     "measured_ndbc": {
       "pcbf1_obs_count": {
-        "rows": 2017,
-        "pct": 89.8
+        "rows": 2010,
+        "pct": 89.5
       },
       "pcbf1_wind_max_mph": {
-        "rows": 2017,
-        "pct": 89.8
+        "rows": 2010,
+        "pct": 89.5
       },
       "pcbf1_gust_max_mph": {
-        "rows": 2017,
-        "pct": 89.8
+        "rows": 2010,
+        "pct": 89.5
       },
       "pcbf1_air_temp_max_f": {
-        "rows": 1992,
-        "pct": 88.7
+        "rows": 1985,
+        "pct": 88.4
       },
       "pcbf1_air_temp_min_f": {
-        "rows": 1992,
-        "pct": 88.7
+        "rows": 1985,
+        "pct": 88.4
       },
       "pcbf1_water_temp_mean_f": {
-        "rows": 1994,
-        "pct": 88.8
+        "rows": 1987,
+        "pct": 88.5
       },
       "pcbf1_pressure_min_mb": {
-        "rows": 1995,
-        "pct": 88.9
+        "rows": 1988,
+        "pct": 88.6
       },
       "42039_obs_count": {
-        "rows": 1225,
-        "pct": 54.6
+        "rows": 1218,
+        "pct": 54.3
       },
       "ndbc42039_wave_max_ft": {
-        "rows": 1181,
-        "pct": 52.6
-      },
-      "ndbc42039_wave_mean_ft": {
-        "rows": 1181,
-        "pct": 52.6
-      },
-      "ndbc42039_dominant_period_max_s": {
         "rows": 1174,
         "pct": 52.3
       },
+      "ndbc42039_wave_mean_ft": {
+        "rows": 1174,
+        "pct": 52.3
+      },
+      "ndbc42039_dominant_period_max_s": {
+        "rows": 1167,
+        "pct": 52.0
+      },
       "ndbc42039_average_period_mean_s": {
-        "rows": 1181,
-        "pct": 52.6
+        "rows": 1174,
+        "pct": 52.3
       },
       "ndbc42039_wind_max_mph": {
-        "rows": 1225,
-        "pct": 54.6
+        "rows": 1218,
+        "pct": 54.3
       },
       "ndbc42039_gust_max_mph": {
-        "rows": 1225,
-        "pct": 54.6
+        "rows": 1218,
+        "pct": 54.3
       },
       "ndbc42039_water_temp_mean_f": {
         "rows": 715,
         "pct": 31.8
       },
       "ndbc42039_pressure_min_mb": {
-        "rows": 1225,
-        "pct": 54.6
+        "rows": 1218,
+        "pct": 54.3
       }
     },
     "retrospective_tropical_cyclone": {
