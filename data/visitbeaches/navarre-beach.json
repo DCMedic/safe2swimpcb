@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-09-27T08:31:08.856918+00:00",
+  "checked_at": "2026-09-27T17:13:55.699836+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Navarre Beach"
@@ -392,7 +392,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 43.414,
+      "age_hours": 52.127,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -757,7 +757,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 116.176,
+      "age_hours": 124.889,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1122,7 +1122,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 159.179,
+      "age_hours": 167.892,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1500,16 +1500,16 @@
     "beach_location": "Navarre Beach, FL",
     "beach_latitude": 30.382,
     "beach_longitude": -86.8624,
-    "age_hours": 43.414,
+    "age_hours": 52.127,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
     "state": "no_fresh_visitbeaches_flag",
-    "knowthegulf_flag": "Yellow",
-    "knowthegulf_purple": true,
-    "knowthegulf_last_verified_at": "2026-09-27T03:08:34.106897-05:00",
+    "knowthegulf_flag": "Green",
+    "knowthegulf_purple": false,
+    "knowthegulf_last_verified_at": "2026-09-27T11:57:34.527010-05:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-09-25T13:06:20+00:00",
