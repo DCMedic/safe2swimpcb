@@ -14,8 +14,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-09-28T14:37:39+00:00",
-  "last_checked_at": "2026-09-28T18:13:26.159255+00:00",
+  "last_verified_at": "2026-09-28T19:31:15+00:00",
+  "last_checked_at": "2026-09-28T19:43:46.715332+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -79,8 +79,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "75270",
-      "created_at": "2026-09-28T14:37:39+00:00",
+      "report_id": "75295",
+      "created_at": "2026-09-28T19:31:15+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
@@ -93,12 +93,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "WSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "4.61",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -115,21 +115,21 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "86",
           "unit": "\u00b0F"
@@ -193,7 +193,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "WSW",
           "selected_values": []
         },
         {
@@ -203,7 +203,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4.61",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -213,7 +213,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.59",
+          "value": "84.25",
           "selected_values": []
         },
         {
@@ -223,7 +223,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clouds",
+          "value": "Clear",
           "selected_values": []
         },
         {
@@ -263,9 +263,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -280,10 +280,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -297,9 +297,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -314,10 +314,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -439,13 +439,13 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 3.596,
+      "age_hours": 0.208,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "75269",
-      "created_at": "2026-09-28T14:36:22+00:00",
+      "report_id": "75293",
+      "created_at": "2026-09-28T19:27:49+00:00",
       "latitude": 27.124129,
       "longitude": -82.47093,
       "ambassador": {
@@ -458,12 +458,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "WSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "4.61",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -485,12 +485,12 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
@@ -558,7 +558,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "WSW",
           "selected_values": []
         },
         {
@@ -568,7 +568,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4.61",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -578,7 +578,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.72",
+          "value": "85.05",
           "selected_values": []
         },
         {
@@ -588,7 +588,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clouds",
+          "value": "Clear",
           "selected_values": []
         },
         {
@@ -645,10 +645,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -662,9 +662,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -804,13 +804,13 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 3.617,
+      "age_hours": 0.265,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "75268",
-      "created_at": "2026-09-28T14:36:00+00:00",
+      "report_id": "75292",
+      "created_at": "2026-09-28T19:27:32+00:00",
       "latitude": 27.1136,
       "longitude": -82.469,
       "ambassador": {
@@ -823,12 +823,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "WSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "4.61",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -850,12 +850,12 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
@@ -923,7 +923,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "WSW",
           "selected_values": []
         },
         {
@@ -933,7 +933,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4.61",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -943,7 +943,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.54",
+          "value": "85.08",
           "selected_values": []
         },
         {
@@ -953,7 +953,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clouds",
+          "value": "Clear",
           "selected_values": []
         },
         {
@@ -1010,10 +1010,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -1027,9 +1027,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -1169,7 +1169,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 3.623,
+      "age_hours": 0.27,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1534,7 +1534,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 21.194,
+      "age_hours": 22.699,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1899,7 +1899,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 21.214,
+      "age_hours": 22.719,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -2264,7 +2264,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 21.652,
+      "age_hours": 23.157,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -2629,7 +2629,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 46.89,
+      "age_hours": 48.396,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2994,7 +2994,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 46.899,
+      "age_hours": 48.405,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3359,7 +3359,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 51.988,
+      "age_hours": 53.494,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
