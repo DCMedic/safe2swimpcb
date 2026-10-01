@@ -27,9 +27,9 @@
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
     "state": "source_disagreement",
     "reason": "Fresh primary source and fresh VisitBeaches Ambassador flag disagree",
-    "flag": "Yellow",
+    "flag": "Red",
     "purple": false,
-    "report_at": "2026-09-30T11:42:30+00:00",
+    "report_at": "2026-10-01T15:16:27+00:00",
     "fresh_observation_count": 1,
     "matched_beaches": [
       {
@@ -40,9 +40,9 @@
     ],
     "flag_conflict": false,
     "fresh_distinct_flags": [
-      "Yellow"
+      "Red"
     ],
-    "checked_at": "2026-10-01T09:21:24.586053+00:00",
+    "checked_at": "2026-10-01T18:33:32.369442+00:00",
     "publication_action": "corroboration_only"
   },
   "multi_source_confidence": "source_disagreement"

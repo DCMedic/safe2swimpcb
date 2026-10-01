@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-01T09:21:28.876206+00:00",
+  "checked_at": "2026-10-01T18:33:36.865972+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. Joe Beach",
@@ -438,7 +438,7 @@
       "beach_location": "Port St. Joe, FL",
       "beach_latitude": 29.852801,
       "beach_longitude": -85.338433,
-      "age_hours": 765.747,
+      "age_hours": 774.949,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -888,7 +888,7 @@
       "beach_location": "Port St. Joe, FL",
       "beach_latitude": 29.852801,
       "beach_longitude": -85.338433,
-      "age_hours": 981.912,
+      "age_hours": 991.115,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1338,7 +1338,7 @@
       "beach_location": "Port St. Joe, FL",
       "beach_latitude": 29.852801,
       "beach_longitude": -85.338433,
-      "age_hours": 1077.994,
+      "age_hours": 1087.196,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1761,7 +1761,7 @@
     "beach_location": "Port St. Joe, FL",
     "beach_latitude": 29.852801,
     "beach_longitude": -85.338433,
-    "age_hours": 765.747,
+    "age_hours": 774.949,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
@@ -1770,7 +1770,7 @@
     "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-01T03:48:44.664016-04:00",
+    "knowthegulf_last_verified_at": "2026-10-01T13:21:21.368154-04:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-08-30T11:36:40+00:00",
