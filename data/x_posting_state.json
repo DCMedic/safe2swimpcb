@@ -56,10 +56,9 @@
     "Pensacola Beach": "Yellow"
   },
   "last_link_post_at": "2026-09-11T20:16:35.580650-05:00",
-  "last_posted_at": "2026-10-01T02:17:59.571877-05:00",
-  "lifetime_estimated_spend_usd": 2.485,
+  "last_posted_at": "2026-10-01T09:37:07.097695-05:00",
+  "lifetime_estimated_spend_usd": 2.5,
   "recent_fingerprints": [
-    "b2ec7508be1c7dea",
     "7848b815364b8146",
     "04f12fe478cb9cd5",
     "7032d0812dd45e59",
@@ -118,9 +117,10 @@
     "97f1b1594450624b",
     "add5d742679ef00e",
     "c7f3e9f85112feeb",
-    "73b8ec87b877a608"
+    "73b8ec87b877a608",
+    "29ab4e619cd89d95"
   ],
-  "sequence": 66,
+  "sequence": 67,
   "usage": {
     "2026-08": {
       "days": {
@@ -175,10 +175,10 @@
     },
     "2026-10": {
       "days": {
-        "2026-10-01": 1
+        "2026-10-01": 2
       },
-      "estimated_spend_usd": 0.015,
-      "posts": 1,
+      "estimated_spend_usd": 0.03,
+      "posts": 2,
       "url_posts": 0
     }
   },
