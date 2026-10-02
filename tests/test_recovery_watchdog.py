@@ -5,6 +5,7 @@ from pathlib import Path
 from scripts.recovery_watchdog import (
     heartbeat_age_minutes,
     heartbeat_timestamp,
+    effective_overdue_minutes,
     in_active_window,
     recovery_suppression_reason,
     split_active_runs,
@@ -128,3 +129,25 @@ def test_heartbeat_timestamp_is_timezone_aware(tmp_path: Path):
     stamp = heartbeat_timestamp(path, "last_verified_at")
     assert stamp is not None
     assert stamp.utcoffset() is not None
+
+
+def test_expected_cadence_detects_missed_cron_before_stale_ceiling():
+    cfg = {
+        "overdue_minutes": 90,
+        "expected_cadence_minutes": 30,
+        "schedule_grace_minutes": 20,
+    }
+    assert effective_overdue_minutes(cfg) == 50
+
+
+def test_existing_overdue_threshold_remains_hard_upper_bound():
+    cfg = {
+        "overdue_minutes": 100,
+        "expected_cadence_minutes": 90,
+        "schedule_grace_minutes": 30,
+    }
+    assert effective_overdue_minutes(cfg) == 100
+
+
+def test_lane_without_cadence_metadata_is_backward_compatible():
+    assert effective_overdue_minutes({"overdue_minutes": 1500}) == 1500
