@@ -1,7 +1,7 @@
 {
-  "version": 5,
+  "version": 6,
   "repository": "DCMedic/safe2swimpcb",
-  "purpose": "Layered recovery policy for missed, delayed, or stuck GitHub Actions runs. Normal lane schedules remain primary; the in-repository recovery controller dispatches overdue workflows directly, cancels stale queued/in-progress runs that would otherwise suppress recovery indefinitely, while external trigger-file pushes remain an independent fallback. Active windows intentionally begin after the first normal daily schedule for lanes that pause overnight, preventing false morning recoveries.",
+  "purpose": "Layered recovery policy for missed, delayed, or stuck GitHub Actions runs. Normal lane schedules remain primary; the in-repository recovery controller is the authoritative scheduler-of-last-resort. Expected cadence plus grace detects missing GitHub cron delivery before the broader stale-heartbeat ceiling, while direct dispatch, stuck-run cancellation, cooldowns, and external trigger-file pushes preserve independent recovery layers.",
   "lanes": {
     "pcb": {
       "heartbeat_path": "data/current_flag.json",
@@ -17,7 +17,9 @@
         "start_hour": 7,
         "end_hour": 23
       },
-      "failure_retry_minutes": 90
+      "failure_retry_minutes": 90,
+      "expected_cadence_minutes": 30,
+      "schedule_grace_minutes": 20
     },
     "destin": {
       "heartbeat_path": "data/destin/current_flag.json",
@@ -28,7 +30,9 @@
       "overdue_minutes": 100,
       "cooldown_minutes": 120,
       "stuck_run_minutes": 25,
-      "failure_retry_minutes": 90
+      "failure_retry_minutes": 90,
+      "expected_cadence_minutes": 30,
+      "schedule_grace_minutes": 20
     },
     "eastern": {
       "heartbeat_path": "data/franklin-county/current_flag.json",
@@ -39,7 +43,9 @@
       "overdue_minutes": 110,
       "cooldown_minutes": 150,
       "stuck_run_minutes": 45,
-      "failure_retry_minutes": 90
+      "failure_retry_minutes": 90,
+      "expected_cadence_minutes": 30,
+      "schedule_grace_minutes": 30
     },
     "southwest": {
       "heartbeat_path": "data/anna-maria-island/current_flag.json",
@@ -50,7 +56,9 @@
       "overdue_minutes": 110,
       "cooldown_minutes": 150,
       "stuck_run_minutes": 45,
-      "failure_retry_minutes": 90
+      "failure_retry_minutes": 90,
+      "expected_cadence_minutes": 30,
+      "schedule_grace_minutes": 30
     },
     "western": {
       "heartbeat_path": "data/okaloosa-island/current_flag.json",
@@ -66,7 +74,9 @@
         "start_hour": 8,
         "end_hour": 21
       },
-      "failure_retry_minutes": 90
+      "failure_retry_minutes": 90,
+      "expected_cadence_minutes": 120,
+      "schedule_grace_minutes": 30
     },
     "x": {
       "heartbeat_path": "data/x_publisher_health.json",
