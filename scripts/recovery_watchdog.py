@@ -203,6 +203,34 @@ def dispatch_workflow(repo: str, workflow_path: str, inputs: dict, token: str) -
             raise RuntimeError(f"workflow dispatch returned HTTP {response.status}")
 
 
+def effective_overdue_minutes(cfg: dict) -> int:
+    """Return the earliest safe recovery threshold for a lane.
+
+    expected_cadence_minutes + schedule_grace_minutes lets the watchdog act as
+    scheduler-of-last-resort when GitHub drops or delays a cron event. The
+    existing overdue_minutes remains a hard upper bound and backward-compatible
+    fallback for lanes without explicit cadence metadata.
+    """
+    overdue = int(cfg["overdue_minutes"])
+    cadence = cfg.get("expected_cadence_minutes")
+    if cadence is None:
+        return overdue
+    grace = int(cfg.get("schedule_grace_minutes", 0))
+    return min(overdue, int(cadence) + grace)
+
+
+def decision_telemetry(lane: str, heartbeat_at: datetime | None, age: float | None, threshold: int, action: str, detail: str = "") -> None:
+    payload = {
+        "lane": lane,
+        "heartbeat_at": heartbeat_at.isoformat() if heartbeat_at else None,
+        "heartbeat_age_minutes": round(age, 1) if age is not None else None,
+        "recovery_threshold_minutes": threshold,
+        "action": action,
+        "detail": detail,
+    }
+    print("RECOVERY_TELEMETRY " + json.dumps(payload, sort_keys=True))
+
+
 def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry_run: bool) -> int:
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
     failures = 0
@@ -210,14 +238,16 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
     for lane, cfg in policy["lanes"].items():
         if not in_active_window(now, cfg.get("active_window")):
             print(f"{lane}: outside active window")
+            decision_telemetry(lane, None, None, int(cfg["overdue_minutes"]), "outside_active_window")
             continue
 
         heartbeat = ROOT / cfg["heartbeat_path"]
         heartbeat_at = heartbeat_timestamp(heartbeat, cfg["heartbeat_field"])
         age = heartbeat_age_minutes(heartbeat, cfg["heartbeat_field"], now)
-        overdue = int(cfg["overdue_minutes"])
+        overdue = effective_overdue_minutes(cfg)
         if age is not None and age <= overdue:
             print(f"{lane}: healthy age={age:.1f}m threshold={overdue}m")
+            decision_telemetry(lane, heartbeat_at, age, overdue, "healthy")
             continue
 
         age_text = "unreadable" if age is None else f"{age:.1f}m"
@@ -229,6 +259,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
 
         if dry_run:
             print(f"{lane}: stale age={age_text}; would dispatch {workflow_path}")
+            decision_telemetry(lane, heartbeat_at, age, overdue, "would_dispatch", workflow_path)
             continue
 
         if not token:
@@ -252,6 +283,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             )
             if suppression:
                 print(f"{lane}: stale age={age_text}; recovery suppressed because {suppression}")
+                decision_telemetry(lane, heartbeat_at, age, overdue, "suppressed", suppression)
                 continue
 
             for run in stuck_runs:
@@ -266,6 +298,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
 
             dispatch_workflow(repo, workflow_path, cfg.get("dispatch_inputs", {}), token)
             print(f"{lane}: stale age={age_text}; dispatched {workflow_path}")
+            decision_telemetry(lane, heartbeat_at, age, overdue, "dispatched", workflow_path)
         except Exception as exc:
             failures += 1
             print(f"{lane}: recovery dispatch failed: {type(exc).__name__}: {exc}", file=sys.stderr)
