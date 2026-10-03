@@ -7,23 +7,23 @@
     "North Jetty",
     "Manasota Beach"
   ],
-  "flag": "Green",
-  "primary_flag": "Green",
+  "flag": "Yellow",
+  "primary_flag": "Yellow",
   "purple": false,
-  "label": "Green",
-  "severity": 1,
-  "status": "visitbeaches_ambassador_conflict",
-  "provenance_tier": "cached_official_observation",
-  "last_verified_at": "2026-10-03T14:59:35+00:00",
-  "last_checked_at": "2026-10-03T15:15:22.076276-05:00",
-  "source_check_status": "degraded",
+  "label": "Yellow",
+  "severity": 2,
+  "status": "explicit_flag_verified",
+  "provenance_tier": "primary_visitbeaches_ambassador",
+  "last_verified_at": "2026-10-03T20:59:22+00:00",
+  "last_checked_at": "2026-10-03T21:52:22.526202+00:00",
+  "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "official_authority": "Sarasota County Fire Department Lifeguard Operations",
   "official_authority_url": "https://www.scgov.net/government/emergency-services/lifeguard-operations",
   "source_reachable": true,
-  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Green, Yellow",
+  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Yellow",
   "flag_expected_from_source": true,
   "stale_after_hours": 24,
   "update_note": "Sarasota County directs visitors to VisitBeaches for lifeguard-updated beach conditions; posted flags and lifeguards control.",
@@ -72,33 +72,33 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 5,
+  "visitbeaches_fresh_observation_count": 3,
   "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
-    "Green"
+    "Yellow"
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "75530",
-      "created_at": "2026-10-03T14:59:35+00:00",
+      "report_id": "75540",
+      "created_at": "2026-10-03T20:59:22+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "SE",
+            "value": "S",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "4",
+            "value": "8.05",
             "unit": "Mph"
           }
         ],
@@ -115,12 +115,12 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "1-2 feet (0.3-0.6 m)",
+            "value": "2-4 feet (0.6-1.2 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Wind Chop",
+            "value": "Ground Swell",
             "unit": null
           },
           {
@@ -136,7 +136,7 @@
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "Few"
+        "crowd": "Many"
       },
       "parameters": [
         {
@@ -149,10 +149,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -193,7 +193,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "SE",
+          "value": "S",
           "selected_values": []
         },
         {
@@ -203,7 +203,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4",
+          "value": "8.05",
           "selected_values": []
         },
         {
@@ -213,7 +213,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "83.5",
+          "value": "88.99",
           "selected_values": []
         },
         {
@@ -263,9 +263,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "15",
-              "name": "1-2 feet (0.3-0.6 m)",
-              "value": "1-2",
+              "id": "16",
+              "name": "2-4 feet (0.6-1.2 m)",
+              "value": "2-4",
               "description": null
             }
           ]
@@ -280,10 +280,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+              "id": "12",
+              "name": "Ground Swell",
+              "value": "ground-swell",
+              "description": "Waves traveling from far distances, no longer influenced by winds."
             }
           ]
         },
@@ -426,10 +426,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "59",
-              "name": "Few",
-              "value": "few",
-              "description": "Beachgoers are easily spaced 6 ft or more apart."
+              "id": "60",
+              "name": "Many",
+              "value": "many",
+              "description": "Continous crowds along the shore."
             }
           ]
         }
@@ -439,31 +439,31 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 3.736,
+      "age_hours": 0.883,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "75528",
-      "created_at": "2026-10-03T14:51:53+00:00",
+      "report_id": "75537",
+      "created_at": "2026-10-03T19:30:03+00:00",
       "latitude": 27.1136,
       "longitude": -82.469,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "SE",
+            "value": "SSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "10.47",
+            "value": "9.22",
             "unit": "Mph"
           }
         ],
@@ -480,7 +480,7 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
@@ -490,7 +490,7 @@
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Rough",
             "unit": null
           }
         ],
@@ -514,10 +514,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -558,7 +558,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "SE",
+          "value": "SSW",
           "selected_values": []
         },
         {
@@ -568,7 +568,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "10.47",
+          "value": "9.22",
           "selected_values": []
         },
         {
@@ -578,7 +578,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "83.41",
+          "value": "89.46",
           "selected_values": []
         },
         {
@@ -628,9 +628,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -662,9 +662,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "8",
+              "name": "Rough",
+              "value": "rough",
               "description": null
             }
           ]
@@ -804,31 +804,31 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 3.865,
+      "age_hours": 2.371,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "75527",
-      "created_at": "2026-10-03T14:51:21+00:00",
+      "report_id": "75536",
+      "created_at": "2026-10-03T19:29:34+00:00",
       "latitude": 27.124129,
       "longitude": -82.47093,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "SE",
+            "value": "SSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "10.47",
+            "value": "9.22",
             "unit": "Mph"
           }
         ],
@@ -845,7 +845,7 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
@@ -855,7 +855,7 @@
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
@@ -879,10 +879,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -923,7 +923,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "SE",
+          "value": "SSW",
           "selected_values": []
         },
         {
@@ -933,7 +933,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "10.47",
+          "value": "9.22",
           "selected_values": []
         },
         {
@@ -943,7 +943,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "83.32",
+          "value": "89.38",
           "selected_values": []
         },
         {
@@ -993,9 +993,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -1027,9 +1027,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -1169,7 +1169,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 3.873,
+      "age_hours": 2.379,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1534,8 +1534,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 22.451,
-      "fresh": true,
+      "age_hours": 25.594,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1899,8 +1899,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 22.456,
-      "fresh": true,
+      "age_hours": 25.599,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -2264,7 +2264,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 46.168,
+      "age_hours": 49.311,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2629,7 +2629,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 48.63,
+      "age_hours": 51.773,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2994,7 +2994,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 48.638,
+      "age_hours": 51.781,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3410,56 +3410,13 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 71.628,
+      "age_hours": 74.771,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "method": "Last-known verified official flag retained by collector regression guard after degraded live-source output",
+  "method": "Structured Mote Marine Laboratory BCRS GraphQL Beach Ambassador reports. Community Reports are excluded. A regional flag is published only when fresh explicit Ambassador flag observations agree; stale explicit reports remain visible as last verified information.",
   "safety_note": "Only an explicit Beach Ambassador warning-flag observation is displayed as a flag. Community Reports, rip-current risk, weather, surf, red-tide status, water quality, legends, and generic hazard scores are never converted into a Florida warning flag. Posted flags and lifeguard instructions control.",
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
-  "cached_from_provenance_tier": "primary_visitbeaches_ambassador",
-  "cached": true,
-  "source_error": "visitbeaches_ambassador_conflict",
-  "stale_reason": "Live source verification failed; retaining the last successfully verified official observation only until its existing freshness window expires.",
-  "cache_age_hours": 5.26,
-  "fallback_trigger": "missing-flag",
-  "guarded_current_output": true,
-  "visitbeaches_evidence": {
-    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
-    "source_url": "https://visitbeaches.org/map",
-    "source_data_url": "https://api.visitbeaches.org/graphql",
-    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "source_disagreement",
-    "reason": "Fresh primary source and fresh VisitBeaches Ambassador flag disagree",
-    "flag": "Yellow",
-    "purple": false,
-    "report_at": "2026-10-03T20:59:22+00:00",
-    "fresh_observation_count": 3,
-    "matched_beaches": [
-      {
-        "id": "6",
-        "name": "Venice Beach",
-        "location": "Venice, FL"
-      },
-      {
-        "id": "5",
-        "name": "Nokomis Beach",
-        "location": "Nokomis, FL"
-      },
-      {
-        "id": "1",
-        "name": "Venice North Jetty Beach",
-        "location": "Nokomis, FL"
-      }
-    ],
-    "flag_conflict": false,
-    "fresh_distinct_flags": [
-      "Yellow"
-    ],
-    "checked_at": "2026-10-03T21:42:41.588932+00:00",
-    "publication_action": "corroboration_only"
-  },
-  "multi_source_confidence": "source_disagreement"
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections."
 }
