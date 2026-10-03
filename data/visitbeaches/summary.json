@@ -96,7 +96,7 @@
     },
     "siesta-key": {
       "matched_beaches": 2,
-      "fresh_observations": 3,
+      "fresh_observations": 2,
       "visitbeaches_flag": null,
       "visitbeaches_purple": false,
       "flag_conflict": true,
@@ -105,11 +105,11 @@
     },
     "venice": {
       "matched_beaches": 3,
-      "fresh_observations": 5,
-      "visitbeaches_flag": "Green",
+      "fresh_observations": 3,
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "flag_disagreement",
       "error": null
     },
     "sanibel": {
@@ -141,7 +141,7 @@
     },
     "marco-island": {
       "matched_beaches": 1,
-      "fresh_observations": 2,
+      "fresh_observations": 1,
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,

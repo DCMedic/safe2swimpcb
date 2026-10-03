@@ -3425,5 +3425,41 @@
   "stale_reason": "Live source verification failed; retaining the last successfully verified official observation only until its existing freshness window expires.",
   "cache_age_hours": 5.26,
   "fallback_trigger": "missing-flag",
-  "guarded_current_output": true
+  "guarded_current_output": true,
+  "visitbeaches_evidence": {
+    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
+    "source_url": "https://visitbeaches.org/map",
+    "source_data_url": "https://api.visitbeaches.org/graphql",
+    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
+    "state": "source_disagreement",
+    "reason": "Fresh primary source and fresh VisitBeaches Ambassador flag disagree",
+    "flag": "Yellow",
+    "purple": false,
+    "report_at": "2026-10-03T20:59:22+00:00",
+    "fresh_observation_count": 3,
+    "matched_beaches": [
+      {
+        "id": "6",
+        "name": "Venice Beach",
+        "location": "Venice, FL"
+      },
+      {
+        "id": "5",
+        "name": "Nokomis Beach",
+        "location": "Nokomis, FL"
+      },
+      {
+        "id": "1",
+        "name": "Venice North Jetty Beach",
+        "location": "Nokomis, FL"
+      }
+    ],
+    "flag_conflict": false,
+    "fresh_distinct_flags": [
+      "Yellow"
+    ],
+    "checked_at": "2026-10-03T21:42:41.588932+00:00",
+    "publication_action": "corroboration_only"
+  },
+  "multi_source_confidence": "source_disagreement"
 }
