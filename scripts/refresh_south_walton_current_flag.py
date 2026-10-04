@@ -99,7 +99,9 @@ def extract_semantic_current_state(html: str) -> tuple[str | None, bool, list[st
             elif token == "single red":
                 primary = primary or "Single Red"
                 evidence.append("semantic:single red")
-            elif token == "red":\n                primary = primary or "Red"\n                evidence.append("semantic:red")
+            elif token == "red":
+                primary = primary or "Red"
+                evidence.append("semantic:red")
     return primary, purple, list(dict.fromkeys(evidence))
 
 
