@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 CENTRAL = ZoneInfo("America/Chicago")
 EASTERN = ZoneInfo("America/New_York")
-NWS_URL = "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0"
+NWS_URL = "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0"\nNWS_API_LIST = "https://api.weather.gov/products/types/SRF/locations/TAE"
 FRANKLIN_URL = "https://www.franklincountyparks.com/parks-recreation/beach-flag-warnings/"
 WALTON_URL = "https://www.visitsouthwalton.com/beach-safety/"
 GULF_URL = "https://www.visitgulf.com/things-to-do/beaches/beach-safety/"
@@ -167,11 +167,35 @@ def _nws_version_url(version: int | None) -> str:
 
 
 def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]:
+    """Fetch the newest usable SRFTAE from the NWS API, with legacy product pages as fallback."""
     s = session()
+    # api.weather.gov exposes product metadata plus the exact issued product text.
+    # This avoids depending on forecast.weather.gov HTML markup and version pagination.
+    try:
+        listing = s.get(NWS_API_LIST, timeout=(5, 12))
+        listing.raise_for_status()
+        products = listing.json().get("@graph") or []
+        for product in products[:12]:
+            product_id = product.get("id")
+            if not product_id:
+                continue
+            detail_url = f"https://api.weather.gov/products/{product_id}"
+            detail = s.get(detail_url, timeout=(5, 12))
+            detail.raise_for_status()
+            body = detail.json()
+            text = body.get("productText") or ""
+            issued = parse_nws_issued(text)
+            issued_text = body.get("issuanceTime") or product.get("issuanceTime")
+            flags = parse_nws_flag_table(text)
+            age = hours_old(issued, datetime.now(EASTERN)) if issued else None
+            if flags and age is not None and age <= MAX_OFFICIAL_AGE_HOURS:
+                return flags, issued_text, issued, detail_url
+    except (requests.RequestException, ValueError, TypeError) as exc:
+        print(f"NWS API SRFTAE unavailable: {type(exc).__name__}: {exc}")
+
     newest_issued: datetime | None = None
     newest_issued_text: str | None = None
     last_url = NWS_URL
-
     for version in [None, 1, 2, 3, 4, 5, 6, 7, 8]:
         url = _nws_version_url(version)
         last_url = url
@@ -181,21 +205,16 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
         except requests.RequestException as exc:
             print(f"NWS SRFTAE unavailable for {url}: {type(exc).__name__}: {exc}")
             continue
-
         text = BeautifulSoup(r.text, "html.parser").get_text("\n")
         issued = parse_nws_issued(text)
         m = re.search(r"(?mi)^\s*National Weather Service Tallahassee FL\s*\n\s*(.+?\d{4})\s*$", text)
         issued_text = m.group(1).strip() if m else None
         if newest_issued is None and issued is not None:
-            newest_issued = issued
-            newest_issued_text = issued_text
+            newest_issued, newest_issued_text = issued, issued_text
         flags = parse_nws_flag_table(text)
-        if not flags:
-            continue
         age = hours_old(issued, datetime.now(EASTERN)) if issued else None
-        if age is not None and age <= MAX_OFFICIAL_AGE_HOURS:
+        if flags and age is not None and age <= MAX_OFFICIAL_AGE_HOURS:
             return flags, issued_text, issued, url
-
     return {}, newest_issued_text, newest_issued, last_url
 
 
