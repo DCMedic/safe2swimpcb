@@ -52,7 +52,7 @@ def test_current_images_stop_before_beach_flag_warnings():
     assert images == ["https://www.visitsouthwalton.com/today.png"]
 
 
-def test_bare_red_semantic_token_is_not_publishable():
+def test_bounded_red_semantic_token_is_canonical_red():
     html = """
     <html><body>
       <div>Current Conditions:</div>
@@ -61,5 +61,5 @@ def test_bare_red_semantic_token_is_not_publishable():
     </body></html>
     """
     primary, purple, _ = extract_semantic_current_state(html)
-    assert primary is None
+    assert primary == "Red"
     assert purple is False

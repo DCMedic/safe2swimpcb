@@ -144,3 +144,25 @@ def test_cached_franklin_advances_only_when_fresh_nws_corroborates():
     )
     assert verified == previous["last_verified_at"]
     assert status == "degraded"
+
+
+def test_parse_nws_api_product_text_with_official_flags():
+    text = """Surf Zone Forecast
+National Weather Service Tallahassee FL
+1030 AM EDT Sun Oct 4 2026
+
+Based on communication with area beach officials, the following flags
+are flying at area beaches:
+
+Walton........................Red
+State Park Gulf Beaches.......Yellow
+West Facing Gulf Beaches......Yellow
+South Facing Gulf Beaches.....Green
+Franklin......................Red
+"""
+    issued = parse_nws_issued(text)
+    flags = parse_nws_flag_table(text)
+    assert issued == datetime(2026, 10, 4, 10, 30, tzinfo=EASTERN)
+    assert flags["Walton"] == "Red"
+    assert flags["West Facing Gulf Beaches"] == "Yellow"
+    assert flags["Franklin"] == "Red"
