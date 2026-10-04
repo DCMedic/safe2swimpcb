@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
   function renderFlag(c){
     const {verified, stale} = freshness(c);
-    const rawLabel = c.label || c.flag || 'Official flag status unavailable';
+    const healthyNoFlag = !c.flag && c.source_check_status === 'verified';
+    const rawLabel = healthyNoFlag ? 'Official source checked — no explicit flag published' : (c.label || c.flag || 'Current flag could not be verified');
     $('currentFlag').textContent = c.flag && stale ? `Last verified flag: ${rawLabel}` : rawLabel;
     const pole = $('flagPole');
     pole.className = 'flagpole ' + cls(c.flag);
@@ -33,8 +34,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     $('flagFreshness').className = 'status flag-status' + (stale ? ' stale' : '');
     if (c.flag && stale) {
       $('flagFreshness').innerHTML = `Last verified <strong>${verified ? esc(verified.toLocaleString()) : 'time unavailable'}</strong>. This is the last verified flag, not a claim that the flag is still current. Check the linked local authority for the latest posted condition.`;
+    } else if (healthyNoFlag) {
+      $('flagFreshness').className = 'status flag-status';
+      $('flagFreshness').innerHTML = `Official source checked <strong>${verified ? esc(verified.toLocaleString()) : 'recently'}</strong>; it did not provide an explicit current flag that Know the Gulf can safely publish.`;
     } else if (stale) {
-      $('flagFreshness').innerHTML = 'Official flag status is unavailable. Use the linked local authority before entering the Gulf.';
+      $('flagFreshness').innerHTML = 'Current flag could not be verified from authoritative evidence. Use the linked local authority and posted beach flags before entering the Gulf.';
     } else {
       $('flagFreshness').innerHTML = `Verified <strong>${esc(verified.toLocaleString())}</strong> · provenance: <strong>${esc(c.provenance_tier)}</strong>`;
     }
@@ -50,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `<div class="card"><div class="eyebrow">${esc(c.location)}</div><h3>${esc(heading)}</h3>${freshnessNote}<p>${esc(c.source_note || '')}</p><a href="${esc(c.official_authority_url)}" target="_blank" rel="noopener">Official safety source ↗</a></div>`;
   }
   try { renderFlag(await j(`/data/${primary}/current_flag.json`)); }
-  catch { $('currentFlag').textContent='Official flag status unavailable'; $('flagFreshness').className='status stale'; $('flagFreshness').textContent='Current status cache unavailable. Use the official source below.'; const pole=$('flagPole'); if(pole) pole.hidden=true; }
+  catch { $('currentFlag').textContent='Current status data could not be loaded'; $('flagFreshness').className='status stale'; $('flagFreshness').textContent='Current status cache unavailable. Use the official source below.'; const pole=$('flagPole'); if(pole) pole.hidden=true; }
   if (related.length) {
     const rows = await Promise.all(related.map(async s => { try { return await j(`/data/${s}/current_flag.json`); } catch { return null; } }));
     $('relatedFlags').innerHTML = rows.filter(Boolean).map(relatedCard).join('');
