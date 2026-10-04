@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 CENTRAL = ZoneInfo("America/Chicago")
 EASTERN = ZoneInfo("America/New_York")
-NWS_URL = "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0"\nNWS_API_LIST = "https://api.weather.gov/products/types/SRF/locations/TAE"
+NWS_URL = "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0"
+NWS_API_LIST = "https://api.weather.gov/products/types/SRF/locations/TAE"
 FRANKLIN_URL = "https://www.franklincountyparks.com/parks-recreation/beach-flag-warnings/"
 WALTON_URL = "https://www.visitsouthwalton.com/beach-safety/"
 GULF_URL = "https://www.visitgulf.com/things-to-do/beaches/beach-safety/"
@@ -167,15 +168,12 @@ def _nws_version_url(version: int | None) -> str:
 
 
 def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]:
-    """Fetch the newest usable SRFTAE from the NWS API, with legacy product pages as fallback."""
+    """Fetch newest usable SRFTAE via api.weather.gov; retain legacy HTML as fallback."""
     s = session()
-    # api.weather.gov exposes product metadata plus the exact issued product text.
-    # This avoids depending on forecast.weather.gov HTML markup and version pagination.
     try:
         listing = s.get(NWS_API_LIST, timeout=(5, 12))
         listing.raise_for_status()
-        products = listing.json().get("@graph") or []
-        for product in products[:12]:
+        for product in (listing.json().get("@graph") or [])[:12]:
             product_id = product.get("id")
             if not product_id:
                 continue
