@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const age = validTime ? (Date.now() - t.getTime()) / 36e5 : Infinity;
     const limit = Number(c.stale_after_hours || 18);
     const stale = !validTime || limit <= 0 || age > limit;
-    const rawLabel = c.label || c.flag || 'Official current conditions unavailable';
+    const healthyNoFlag = !c.flag && c.source_reachable && c.source_check_status === 'verified';
+    const conflicting = !c.flag && /conflict/i.test(String(c.label || ''));
+    const rawLabel = conflicting ? 'Multiple fresh official reports disagree' : healthyNoFlag ? 'Official source checked — no explicit flag published' : (c.label || c.flag || 'Current conditions could not be verified');
     $('currentStatus').textContent = c.flag && stale ? `Last verified flag: ${rawLabel}` : rawLabel;
 
     st.className = 'status' + (stale || !c.source_reachable ? ' stale' : '');
@@ -53,8 +55,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       st.textContent = 'The cached source check is stale. Verify conditions at the official source or with lifeguards before entering the water.';
     } else if (c.flag) {
       st.innerHTML = `Explicit upstream flag verified: <strong>${esc(c.flag)}</strong> · checked ${esc(t.toLocaleString())}`;
+    } else if (conflicting) {
+      st.innerHTML = `Official reports checked <strong>${esc(t.toLocaleString())}</strong>. Fresh reports disagree on the flag, so Know the Gulf will not invent a single regional status. Use posted flags at your specific beach.`;
     } else {
-      st.innerHTML = `Official current-conditions source reachable · checked <strong>${esc(t.toLocaleString())}</strong>. No explicit machine-verifiable flag was found, so Know the Gulf does not display one.`;
+      st.innerHTML = `Official current-conditions source reachable · checked <strong>${esc(t.toLocaleString())}</strong>. No explicit machine-verifiable flag was published, so this location is operational but no flag is displayed.`;
     }
 
     const pole = $('flagPole');
