@@ -21,7 +21,7 @@ PATH = ROOT / "data" / "south-walton" / "current_flag.json"
 SOURCE_URL = "https://www.visitsouthwalton.com/beach-safety/"
 SOURCE_NAME = "Walton County beach officials / South Walton Fire District"
 CENTRAL = ZoneInfo("America/Chicago")
-SEVERITY = {"Green": 1, "Yellow": 2, "Single Red": 3, "Double Red": 4}
+SEVERITY = {"Green": 1, "Yellow": 2, "Red": 3, "Single Red": 3, "Double Red": 4}
 
 CURRENT_LABEL = re.compile(r"\bcurrent\s+(?:beach\s+)?conditions?\b", re.I)
 STOP_HEADING = re.compile(r"\b(?:beach\s+flag\s+warnings?|flag\s+system|flag\s+meanings?|rules?|rip\s+current)\b", re.I)
@@ -99,7 +99,7 @@ def extract_semantic_current_state(html: str) -> tuple[str | None, bool, list[st
             elif token == "single red":
                 primary = primary or "Single Red"
                 evidence.append("semantic:single red")
-            # Bare red is intentionally not publishable because it cannot establish one vs two red flags.
+            elif token == "red":\n                primary = primary or "Red"\n                evidence.append("semantic:red")
     return primary, purple, list(dict.fromkeys(evidence))
 
 
