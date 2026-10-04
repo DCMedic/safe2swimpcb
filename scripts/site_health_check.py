@@ -148,6 +148,24 @@ def validate_json(errors: list[str]) -> None:
             fail(f"{p.relative_to(ROOT)} claims verified source while flag is unavailable", errors)
 
 
+
+def validate_pcb_flag_ui_contract(errors: list[str]) -> None:
+    """Keep the browser renderer aligned with the canonical current-flag schema."""
+    app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
+    prerender = (ROOT / "scripts/prerender_current_status.py").read_text(encoding="utf-8")
+    required_app = {
+        "Red meaning": "Red:{sev:3,meaning:'High hazard — high surf and/or strong currents.'}",
+        "Red CSS mapping": "if(f==='Red'||f==='Single Red')return'red'",
+    }
+    for label, needle in required_app.items():
+        if needle not in app:
+            fail(f"PCB frontend contract missing {label}; canonical Red can render as Yellow or fallback text", errors)
+    for needle in ['"Red": ("red", "High hazard — high surf and/or strong currents.")',
+                   '"Double Red": ("double", "Water closed to the public.")']:
+        if needle not in prerender:
+            fail("PCB prerender contract is not aligned with canonical flag values", errors)
+
+
 def main() -> int:
     errors: list[str] = []
     for rel in REQUIRED_ASSETS:
@@ -156,6 +174,7 @@ def main() -> int:
     validate_destinations(errors)
     validate_sitemap(errors)
     validate_json(errors)
+    validate_pcb_flag_ui_contract(errors)
     validate_html(errors)
     if errors:
         print("SITE HEALTH CHECK FAILED")
