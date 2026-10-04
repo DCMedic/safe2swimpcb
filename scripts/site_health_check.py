@@ -166,6 +166,24 @@ def validate_pcb_flag_ui_contract(errors: list[str]) -> None:
             fail("PCB prerender contract is not aligned with canonical flag values", errors)
 
 
+def validate_destination_ui_contract(errors: list[str]) -> None:
+    western = (ROOT / "assets/western-location.js").read_text(encoding="utf-8")
+    eastern = (ROOT / "assets/eastern-location.js").read_text(encoding="utf-8")
+    southwest = (ROOT / "assets/southwest-location.js").read_text(encoding="utf-8")
+    if "(c.flag==='Red'||c.flag==='Single Red')?'red'" not in western:
+        fail("western renderer does not map canonical Red to the red visual flag", errors)
+    if "f === 'Red' || f === 'Single Red'" not in eastern:
+        fail("eastern renderer does not map canonical Red to the red visual flag", errors)
+    if "f === 'Red' || f === 'Single Red'" not in southwest:
+        fail("Southwest renderer does not map canonical Red to the red visual flag", errors)
+    if "Official source checked — no explicit flag published" not in eastern:
+        fail("eastern renderer conflates healthy no-explicit-flag state with outage", errors)
+    if "Official source checked — no explicit flag published" not in southwest:
+        fail("Southwest renderer conflates healthy no-explicit-flag state with outage", errors)
+    if "Multiple fresh official reports disagree" not in southwest:
+        fail("Southwest renderer does not distinguish conflicting fresh reports", errors)
+
+
 def main() -> int:
     errors: list[str] = []
     for rel in REQUIRED_ASSETS:
@@ -175,6 +193,7 @@ def main() -> int:
     validate_sitemap(errors)
     validate_json(errors)
     validate_pcb_flag_ui_contract(errors)
+    validate_destination_ui_contract(errors)
     validate_html(errors)
     if errors:
         print("SITE HEALTH CHECK FAILED")
