@@ -1,12 +1,12 @@
 {
   "location": "South Walton / 30A",
-  "flag": null,
-  "label": "Official flag status unavailable",
-  "severity": null,
-  "provenance_tier": "official_source_no_verified_current_status",
-  "last_verified_at": "2026-10-04T02:26:39.235820-05:00",
-  "last_checked_at": "2026-10-04T09:21:53.621703-05:00",
-  "source_check_status": "degraded",
+  "flag": "Red",
+  "label": "Red + Purple",
+  "severity": 3,
+  "provenance_tier": "primary_official_current_visual",
+  "last_verified_at": "2026-10-04T10:21:41.481419-05:00",
+  "last_checked_at": "2026-10-04T10:21:41.481419-05:00",
+  "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
   "official_observed_at": null,
@@ -17,24 +17,25 @@
   "official_authority": "Walton County beach officials / South Walton Fire District",
   "official_authority_url": "https://www.visitsouthwalton.com/beach-safety/",
   "method": "Direct South Walton Current Conditions visual/semantic evidence; existing NWS and terminology systems remain independent corroborating layers",
-  "stale_after_hours": 0,
-  "stale_reason": "South Walton official Current Conditions could not be safely resolved from bounded current-state evidence",
+  "stale_after_hours": 3,
+  "stale_reason": null,
   "nws_reported_flag": null,
   "nws_issued_text": null,
   "nws_issued_at": "2026-10-04T03:05:00-04:00",
-  "nws_age_hours": 7.28,
+  "nws_age_hours": 8.28,
   "nws_source_url": "https://forecast.weather.gov/product.php?issuedby=TAE&product=SRF&site=NWS&format=txt&glossary=0&version=8",
   "corroborating_flag": null,
   "corroborates_primary": null,
   "source_note": "NWS Tallahassee republishes the flag reported by Walton-area beach officials; Visit South Walton supplies the public beach-safety program.",
   "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag.",
-  "primary_flag": null,
-  "purple": false,
+  "primary_flag": "Red",
+  "purple": true,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
   "flag_terms_note": "Official flag definitions remain authoritative for terminology. South Walton current-state parsing is bounded to the explicit Current Conditions region and stops before Beach Flag Warnings/legend content.",
   "current_flag_image_evidence": [
     {
       "semantic_evidence": [
+        "semantic:red",
         "semantic:purple"
       ]
     },
@@ -73,6 +74,9 @@
       }
     }
   ],
+  "terminology_evidence": "bounded-current-conditions-visual",
+  "terminology_verified_at": "2026-10-04T10:21:41.481419-05:00",
+  "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
     "source_url": "https://visitbeaches.org/map",
