@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-04T16:57:56.213018+00:00",
+  "checked_at": "2026-10-04T21:52:22.669561+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
@@ -58,8 +58,8 @@
   ],
   "observations": [
     {
-      "report_id": "75565",
-      "created_at": "2026-10-04T13:55:22+00:00",
+      "report_id": "75578",
+      "created_at": "2026-10-04T20:20:07+00:00",
       "latitude": 27.1136,
       "longitude": -82.469,
       "ambassador": {
@@ -72,12 +72,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ESE",
+            "value": "SSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "6.91",
+            "value": "10.36",
             "unit": "Mph"
           }
         ],
@@ -94,12 +94,12 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Shore Break",
+            "value": "Ground Swell",
             "unit": null
           },
           {
@@ -172,7 +172,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ESE",
+          "value": "SSW",
           "selected_values": []
         },
         {
@@ -182,7 +182,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "6.91",
+          "value": "10.36",
           "selected_values": []
         },
         {
@@ -192,7 +192,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.57",
+          "value": "88.5",
           "selected_values": []
         },
         {
@@ -242,9 +242,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -259,10 +259,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "11",
-              "name": "Shore Break",
-              "value": "shore-break",
-              "description": "Waves breaking close to shore or shallow water."
+              "id": "12",
+              "name": "Ground Swell",
+              "value": "ground-swell",
+              "description": "Waves traveling from far distances, no longer influenced by winds."
             }
           ]
         },
@@ -311,6 +311,40 @@
           "selected_values": []
         },
         {
+          "parameter_id": "17",
+          "parameter": "Drift Algae Location",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "31",
+              "name": "Water",
+              "value": "water",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "16",
+          "parameter": "Drift Algae Type",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "28",
+              "name": "Brown Macroalgae",
+              "value": "brown-macroalgea",
+              "description": null
+            }
+          ]
+        },
+        {
           "parameter_id": "15",
           "parameter": "Drift Algae",
           "prompt": null,
@@ -320,10 +354,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "23",
-              "name": "None",
-              "value": "none",
-              "description": "No drift algae in sight."
+              "id": "24",
+              "name": "Some",
+              "value": "some",
+              "description": "Clumps of drift algae."
             }
           ]
         },
@@ -418,13 +452,13 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 3.043,
+      "age_hours": 1.538,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "75564",
-      "created_at": "2026-10-04T13:54:45+00:00",
+      "report_id": "75577",
+      "created_at": "2026-10-04T20:19:33+00:00",
       "latitude": 27.124129,
       "longitude": -82.47093,
       "ambassador": {
@@ -437,12 +471,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ESE",
+            "value": "SSW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "6.91",
+            "value": "10.36",
             "unit": "Mph"
           }
         ],
@@ -459,12 +493,12 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "0-1 feet (0-0.3 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Shore Break",
+            "value": "Ground Swell",
             "unit": null
           },
           {
@@ -537,7 +571,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ESE",
+          "value": "SSW",
           "selected_values": []
         },
         {
@@ -547,7 +581,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "6.91",
+          "value": "10.36",
           "selected_values": []
         },
         {
@@ -557,7 +591,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.66",
+          "value": "88.86",
           "selected_values": []
         },
         {
@@ -607,9 +641,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "14",
-              "name": "0-1 feet (0-0.3 m)",
-              "value": "0-1",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -624,10 +658,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "11",
-              "name": "Shore Break",
-              "value": "shore-break",
-              "description": "Waves breaking close to shore or shallow water."
+              "id": "12",
+              "name": "Ground Swell",
+              "value": "ground-swell",
+              "description": "Waves traveling from far distances, no longer influenced by winds."
             }
           ]
         },
@@ -783,7 +817,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 3.053,
+      "age_hours": 1.547,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1148,8 +1182,8 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 19.976,
-      "fresh": true,
+      "age_hours": 24.884,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1513,8 +1547,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 21.465,
-      "fresh": true,
+      "age_hours": 26.372,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1878,8 +1912,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 21.473,
-      "fresh": true,
+      "age_hours": 26.38,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -2243,7 +2277,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 44.687,
+      "age_hours": 49.594,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2608,7 +2642,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 44.692,
+      "age_hours": 49.599,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2973,7 +3007,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 68.404,
+      "age_hours": 73.311,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3389,23 +3423,22 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 93.865,
+      "age_hours": 98.772,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 5,
-  "flag": null,
+  "fresh_observation_count": 2,
+  "flag": "Green",
   "purple": false,
-  "flag_conflict": true,
+  "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Green",
-    "Yellow"
+    "Green"
   ],
-  "newest_report_at": "2026-10-04T13:55:22+00:00",
+  "newest_report_at": "2026-10-04T20:20:07+00:00",
   "newest_flag_report": {
-    "report_id": "75565",
-    "created_at": "2026-10-04T13:55:22+00:00",
+    "report_id": "75578",
+    "created_at": "2026-10-04T20:20:07+00:00",
     "latitude": 27.1136,
     "longitude": -82.469,
     "ambassador": {
@@ -3418,12 +3451,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "ESE",
+          "value": "SSW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "6.91",
+          "value": "10.36",
           "unit": "Mph"
         }
       ],
@@ -3440,12 +3473,12 @@
         },
         {
           "parameter": "Surf Height",
-          "value": "0-1 feet (0-0.3 m)",
+          "value": "1-2 feet (0.3-0.6 m)",
           "unit": null
         },
         {
           "parameter": "Surf Type",
-          "value": "Shore Break",
+          "value": "Ground Swell",
           "unit": null
         },
         {
@@ -3518,7 +3551,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "ESE",
+        "value": "SSW",
         "selected_values": []
       },
       {
@@ -3528,7 +3561,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "6.91",
+        "value": "10.36",
         "selected_values": []
       },
       {
@@ -3538,7 +3571,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "81.57",
+        "value": "88.5",
         "selected_values": []
       },
       {
@@ -3588,9 +3621,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "14",
-            "name": "0-1 feet (0-0.3 m)",
-            "value": "0-1",
+            "id": "15",
+            "name": "1-2 feet (0.3-0.6 m)",
+            "value": "1-2",
             "description": null
           }
         ]
@@ -3605,10 +3638,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "11",
-            "name": "Shore Break",
-            "value": "shore-break",
-            "description": "Waves breaking close to shore or shallow water."
+            "id": "12",
+            "name": "Ground Swell",
+            "value": "ground-swell",
+            "description": "Waves traveling from far distances, no longer influenced by winds."
           }
         ]
       },
@@ -3657,6 +3690,40 @@
         "selected_values": []
       },
       {
+        "parameter_id": "17",
+        "parameter": "Drift Algae Location",
+        "prompt": null,
+        "unit": null,
+        "category": "Drift Algae",
+        "category_slug": "drift-algae",
+        "value": null,
+        "selected_values": [
+          {
+            "id": "31",
+            "name": "Water",
+            "value": "water",
+            "description": null
+          }
+        ]
+      },
+      {
+        "parameter_id": "16",
+        "parameter": "Drift Algae Type",
+        "prompt": null,
+        "unit": null,
+        "category": "Drift Algae",
+        "category_slug": "drift-algae",
+        "value": null,
+        "selected_values": [
+          {
+            "id": "28",
+            "name": "Brown Macroalgae",
+            "value": "brown-macroalgea",
+            "description": null
+          }
+        ]
+      },
+      {
         "parameter_id": "15",
         "parameter": "Drift Algae",
         "prompt": null,
@@ -3666,10 +3733,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "23",
-            "name": "None",
-            "value": "none",
-            "description": "No drift algae in sight."
+            "id": "24",
+            "name": "Some",
+            "value": "some",
+            "description": "Clumps of drift algae."
           }
         ]
       },
@@ -3764,21 +3831,21 @@
     "beach_location": "Nokomis, FL",
     "beach_latitude": 27.1136,
     "beach_longitude": -82.469,
-    "age_hours": 3.043,
+    "age_hours": 1.538,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_internal_conflict",
-    "knowthegulf_flag": "Yellow",
+    "state": "agree",
+    "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-03T20:59:22+00:00",
-    "visitbeaches_flag": null,
+    "knowthegulf_last_verified_at": "2026-10-04T20:20:07+00:00",
+    "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-04T13:55:22+00:00",
-    "visitbeaches_fresh_observation_count": 5,
-    "visitbeaches_flag_conflict": true
+    "visitbeaches_newest_report_at": "2026-10-04T20:20:07+00:00",
+    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
   "publication_effect": "none",
