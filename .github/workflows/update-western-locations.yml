@@ -10,6 +10,7 @@ on:
       - 'scripts/refresh_western_current_flags.py'
       - 'scripts/flag_image_verification.py'
       - 'scripts/collector_resilience.py'
+      - 'scripts/verify_persisted_heartbeat.py'
       - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
@@ -49,6 +50,9 @@ jobs:
         run: python -m py_compile scripts/update_western_locations.py scripts/refresh_western_current_flags.py scripts/flag_image_verification.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/apply_visitbeaches_confidence.py
       - name: Run western collector regression tests
         run: pytest -q tests/test_collector_resilience.py tests/test_western_current.py tests/test_western_current_evidence.py tests/test_flag_image_verification.py tests/test_visitbeaches_confidence.py
+      - name: Snapshot western verification heartbeat
+        id: heartbeat_before
+        run: echo "value=$(python scripts/verify_persisted_heartbeat.py western --capture)" >> "$GITHUB_OUTPUT"
       - name: Snapshot last-known western official flags
         shell: bash
         run: |
@@ -89,3 +93,6 @@ jobs:
           git add -- "${owned_paths[@]}"
           if [[ -n "$(git status --porcelain --untracked-files=no | grep -v '^.. data/destin/current_flag.json$' | grep '^ [MADRCU?]' || true)" ]]; then git status --short >&2; exit 1; fi
           bash scripts/persist_paths.sh "data: refresh western Gulf beaches" "${owned_paths[@]}"
+
+      - name: Verify western heartbeat persisted to main
+        run: python scripts/verify_persisted_heartbeat.py western --previous "${{ steps.heartbeat_before.outputs.value }}"

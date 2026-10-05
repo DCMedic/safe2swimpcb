@@ -8,6 +8,7 @@ on:
       - '.github/recovery/pcb.trigger'
       - 'scripts/update_current_flag.py'
       - 'scripts/collector_resilience.py'
+      - 'scripts/verify_persisted_heartbeat.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
       - 'scripts/apply_visitbeaches_confidence.py'
@@ -47,6 +48,9 @@ jobs:
         run: python -m py_compile scripts/update_current_flag.py scripts/collector_resilience.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/apply_visitbeaches_confidence.py
       - name: Run PCB collector regression tests
         run: pytest -q tests/test_flag_parser.py tests/test_collector_resilience.py tests/test_visitbeaches_confidence.py
+      - name: Snapshot pcb verification heartbeat
+        id: heartbeat_before
+        run: echo "value=$(python scripts/verify_persisted_heartbeat.py pcb --capture)" >> "$GITHUB_OUTPUT"
       - name: Refresh official PCB flag
         run: python scripts/update_current_flag.py
       - name: Apply canonical Florida warning-flag terminology
@@ -66,6 +70,9 @@ jobs:
           fi
           bash scripts/persist_paths.sh "data: refresh PCB beach flag" "${owned_paths[@]}"
           echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Verify pcb heartbeat persisted to main
+        run: python scripts/verify_persisted_heartbeat.py pcb --previous "${{ steps.heartbeat_before.outputs.value }}"
 
       # Derived daily/master research tables are rebuilt by the dedicated
       # research/history workflows, not by the latency-sensitive heartbeat poll.

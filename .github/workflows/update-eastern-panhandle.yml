@@ -49,6 +49,9 @@ jobs:
         run: python -m py_compile scripts/update_eastern_panhandle.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/flag_image_verification.py scripts/refresh_south_walton_current_flag.py scripts/apply_visitbeaches_confidence.py
       - name: Run Eastern collector regression tests
         run: python -m pytest -q tests/test_eastern_panhandle_flags.py tests/test_south_walton_current_visual.py tests/test_visitbeaches_confidence.py
+      - name: Snapshot eastern verification heartbeat
+        id: heartbeat_before
+        run: echo "value=$(python scripts/verify_persisted_heartbeat.py eastern --capture)" >> "$GITHUB_OUTPUT"
       - name: Refresh eastern Panhandle flags
         run: timeout 8m python scripts/update_eastern_panhandle.py
       - name: Apply canonical Florida warning-flag terminology
@@ -64,6 +67,9 @@ jobs:
           fi
           bash scripts/persist_paths.sh "data: refresh eastern Panhandle flags" \
             data/south-walton data/cape-san-blas data/gulf-state-park-beaches data/st-joe-beach data/franklin-county
+
+      - name: Verify eastern heartbeat persisted to main
+        run: python scripts/verify_persisted_heartbeat.py eastern --previous "${{ steps.heartbeat_before.outputs.value }}"
 
       # Full unit tests still run centrally in site-health.yml.
       # Pages deployment is intentionally centralized in deploy-pages.yml.

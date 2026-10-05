@@ -73,6 +73,12 @@ def validate() -> list[str]:
                 f"{latency_groups[group]}; GitHub may replace pending runs"
             )
         latency_groups[group] = lane
+        if "scripts/verify_persisted_heartbeat.py" not in text:
+            errors.append(f"{lane}: latency-sensitive workflow lacks persisted-heartbeat verification")
+        if f"verify_persisted_heartbeat.py {lane} --capture" not in text:
+            errors.append(f"{lane}: workflow does not snapshot its heartbeat before collection")
+        if f"verify_persisted_heartbeat.py {lane} --previous" not in text:
+            errors.append(f"{lane}: workflow does not fail closed after persistence")
 
     research_groups: dict[str, str] = {}
     for path in WORKFLOWS.glob("*.yml"):

@@ -9,6 +9,7 @@ on:
       - '.github/recovery/destin.trigger'
       - 'scripts/update_destin_current.py'
       - 'scripts/collector_resilience.py'
+      - 'scripts/verify_persisted_heartbeat.py'
       - 'scripts/common.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
@@ -48,6 +49,9 @@ jobs:
         run: python -m py_compile scripts/update_destin_current.py scripts/collector_resilience.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py scripts/apply_visitbeaches_confidence.py
       - name: Run Destin collector regression tests
         run: pytest -q tests/test_destin_flag_parser.py tests/test_collector_resilience.py tests/test_visitbeaches_confidence.py
+      - name: Snapshot destin verification heartbeat
+        id: heartbeat_before
+        run: echo "value=$(python scripts/verify_persisted_heartbeat.py destin --capture)" >> "$GITHUB_OUTPUT"
       - name: Refresh official Destin flag
         run: python scripts/update_destin_current.py
       - name: Apply canonical Florida warning-flag terminology
@@ -58,3 +62,6 @@ jobs:
         shell: bash
         run: |
           bash scripts/persist_paths.sh "data: refresh Destin beach flag" data/destin/current_flag.json
+
+      - name: Verify destin heartbeat persisted to main
+        run: python scripts/verify_persisted_heartbeat.py destin --previous "${{ steps.heartbeat_before.outputs.value }}"
