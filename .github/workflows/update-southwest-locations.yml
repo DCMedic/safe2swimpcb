@@ -11,6 +11,7 @@ on:
       - 'scripts/update_southwest_location.py'
       - 'scripts/visitbeaches_graphql.py'
       - 'scripts/collector_resilience.py'
+      - 'scripts/verify_persisted_heartbeat.py'
       - 'scripts/protect_current_flag.py'
       - 'scripts/florida_flag_terms.py'
       - 'scripts/apply_florida_flag_terms.py'
@@ -45,6 +46,9 @@ jobs:
         run: python -m py_compile scripts/update_southwest_locations.py scripts/update_southwest_location.py scripts/visitbeaches_graphql.py scripts/collector_resilience.py scripts/protect_current_flag.py scripts/florida_flag_terms.py scripts/apply_florida_flag_terms.py
       - name: Run Southwest collector regression tests
         run: pytest -q tests/test_collector_resilience.py tests/test_southwest_sources.py tests/test_visitbeaches_graphql.py
+      - name: Snapshot southwest verification heartbeat
+        id: heartbeat_before
+        run: echo "value=$(python scripts/verify_persisted_heartbeat.py southwest --capture)" >> "$GITHUB_OUTPUT"
       - name: Snapshot last-known Southwest status
         shell: bash
         run: |
@@ -124,6 +128,9 @@ jobs:
           fi
           bash scripts/persist_paths.sh "data: refresh Southwest Florida beaches" \
             data/anna-maria-island data/siesta-key data/venice data/sanibel data/fort-myers-beach data/naples data/marco-island
+
+      - name: Verify southwest heartbeat persisted to main
+        run: python scripts/verify_persisted_heartbeat.py southwest --previous "${{ steps.heartbeat_before.outputs.value }}"
 
       # Full unit tests also run centrally in site-health.yml.
       # Pages deployment is intentionally centralized in deploy-pages.yml.
