@@ -55,13 +55,16 @@ jobs:
 
       - name: Validate deployment helpers
         run: |
-          python -m py_compile scripts/inject_social_meta.py scripts/site_health_check.py
+          python -m py_compile scripts/inject_social_meta.py scripts/site_health_check.py scripts/verify_prerender_consistency.py
 
       - name: Build optimized deployment HTML
         run: |
           python scripts/prerender_current_status.py
           python scripts/inject_social_meta.py
           python scripts/generate_sitemap.py
+
+      - name: Verify authoritative PCB status is baked into artifact
+        run: python scripts/verify_prerender_consistency.py
 
       - name: Repository-wide site health gate
         run: python scripts/site_health_check.py
@@ -107,3 +110,7 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
+
+      - name: Verify production PCB prerender matches authoritative data
+        if: \${{ always() && (steps.deploy_1.outcome == 'success' || steps.deploy_2.outcome == 'success' || steps.deployment.outcome == 'success') }}
+        run: python scripts/verify_prerender_consistency.py --url https://knowthegulf.com/ --attempts 8 --delay 15
