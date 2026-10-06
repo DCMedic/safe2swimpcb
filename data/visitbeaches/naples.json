@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-06T18:34:45.211781+00:00",
+  "checked_at": "2026-10-06T22:46:30.535441+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Vanderbilt Beach",
@@ -431,7 +431,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 2.94,
+      "age_hours": 7.136,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -830,7 +830,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 5.1,
+      "age_hours": 9.296,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1181,7 +1181,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 7.091,
+      "age_hours": 11.287,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1532,7 +1532,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 7.266,
+      "age_hours": 11.462,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1931,8 +1931,8 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 23.875,
-      "fresh": true,
+      "age_hours": 28.071,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -2296,7 +2296,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 28.875,
+      "age_hours": 33.07,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2732,7 +2732,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 31.364,
+      "age_hours": 35.56,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3083,7 +3083,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 31.527,
+      "age_hours": 35.723,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3482,7 +3482,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 50.391,
+      "age_hours": 54.587,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3833,7 +3833,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 54.209,
+      "age_hours": 58.405,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4269,7 +4269,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 55.166,
+      "age_hours": 59.362,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4620,12 +4620,12 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 55.227,
+      "age_hours": 59.423,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 5,
+  "fresh_observation_count": 4,
   "flag": "Green",
   "purple": false,
   "flag_conflict": false,
@@ -4994,7 +4994,7 @@
     "beach_location": "North Naples, FL",
     "beach_latitude": 26.253502,
     "beach_longitude": -81.823303,
-    "age_hours": 2.94,
+    "age_hours": 7.136,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -5007,7 +5007,7 @@
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-10-06T15:38:21+00:00",
-    "visitbeaches_fresh_observation_count": 5,
+    "visitbeaches_fresh_observation_count": 4,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
