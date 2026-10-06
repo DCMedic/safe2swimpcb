@@ -5,15 +5,15 @@
     "Sanibel",
     "Captiva"
   ],
-  "flag": null,
-  "primary_flag": null,
+  "flag": "Yellow",
+  "primary_flag": "Yellow",
   "purple": false,
-  "label": "Conflicting fresh Beach Ambassador flag reports",
-  "severity": null,
-  "status": "visitbeaches_ambassador_conflict",
-  "provenance_tier": "primary_observational_conflict",
+  "label": "Yellow",
+  "severity": 2,
+  "status": "explicit_flag_verified",
+  "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-10-06T13:25:29+00:00",
-  "last_checked_at": "2026-10-06T13:31:36.861869+00:00",
+  "last_checked_at": "2026-10-06T14:17:04.130907+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -21,7 +21,7 @@
   "official_authority": "Lee County Natural Resources / Mote Marine Laboratory",
   "official_authority_url": "https://www.leefl.gov/naturalresources/WaterQuality/WaterQualityStatus",
   "source_reachable": true,
-  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Green, Yellow",
+  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Yellow",
   "flag_expected_from_source": false,
   "stale_after_hours": 24,
   "update_note": "Lee County directs the public to Mote for current beach conditions. A flag is displayed only if the upstream report explicitly supplies one.",
@@ -42,10 +42,9 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 2,
-  "visitbeaches_flag_conflict": true,
+  "visitbeaches_fresh_observation_count": 1,
+  "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
-    "Green",
     "Yellow"
   ],
   "visitbeaches_observations": [
@@ -461,7 +460,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 0.102,
+      "age_hours": 0.859,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -826,8 +825,8 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 23.595,
-      "fresh": true,
+      "age_hours": 24.352,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1191,7 +1190,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 48.312,
+      "age_hours": 49.07,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
