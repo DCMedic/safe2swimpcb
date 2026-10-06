@@ -112,5 +112,5 @@ jobs:
           artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
 
       - name: Verify production PCB prerender matches authoritative data
-        if: \${{ always() && (steps.deploy_1.outcome == 'success' || steps.deploy_2.outcome == 'success' || steps.deployment.outcome == 'success') }}
+        if: ${{ always() && (steps.deploy_1.outcome == 'success' || steps.deploy_2.outcome == 'success' || steps.deployment.outcome == 'success') }}
         run: python scripts/verify_prerender_consistency.py --url https://knowthegulf.com/ --attempts 8 --delay 15
