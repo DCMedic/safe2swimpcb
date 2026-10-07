@@ -39,11 +39,11 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "corroborated",
-    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
-    "flag": "Green",
+    "state": "conflict",
+    "reason": "VisitBeaches has conflicting fresh Ambassador flag observations",
+    "flag": null,
     "purple": false,
-    "report_at": "2026-10-06T20:00:54+00:00",
+    "report_at": "2026-10-07T15:42:32+00:00",
     "fresh_observation_count": 2,
     "matched_beaches": [
       {
@@ -57,14 +57,15 @@
         "location": "Sarasota, FL"
       }
     ],
-    "flag_conflict": false,
+    "flag_conflict": true,
     "fresh_distinct_flags": [
-      "Green"
+      "Green",
+      "Yellow"
     ],
-    "checked_at": "2026-10-07T06:22:46.530036+00:00",
+    "checked_at": "2026-10-07T19:04:10.131907+00:00",
     "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "corroborated",
+  "multi_source_confidence": "conflict",
   "cached_from_provenance_tier": "primary_visitbeaches_ambassador_gap_fill",
   "cached": true,
   "source_error": "official_conditions_source_reachable",
