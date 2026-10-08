@@ -6,11 +6,11 @@
   "locations": {
     "pcb": {
       "matched_beaches": 1,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Red",
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "no_fresh_visitbeaches_flag",
       "error": null
     },
     "destin": {
@@ -33,7 +33,7 @@
     },
     "navarre-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 1,
+      "fresh_observations": 2,
       "visitbeaches_flag": "Double Red",
       "visitbeaches_purple": false,
       "flag_conflict": false,
@@ -42,11 +42,11 @@
     },
     "pensacola-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 1,
-      "visitbeaches_flag": "Red",
+      "fresh_observations": 2,
+      "visitbeaches_flag": null,
       "visitbeaches_purple": false,
-      "flag_conflict": false,
-      "comparison": "flag_disagreement",
+      "flag_conflict": true,
+      "comparison": "visitbeaches_internal_conflict",
       "error": null
     },
     "south-walton": {
@@ -97,15 +97,15 @@
     "siesta-key": {
       "matched_beaches": 2,
       "fresh_observations": 1,
-      "visitbeaches_flag": "Yellow",
+      "visitbeaches_flag": "Red",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "visitbeaches_fills_current_gap",
       "error": null
     },
     "venice": {
       "matched_beaches": 3,
-      "fresh_observations": 3,
+      "fresh_observations": 4,
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
@@ -123,11 +123,11 @@
     },
     "fort-myers-beach": {
       "matched_beaches": 2,
-      "fresh_observations": 0,
-      "visitbeaches_flag": null,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "no_fresh_visitbeaches_flag",
+      "comparison": "visitbeaches_fills_current_gap",
       "error": null
     },
     "naples": {
