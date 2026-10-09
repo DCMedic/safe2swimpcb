@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-08T18:59:20.891836+00:00",
+  "checked_at": "2026-10-09T00:35:54.841956+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Navarre Beach"
@@ -386,7 +386,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 7.171,
+      "age_hours": 12.78,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -751,8 +751,8 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 20.893,
-      "fresh": true,
+      "age_hours": 26.502,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1116,12 +1116,12 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 124.673,
+      "age_hours": 130.283,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
+  "fresh_observation_count": 1,
   "flag": "Double Red",
   "purple": false,
   "flag_conflict": false,
@@ -1490,7 +1490,7 @@
     "beach_location": "Navarre Beach, FL",
     "beach_latitude": 30.382,
     "beach_longitude": -86.8624,
-    "age_hours": 7.171,
+    "age_hours": 12.78,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1499,11 +1499,11 @@
     "state": "agree",
     "knowthegulf_flag": "Double Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-08T13:50:43.384260-05:00",
+    "knowthegulf_last_verified_at": "2026-10-08T19:22:40.294171-05:00",
     "visitbeaches_flag": "Double Red",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-10-08T11:49:07+00:00",
-    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,

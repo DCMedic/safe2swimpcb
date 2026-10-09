@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-08T18:59:21.505120+00:00",
+  "checked_at": "2026-10-09T00:35:55.706234+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -386,7 +386,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 4.292,
+      "age_hours": 9.901,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -751,8 +751,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 19.823,
-      "fresh": true,
+      "age_hours": 25.433,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1116,18 +1116,17 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 43.807,
+      "age_hours": 49.417,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
-  "flag": null,
+  "fresh_observation_count": 1,
+  "flag": "Double Red",
   "purple": false,
-  "flag_conflict": true,
+  "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Double Red",
-    "Red"
+    "Double Red"
   ],
   "newest_report_at": "2026-10-08T14:41:51+00:00",
   "newest_flag_report": {
@@ -1491,21 +1490,21 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 4.292,
+    "age_hours": 9.901,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_internal_conflict",
+    "state": "agree",
     "knowthegulf_flag": "Double Red",
     "knowthegulf_purple": false,
     "knowthegulf_last_verified_at": "2026-10-08T09:40:59.577000-05:00",
-    "visitbeaches_flag": null,
+    "visitbeaches_flag": "Double Red",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-10-08T14:41:51+00:00",
-    "visitbeaches_fresh_observation_count": 2,
-    "visitbeaches_flag_conflict": true
+    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
   "publication_effect": "none",
