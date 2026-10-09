@@ -98,14 +98,14 @@
       "matched_beaches": 2,
       "fresh_observations": 2,
       "visitbeaches_flag": null,
-      "visitbeaches_purple": false,
+      "visitbeaches_purple": true,
       "flag_conflict": true,
       "comparison": "visitbeaches_internal_conflict",
       "error": null
     },
     "venice": {
       "matched_beaches": 3,
-      "fresh_observations": 3,
+      "fresh_observations": 2,
       "visitbeaches_flag": null,
       "visitbeaches_purple": false,
       "flag_conflict": true,
@@ -132,7 +132,7 @@
     },
     "naples": {
       "matched_beaches": 4,
-      "fresh_observations": 5,
+      "fresh_observations": 4,
       "visitbeaches_flag": null,
       "visitbeaches_purple": false,
       "flag_conflict": true,
