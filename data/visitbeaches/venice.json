@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-10T17:27:19.895861+00:00",
+  "checked_at": "2026-10-10T21:57:31.865311+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
@@ -58,8 +58,8 @@
   ],
   "observations": [
     {
-      "report_id": "75860",
-      "created_at": "2026-10-10T15:01:58+00:00",
+      "report_id": "75870",
+      "created_at": "2026-10-10T20:53:56+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
@@ -72,12 +72,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "SSE",
+            "value": "S",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "9.22",
+            "value": "13.8",
             "unit": "Mph"
           }
         ],
@@ -172,7 +172,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "SSE",
+          "value": "S",
           "selected_values": []
         },
         {
@@ -182,7 +182,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "9.22",
+          "value": "13.8",
           "selected_values": []
         },
         {
@@ -192,7 +192,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.05",
+          "value": "86.59",
           "selected_values": []
         },
         {
@@ -473,10 +473,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "56",
-              "name": "Some",
-              "value": "some",
-              "description": "There are 1 to 2 jellyfish in sight."
+              "id": "55",
+              "name": "None",
+              "value": "none",
+              "description": "No jellyfish in sight."
             }
           ]
         },
@@ -503,7 +503,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 2.423,
+      "age_hours": 1.06,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -902,7 +902,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 2.969,
+      "age_hours": 7.472,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1301,7 +1301,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 2.985,
+      "age_hours": 7.489,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1666,7 +1666,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 25.351,
+      "age_hours": 29.855,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2116,7 +2116,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 26.037,
+      "age_hours": 30.541,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2566,7 +2566,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 45.507,
+      "age_hours": 50.011,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2931,7 +2931,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 49.206,
+      "age_hours": 53.709,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3296,7 +3296,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 49.216,
+      "age_hours": 53.719,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3661,7 +3661,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 74.58,
+      "age_hours": 79.084,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -3674,10 +3674,10 @@
     "Double Red",
     "Red"
   ],
-  "newest_report_at": "2026-10-10T15:01:58+00:00",
+  "newest_report_at": "2026-10-10T20:53:56+00:00",
   "newest_flag_report": {
-    "report_id": "75860",
-    "created_at": "2026-10-10T15:01:58+00:00",
+    "report_id": "75870",
+    "created_at": "2026-10-10T20:53:56+00:00",
     "latitude": 27.099903,
     "longitude": -82.460239,
     "ambassador": {
@@ -3690,12 +3690,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "SSE",
+          "value": "S",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "9.22",
+          "value": "13.8",
           "unit": "Mph"
         }
       ],
@@ -3790,7 +3790,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "SSE",
+        "value": "S",
         "selected_values": []
       },
       {
@@ -3800,7 +3800,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "9.22",
+        "value": "13.8",
         "selected_values": []
       },
       {
@@ -3810,7 +3810,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "81.05",
+        "value": "86.59",
         "selected_values": []
       },
       {
@@ -4091,10 +4091,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "56",
-            "name": "Some",
-            "value": "some",
-            "description": "There are 1 to 2 jellyfish in sight."
+            "id": "55",
+            "name": "None",
+            "value": "none",
+            "description": "No jellyfish in sight."
           }
         ]
       },
@@ -4121,7 +4121,7 @@
     "beach_location": "Venice, FL",
     "beach_latitude": 27.099903,
     "beach_longitude": -82.460239,
-    "age_hours": 2.423,
+    "age_hours": 1.06,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -4133,7 +4133,7 @@
     "knowthegulf_last_verified_at": "2026-10-10T15:01:58+00:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-10T15:01:58+00:00",
+    "visitbeaches_newest_report_at": "2026-10-10T20:53:56+00:00",
     "visitbeaches_fresh_observation_count": 3,
     "visitbeaches_flag_conflict": true
   },
