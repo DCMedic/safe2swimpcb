@@ -7,15 +7,15 @@
     "North Jetty",
     "Manasota Beach"
   ],
-  "flag": null,
-  "primary_flag": null,
+  "flag": "Red",
+  "primary_flag": "Red",
   "purple": false,
-  "label": "Conflicting fresh Beach Ambassador flag reports",
-  "severity": null,
-  "status": "visitbeaches_ambassador_conflict",
-  "provenance_tier": "primary_observational_conflict",
+  "label": "Red",
+  "severity": 3,
+  "status": "explicit_flag_verified",
+  "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-10-11T14:13:50+00:00",
-  "last_checked_at": "2026-10-11T14:14:26.185444+00:00",
+  "last_checked_at": "2026-10-11T15:38:13.534479+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -23,7 +23,7 @@
   "official_authority": "Sarasota County Fire Department Lifeguard Operations",
   "official_authority_url": "https://www.scgov.net/government/emergency-services/lifeguard-operations",
   "source_reachable": true,
-  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Double Red, Red",
+  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Red",
   "flag_expected_from_source": true,
   "stale_after_hours": 24,
   "update_note": "Sarasota County directs visitors to VisitBeaches for lifeguard-updated beach conditions; posted flags and lifeguards control.",
@@ -72,10 +72,9 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 6,
-  "visitbeaches_flag_conflict": true,
+  "visitbeaches_fresh_observation_count": 4,
+  "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
-    "Double Red",
     "Red"
   ],
   "visitbeaches_observations": [
@@ -440,7 +439,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 0.009,
+      "age_hours": 1.406,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -805,7 +804,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 0.315,
+      "age_hours": 1.712,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1170,7 +1169,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 0.324,
+      "age_hours": 1.721,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1620,7 +1619,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 17.341,
+      "age_hours": 18.737,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -2019,8 +2018,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 23.753,
-      "fresh": true,
+      "age_hours": 25.149,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -2418,8 +2417,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 23.769,
-      "fresh": true,
+      "age_hours": 25.166,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -2783,7 +2782,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 46.136,
+      "age_hours": 47.532,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3233,7 +3232,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 46.821,
+      "age_hours": 48.218,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3598,7 +3597,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 70.0,
+      "age_hours": 71.396,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
