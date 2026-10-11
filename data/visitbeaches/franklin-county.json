@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-11T01:12:00.721394+00:00",
+  "checked_at": "2026-10-11T09:14:48.946550+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. George Island",
@@ -374,7 +374,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 109.376,
+      "age_hours": 117.422,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -725,7 +725,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 205.271,
+      "age_hours": 213.317,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1076,7 +1076,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 301.073,
+      "age_hours": 309.119,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1434,16 +1434,16 @@
     "beach_location": "St. George Island, FL",
     "beach_latitude": 29.662236,
     "beach_longitude": -84.861462,
-    "age_hours": 109.376,
+    "age_hours": 117.422,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
     "state": "no_fresh_visitbeaches_flag",
-    "knowthegulf_flag": "Double Red",
+    "knowthegulf_flag": "Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-10T20:00:57.264827-05:00",
+    "knowthegulf_last_verified_at": "2026-10-11T03:46:50.636505-05:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-10-06T11:49:28+00:00",
