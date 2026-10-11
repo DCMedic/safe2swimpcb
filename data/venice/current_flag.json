@@ -3622,8 +3622,8 @@
     "reason": "VisitBeaches has conflicting fresh Ambassador flag observations",
     "flag": null,
     "purple": false,
-    "report_at": "2026-10-11T16:02:22+00:00",
-    "fresh_observation_count": 4,
+    "report_at": "2026-10-11T19:20:55+00:00",
+    "fresh_observation_count": 3,
     "matched_beaches": [
       {
         "id": "6",
@@ -3643,10 +3643,10 @@
     ],
     "flag_conflict": true,
     "fresh_distinct_flags": [
-      "Double Red",
-      "Red"
+      "Red",
+      "Yellow"
     ],
-    "checked_at": "2026-10-11T17:46:14.004160+00:00",
+    "checked_at": "2026-10-11T22:23:29.376507+00:00",
     "publication_action": "corroboration_only"
   },
   "multi_source_confidence": "conflict"
