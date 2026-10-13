@@ -10,6 +10,13 @@
         },
         "posts": 3
       },
+      "ktg_destination_202610": {
+        "estimated_spend_usd": 0.2,
+        "landings": {
+          "Panama City Beach": 1
+        },
+        "posts": 1
+      },
       "ktg_flags_202608": {
         "estimated_spend_usd": 0.2,
         "landings": {
@@ -60,7 +67,7 @@
         "posts": 1
       }
     },
-    "link_posts": 10
+    "link_posts": 11
   },
   "flag_state": {
     "Destin": "Double Red",
@@ -69,11 +76,10 @@
     "Panama City Beach": "Yellow",
     "Pensacola Beach": "Yellow"
   },
-  "last_link_post_at": "2026-10-09T19:05:11.227102-05:00",
-  "last_posted_at": "2026-10-12T22:40:31.504434-05:00",
-  "lifetime_estimated_spend_usd": 3.11,
+  "last_link_post_at": "2026-10-13T14:54:20.934363-05:00",
+  "last_posted_at": "2026-10-13T14:54:20.934363-05:00",
+  "lifetime_estimated_spend_usd": 3.31,
   "recent_fingerprints": [
-    "6e6828d6dc963c17",
     "49e32f57e0e4afd0",
     "14f5e5ba08d407e4",
     "205a52451be5a6fe",
@@ -132,9 +138,10 @@
     "dcdf74012771f466",
     "1595a955fee1aff9",
     "017df0d05fbb25e3",
-    "cbf8e9868c617425"
+    "cbf8e9868c617425",
+    "db6c2e8ee9fd3601"
   ],
-  "sequence": 83,
+  "sequence": 84,
   "usage": {
     "2026-08": {
       "days": {
@@ -199,11 +206,12 @@
         "2026-10-08": 1,
         "2026-10-09": 1,
         "2026-10-10": 2,
-        "2026-10-12": 2
+        "2026-10-12": 2,
+        "2026-10-13": 1
       },
-      "estimated_spend_usd": 0.64,
-      "posts": 18,
-      "url_posts": 2
+      "estimated_spend_usd": 0.84,
+      "posts": 19,
+      "url_posts": 3
     }
   },
   "version": 1
