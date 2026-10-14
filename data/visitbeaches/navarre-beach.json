@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-14T17:32:41.461507+00:00",
+  "checked_at": "2026-10-14T21:54:10.571636+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Navarre Beach"
@@ -26,26 +26,26 @@
   ],
   "observations": [
     {
-      "report_id": "76014",
-      "created_at": "2026-10-14T12:11:43+00:00",
+      "report_id": "76064",
+      "created_at": "2026-10-14T20:45:24+00:00",
       "latitude": 30.382,
       "longitude": -86.8624,
       "ambassador": {
         "id": "2011",
         "name": "Navarre Beach"
       },
-      "flag": "Red",
+      "flag": "Double Red",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "SSE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "6.91",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -67,7 +67,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Wind Chop",
+            "value": "Calm",
             "unit": null
           },
           {
@@ -96,10 +96,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "2",
-              "name": "Red",
-              "value": "red",
-              "description": "High Hazard; high surf, and/or strong currents."
+              "id": "1",
+              "name": "Double Red",
+              "value": "double-red",
+              "description": "Water is closed to the public; storm surge, hurricanes, rip currents, elevated bacteria counts."
             }
           ]
         },
@@ -140,7 +140,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "SSE",
           "selected_values": []
         },
         {
@@ -150,7 +150,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "6.91",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -160,7 +160,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "66.96",
+          "value": "87.55",
           "selected_values": []
         },
         {
@@ -227,10 +227,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+              "id": "9",
+              "name": "Calm",
+              "value": "calm",
+              "description": null
             }
           ]
         },
@@ -386,7 +386,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 5.35,
+      "age_hours": 1.146,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -757,7 +757,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 29.458,
+      "age_hours": 33.816,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1122,40 +1122,40 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 45.293,
+      "age_hours": 49.651,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
   "fresh_observation_count": 1,
-  "flag": "Red",
+  "flag": "Double Red",
   "purple": false,
   "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Red"
+    "Double Red"
   ],
-  "newest_report_at": "2026-10-14T12:11:43+00:00",
+  "newest_report_at": "2026-10-14T20:45:24+00:00",
   "newest_flag_report": {
-    "report_id": "76014",
-    "created_at": "2026-10-14T12:11:43+00:00",
+    "report_id": "76064",
+    "created_at": "2026-10-14T20:45:24+00:00",
     "latitude": 30.382,
     "longitude": -86.8624,
     "ambassador": {
       "id": "2011",
       "name": "Navarre Beach"
     },
-    "flag": "Red",
+    "flag": "Double Red",
     "purple": false,
     "normalized_conditions": {
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "N",
+          "value": "SSE",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "6.91",
+          "value": "11.5",
           "unit": "Mph"
         }
       ],
@@ -1177,7 +1177,7 @@
         },
         {
           "parameter": "Surf Type",
-          "value": "Wind Chop",
+          "value": "Calm",
           "unit": null
         },
         {
@@ -1206,10 +1206,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "2",
-            "name": "Red",
-            "value": "red",
-            "description": "High Hazard; high surf, and/or strong currents."
+            "id": "1",
+            "name": "Double Red",
+            "value": "double-red",
+            "description": "Water is closed to the public; storm surge, hurricanes, rip currents, elevated bacteria counts."
           }
         ]
       },
@@ -1250,7 +1250,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "N",
+        "value": "SSE",
         "selected_values": []
       },
       {
@@ -1260,7 +1260,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "6.91",
+        "value": "11.5",
         "selected_values": []
       },
       {
@@ -1270,7 +1270,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "66.96",
+        "value": "87.55",
         "selected_values": []
       },
       {
@@ -1337,10 +1337,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "10",
-            "name": "Wind Chop",
-            "value": "wind-chop",
-            "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+            "id": "9",
+            "name": "Calm",
+            "value": "calm",
+            "description": null
           }
         ]
       },
@@ -1496,19 +1496,19 @@
     "beach_location": "Navarre Beach, FL",
     "beach_latitude": 30.382,
     "beach_longitude": -86.8624,
-    "age_hours": 5.35,
+    "age_hours": 1.146,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "flag_disagreement",
+    "state": "agree",
     "knowthegulf_flag": "Double Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-14T12:09:14.031687-05:00",
-    "visitbeaches_flag": "Red",
+    "knowthegulf_last_verified_at": "2026-10-14T16:40:09.805303-05:00",
+    "visitbeaches_flag": "Double Red",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-14T12:11:43+00:00",
+    "visitbeaches_newest_report_at": "2026-10-14T20:45:24+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
