@@ -1,11 +1,11 @@
 {
   "location": "South Walton / 30A",
-  "flag": "Red",
-  "label": "Red + Purple",
-  "severity": 3,
+  "flag": "Yellow",
+  "label": "Yellow",
+  "severity": 2,
   "provenance_tier": "primary_official_current_visual",
-  "last_verified_at": "2026-10-14T12:05:47.691011-05:00",
-  "last_checked_at": "2026-10-14T12:05:47.691011-05:00",
+  "last_verified_at": "2026-10-14T14:30:23.462551-05:00",
+  "last_checked_at": "2026-10-14T14:30:23.462551-05:00",
   "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
@@ -22,60 +22,42 @@
   "nws_reported_flag": "Red",
   "nws_issued_text": "2026-10-14T15:25:00+00:00",
   "nws_issued_at": "2026-10-14T11:25:00-04:00",
-  "nws_age_hours": 1.68,
+  "nws_age_hours": 4.09,
   "nws_source_url": "https://api.weather.gov/products/4eeb5258-2c1a-4575-bbd8-0a8cbf15c189",
   "corroborating_flag": null,
   "corroborates_primary": null,
   "source_note": "NWS Tallahassee republishes the flag reported by Walton-area beach officials; Visit South Walton supplies the public beach-safety program.",
   "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag.",
-  "primary_flag": "Red",
-  "purple": true,
+  "primary_flag": "Yellow",
+  "purple": false,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
   "flag_terms_note": "Official flag definitions remain authoritative for terminology. South Walton current-state parsing is bounded to the explicit Current Conditions region and stops before Beach Flag Warnings/legend content.",
   "current_flag_image_evidence": [
     {
       "semantic_evidence": [
-        "semantic:red",
-        "semantic:purple"
+        "semantic:yellow"
       ]
     },
     {
-      "url": "https://cdn.visitsouthwalton.com/img/flags/flag-red.svg",
+      "url": "https://cdn.visitsouthwalton.com/img/flags/flag-yellow.svg",
       "visual_analysis": {
-        "primary": null,
+        "primary": "Yellow",
         "purple": false,
         "confidence": 1.0,
-        "publishable": false,
-        "reason": "red is visually present but image pixels alone cannot distinguish Single Red from Double Red",
+        "publishable": true,
+        "reason": "high-confidence eligible current-status image",
         "color_fractions": {
-          "red": 0.4012,
-          "yellow": 0.0,
+          "red": 0.0,
+          "yellow": 0.4026,
           "green": 0.0,
           "purple": 0.0
         },
         "bbox_fill": 1.0
       }
-    },
-    {
-      "url": "https://cdn.visitsouthwalton.com/img/flags/flag-purple.svg",
-      "visual_analysis": {
-        "primary": null,
-        "purple": true,
-        "confidence": 0.0,
-        "publishable": false,
-        "reason": "no primary flag color occupies enough of the eligible image",
-        "color_fractions": {
-          "red": 0.0,
-          "yellow": 0.0,
-          "green": 0.0,
-          "purple": 0.4012
-        },
-        "bbox_fill": 0.0
-      }
     }
   ],
   "terminology_evidence": "bounded-current-conditions-visual",
-  "terminology_verified_at": "2026-10-14T12:05:47.691011-05:00",
+  "terminology_verified_at": "2026-10-14T14:30:23.462551-05:00",
   "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
