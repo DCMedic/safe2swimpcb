@@ -11,8 +11,8 @@
   "severity": null,
   "status": "visitbeaches_ambassador_conflict",
   "provenance_tier": "primary_observational_conflict",
-  "last_verified_at": "2026-10-15T11:15:22+00:00",
-  "last_checked_at": "2026-10-15T15:47:44.148089+00:00",
+  "last_verified_at": "2026-10-15T15:59:19+00:00",
+  "last_checked_at": "2026-10-15T17:00:54.301531+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -49,8 +49,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "76070",
-      "created_at": "2026-10-15T11:15:22+00:00",
+      "report_id": "76104",
+      "created_at": "2026-10-15T15:59:19+00:00",
       "latitude": 25.911738,
       "longitude": -81.72877,
       "ambassador": {
@@ -63,12 +63,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NE",
+            "value": "ENE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "5.75",
+            "value": "8.05",
             "unit": "Mph"
           }
         ],
@@ -80,7 +80,7 @@
           },
           {
             "parameter": "Rip Currents",
-            "value": "None",
+            "value": "Present",
             "unit": null
           },
           {
@@ -159,7 +159,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NE",
+          "value": "ENE",
           "selected_values": []
         },
         {
@@ -169,7 +169,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "5.75",
+          "value": "8.05",
           "selected_values": []
         },
         {
@@ -179,7 +179,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "75.15",
+          "value": "87.6",
           "selected_values": []
         },
         {
@@ -212,9 +212,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "19",
-              "name": "None",
-              "value": "none",
+              "id": "18",
+              "name": "Present",
+              "value": "present",
               "description": null
             }
           ]
@@ -395,7 +395,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 4.539,
+      "age_hours": 1.025,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -780,7 +780,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 22.084,
+      "age_hours": 23.303,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1131,7 +1131,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 52.637,
+      "age_hours": 53.855,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
