@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-16T16:53:47.611512+00:00",
+  "checked_at": "2026-10-16T21:37:23.517253+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Siesta Beach",
@@ -43,8 +43,8 @@
   ],
   "observations": [
     {
-      "report_id": "76153",
-      "created_at": "2026-10-16T14:39:28+00:00",
+      "report_id": "76165",
+      "created_at": "2026-10-16T19:47:01+00:00",
       "latitude": 27.264289,
       "longitude": -82.551447,
       "ambassador": {
@@ -57,12 +57,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "SE",
+            "value": "W",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "4.61",
+            "value": "9.22",
             "unit": "Mph"
           }
         ],
@@ -157,7 +157,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "SE",
+          "value": "W",
           "selected_values": []
         },
         {
@@ -167,7 +167,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4.61",
+          "value": "9.22",
           "selected_values": []
         },
         {
@@ -177,7 +177,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "85.78",
+          "value": "88.02",
           "selected_values": []
         },
         {
@@ -305,9 +305,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "30",
-              "name": "Beach",
-              "value": "beach",
+              "id": "32",
+              "name": "Beach & Water",
+              "value": "beach-and-water",
               "description": null
             }
           ]
@@ -437,7 +437,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 2.239,
+      "age_hours": 1.84,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -887,7 +887,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 4.271,
+      "age_hours": 8.998,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1252,7 +1252,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 25.374,
+      "age_hours": 30.101,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1617,7 +1617,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 45.554,
+      "age_hours": 50.281,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2073,7 +2073,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 148.136,
+      "age_hours": 152.863,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2523,7 +2523,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 172.541,
+      "age_hours": 177.268,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -2535,10 +2535,10 @@
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-10-16T14:39:28+00:00",
+  "newest_report_at": "2026-10-16T19:47:01+00:00",
   "newest_flag_report": {
-    "report_id": "76153",
-    "created_at": "2026-10-16T14:39:28+00:00",
+    "report_id": "76165",
+    "created_at": "2026-10-16T19:47:01+00:00",
     "latitude": 27.264289,
     "longitude": -82.551447,
     "ambassador": {
@@ -2551,12 +2551,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "SE",
+          "value": "W",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "4.61",
+          "value": "9.22",
           "unit": "Mph"
         }
       ],
@@ -2651,7 +2651,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "SE",
+        "value": "W",
         "selected_values": []
       },
       {
@@ -2661,7 +2661,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "4.61",
+        "value": "9.22",
         "selected_values": []
       },
       {
@@ -2671,7 +2671,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "85.78",
+        "value": "88.02",
         "selected_values": []
       },
       {
@@ -2799,9 +2799,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "30",
-            "name": "Beach",
-            "value": "beach",
+            "id": "32",
+            "name": "Beach & Water",
+            "value": "beach-and-water",
             "description": null
           }
         ]
@@ -2931,19 +2931,19 @@
     "beach_location": "Sarasota, FL",
     "beach_latitude": 27.264289,
     "beach_longitude": -82.551447,
-    "age_hours": 2.239,
+    "age_hours": 1.84,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_fills_current_gap",
-    "knowthegulf_flag": null,
+    "state": "agree",
+    "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-16T16:39:07.909789+00:00",
+    "knowthegulf_last_verified_at": "2026-10-16T14:39:28+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-16T14:39:28+00:00",
+    "visitbeaches_newest_report_at": "2026-10-16T19:47:01+00:00",
     "visitbeaches_fresh_observation_count": 2,
     "visitbeaches_flag_conflict": false
   },

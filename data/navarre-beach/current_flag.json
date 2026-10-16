@@ -25,12 +25,12 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "conflict",
-    "reason": "VisitBeaches has conflicting fresh Ambassador flag observations",
-    "flag": null,
+    "state": "corroborated",
+    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
+    "flag": "Yellow",
     "purple": false,
     "report_at": "2026-10-16T13:02:00+00:00",
-    "fresh_observation_count": 2,
+    "fresh_observation_count": 1,
     "matched_beaches": [
       {
         "id": "95",
@@ -38,13 +38,12 @@
         "location": "Navarre Beach, FL"
       }
     ],
-    "flag_conflict": true,
+    "flag_conflict": false,
     "fresh_distinct_flags": [
-      "Red",
       "Yellow"
     ],
-    "checked_at": "2026-10-16T16:53:40.628384+00:00",
+    "checked_at": "2026-10-16T21:37:18.020681+00:00",
     "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "conflict"
+  "multi_source_confidence": "corroborated"
 }
