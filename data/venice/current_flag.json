@@ -15,7 +15,7 @@
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-10-17T19:06:16+00:00",
-  "last_checked_at": "2026-10-17T22:11:11.918777+00:00",
+  "last_checked_at": "2026-10-17T23:12:52.827929+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -490,7 +490,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 3.082,
+      "age_hours": 4.109,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -855,7 +855,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 31.678,
+      "age_hours": 32.705,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1220,7 +1220,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 49.291,
+      "age_hours": 50.319,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1585,7 +1585,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 56.051,
+      "age_hours": 57.079,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1950,7 +1950,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 56.06,
+      "age_hours": 57.087,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2315,7 +2315,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 78.507,
+      "age_hours": 79.535,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2680,7 +2680,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 78.516,
+      "age_hours": 79.544,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3079,7 +3079,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 98.118,
+      "age_hours": 99.145,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3478,7 +3478,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 147.732,
+      "age_hours": 148.76,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -3486,41 +3486,5 @@
   "method": "Structured Mote Marine Laboratory BCRS GraphQL Beach Ambassador reports. Community Reports are excluded. A regional flag is published only when fresh explicit Ambassador flag observations agree; stale explicit reports remain visible as last verified information.",
   "safety_note": "Only an explicit Beach Ambassador warning-flag observation is displayed as a flag. Community Reports, rip-current risk, weather, surf, red-tide status, water quality, legends, and generic hazard scores are never converted into a Florida warning flag. Posted flags and lifeguard instructions control.",
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
-  "visitbeaches_evidence": {
-    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
-    "source_url": "https://visitbeaches.org/map",
-    "source_data_url": "https://api.visitbeaches.org/graphql",
-    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "corroborated",
-    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
-    "flag": "Green",
-    "purple": false,
-    "report_at": "2026-10-17T19:06:16+00:00",
-    "fresh_observation_count": 1,
-    "matched_beaches": [
-      {
-        "id": "6",
-        "name": "Venice Beach",
-        "location": "Venice, FL"
-      },
-      {
-        "id": "5",
-        "name": "Nokomis Beach",
-        "location": "Nokomis, FL"
-      },
-      {
-        "id": "1",
-        "name": "Venice North Jetty Beach",
-        "location": "Nokomis, FL"
-      }
-    ],
-    "flag_conflict": false,
-    "fresh_distinct_flags": [
-      "Green"
-    ],
-    "checked_at": "2026-10-17T22:35:51.221763+00:00",
-    "publication_action": "corroboration_only"
-  },
-  "multi_source_confidence": "corroborated"
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections."
 }
