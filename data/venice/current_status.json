@@ -14,8 +14,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-10-17T14:55:20+00:00",
-  "last_checked_at": "2026-10-17T18:34:51.389025+00:00",
+  "last_verified_at": "2026-10-17T19:06:16+00:00",
+  "last_checked_at": "2026-10-17T19:40:49.249970+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -79,8 +79,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "76196",
-      "created_at": "2026-10-17T14:55:20+00:00",
+      "report_id": "76209",
+      "created_at": "2026-10-17T19:06:16+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
@@ -98,7 +98,7 @@
           },
           {
             "parameter": "Wind Speed",
-            "value": "4.61",
+            "value": "12.66",
             "unit": "Mph"
           }
         ],
@@ -120,7 +120,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
@@ -129,14 +129,14 @@
             "unit": null
           }
         ],
-        "water_color": "Dark",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "83",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "Few"
+        "crowd": "None"
       },
       "parameters": [
         {
@@ -203,7 +203,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "4.61",
+          "value": "12.66",
           "selected_values": []
         },
         {
@@ -213,7 +213,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.63",
+          "value": "79.12",
           "selected_values": []
         },
         {
@@ -280,10 +280,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -314,10 +314,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "22",
-              "name": "Dark",
-              "value": "dark",
-              "description": "Thick or murky water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -332,40 +332,6 @@
           "selected_values": []
         },
         {
-          "parameter_id": "17",
-          "parameter": "Drift Algae Location",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "32",
-              "name": "Beach & Water",
-              "value": "beach-and-water",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "16",
-          "parameter": "Drift Algae Type",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "28",
-              "name": "Brown Macroalgae",
-              "value": "brown-macroalgea",
-              "description": null
-            }
-          ]
-        },
-        {
           "parameter_id": "15",
           "parameter": "Drift Algae",
           "prompt": null,
@@ -375,10 +341,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "24",
-              "name": "Some",
-              "value": "some",
-              "description": "Clumps of drift algae."
+              "id": "23",
+              "name": "None",
+              "value": "none",
+              "description": "No drift algae in sight."
             }
           ]
         },
@@ -426,9 +392,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "38",
-              "name": "Beach & Water",
-              "value": "beach-and-water",
+              "id": "36",
+              "name": "Beach",
+              "value": "beach",
               "description": null
             }
           ]
@@ -511,10 +477,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "59",
-              "name": "Few",
-              "value": "few",
-              "description": "Beachgoers are easily spaced 6 ft or more apart."
+              "id": "58",
+              "name": "None",
+              "value": "none",
+              "description": "Sporadic beachgoers."
             }
           ]
         }
@@ -524,7 +490,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 3.658,
+      "age_hours": 0.575,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -889,7 +855,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 28.072,
+      "age_hours": 29.171,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1254,7 +1220,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 45.685,
+      "age_hours": 46.785,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1619,7 +1585,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 52.445,
+      "age_hours": 53.544,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1984,7 +1950,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 52.454,
+      "age_hours": 53.553,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2349,7 +2315,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 74.901,
+      "age_hours": 76.0,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2714,7 +2680,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 74.91,
+      "age_hours": 76.009,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3113,7 +3079,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 94.512,
+      "age_hours": 95.611,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3512,7 +3478,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 144.126,
+      "age_hours": 145.226,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
