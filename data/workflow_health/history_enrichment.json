@@ -1,9 +1,9 @@
 {
   "event_name": "schedule",
-  "head_sha": "1d2bc41e788aa4493a4f8616a7056b50aac713b1",
-  "last_success_at": "2026-10-10T15:25:31.370110+00:00",
+  "head_sha": "fd67be67b7d3c149bd1477483b3ce4db6a9eb0a7",
+  "last_success_at": "2026-10-17T13:06:37.600760+00:00",
   "run_attempt": "1",
-  "run_id": "38063338746",
+  "run_id": "39034617651",
   "status": "success",
   "version": 1,
   "workflow": "Refresh measured NOAA and storm history"
