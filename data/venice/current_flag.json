@@ -3492,12 +3492,12 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "corroborated",
-    "reason": "Primary current-status source agrees with fresh VisitBeaches Ambassador observation",
-    "flag": "Green",
+    "state": "conflict",
+    "reason": "VisitBeaches has conflicting fresh Ambassador flag observations",
+    "flag": null,
     "purple": false,
-    "report_at": "2026-10-17T19:06:16+00:00",
-    "fresh_observation_count": 1,
+    "report_at": "2026-10-18T16:51:01+00:00",
+    "fresh_observation_count": 3,
     "matched_beaches": [
       {
         "id": "6",
@@ -3515,14 +3515,15 @@
         "location": "Nokomis, FL"
       }
     ],
-    "flag_conflict": false,
+    "flag_conflict": true,
     "fresh_distinct_flags": [
-      "Green"
+      "Green",
+      "Yellow"
     ],
-    "checked_at": "2026-10-18T16:06:23.106685+00:00",
+    "checked_at": "2026-10-18T18:51:05.963001+00:00",
     "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "corroborated",
+  "multi_source_confidence": "conflict",
   "cached_from_provenance_tier": "primary_visitbeaches_ambassador",
   "cached": true,
   "source_error": "visitbeaches_ambassador_conflict",
