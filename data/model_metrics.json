@@ -16,20 +16,20 @@
     {
       "key": "wave_period_s",
       "label": "Wave period",
-      "coefficient": 1.8186699886239333,
-      "odds_ratio": 6.163655264308041
+      "coefficient": 1.818669988623933,
+      "odds_ratio": 6.163655264308039
     },
     {
       "key": "wave_max_ft",
       "label": "Wave height",
-      "coefficient": 1.493844657004698,
-      "odds_ratio": 4.454187464652046
+      "coefficient": 1.4938446570046988,
+      "odds_ratio": 4.454187464652049
     },
     {
       "key": "gust_max_mph",
       "label": "Max gust",
-      "coefficient": -0.5792341539588657,
-      "odds_ratio": 0.5603273267506375
+      "coefficient": -0.5792341539588648,
+      "odds_ratio": 0.5603273267506379
     },
     {
       "key": "season_cos",
@@ -40,37 +40,37 @@
     {
       "key": "tide_range_ft",
       "label": "Tide range",
-      "coefficient": -0.5020484792048315,
+      "coefficient": -0.5020484792048316,
       "odds_ratio": 0.6052894659829232
     },
     {
       "key": "wind_max_mph",
       "label": "Max wind",
-      "coefficient": 0.4452725107656466,
-      "odds_ratio": 1.5609155041586338
+      "coefficient": 0.4452725107656449,
+      "odds_ratio": 1.5609155041586311
     },
     {
       "key": "season_sin",
       "label": "Season (sin)",
-      "coefficient": -0.3785283299474752,
-      "odds_ratio": 0.6848685684896678
+      "coefficient": -0.37852832994747493,
+      "odds_ratio": 0.684868568489668
     },
     {
       "key": "precip_in",
       "label": "Rain",
-      "coefficient": 0.16591857778927946,
+      "coefficient": 0.16591857778927932,
       "odds_ratio": 1.18047698076466
     },
     {
       "key": "swell_max_ft",
       "label": "Swell height",
-      "coefficient": 0.13487829156459635,
+      "coefficient": 0.13487829156459644,
       "odds_ratio": 1.1443974930466645
     },
     {
       "key": "swell_period_s",
       "label": "Swell period",
-      "coefficient": -0.02775212427998351,
+      "coefficient": -0.027752124279983522,
       "odds_ratio": 0.972629428143196
     }
   ],
