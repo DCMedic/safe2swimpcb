@@ -14,8 +14,8 @@
   "severity": null,
   "status": "visitbeaches_ambassador_conflict",
   "provenance_tier": "primary_observational_conflict",
-  "last_verified_at": "2026-10-19T15:02:09+00:00",
-  "last_checked_at": "2026-10-19T18:44:34.788650+00:00",
+  "last_verified_at": "2026-10-19T19:27:46+00:00",
+  "last_checked_at": "2026-10-19T19:51:24.539021+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -23,7 +23,7 @@
   "official_authority": "Sarasota County Fire Department Lifeguard Operations",
   "official_authority_url": "https://www.scgov.net/government/emergency-services/lifeguard-operations",
   "source_reachable": true,
-  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Green, Yellow",
+  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Green, Red, Yellow",
   "flag_expected_from_source": true,
   "stale_after_hours": 24,
   "update_note": "Sarasota County directs visitors to VisitBeaches for lifeguard-updated beach conditions; posted flags and lifeguards control.",
@@ -76,19 +76,20 @@
   "visitbeaches_flag_conflict": true,
   "visitbeaches_fresh_distinct_flags": [
     "Green",
+    "Red",
     "Yellow"
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "76293",
-      "created_at": "2026-10-19T15:02:09+00:00",
+      "report_id": "76307",
+      "created_at": "2026-10-19T19:27:46+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
         "id": "1",
         "name": "Sarasota County"
       },
-      "flag": "Green",
+      "flag": "Red",
       "purple": false,
       "normalized_conditions": {
         "wind": [
@@ -99,7 +100,7 @@
           },
           {
             "parameter": "Wind Speed",
-            "value": "14.97",
+            "value": "18.41",
             "unit": "Mph"
           }
         ],
@@ -121,7 +122,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Wind Chop",
+            "value": "Shore Break",
             "unit": null
           },
           {
@@ -130,14 +131,14 @@
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "82",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "Few"
+        "crowd": "Many"
       },
       "parameters": [
         {
@@ -149,6 +150,12 @@
           "category_slug": "flag",
           "value": null,
           "selected_values": [
+            {
+              "id": "2",
+              "name": "Red",
+              "value": "red",
+              "description": "High Hazard; high surf, and/or strong currents."
+            },
             {
               "id": "4",
               "name": "Green",
@@ -204,7 +211,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "14.97",
+          "value": "18.41",
           "selected_values": []
         },
         {
@@ -214,7 +221,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "77.07",
+          "value": "77.32",
           "selected_values": []
         },
         {
@@ -224,7 +231,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -281,10 +288,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+              "id": "11",
+              "name": "Shore Break",
+              "value": "shore-break",
+              "description": "Waves breaking close to shore or shallow water."
             }
           ]
         },
@@ -315,10 +322,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -350,57 +357,6 @@
           ]
         },
         {
-          "parameter_id": "21",
-          "parameter": "Biogenic",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "43",
-              "name": "Some",
-              "value": "some",
-              "description": "Sporadic deposits of beach debris washed ashore."
-            }
-          ]
-        },
-        {
-          "parameter_id": "20",
-          "parameter": "Anthropogenic",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "40",
-              "name": "Some",
-              "value": "some",
-              "description": "There are 3 to 10 pieces of litter in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "19",
-          "parameter": "Beach Debris Location",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "38",
-              "name": "Beach & Water",
-              "value": "beach-and-water",
-              "description": null
-            }
-          ]
-        },
-        {
           "parameter_id": "18",
           "parameter": "Beach Debris",
           "prompt": null,
@@ -410,9 +366,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "34",
-              "name": "Some",
-              "value": "some",
+              "id": "33",
+              "name": "None",
+              "value": "none",
               "description": null
             }
           ]
@@ -478,10 +434,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "59",
-              "name": "Few",
-              "value": "few",
-              "description": "Beachgoers are easily spaced 6 ft or more apart."
+              "id": "60",
+              "name": "Many",
+              "value": "many",
+              "description": "Continous crowds along the shore."
             }
           ]
         }
@@ -491,13 +447,13 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 3.707,
+      "age_hours": 0.393,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "76290",
-      "created_at": "2026-10-19T14:47:35+00:00",
+      "report_id": "76305",
+      "created_at": "2026-10-19T19:01:33+00:00",
       "latitude": 27.124129,
       "longitude": -82.47093,
       "ambassador": {
@@ -515,7 +471,7 @@
           },
           {
             "parameter": "Wind Speed",
-            "value": "17.27",
+            "value": "21.85",
             "unit": "Mph"
           }
         ],
@@ -600,7 +556,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "07:31:40 AM",
+          "value": "07:31:39 AM",
           "selected_values": []
         },
         {
@@ -620,7 +576,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "17.27",
+          "value": "21.85",
           "selected_values": []
         },
         {
@@ -630,7 +586,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "75.88",
+          "value": "76.62",
           "selected_values": []
         },
         {
@@ -640,7 +596,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Rain",
           "selected_values": []
         },
         {
@@ -766,57 +722,6 @@
           ]
         },
         {
-          "parameter_id": "21",
-          "parameter": "Biogenic",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "42",
-              "name": "None",
-              "value": "none",
-              "description": "No beach debris in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "20",
-          "parameter": "Anthropogenic",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "40",
-              "name": "Some",
-              "value": "some",
-              "description": "There are 3 to 10 pieces of litter in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "19",
-          "parameter": "Beach Debris Location",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "38",
-              "name": "Beach & Water",
-              "value": "beach-and-water",
-              "description": null
-            }
-          ]
-        },
-        {
           "parameter_id": "18",
           "parameter": "Beach Debris",
           "prompt": null,
@@ -826,9 +731,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "34",
-              "name": "Some",
-              "value": "some",
+              "id": "33",
+              "name": "None",
+              "value": "none",
               "description": null
             }
           ]
@@ -907,7 +812,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 3.949,
+      "age_hours": 0.83,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1323,7 +1228,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 22.354,
+      "age_hours": 23.468,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1688,7 +1593,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 22.358,
+      "age_hours": 23.471,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -2087,7 +1992,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 26.355,
+      "age_hours": 27.469,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2503,7 +2408,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 47.638,
+      "age_hours": 48.752,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2868,7 +2773,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 100.607,
+      "age_hours": 101.721,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3233,7 +3138,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 100.616,
+      "age_hours": 101.73,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3598,7 +3503,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 123.063,
+      "age_hours": 124.177,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -3606,42 +3511,5 @@
   "method": "Structured Mote Marine Laboratory BCRS GraphQL Beach Ambassador reports. Community Reports are excluded. A regional flag is published only when fresh explicit Ambassador flag observations agree; stale explicit reports remain visible as last verified information.",
   "safety_note": "Only an explicit Beach Ambassador warning-flag observation is displayed as a flag. Community Reports, rip-current risk, weather, surf, red-tide status, water quality, legends, and generic hazard scores are never converted into a Florida warning flag. Posted flags and lifeguard instructions control.",
   "flag_schema": "Florida Beach Warning Flag terminology v1",
-  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections.",
-  "visitbeaches_evidence": {
-    "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
-    "source_url": "https://visitbeaches.org/map",
-    "source_data_url": "https://api.visitbeaches.org/graphql",
-    "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "conflict",
-    "reason": "VisitBeaches has conflicting fresh Ambassador flag observations",
-    "flag": null,
-    "purple": false,
-    "report_at": "2026-10-19T15:02:09+00:00",
-    "fresh_observation_count": 4,
-    "matched_beaches": [
-      {
-        "id": "6",
-        "name": "Venice Beach",
-        "location": "Venice, FL"
-      },
-      {
-        "id": "5",
-        "name": "Nokomis Beach",
-        "location": "Nokomis, FL"
-      },
-      {
-        "id": "1",
-        "name": "Venice North Jetty Beach",
-        "location": "Nokomis, FL"
-      }
-    ],
-    "flag_conflict": true,
-    "fresh_distinct_flags": [
-      "Green",
-      "Yellow"
-    ],
-    "checked_at": "2026-10-19T18:49:55.027854+00:00",
-    "publication_action": "corroboration_only"
-  },
-  "multi_source_confidence": "conflict"
+  "flag_terms_note": "Official current wording is normalized as: Water Closed to Public=Double Red; High Hazard or High Surf and/or Currents=Red; Medium/Moderate Hazard or Moderate Surf and/or Currents=Yellow; Low Hazard or Calm Conditions, Exercise Caution=Green; Dangerous Marine Life=Purple. Purple is an independent overlay. Forecast rip-current risk is not converted into a flag. Generic current-text evidence is bounded before legend, warning, rules, FAQ, and safety-education sections."
 }
