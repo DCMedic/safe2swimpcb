@@ -15,7 +15,7 @@
   "status": "visitbeaches_ambassador_conflict",
   "provenance_tier": "primary_observational_conflict",
   "last_verified_at": "2026-10-18T20:23:18+00:00",
-  "last_checked_at": "2026-10-19T04:53:57.345210+00:00",
+  "last_checked_at": "2026-10-19T06:46:04.630886+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -491,7 +491,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 8.51,
+      "age_hours": 10.379,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -856,7 +856,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 8.513,
+      "age_hours": 10.383,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1255,7 +1255,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 12.511,
+      "age_hours": 14.38,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1671,7 +1671,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 33.794,
+      "age_hours": 35.663,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2036,7 +2036,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 62.39,
+      "age_hours": 64.259,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2401,7 +2401,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 86.763,
+      "age_hours": 88.632,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2766,7 +2766,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 86.772,
+      "age_hours": 88.641,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3131,7 +3131,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 109.219,
+      "age_hours": 111.088,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3496,7 +3496,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 109.228,
+      "age_hours": 111.097,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
