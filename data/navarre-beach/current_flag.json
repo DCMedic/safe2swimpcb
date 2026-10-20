@@ -1,9 +1,9 @@
 {
-  "flag": "Single Red",
-  "label": "Single Red",
-  "severity": 3,
-  "last_verified_at": "2026-10-19T23:48:25.546189-05:00",
-  "last_checked_at": "2026-10-19T23:48:25.546189-05:00",
+  "flag": "Yellow",
+  "label": "Yellow",
+  "severity": 2,
+  "last_verified_at": "2026-10-20T10:13:02.498627-05:00",
+  "last_checked_at": "2026-10-20T10:13:02.498627-05:00",
   "source_check_status": "verified",
   "source_name": "Santa Rosa County / Navarre Beach Safety",
   "source_url": "https://www.santarosa.fl.gov/",
@@ -11,52 +11,52 @@
   "official_authority_url": "https://www.santarosa.fl.gov/318/Navarre-Beach-Pavilions",
   "method": "Official current-status text/structured evidence first; guarded current-status image verification is additive fallback/corroboration only",
   "stale_after_hours": 24,
-  "primary_flag": "Single Red",
+  "primary_flag": "Yellow",
   "purple": false,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
   "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Current status must come from explicit current evidence. Forecast values never become the current flag.",
   "current_flag_image_evidence": [
     {
-      "url": "https://www.santarosa.fl.gov/ImageRepository/Document?documentID=10442",
-      "context": "Hurricane Isaias Update 17 COUNTY SPOTLIGHT Hurricane Isaias Update #17 Read on... COUNTY SPOTLIGHT Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online Community Resources - Hurricane Isaias Find information on feeding sites and other community resources available after Hurricane Isaias. Additional Info... NAVARRE BEACH BOARDWALK PROJECT INFORMATION ",
-      "alt": "Hurricane Isaias Update 17",
+      "url": "https://www.santarosa.fl.gov/ImageRepository/Document?documentID=10440",
+      "context": "Community Resources COUNTY SPOTLIGHT COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources COUNTY SPOTLIGHT COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the proposed construction of ",
+      "alt": "Community Resources",
       "visual_analysis": {
         "primary": null,
         "purple": false,
-        "confidence": 0.383,
+        "confidence": 0.476,
         "publishable": false,
         "reason": "no primary flag color occupies enough of the eligible image",
         "color_fractions": {
-          "red": 0.0359,
+          "red": 0.0,
           "yellow": 0.0039,
           "green": 0.0098,
-          "purple": 0.0
+          "purple": 0.0026
         },
-        "bbox_fill": 0.059
+        "bbox_fill": 0.735
       }
     },
     {
       "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "context": "2026 Hurricane Isaias Updates Hurricane Isaias Update #17 DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online Hurricane Isaias Update #17 Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online Community Resources - Hurricane Isaias Find informati",
+      "context": "Hurricane Isaias Update 17 COMMUNITY RESOURCES - HURRICANE ISAIAS Hurricane Isaias Update #17 Read on... COMMUNITY RESOURCES - HURRICANE ISAIAS COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the",
+      "alt": "Hurricane Isaias Update 17",
+      "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
+    },
+    {
+      "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "context": "2026 Hurricane Isaias Updates Hurricane Isaias Update #17 DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online Hurricane Isaias Update #17 COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashbo",
       "alt": "2026 Hurricane Isaias Updates",
       "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
     },
     {
       "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "context": "Community Resources DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS Community Resources - Hurricane Isaias Find information on feeding sites and other community resources available after Hurricane Isaias. Additional Info... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online Community Resources - Hurricane Isai",
-      "alt": "Community Resources",
-      "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
-    },
-    {
-      "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "context": "Navarre Beach Boardwalk Project website Community Resources - Hurricane Isaias NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the proposed construction of an event hall, boardwalk, parking lot, restrooms, roadway improvements, and related site improvements. Find more information Community Resources - Hurricane Isaias Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of de",
+      "context": "Navarre Beach Boardwalk Project website DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the proposed construction of an event hall, boardwalk, parking lot, restrooms, roadway improvements, and related site improvements. Find more information DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources Hurricane Isaias Update #17 Read on... DEBRIS REMOVAL DASHBOARD -",
       "alt": "Navarre Beach Boardwalk Project website",
       "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
     }
   ],
   "provenance_tier": "primary_official_current_status",
-  "terminology_evidence": "Current Surf Conditions High Hazard",
-  "terminology_verified_at": "2026-10-19T23:48:25.546189-05:00",
+  "terminology_evidence": "Current Surf Conditions Moderate Hazard",
+  "terminology_verified_at": "2026-10-20T10:13:02.498627-05:00",
   "terminology_verified_url": "https://www.santarosa.fl.gov/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
