@@ -2,8 +2,8 @@
   "flag": "Yellow",
   "label": "Yellow",
   "severity": 2,
-  "last_verified_at": "2026-10-21T10:56:14.643669-05:00",
-  "last_checked_at": "2026-10-21T10:56:14.643669-05:00",
+  "last_verified_at": "2026-10-21T12:11:01.153328-05:00",
+  "last_checked_at": "2026-10-21T12:11:01.153328-05:00",
   "source_check_status": "verified",
   "source_name": "Santa Rosa County / Navarre Beach Safety",
   "source_url": "https://www.santarosa.fl.gov/",
@@ -15,48 +15,10 @@
   "purple": false,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
   "flag_terms_note": "Official flag-definition text remains authoritative for terminology normalization. Current status must come from explicit current evidence. Forecast values never become the current flag.",
-  "current_flag_image_evidence": [
-    {
-      "url": "https://www.santarosa.fl.gov/ImageRepository/Document?documentID=10451",
-      "context": "Isaias Update 18 COUNTY SPOTLIGHT Hurricane Isaias Update #18 Read on... COUNTY SPOTLIGHT Hurricane Isaias Update #18 Read on... COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the proposed construction of an event hall, boardwalk, pa",
-      "alt": "Isaias Update 18",
-      "visual_analysis": {
-        "primary": null,
-        "purple": false,
-        "confidence": 0.386,
-        "publishable": false,
-        "reason": "no primary flag color occupies enough of the eligible image",
-        "color_fractions": {
-          "red": 0.0366,
-          "yellow": 0.0039,
-          "green": 0.0098,
-          "purple": 0.0
-        },
-        "bbox_fill": 0.06
-      }
-    },
-    {
-      "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "context": "Community Resources Hurricane Isaias Update #18 COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources Hurricane Isaias Update #18 Hurricane Isaias Update #18 Read on... COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the pro",
-      "alt": "Community Resources",
-      "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
-    },
-    {
-      "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "context": "2026 Hurricane Isaias Updates COMMUNITY RESOURCES - HURRICANE ISAIAS DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane Isaias. See the dashboard online COMMUNITY RESOURCES - HURRICANE ISAIAS Hurricane Isaias Update #18 Read on... COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS A dashboard is available to see the current status of debris removal from Hurricane ",
-      "alt": "2026 Hurricane Isaias Updates",
-      "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
-    },
-    {
-      "url": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "context": "Navarre Beach Boardwalk Project website DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS NAVARRE BEACH BOARDWALK PROJECT INFORMATION The Navarre Beach Boardwalk Project includes the proposed construction of an event hall, boardwalk, parking lot, restrooms, roadway improvements, and related site improvements. Find more information DEBRIS REMOVAL DASHBOARD - HURRICANE ISAIAS Hurricane Isaias Update #18 Read on... COMMUNITY RESOURCES - HURRICANE ISAIAS Find community resources DEBRIS REMOVAL DASHBOARD -",
-      "alt": "Navarre Beach Boardwalk Project website",
-      "analysis_error": "No connection adapters were found for 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'"
-    }
-  ],
+  "current_flag_image_evidence": [],
   "provenance_tier": "primary_official_current_status",
   "terminology_evidence": "Current Surf Conditions Moderate Hazard",
-  "terminology_verified_at": "2026-10-21T10:56:14.643669-05:00",
+  "terminology_verified_at": "2026-10-21T12:11:01.153328-05:00",
   "terminology_verified_url": "https://www.santarosa.fl.gov/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
