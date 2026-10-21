@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-21T17:36:32.180554+00:00",
+  "checked_at": "2026-10-21T21:56:55.422799+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Siesta Beach",
@@ -43,8 +43,8 @@
   ],
   "observations": [
     {
-      "report_id": "76391",
-      "created_at": "2026-10-21T14:59:49+00:00",
+      "report_id": "76404",
+      "created_at": "2026-10-21T19:51:33+00:00",
       "latitude": 27.264289,
       "longitude": -82.551447,
       "ambassador": {
@@ -57,12 +57,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NNE",
+            "value": "E",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "11.92",
+            "value": "6.91",
             "unit": "Mph"
           }
         ],
@@ -113,16 +113,16 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
-            },
-            {
               "id": "5",
               "name": "Purple",
               "value": "purple",
               "description": "Stinging Marine Life; Man o' War, Jellyfish, Stingrays"
+            },
+            {
+              "id": "4",
+              "name": "Green",
+              "value": "green",
+              "description": "Low Hazard; calm conditions; exercise caution."
             }
           ]
         },
@@ -163,7 +163,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NNE",
+          "value": "E",
           "selected_values": []
         },
         {
@@ -173,7 +173,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "11.92",
+          "value": "6.91",
           "selected_values": []
         },
         {
@@ -183,7 +183,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "74.12",
+          "value": "82.56",
           "selected_values": []
         },
         {
@@ -193,7 +193,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -379,10 +379,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "57",
-              "name": "Many",
-              "value": "many",
-              "description": "More than 2 jellyfish in sight."
+              "id": "56",
+              "name": "Some",
+              "value": "some",
+              "description": "There are 1 to 2 jellyfish in sight."
             }
           ]
         },
@@ -409,7 +409,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 2.612,
+      "age_hours": 2.09,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -780,7 +780,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 27.251,
+      "age_hours": 31.591,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1151,7 +1151,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 69.463,
+      "age_hours": 73.803,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1601,7 +1601,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 99.879,
+      "age_hours": 104.219,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2051,7 +2051,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 124.983,
+      "age_hours": 129.323,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2507,7 +2507,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 268.848,
+      "age_hours": 273.188,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -2519,10 +2519,10 @@
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-10-21T14:59:49+00:00",
+  "newest_report_at": "2026-10-21T19:51:33+00:00",
   "newest_flag_report": {
-    "report_id": "76391",
-    "created_at": "2026-10-21T14:59:49+00:00",
+    "report_id": "76404",
+    "created_at": "2026-10-21T19:51:33+00:00",
     "latitude": 27.264289,
     "longitude": -82.551447,
     "ambassador": {
@@ -2535,12 +2535,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "NNE",
+          "value": "E",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "11.92",
+          "value": "6.91",
           "unit": "Mph"
         }
       ],
@@ -2591,16 +2591,16 @@
         "value": null,
         "selected_values": [
           {
-            "id": "4",
-            "name": "Green",
-            "value": "green",
-            "description": "Low Hazard; calm conditions; exercise caution."
-          },
-          {
             "id": "5",
             "name": "Purple",
             "value": "purple",
             "description": "Stinging Marine Life; Man o' War, Jellyfish, Stingrays"
+          },
+          {
+            "id": "4",
+            "name": "Green",
+            "value": "green",
+            "description": "Low Hazard; calm conditions; exercise caution."
           }
         ]
       },
@@ -2641,7 +2641,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "NNE",
+        "value": "E",
         "selected_values": []
       },
       {
@@ -2651,7 +2651,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "11.92",
+        "value": "6.91",
         "selected_values": []
       },
       {
@@ -2661,7 +2661,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "74.12",
+        "value": "82.56",
         "selected_values": []
       },
       {
@@ -2671,7 +2671,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Clear",
+        "value": "Clouds",
         "selected_values": []
       },
       {
@@ -2857,10 +2857,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "57",
-            "name": "Many",
-            "value": "many",
-            "description": "More than 2 jellyfish in sight."
+            "id": "56",
+            "name": "Some",
+            "value": "some",
+            "description": "There are 1 to 2 jellyfish in sight."
           }
         ]
       },
@@ -2887,19 +2887,19 @@
     "beach_location": "Sarasota, FL",
     "beach_latitude": 27.264289,
     "beach_longitude": -82.551447,
-    "age_hours": 2.612,
+    "age_hours": 2.09,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_fills_current_gap",
-    "knowthegulf_flag": null,
-    "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-21T17:22:17.638774+00:00",
+    "state": "agree",
+    "knowthegulf_flag": "Green",
+    "knowthegulf_purple": true,
+    "knowthegulf_last_verified_at": "2026-10-21T14:59:49+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": true,
-    "visitbeaches_newest_report_at": "2026-10-21T14:59:49+00:00",
+    "visitbeaches_newest_report_at": "2026-10-21T19:51:33+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },

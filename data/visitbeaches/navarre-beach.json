@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-21T17:36:22.327099+00:00",
+  "checked_at": "2026-10-21T21:56:46.861436+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Navarre Beach"
@@ -26,13 +26,13 @@
   ],
   "observations": [
     {
-      "report_id": "76374",
-      "created_at": "2026-10-21T12:24:54+00:00",
+      "report_id": "76406",
+      "created_at": "2026-10-21T20:13:09+00:00",
       "latitude": 30.382,
       "longitude": -86.8624,
       "ambassador": {
-        "id": "2512",
-        "name": "Navarre Beach Public Access #37A"
+        "id": "2011",
+        "name": "Navarre Beach"
       },
       "flag": "Yellow",
       "purple": false,
@@ -40,12 +40,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "S",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "6.91",
+            "value": "8.05",
             "unit": "Mph"
           }
         ],
@@ -62,7 +62,7 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "2-4 feet (0.6-1.2 m)",
+            "value": "1-2 feet (0.3-0.6 m)",
             "unit": null
           },
           {
@@ -76,14 +76,14 @@
             "unit": null
           }
         ],
-        "water_color": "Moderate",
+        "water_color": "Clear",
         "water_temperature": {
           "value": "79",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "None"
+        "crowd": "Many"
       },
       "parameters": [
         {
@@ -140,7 +140,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "S",
           "selected_values": []
         },
         {
@@ -150,7 +150,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "6.91",
+          "value": "8.05",
           "selected_values": []
         },
         {
@@ -160,7 +160,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "50.09",
+          "value": "77.49",
           "selected_values": []
         },
         {
@@ -170,7 +170,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clouds",
+          "value": "Clear",
           "selected_values": []
         },
         {
@@ -210,9 +210,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "16",
-              "name": "2-4 feet (0.6-1.2 m)",
-              "value": "2-4",
+              "id": "15",
+              "name": "1-2 feet (0.3-0.6 m)",
+              "value": "1-2",
               "description": null
             }
           ]
@@ -261,10 +261,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "21",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": "A light tint."
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
             }
           ]
         },
@@ -356,10 +356,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "56",
-              "name": "Some",
-              "value": "some",
-              "description": "There are 1 to 2 jellyfish in sight."
+              "id": "55",
+              "name": "None",
+              "value": "none",
+              "description": "No jellyfish in sight."
             }
           ]
         },
@@ -373,10 +373,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
+              "id": "60",
+              "name": "Many",
+              "value": "many",
+              "description": "Continous crowds along the shore."
             }
           ]
         }
@@ -386,7 +386,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 5.191,
+      "age_hours": 1.727,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -751,7 +751,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 29.237,
+      "age_hours": 33.577,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1116,7 +1116,7 @@
       "beach_location": "Navarre Beach, FL",
       "beach_latitude": 30.382,
       "beach_longitude": -86.8624,
-      "age_hours": 53.071,
+      "age_hours": 57.411,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1128,15 +1128,15 @@
   "fresh_distinct_flags": [
     "Yellow"
   ],
-  "newest_report_at": "2026-10-21T12:24:54+00:00",
+  "newest_report_at": "2026-10-21T20:13:09+00:00",
   "newest_flag_report": {
-    "report_id": "76374",
-    "created_at": "2026-10-21T12:24:54+00:00",
+    "report_id": "76406",
+    "created_at": "2026-10-21T20:13:09+00:00",
     "latitude": 30.382,
     "longitude": -86.8624,
     "ambassador": {
-      "id": "2512",
-      "name": "Navarre Beach Public Access #37A"
+      "id": "2011",
+      "name": "Navarre Beach"
     },
     "flag": "Yellow",
     "purple": false,
@@ -1144,12 +1144,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "N",
+          "value": "S",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "6.91",
+          "value": "8.05",
           "unit": "Mph"
         }
       ],
@@ -1166,7 +1166,7 @@
         },
         {
           "parameter": "Surf Height",
-          "value": "2-4 feet (0.6-1.2 m)",
+          "value": "1-2 feet (0.3-0.6 m)",
           "unit": null
         },
         {
@@ -1180,14 +1180,14 @@
           "unit": null
         }
       ],
-      "water_color": "Moderate",
+      "water_color": "Clear",
       "water_temperature": {
         "value": "79",
         "unit": "\u00b0F"
       },
       "respiratory_irritation": "None",
       "dead_fish": "None",
-      "crowd": "None"
+      "crowd": "Many"
     },
     "parameters": [
       {
@@ -1244,7 +1244,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "N",
+        "value": "S",
         "selected_values": []
       },
       {
@@ -1254,7 +1254,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "6.91",
+        "value": "8.05",
         "selected_values": []
       },
       {
@@ -1264,7 +1264,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "50.09",
+        "value": "77.49",
         "selected_values": []
       },
       {
@@ -1274,7 +1274,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Clouds",
+        "value": "Clear",
         "selected_values": []
       },
       {
@@ -1314,9 +1314,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "16",
-            "name": "2-4 feet (0.6-1.2 m)",
-            "value": "2-4",
+            "id": "15",
+            "name": "1-2 feet (0.3-0.6 m)",
+            "value": "1-2",
             "description": null
           }
         ]
@@ -1365,10 +1365,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "21",
-            "name": "Moderate",
-            "value": "moderate",
-            "description": "A light tint."
+            "id": "20",
+            "name": "Clear",
+            "value": "clear",
+            "description": "Able to see the bottom in shallow water."
           }
         ]
       },
@@ -1460,10 +1460,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "56",
-            "name": "Some",
-            "value": "some",
-            "description": "There are 1 to 2 jellyfish in sight."
+            "id": "55",
+            "name": "None",
+            "value": "none",
+            "description": "No jellyfish in sight."
           }
         ]
       },
@@ -1477,10 +1477,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "58",
-            "name": "None",
-            "value": "none",
-            "description": "Sporadic beachgoers."
+            "id": "60",
+            "name": "Many",
+            "value": "many",
+            "description": "Continous crowds along the shore."
           }
         ]
       }
@@ -1490,7 +1490,7 @@
     "beach_location": "Navarre Beach, FL",
     "beach_latitude": 30.382,
     "beach_longitude": -86.8624,
-    "age_hours": 5.191,
+    "age_hours": 1.727,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1499,10 +1499,10 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-21T12:11:01.153328-05:00",
+    "knowthegulf_last_verified_at": "2026-10-21T16:41:50.222506-05:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-21T12:24:54+00:00",
+    "visitbeaches_newest_report_at": "2026-10-21T20:13:09+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
