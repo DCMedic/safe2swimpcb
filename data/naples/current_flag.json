@@ -15,7 +15,7 @@
   "status": "visitbeaches_ambassador_conflict",
   "provenance_tier": "primary_observational_conflict",
   "last_verified_at": "2026-10-21T15:02:41+00:00",
-  "last_checked_at": "2026-10-21T15:23:22.274939+00:00",
+  "last_checked_at": "2026-10-21T17:12:10.955726+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -86,7 +86,7 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 5,
+  "visitbeaches_fresh_observation_count": 4,
   "visitbeaches_flag_conflict": true,
   "visitbeaches_fresh_distinct_flags": [
     "Green",
@@ -455,7 +455,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 0.344,
+      "age_hours": 2.157,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -820,7 +820,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 0.356,
+      "age_hours": 2.17,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1205,7 +1205,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 3.72,
+      "age_hours": 5.534,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1641,7 +1641,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 4.075,
+      "age_hours": 5.889,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -2006,8 +2006,8 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 23.666,
-      "fresh": true,
+      "age_hours": 25.479,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -2442,7 +2442,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 27.161,
+      "age_hours": 28.975,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2793,7 +2793,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 27.763,
+      "age_hours": 29.577,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3195,7 +3195,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 27.885,
+      "age_hours": 29.699,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3560,7 +3560,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.207391,
       "beach_longitude": -81.816778,
-      "age_hours": 45.62,
+      "age_hours": 47.434,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3959,7 +3959,7 @@
       "beach_location": "Naples, FL",
       "beach_latitude": 26.131679,
       "beach_longitude": -81.806322,
-      "age_hours": 49.632,
+      "age_hours": 51.445,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4310,7 +4310,7 @@
       "beach_location": "North Naples, FL",
       "beach_latitude": 26.253502,
       "beach_longitude": -81.823303,
-      "age_hours": 51.687,
+      "age_hours": 53.501,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -4661,7 +4661,7 @@
       "beach_location": "Bonita Springs, FL",
       "beach_latitude": 26.301713,
       "beach_longitude": -81.834758,
-      "age_hours": 51.988,
+      "age_hours": 53.802,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
