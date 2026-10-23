@@ -4,8 +4,8 @@
   "label": "Yellow",
   "severity": 2,
   "provenance_tier": "primary_official_current_visual",
-  "last_verified_at": "2026-10-22T19:14:34.953748-05:00",
-  "last_checked_at": "2026-10-22T19:14:34.953748-05:00",
+  "last_verified_at": "2026-10-22T20:27:36.442946-05:00",
+  "last_checked_at": "2026-10-22T20:27:36.442946-05:00",
   "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
@@ -22,7 +22,7 @@
   "nws_reported_flag": "Yellow",
   "nws_issued_text": "2026-10-22T15:59:00+00:00",
   "nws_issued_at": "2026-10-22T11:59:00-04:00",
-  "nws_age_hours": 8.26,
+  "nws_age_hours": 9.48,
   "nws_source_url": "https://api.weather.gov/products/35ec9fc8-91bb-42a0-af28-b2fe64ce30af",
   "corroborating_flag": null,
   "corroborates_primary": null,
@@ -57,7 +57,7 @@
     }
   ],
   "terminology_evidence": "bounded-current-conditions-visual",
-  "terminology_verified_at": "2026-10-22T19:14:34.953748-05:00",
+  "terminology_verified_at": "2026-10-22T20:27:36.442946-05:00",
   "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
