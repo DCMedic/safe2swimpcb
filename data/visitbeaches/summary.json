@@ -96,11 +96,11 @@
     },
     "siesta-key": {
       "matched_beaches": 2,
-      "fresh_observations": 2,
+      "fresh_observations": 1,
       "visitbeaches_flag": "Green",
       "visitbeaches_purple": true,
       "flag_conflict": false,
-      "comparison": "primary_flag_agrees_overlay_differs",
+      "comparison": "agree",
       "error": null
     },
     "venice": {
@@ -132,7 +132,7 @@
     },
     "naples": {
       "matched_beaches": 4,
-      "fresh_observations": 5,
+      "fresh_observations": 4,
       "visitbeaches_flag": null,
       "visitbeaches_purple": false,
       "flag_conflict": true,
