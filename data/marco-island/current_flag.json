@@ -4,15 +4,15 @@
   "beaches": [
     "South Marco Beach"
   ],
-  "flag": null,
-  "primary_flag": null,
+  "flag": "Yellow",
+  "primary_flag": "Yellow",
   "purple": false,
-  "label": "Conflicting fresh Beach Ambassador flag reports",
-  "severity": null,
-  "status": "visitbeaches_ambassador_conflict",
-  "provenance_tier": "primary_observational_conflict",
+  "label": "Yellow",
+  "severity": 2,
+  "status": "explicit_flag_verified",
+  "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-10-24T15:24:19+00:00",
-  "last_checked_at": "2026-10-24T19:51:54.829417+00:00",
+  "last_checked_at": "2026-10-24T21:11:30.536930+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -20,7 +20,7 @@
   "official_authority": "Collier County Pollution Control / Mote Marine Laboratory",
   "official_authority_url": "https://www.collier.gov/County-Development/Transportation-Management/Pollution-Control/Red-Tide/Red-Tide-Status",
   "source_reachable": true,
-  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Green, Yellow",
+  "explicit_flag_evidence": "VisitBeaches Beach Ambassador report(s): Yellow",
   "flag_expected_from_source": false,
   "stale_after_hours": 24,
   "update_note": "Collier County directs users to VisitBeaches for current conditions. A flag is displayed only when explicitly reported upstream.",
@@ -41,10 +41,9 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 2,
-  "visitbeaches_flag_conflict": true,
+  "visitbeaches_fresh_observation_count": 1,
+  "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
-    "Green",
     "Yellow"
   ],
   "visitbeaches_observations": [
@@ -395,7 +394,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 4.46,
+      "age_hours": 5.786,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -746,8 +745,8 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 23.737,
-      "fresh": true,
+      "age_hours": 25.063,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1097,7 +1096,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 49.454,
+      "age_hours": 50.781,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
