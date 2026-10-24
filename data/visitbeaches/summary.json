@@ -105,11 +105,11 @@
     },
     "venice": {
       "matched_beaches": 3,
-      "fresh_observations": 2,
-      "visitbeaches_flag": "Yellow",
+      "fresh_observations": 3,
+      "visitbeaches_flag": null,
       "visitbeaches_purple": false,
-      "flag_conflict": false,
-      "comparison": "agree",
+      "flag_conflict": true,
+      "comparison": "visitbeaches_internal_conflict",
       "error": null
     },
     "sanibel": {
@@ -141,11 +141,11 @@
     },
     "marco-island": {
       "matched_beaches": 1,
-      "fresh_observations": 2,
-      "visitbeaches_flag": null,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
-      "flag_conflict": true,
-      "comparison": "visitbeaches_internal_conflict",
+      "flag_conflict": false,
+      "comparison": "agree",
       "error": null
     }
   }
