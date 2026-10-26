@@ -3,12 +3,12 @@
   "retrieval_endpoint": "https://mesonet.agron.iastate.edu/cgi-bin/afos/retrieve.py",
   "archive_start_requested": "2008-01-01",
   "first_product_date": "2017-06-01",
-  "last_product_date": "2026-10-19",
-  "products_parsed": 9770,
-  "daily_records": 3420,
-  "days_with_explicit_bay_flag": 2243,
-  "explicit_bay_flag_observations": 2254,
+  "last_product_date": "2026-10-26",
+  "products_parsed": 9783,
+  "daily_records": 3427,
+  "days_with_explicit_bay_flag": 2249,
+  "explicit_bay_flag_observations": 2260,
   "days_with_explicit_bay_purple": 2,
   "note": "Supplemental research source. Explicit Bay flag reports come from NWS products stating they were based on communication with area beach officials. Purple is preserved when the NWS line explicitly includes it. This dataset remains provenance-labeled and never overwrites original ALERTBAY/PCBFLAGS evidence.",
-  "updated_at_utc": "2026-10-19T15:52:20.385864+00:00"
+  "updated_at_utc": "2026-10-26T15:28:30.299319+00:00"
 }
