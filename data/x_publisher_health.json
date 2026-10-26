@@ -1,10 +1,10 @@
 {
   "exit_code": 0,
   "forced_slot": null,
-  "last_evaluated_at": "2026-10-26T14:26:21.568913-05:00",
+  "last_evaluated_at": "2026-10-26T18:57:22.003409-05:00",
   "last_failure_at": "2026-08-24T15:51:30.151854-05:00",
   "last_outcome": "no_post",
-  "last_outcome_detail": "duplicate fingerprint",
+  "last_outcome_detail": "no scheduled slot or verified flag change",
   "last_published_at": "2026-10-26T09:15:17.374021-05:00",
   "publish_requested": true,
   "version": 1
