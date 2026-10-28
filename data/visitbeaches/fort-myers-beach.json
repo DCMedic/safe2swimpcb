@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-28T01:37:30.311299+00:00",
+  "checked_at": "2026-10-28T08:55:59.716814+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Fort Myers Beach",
@@ -437,7 +437,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 13.597,
+      "age_hours": 20.905,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -836,7 +836,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 181.186,
+      "age_hours": 188.494,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1201,7 +1201,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 252.011,
+      "age_hours": 259.319,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1606,7 +1606,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 6729.416,
+      "age_hours": 6736.725,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2005,7 +2005,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 7493.758,
+      "age_hours": 7501.066,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2404,7 +2404,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 7737.354,
+      "age_hours": 7744.662,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -2812,7 +2812,7 @@
     "beach_location": "Fort Myers Beach, FL",
     "beach_latitude": 26.4536438,
     "beach_longitude": -81.9570615,
-    "age_hours": 13.597,
+    "age_hours": 20.905,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -2821,7 +2821,7 @@
     "state": "visitbeaches_fills_current_gap",
     "knowthegulf_flag": null,
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-28T01:15:01.378056+00:00",
+    "knowthegulf_last_verified_at": "2026-10-28T08:29:22.479526+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-10-27T12:01:40+00:00",
