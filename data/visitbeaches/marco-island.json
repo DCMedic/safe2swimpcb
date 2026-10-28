@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-28T18:29:17.821818+00:00",
+  "checked_at": "2026-10-28T22:47:40.742853+00:00",
   "freshness_hours": 24,
   "aliases": [
     "South Marco Beach",
@@ -28,8 +28,8 @@
   ],
   "observations": [
     {
-      "report_id": "76684",
-      "created_at": "2026-10-28T11:43:32+00:00",
+      "report_id": "76719",
+      "created_at": "2026-10-28T19:40:00+00:00",
       "latitude": 25.911738,
       "longitude": -81.72877,
       "ambassador": {
@@ -42,19 +42,19 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "ENE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "10.36",
+            "value": "6.91",
             "unit": "Mph"
           }
         ],
         "surf": [
           {
             "parameter": "Rip Currents",
-            "value": "None",
+            "value": "Present",
             "unit": null
           },
           {
@@ -64,7 +64,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Wind Chop",
+            "value": "Shore Break",
             "unit": null
           },
           {
@@ -73,7 +73,7 @@
             "unit": null
           }
         ],
-        "water_color": "Dark",
+        "water_color": "Clear",
         "respiratory_irritation": "None",
         "dead_fish": "None",
         "crowd": "None"
@@ -133,7 +133,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "ENE",
           "selected_values": []
         },
         {
@@ -143,7 +143,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "10.36",
+          "value": "6.91",
           "selected_values": []
         },
         {
@@ -153,7 +153,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "74.89",
+          "value": "89.6",
           "selected_values": []
         },
         {
@@ -176,9 +176,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "19",
-              "name": "None",
-              "value": "none",
+              "id": "18",
+              "name": "Present",
+              "value": "present",
               "description": null
             }
           ]
@@ -210,10 +210,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+              "id": "11",
+              "name": "Shore Break",
+              "value": "shore-break",
+              "description": "Waves breaking close to shore or shallow water."
             }
           ]
         },
@@ -244,10 +244,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "22",
-              "name": "Dark",
-              "value": "dark",
-              "description": "Thick or murky water."
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
             }
           ]
         },
@@ -359,7 +359,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 6.763,
+      "age_hours": 3.128,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -710,7 +710,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 31.118,
+      "age_hours": 35.424,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1061,7 +1061,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 54.975,
+      "age_hours": 59.281,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1073,10 +1073,10 @@
   "fresh_distinct_flags": [
     "Yellow"
   ],
-  "newest_report_at": "2026-10-28T11:43:32+00:00",
+  "newest_report_at": "2026-10-28T19:40:00+00:00",
   "newest_flag_report": {
-    "report_id": "76684",
-    "created_at": "2026-10-28T11:43:32+00:00",
+    "report_id": "76719",
+    "created_at": "2026-10-28T19:40:00+00:00",
     "latitude": 25.911738,
     "longitude": -81.72877,
     "ambassador": {
@@ -1089,19 +1089,19 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "N",
+          "value": "ENE",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "10.36",
+          "value": "6.91",
           "unit": "Mph"
         }
       ],
       "surf": [
         {
           "parameter": "Rip Currents",
-          "value": "None",
+          "value": "Present",
           "unit": null
         },
         {
@@ -1111,7 +1111,7 @@
         },
         {
           "parameter": "Surf Type",
-          "value": "Wind Chop",
+          "value": "Shore Break",
           "unit": null
         },
         {
@@ -1120,7 +1120,7 @@
           "unit": null
         }
       ],
-      "water_color": "Dark",
+      "water_color": "Clear",
       "respiratory_irritation": "None",
       "dead_fish": "None",
       "crowd": "None"
@@ -1180,7 +1180,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "N",
+        "value": "ENE",
         "selected_values": []
       },
       {
@@ -1190,7 +1190,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "10.36",
+        "value": "6.91",
         "selected_values": []
       },
       {
@@ -1200,7 +1200,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "74.89",
+        "value": "89.6",
         "selected_values": []
       },
       {
@@ -1223,9 +1223,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "19",
-            "name": "None",
-            "value": "none",
+            "id": "18",
+            "name": "Present",
+            "value": "present",
             "description": null
           }
         ]
@@ -1257,10 +1257,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "10",
-            "name": "Wind Chop",
-            "value": "wind-chop",
-            "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+            "id": "11",
+            "name": "Shore Break",
+            "value": "shore-break",
+            "description": "Waves breaking close to shore or shallow water."
           }
         ]
       },
@@ -1291,10 +1291,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "22",
-            "name": "Dark",
-            "value": "dark",
-            "description": "Thick or murky water."
+            "id": "20",
+            "name": "Clear",
+            "value": "clear",
+            "description": "Able to see the bottom in shallow water."
           }
         ]
       },
@@ -1406,7 +1406,7 @@
     "beach_location": "Marco Island, FL",
     "beach_latitude": 25.911738,
     "beach_longitude": -81.72877,
-    "age_hours": 6.763,
+    "age_hours": 3.128,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1415,10 +1415,10 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-28T11:43:32+00:00",
+    "knowthegulf_last_verified_at": "2026-10-28T19:40:00+00:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-28T11:43:32+00:00",
+    "visitbeaches_newest_report_at": "2026-10-28T19:40:00+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
