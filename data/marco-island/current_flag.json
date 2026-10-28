@@ -11,8 +11,8 @@
   "severity": 2,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-10-28T11:43:32+00:00",
-  "last_checked_at": "2026-10-28T18:56:39.220335+00:00",
+  "last_verified_at": "2026-10-28T19:40:00+00:00",
+  "last_checked_at": "2026-10-28T20:32:51.068667+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -48,8 +48,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "76684",
-      "created_at": "2026-10-28T11:43:32+00:00",
+      "report_id": "76719",
+      "created_at": "2026-10-28T19:40:00+00:00",
       "latitude": 25.911738,
       "longitude": -81.72877,
       "ambassador": {
@@ -62,19 +62,19 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "ENE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "10.36",
+            "value": "6.91",
             "unit": "Mph"
           }
         ],
         "surf": [
           {
             "parameter": "Rip Currents",
-            "value": "None",
+            "value": "Present",
             "unit": null
           },
           {
@@ -84,7 +84,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Wind Chop",
+            "value": "Shore Break",
             "unit": null
           },
           {
@@ -93,7 +93,7 @@
             "unit": null
           }
         ],
-        "water_color": "Dark",
+        "water_color": "Clear",
         "respiratory_irritation": "None",
         "dead_fish": "None",
         "crowd": "None"
@@ -153,7 +153,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "ENE",
           "selected_values": []
         },
         {
@@ -163,7 +163,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "10.36",
+          "value": "6.91",
           "selected_values": []
         },
         {
@@ -173,7 +173,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "74.89",
+          "value": "89.6",
           "selected_values": []
         },
         {
@@ -196,9 +196,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "19",
-              "name": "None",
-              "value": "none",
+              "id": "18",
+              "name": "Present",
+              "value": "present",
               "description": null
             }
           ]
@@ -230,10 +230,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+              "id": "11",
+              "name": "Shore Break",
+              "value": "shore-break",
+              "description": "Waves breaking close to shore or shallow water."
             }
           ]
         },
@@ -264,10 +264,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "22",
-              "name": "Dark",
-              "value": "dark",
-              "description": "Thick or murky water."
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
             }
           ]
         },
@@ -379,7 +379,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 7.218,
+      "age_hours": 0.881,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -730,7 +730,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 31.573,
+      "age_hours": 33.177,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1081,7 +1081,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 55.431,
+      "age_hours": 57.034,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
