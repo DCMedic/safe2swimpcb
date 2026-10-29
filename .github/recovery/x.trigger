@@ -1,4 +1,4 @@
 lane=x
-requested_at=2026-10-23T09:19:00.366-05:00
+requested_at=2026-10-29T14:07:39.927Z
 requested_by=knowthegulf-repository-health
-reason=overdue heartbeat data/x_publisher_health.json age 491 minutes
+reason=overdue heartbeat data/x_publisher_health.json age 410 minutes
