@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-30T18:10:37.876354+00:00",
+  "checked_at": "2026-10-30T22:37:34.223162+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Venice Beach",
@@ -58,8 +58,8 @@
   ],
   "observations": [
     {
-      "report_id": "76810",
-      "created_at": "2026-10-30T16:15:42+00:00",
+      "report_id": "76823",
+      "created_at": "2026-10-30T20:04:31+00:00",
       "latitude": 27.1136,
       "longitude": -82.469,
       "ambassador": {
@@ -72,12 +72,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NE",
+            "value": "E",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "16.11",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -167,7 +167,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NE",
+          "value": "E",
           "selected_values": []
         },
         {
@@ -177,7 +177,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "16.11",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -187,7 +187,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "84.29",
+          "value": "86.5",
           "selected_values": []
         },
         {
@@ -437,13 +437,13 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 1.916,
+      "age_hours": 2.551,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "76809",
-      "created_at": "2026-10-30T16:15:13+00:00",
+      "report_id": "76822",
+      "created_at": "2026-10-30T20:04:00+00:00",
       "latitude": 27.124129,
       "longitude": -82.47093,
       "ambassador": {
@@ -456,12 +456,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NE",
+            "value": "E",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "16.11",
+            "value": "11.5",
             "unit": "Mph"
           }
         ],
@@ -489,12 +489,12 @@
         ],
         "water_color": "Dark",
         "water_temperature": {
-          "value": "75",
+          "value": "76",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "Many"
+        "crowd": "Few"
       },
       "parameters": [
         {
@@ -551,7 +551,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NE",
+          "value": "E",
           "selected_values": []
         },
         {
@@ -561,7 +561,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "16.11",
+          "value": "11.5",
           "selected_values": []
         },
         {
@@ -571,7 +571,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "84.34",
+          "value": "86.5",
           "selected_values": []
         },
         {
@@ -676,7 +676,7 @@
           "unit": "\u00b0F",
           "category": "Water Conditions",
           "category_slug": "water-conditions",
-          "value": "75",
+          "value": "76",
           "selected_values": []
         },
         {
@@ -808,10 +808,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "60",
-              "name": "Many",
-              "value": "many",
-              "description": "Continous crowds along the shore."
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
             }
           ]
         }
@@ -821,13 +821,13 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 1.924,
+      "age_hours": 2.56,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
     {
-      "report_id": "76807",
-      "created_at": "2026-10-30T15:17:31+00:00",
+      "report_id": "76819",
+      "created_at": "2026-10-30T18:23:19+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
@@ -845,7 +845,7 @@
           },
           {
             "parameter": "Wind Speed",
-            "value": "14.97",
+            "value": "12.66",
             "unit": "Mph"
           }
         ],
@@ -945,7 +945,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "14.97",
+          "value": "12.66",
           "selected_values": []
         },
         {
@@ -955,7 +955,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "81.43",
+          "value": "86.56",
           "selected_values": []
         },
         {
@@ -1171,7 +1171,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 2.885,
+      "age_hours": 4.238,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1521,8 +1521,8 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 22.759,
-      "fresh": true,
+      "age_hours": 27.208,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1905,7 +1905,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 46.202,
+      "age_hours": 50.651,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2340,7 +2340,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 52.099,
+      "age_hours": 56.548,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2775,7 +2775,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 52.11,
+      "age_hours": 56.559,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3174,7 +3174,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 71.277,
+      "age_hours": 75.726,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3539,22 +3539,22 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 71.41,
+      "age_hours": 75.859,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 4,
+  "fresh_observation_count": 3,
   "flag": "Green",
   "purple": false,
   "flag_conflict": false,
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-10-30T16:15:42+00:00",
+  "newest_report_at": "2026-10-30T20:04:31+00:00",
   "newest_flag_report": {
-    "report_id": "76810",
-    "created_at": "2026-10-30T16:15:42+00:00",
+    "report_id": "76823",
+    "created_at": "2026-10-30T20:04:31+00:00",
     "latitude": 27.1136,
     "longitude": -82.469,
     "ambassador": {
@@ -3567,12 +3567,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "NE",
+          "value": "E",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "16.11",
+          "value": "11.5",
           "unit": "Mph"
         }
       ],
@@ -3662,7 +3662,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "NE",
+        "value": "E",
         "selected_values": []
       },
       {
@@ -3672,7 +3672,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "16.11",
+        "value": "11.5",
         "selected_values": []
       },
       {
@@ -3682,7 +3682,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "84.29",
+        "value": "86.5",
         "selected_values": []
       },
       {
@@ -3932,7 +3932,7 @@
     "beach_location": "Nokomis, FL",
     "beach_latitude": 27.1136,
     "beach_longitude": -82.469,
-    "age_hours": 1.916,
+    "age_hours": 2.551,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -3941,11 +3941,11 @@
     "state": "agree",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-30T16:15:42+00:00",
+    "knowthegulf_last_verified_at": "2026-10-30T20:04:31+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-30T16:15:42+00:00",
-    "visitbeaches_fresh_observation_count": 4,
+    "visitbeaches_newest_report_at": "2026-10-30T20:04:31+00:00",
+    "visitbeaches_fresh_observation_count": 3,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
