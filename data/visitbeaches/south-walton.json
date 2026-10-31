@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-31T08:47:12.765723+00:00",
+  "checked_at": "2026-10-31T17:20:44.054711+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Miramar Beach",
@@ -28,8 +28,8 @@
   "knowthegulf_comparison": {
     "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Yellow",
-    "knowthegulf_purple": true,
-    "knowthegulf_last_verified_at": "2026-10-31T03:26:36.300430-05:00",
+    "knowthegulf_purple": false,
+    "knowthegulf_last_verified_at": "2026-10-31T12:16:24.457384-05:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": null,
