@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-31T17:20:49.639860+00:00",
+  "checked_at": "2026-10-31T21:49:33.828493+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Siesta Beach",
@@ -43,8 +43,8 @@
   ],
   "observations": [
     {
-      "report_id": "76856",
-      "created_at": "2026-10-31T14:00:16+00:00",
+      "report_id": "76870",
+      "created_at": "2026-10-31T18:32:07+00:00",
       "latitude": 27.264289,
       "longitude": -82.551447,
       "ambassador": {
@@ -62,7 +62,7 @@
           },
           {
             "parameter": "Wind Speed",
-            "value": "8.05",
+            "value": "14.97",
             "unit": "Mph"
           }
         ],
@@ -88,14 +88,14 @@
             "unit": null
           }
         ],
-        "water_color": "Dark",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "78",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "Few"
+        "crowd": "Many"
       },
       "parameters": [
         {
@@ -162,7 +162,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "8.05",
+          "value": "14.97",
           "selected_values": []
         },
         {
@@ -172,7 +172,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "75.43",
+          "value": "84.96",
           "selected_values": []
         },
         {
@@ -263,10 +263,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "22",
-              "name": "Dark",
-              "value": "dark",
-              "description": "Thick or murky water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -281,40 +281,6 @@
           "selected_values": []
         },
         {
-          "parameter_id": "17",
-          "parameter": "Drift Algae Location",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "31",
-              "name": "Water",
-              "value": "water",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "16",
-          "parameter": "Drift Algae Type",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "26",
-              "name": "Red Macroalgae",
-              "value": "red-macroalgea",
-              "description": null
-            }
-          ]
-        },
-        {
           "parameter_id": "15",
           "parameter": "Drift Algae",
           "prompt": null,
@@ -324,10 +290,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "24",
-              "name": "Some",
-              "value": "some",
-              "description": "Clumps of drift algae."
+              "id": "23",
+              "name": "None",
+              "value": "none",
+              "description": "No drift algae in sight."
             }
           ]
         },
@@ -409,10 +375,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "59",
-              "name": "Few",
-              "value": "few",
-              "description": "Beachgoers are easily spaced 6 ft or more apart."
+              "id": "60",
+              "name": "Many",
+              "value": "many",
+              "description": "Continous crowds along the shore."
             }
           ]
         }
@@ -422,7 +388,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 3.343,
+      "age_hours": 3.291,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -857,7 +823,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 4.759,
+      "age_hours": 9.238,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -1298,7 +1264,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 24.176,
+      "age_hours": 28.655,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1733,7 +1699,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 24.81,
+      "age_hours": 29.289,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2089,7 +2055,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.264289,
       "beach_longitude": -82.551447,
-      "age_hours": 46.324,
+      "age_hours": 50.803,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2505,7 +2471,7 @@
       "beach_location": "Sarasota, FL",
       "beach_latitude": 27.218478,
       "beach_longitude": -82.517231,
-      "age_hours": 220.243,
+      "age_hours": 224.722,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -2517,10 +2483,10 @@
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-10-31T14:00:16+00:00",
+  "newest_report_at": "2026-10-31T18:32:07+00:00",
   "newest_flag_report": {
-    "report_id": "76856",
-    "created_at": "2026-10-31T14:00:16+00:00",
+    "report_id": "76870",
+    "created_at": "2026-10-31T18:32:07+00:00",
     "latitude": 27.264289,
     "longitude": -82.551447,
     "ambassador": {
@@ -2538,7 +2504,7 @@
         },
         {
           "parameter": "Wind Speed",
-          "value": "8.05",
+          "value": "14.97",
           "unit": "Mph"
         }
       ],
@@ -2564,14 +2530,14 @@
           "unit": null
         }
       ],
-      "water_color": "Dark",
+      "water_color": "Moderate",
       "water_temperature": {
         "value": "78",
         "unit": "\u00b0F"
       },
       "respiratory_irritation": "None",
       "dead_fish": "None",
-      "crowd": "Few"
+      "crowd": "Many"
     },
     "parameters": [
       {
@@ -2638,7 +2604,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "8.05",
+        "value": "14.97",
         "selected_values": []
       },
       {
@@ -2648,7 +2614,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "75.43",
+        "value": "84.96",
         "selected_values": []
       },
       {
@@ -2739,10 +2705,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "22",
-            "name": "Dark",
-            "value": "dark",
-            "description": "Thick or murky water."
+            "id": "21",
+            "name": "Moderate",
+            "value": "moderate",
+            "description": "A light tint."
           }
         ]
       },
@@ -2757,40 +2723,6 @@
         "selected_values": []
       },
       {
-        "parameter_id": "17",
-        "parameter": "Drift Algae Location",
-        "prompt": null,
-        "unit": null,
-        "category": "Drift Algae",
-        "category_slug": "drift-algae",
-        "value": null,
-        "selected_values": [
-          {
-            "id": "31",
-            "name": "Water",
-            "value": "water",
-            "description": null
-          }
-        ]
-      },
-      {
-        "parameter_id": "16",
-        "parameter": "Drift Algae Type",
-        "prompt": null,
-        "unit": null,
-        "category": "Drift Algae",
-        "category_slug": "drift-algae",
-        "value": null,
-        "selected_values": [
-          {
-            "id": "26",
-            "name": "Red Macroalgae",
-            "value": "red-macroalgea",
-            "description": null
-          }
-        ]
-      },
-      {
         "parameter_id": "15",
         "parameter": "Drift Algae",
         "prompt": null,
@@ -2800,10 +2732,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "24",
-            "name": "Some",
-            "value": "some",
-            "description": "Clumps of drift algae."
+            "id": "23",
+            "name": "None",
+            "value": "none",
+            "description": "No drift algae in sight."
           }
         ]
       },
@@ -2885,10 +2817,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "59",
-            "name": "Few",
-            "value": "few",
-            "description": "Beachgoers are easily spaced 6 ft or more apart."
+            "id": "60",
+            "name": "Many",
+            "value": "many",
+            "description": "Continous crowds along the shore."
           }
         ]
       }
@@ -2898,19 +2830,19 @@
     "beach_location": "Sarasota, FL",
     "beach_latitude": 27.264289,
     "beach_longitude": -82.551447,
-    "age_hours": 3.343,
+    "age_hours": 3.291,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_fills_current_gap",
-    "knowthegulf_flag": null,
+    "state": "agree",
+    "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-31T17:16:20.458599+00:00",
+    "knowthegulf_last_verified_at": "2026-10-31T14:00:16+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-31T14:00:16+00:00",
+    "visitbeaches_newest_report_at": "2026-10-31T18:32:07+00:00",
     "visitbeaches_fresh_observation_count": 2,
     "visitbeaches_flag_conflict": false
   },
