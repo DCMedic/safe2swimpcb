@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-10-31T21:49:27.373010+00:00",
+  "checked_at": "2026-11-01T01:24:50.630834+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -26,8 +26,8 @@
   ],
   "observations": [
     {
-      "report_id": "76860",
-      "created_at": "2026-10-31T14:41:04+00:00",
+      "report_id": "76880",
+      "created_at": "2026-10-31T23:06:52+00:00",
       "latitude": 30.330943,
       "longitude": -87.142206,
       "ambassador": {
@@ -40,7 +40,7 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ENE",
+            "value": "ESE",
             "unit": ""
           },
           {
@@ -115,7 +115,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "06:02:09 PM",
+          "value": "06:02:10 PM",
           "selected_values": []
         },
         {
@@ -135,7 +135,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ENE",
+          "value": "ESE",
           "selected_values": []
         },
         {
@@ -155,7 +155,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "72.5",
+          "value": "75.83",
           "selected_values": []
         },
         {
@@ -371,7 +371,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 7.14,
+      "age_hours": 2.3,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -721,8 +721,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 22.76,
-      "fresh": true,
+      "age_hours": 26.35,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1071,23 +1071,22 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 46.538,
+      "age_hours": 50.128,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
-  "flag": null,
+  "fresh_observation_count": 1,
+  "flag": "Red",
   "purple": false,
-  "flag_conflict": true,
+  "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Red",
-    "Yellow"
+    "Red"
   ],
-  "newest_report_at": "2026-10-31T14:41:04+00:00",
+  "newest_report_at": "2026-10-31T23:06:52+00:00",
   "newest_flag_report": {
-    "report_id": "76860",
-    "created_at": "2026-10-31T14:41:04+00:00",
+    "report_id": "76880",
+    "created_at": "2026-10-31T23:06:52+00:00",
     "latitude": 30.330943,
     "longitude": -87.142206,
     "ambassador": {
@@ -1100,7 +1099,7 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "ENE",
+          "value": "ESE",
           "unit": ""
         },
         {
@@ -1175,7 +1174,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "06:02:09 PM",
+        "value": "06:02:10 PM",
         "selected_values": []
       },
       {
@@ -1195,7 +1194,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "ENE",
+        "value": "ESE",
         "selected_values": []
       },
       {
@@ -1215,7 +1214,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "72.5",
+        "value": "75.83",
         "selected_values": []
       },
       {
@@ -1431,21 +1430,21 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 7.14,
+    "age_hours": 2.3,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_internal_conflict",
+    "state": "flag_disagreement",
     "knowthegulf_flag": "Single Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-31T09:40:29.257000-05:00",
-    "visitbeaches_flag": null,
+    "knowthegulf_last_verified_at": "2026-10-31T18:06:12.800000-05:00",
+    "visitbeaches_flag": "Red",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-10-31T14:41:04+00:00",
-    "visitbeaches_fresh_observation_count": 2,
-    "visitbeaches_flag_conflict": true
+    "visitbeaches_newest_report_at": "2026-10-31T23:06:52+00:00",
+    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
   "publication_effect": "none",
