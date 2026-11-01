@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-01T18:31:34.164228+00:00",
+  "checked_at": "2026-11-01T22:59:58.217675+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Sanibel",
@@ -29,8 +29,8 @@
   ],
   "observations": [
     {
-      "report_id": "76890",
-      "created_at": "2026-11-01T13:49:33+00:00",
+      "report_id": "76915",
+      "created_at": "2026-11-01T21:13:57+00:00",
       "latitude": 26.522131,
       "longitude": -82.193346,
       "ambassador": {
@@ -43,12 +43,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ENE",
+            "value": "E",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "12.71",
+            "value": "12.82",
             "unit": "Mph"
           }
         ],
@@ -74,7 +74,7 @@
             "unit": null
           }
         ],
-        "water_color": "Moderate",
+        "water_color": "Clear",
         "water_temperature": {
           "value": "76",
           "unit": "\u00b0F"
@@ -138,7 +138,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ENE",
+          "value": "E",
           "selected_values": []
         },
         {
@@ -148,7 +148,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "12.71",
+          "value": "12.82",
           "selected_values": []
         },
         {
@@ -158,7 +158,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "78.15",
+          "value": "73.02",
           "selected_values": []
         },
         {
@@ -249,10 +249,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "21",
-              "name": "Moderate",
-              "value": "moderate",
-              "description": "A light tint."
+              "id": "20",
+              "name": "Clear",
+              "value": "clear",
+              "description": "Able to see the bottom in shallow water."
             }
           ]
         },
@@ -374,7 +374,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 4.7,
+      "age_hours": 1.767,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -724,7 +724,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 29.555,
+      "age_hours": 34.028,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1074,7 +1074,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 51.992,
+      "age_hours": 56.465,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1086,10 +1086,10 @@
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-11-01T13:49:33+00:00",
+  "newest_report_at": "2026-11-01T21:13:57+00:00",
   "newest_flag_report": {
-    "report_id": "76890",
-    "created_at": "2026-11-01T13:49:33+00:00",
+    "report_id": "76915",
+    "created_at": "2026-11-01T21:13:57+00:00",
     "latitude": 26.522131,
     "longitude": -82.193346,
     "ambassador": {
@@ -1102,12 +1102,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "ENE",
+          "value": "E",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "12.71",
+          "value": "12.82",
           "unit": "Mph"
         }
       ],
@@ -1133,7 +1133,7 @@
           "unit": null
         }
       ],
-      "water_color": "Moderate",
+      "water_color": "Clear",
       "water_temperature": {
         "value": "76",
         "unit": "\u00b0F"
@@ -1197,7 +1197,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "ENE",
+        "value": "E",
         "selected_values": []
       },
       {
@@ -1207,7 +1207,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "12.71",
+        "value": "12.82",
         "selected_values": []
       },
       {
@@ -1217,7 +1217,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "78.15",
+        "value": "73.02",
         "selected_values": []
       },
       {
@@ -1308,10 +1308,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "21",
-            "name": "Moderate",
-            "value": "moderate",
-            "description": "A light tint."
+            "id": "20",
+            "name": "Clear",
+            "value": "clear",
+            "description": "Able to see the bottom in shallow water."
           }
         ]
       },
@@ -1433,7 +1433,7 @@
     "beach_location": "Captiva, FL",
     "beach_latitude": 26.522131,
     "beach_longitude": -82.193346,
-    "age_hours": 4.7,
+    "age_hours": 1.767,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1442,10 +1442,10 @@
     "state": "agree",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-01T13:49:33+00:00",
+    "knowthegulf_last_verified_at": "2026-11-01T21:13:57+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-11-01T13:49:33+00:00",
+    "visitbeaches_newest_report_at": "2026-11-01T21:13:57+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
