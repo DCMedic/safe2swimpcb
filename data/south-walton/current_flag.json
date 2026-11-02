@@ -1,11 +1,11 @@
 {
   "location": "South Walton / 30A",
-  "flag": "Red",
-  "label": "Red",
-  "severity": 3,
+  "flag": "Double Red",
+  "label": "Double Red",
+  "severity": 4,
   "provenance_tier": "primary_official_current_visual",
-  "last_verified_at": "2026-11-02T14:19:56.141457-06:00",
-  "last_checked_at": "2026-11-02T14:19:56.141457-06:00",
+  "last_verified_at": "2026-11-02T15:41:15.525371-06:00",
+  "last_checked_at": "2026-11-02T15:41:15.525371-06:00",
   "source_check_status": "verified",
   "official_updated_text": null,
   "official_updated_at": null,
@@ -22,42 +22,41 @@
   "nws_reported_flag": "Red",
   "nws_issued_text": "2026-11-02T16:22:00+00:00",
   "nws_issued_at": "2026-11-02T11:22:00-05:00",
-  "nws_age_hours": 3.96,
+  "nws_age_hours": 5.32,
   "nws_source_url": "https://api.weather.gov/products/1960a21b-5857-48bd-b397-04974b5f772e",
   "corroborating_flag": null,
   "corroborates_primary": null,
   "source_note": "NWS Tallahassee republishes the flag reported by Walton-area beach officials; Visit South Walton supplies the public beach-safety program.",
   "safety_note": "Know the Gulf displays only explicit flags from local authorities or an NWS product that says the flag was reported by area beach officials. Forecast risk is never converted into a flag.",
-  "primary_flag": "Red",
+  "primary_flag": "Double Red",
   "purple": false,
   "flag_schema": "Florida Beach Warning Flag terminology v1",
   "flag_terms_note": "Official flag definitions remain authoritative for terminology. South Walton current-state parsing is bounded to the explicit Current Conditions region and stops before Beach Flag Warnings/legend content.",
   "current_flag_image_evidence": [
     {
       "semantic_evidence": [
-        "semantic:red"
+        "semantic:double red"
       ]
     },
     {
-      "url": "https://cdn.visitsouthwalton.com/img/flags/flag-red.svg",
-      "visual_analysis": {
-        "primary": null,
-        "purple": false,
-        "confidence": 1.0,
-        "publishable": false,
-        "reason": "red is visually present but image pixels alone cannot distinguish Single Red from Double Red",
-        "color_fractions": {
-          "red": 0.4012,
-          "yellow": 0.0,
-          "green": 0.0,
-          "purple": 0.0
-        },
-        "bbox_fill": 1.0
-      }
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDg5LjQ4MDFDNjIuNzA5MiA4Mi4wMTEgMzcuMjk0MSA5Ni45NDkyIDExLjg3ODkgODkuNDgwMVY1Mi4xMzQ0QzM3LjI5NDEgNTkuNjAzNSA2Mi43MDkyIDQ0LjY2NTMgODguMTI0NCA1Mi4xMzQ0Vjg5LjQ4MDFaIiBmaWxsPSIjRTYyMjNBIi8+CjxwYXRoIGQ9Ik04OC4xMjQ0IDQ1LjMwOTJDNjIuNzA5MiAzNy44NDAxIDM3LjI5NDEgNTIuNzc4MyAxMS44Nzg5IDQ1LjMwOTJWNy45NjM1MkMzNy4yOTQxIDE1LjQzMjYgNjIuNzA5MiAwLjQ5NDQxNiA4OC4xMjQ0IDcuOTYzNTJWNDUuMzA5MloiIGZpbGw9IiNFNjIyM0EiLz4KPC9zdmc+Cg==",
+      "analysis_error": "No connection adapters were found for 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDg5LjQ4MDFDNjIuNzA5MiA4Mi4wMTEgMzcuMjk0MSA5Ni45NDkyIDExLjg3ODkgODkuNDgwMVY1Mi4"
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDY4LjY3MjlDNjIuNzA5MyA2MS4yMDM4IDM3LjI5NDEgNzYuMTQyIDExLjg3ODkgNjguNjcyOVYzMS4zMjczQzM3LjI5NCAzOC43OTY0IDYyLjcwOTIgMjMuODU4MiA4OC4xMjQ0IDMxLjMyNzNWNjguNjcyOVoiIGZpbGw9IiNFNjIyM0EiLz4KPC9zdmc+Cg==",
+      "analysis_error": "No connection adapters were found for 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDY4LjY3MjlDNjIuNzA5MyA2MS4yMDM4IDM3LjI5NDEgNzYuMTQyIDExLjg3ODkgNjguNjcyOVYzMS4"
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDY4LjY3MjlDNjIuNzA5MyA2MS4yMDM4IDM3LjI5NCA3Ni4xNDIgMTEuODc4OSA2OC42NzI5VjMxLjMyNzNDMzcuMjk0IDM4Ljc5NjQgNjIuNzA5MyAyMy44NTgyIDg4LjEyNDQgMzEuMzI3M1Y2OC42NzI5WiIgZmlsbD0iI0Y4RUY0MyIvPgo8L3N2Zz4K",
+      "analysis_error": "No connection adapters were found for 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDY4LjY3MjlDNjIuNzA5MyA2MS4yMDM4IDM3LjI5NCA3Ni4xNDIgMTEuODc4OSA2OC42NzI5VjMxLjM"
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDY4LjY3MjlDNjIuNzA5MiA2MS4yMDM4IDM3LjI5NDEgNzYuMTQyIDExLjg3ODkgNjguNjcyOVYzMS4zMjczQzM3LjI5NDEgMzguNzk2NCA2Mi43MDkyIDIzLjg1ODIgODguMTI0NCAzMS4zMjczVjY4LjY3MjlaIiBmaWxsPSIjMDA5RDVBIi8+Cjwvc3ZnPgo=",
+      "analysis_error": "No connection adapters were found for 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04OC4xMjQ0IDY4LjY3MjlDNjIuNzA5MiA2MS4yMDM4IDM3LjI5NDEgNzYuMTQyIDExLjg3ODkgNjguNjcyOVYzMS4"
     }
   ],
   "terminology_evidence": "bounded-current-conditions-visual",
-  "terminology_verified_at": "2026-11-02T14:19:56.141457-06:00",
+  "terminology_verified_at": "2026-11-02T15:41:15.525371-06:00",
   "terminology_verified_url": "https://www.visitsouthwalton.com/beach-safety/",
   "visitbeaches_evidence": {
     "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
