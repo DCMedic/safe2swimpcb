@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-03T04:00:10.389172+00:00",
+  "checked_at": "2026-11-03T20:17:48.231957+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Fort Myers Beach",
@@ -12,6 +12,20 @@
     "Bowditch Point Park"
   ],
   "matched_beaches": [
+    {
+      "id": "175",
+      "name": "Fort Myers Beach Access 11",
+      "location": "Fort Myers Beach, FL",
+      "latitude": 26.4237626,
+      "longitude": -81.9078,
+      "city": {
+        "name": "Fort Myers Beach",
+        "state": {
+          "name": "Florida",
+          "abbreviation": "FL"
+        }
+      }
+    },
     {
       "id": "11",
       "name": "Lynn Hall Beach Park",
@@ -422,7 +436,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 62.602,
+      "age_hours": 78.896,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -821,7 +835,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 159.975,
+      "age_hours": 176.269,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1220,7 +1234,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 327.564,
+      "age_hours": 343.858,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1625,7 +1639,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 6875.794,
+      "age_hours": 6892.088,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2024,7 +2038,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 7640.136,
+      "age_hours": 7656.43,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2423,7 +2437,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 7883.732,
+      "age_hours": 7900.026,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -2814,7 +2828,7 @@
     "beach_location": "Fort Myers Beach, FL",
     "beach_latitude": 26.4536438,
     "beach_longitude": -81.9570615,
-    "age_hours": 62.602,
+    "age_hours": 78.896,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
@@ -2823,7 +2837,7 @@
     "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": null,
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-03T03:57:02.243597+00:00",
+    "knowthegulf_last_verified_at": "2026-11-03T19:29:11.830359+00:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-10-31T13:24:03+00:00",

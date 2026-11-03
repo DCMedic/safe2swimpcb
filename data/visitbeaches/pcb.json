@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-03T03:59:46.501603+00:00",
+  "checked_at": "2026-11-03T20:17:30.636933+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Panama City Beach",
@@ -373,8 +373,8 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 13.63,
-      "fresh": true,
+      "age_hours": 29.925,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -738,7 +738,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 160.337,
+      "age_hours": 176.632,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1103,18 +1103,16 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 303.482,
+      "age_hours": 319.777,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 1,
-  "flag": "Yellow",
+  "fresh_observation_count": 0,
+  "flag": null,
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [
-    "Yellow"
-  ],
+  "fresh_distinct_flags": [],
   "newest_report_at": "2026-11-02T14:21:59+00:00",
   "newest_flag_report": {
     "report_id": "76933",
@@ -1462,20 +1460,20 @@
     "beach_location": "Panama City Beach, FL",
     "beach_latitude": 30.227076,
     "beach_longitude": -85.900616,
-    "age_hours": 13.63,
-    "fresh": true,
+    "age_hours": 29.925,
+    "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
+    "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-02T21:25:24.638678-06:00",
-    "visitbeaches_flag": "Yellow",
+    "knowthegulf_last_verified_at": "2026-11-03T13:26:10.832700-06:00",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-02T14:21:59+00:00",
-    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_fresh_observation_count": 0,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
