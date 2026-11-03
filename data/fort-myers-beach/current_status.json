@@ -11,8 +11,8 @@
   "severity": null,
   "status": "official_conditions_source_reachable",
   "provenance_tier": "primary_visitbeaches_ambassador_no_flag",
-  "last_verified_at": "2026-11-03T13:39:31.227270+00:00",
-  "last_checked_at": "2026-11-03T13:39:31.227270+00:00",
+  "last_verified_at": "2026-11-03T15:17:35.286740+00:00",
+  "last_checked_at": "2026-11-03T15:17:35.286740+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -25,7 +25,22 @@
   "stale_after_hours": 24,
   "update_note": "Lee County directs the public to Mote for current beach conditions. A flag is displayed only if explicitly reported upstream.",
   "visitbeaches_source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "visitbeaches_matched_beaches": [],
+  "visitbeaches_matched_beaches": [
+    {
+      "id": "175",
+      "name": "Fort Myers Beach Access 11",
+      "location": "Fort Myers Beach, FL",
+      "latitude": 26.4237626,
+      "longitude": -81.9078,
+      "city": {
+        "name": "Fort Myers Beach",
+        "state": {
+          "name": "Florida",
+          "abbreviation": "FL"
+        }
+      }
+    }
+  ],
   "visitbeaches_fresh_observation_count": 0,
   "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [],
