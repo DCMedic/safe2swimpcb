@@ -12,8 +12,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-11-04T14:03:06+00:00",
-  "last_checked_at": "2026-11-04T20:27:02.548968+00:00",
+  "last_verified_at": "2026-11-04T21:28:45+00:00",
+  "last_checked_at": "2026-11-04T21:54:54.495009+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -49,8 +49,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "77014",
-      "created_at": "2026-11-04T14:03:06+00:00",
+      "report_id": "77043",
+      "created_at": "2026-11-04T21:28:45+00:00",
       "latitude": 26.522131,
       "longitude": -82.193346,
       "ambassador": {
@@ -63,12 +63,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "E",
+            "value": "ENE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "13.33",
+            "value": "1.07",
             "unit": "Mph"
           }
         ],
@@ -94,7 +94,7 @@
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "78",
           "unit": "\u00b0F"
@@ -158,7 +158,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "E",
+          "value": "ENE",
           "selected_values": []
         },
         {
@@ -168,7 +168,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "13.33",
+          "value": "1.07",
           "selected_values": []
         },
         {
@@ -178,7 +178,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "79.56",
+          "value": "85.08",
           "selected_values": []
         },
         {
@@ -188,7 +188,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clouds",
+          "value": "Clear",
           "selected_values": []
         },
         {
@@ -269,10 +269,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -394,7 +394,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 6.399,
+      "age_hours": 0.436,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -744,7 +744,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 30.769,
+      "age_hours": 32.234,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1094,7 +1094,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 54.457,
+      "age_hours": 55.922,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
