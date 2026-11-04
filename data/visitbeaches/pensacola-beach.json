@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-03T20:17:34.803450+00:00",
+  "checked_at": "2026-11-04T01:36:45.420923+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -26,8 +26,8 @@
   ],
   "observations": [
     {
-      "report_id": "76978",
-      "created_at": "2026-11-03T14:59:12+00:00",
+      "report_id": "76999",
+      "created_at": "2026-11-03T23:06:20+00:00",
       "latitude": 30.330943,
       "longitude": -87.142206,
       "ambassador": {
@@ -40,12 +40,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ENE",
+            "value": "ESE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "11.5",
+            "value": "12.66",
             "unit": "Mph"
           }
         ],
@@ -57,7 +57,7 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "> 4 feet (> 1.2 m)",
+            "value": "2-4 feet (0.6-1.2 m)",
             "unit": null
           },
           {
@@ -78,7 +78,7 @@
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "None"
+        "crowd": "Few"
       },
       "parameters": [
         {
@@ -135,7 +135,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ENE",
+          "value": "ESE",
           "selected_values": []
         },
         {
@@ -145,7 +145,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "11.5",
+          "value": "12.66",
           "selected_values": []
         },
         {
@@ -155,7 +155,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "72.73",
+          "value": "75.7",
           "selected_values": []
         },
         {
@@ -195,9 +195,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "17",
-              "name": "> 4 feet (> 1.2 m)",
-              "value": "> 4",
+              "id": "16",
+              "name": "2-4 feet (0.6-1.2 m)",
+              "value": "2-4",
               "description": null
             }
           ]
@@ -358,10 +358,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
             }
           ]
         }
@@ -371,7 +371,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 5.306,
+      "age_hours": 2.507,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -721,8 +721,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 21.16,
-      "fresh": true,
+      "age_hours": 26.48,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1071,22 +1071,22 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 45.235,
+      "age_hours": 50.555,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
+  "fresh_observation_count": 1,
   "flag": "Red",
   "purple": false,
   "flag_conflict": false,
   "fresh_distinct_flags": [
     "Red"
   ],
-  "newest_report_at": "2026-11-03T14:59:12+00:00",
+  "newest_report_at": "2026-11-03T23:06:20+00:00",
   "newest_flag_report": {
-    "report_id": "76978",
-    "created_at": "2026-11-03T14:59:12+00:00",
+    "report_id": "76999",
+    "created_at": "2026-11-03T23:06:20+00:00",
     "latitude": 30.330943,
     "longitude": -87.142206,
     "ambassador": {
@@ -1099,12 +1099,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "ENE",
+          "value": "ESE",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "11.5",
+          "value": "12.66",
           "unit": "Mph"
         }
       ],
@@ -1116,7 +1116,7 @@
         },
         {
           "parameter": "Surf Height",
-          "value": "> 4 feet (> 1.2 m)",
+          "value": "2-4 feet (0.6-1.2 m)",
           "unit": null
         },
         {
@@ -1137,7 +1137,7 @@
       },
       "respiratory_irritation": "None",
       "dead_fish": "None",
-      "crowd": "None"
+      "crowd": "Few"
     },
     "parameters": [
       {
@@ -1194,7 +1194,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "ENE",
+        "value": "ESE",
         "selected_values": []
       },
       {
@@ -1204,7 +1204,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "11.5",
+        "value": "12.66",
         "selected_values": []
       },
       {
@@ -1214,7 +1214,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "72.73",
+        "value": "75.7",
         "selected_values": []
       },
       {
@@ -1254,9 +1254,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "17",
-            "name": "> 4 feet (> 1.2 m)",
-            "value": "> 4",
+            "id": "16",
+            "name": "2-4 feet (0.6-1.2 m)",
+            "value": "2-4",
             "description": null
           }
         ]
@@ -1417,10 +1417,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "58",
-            "name": "None",
-            "value": "none",
-            "description": "Sporadic beachgoers."
+            "id": "59",
+            "name": "Few",
+            "value": "few",
+            "description": "Beachgoers are easily spaced 6 ft or more apart."
           }
         ]
       }
@@ -1430,7 +1430,7 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 5.306,
+    "age_hours": 2.507,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1439,11 +1439,11 @@
     "state": "flag_disagreement",
     "knowthegulf_flag": "Single Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-03T09:07:58.973000-06:00",
+    "knowthegulf_last_verified_at": "2026-11-03T17:05:30.847000-06:00",
     "visitbeaches_flag": "Red",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-11-03T14:59:12+00:00",
-    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_newest_report_at": "2026-11-03T23:06:20+00:00",
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
