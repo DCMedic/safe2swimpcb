@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-05T11:26:24.077168+00:00",
+  "checked_at": "2026-11-05T20:47:49.714981+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Panama City Beach",
@@ -373,7 +373,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 69.074,
+      "age_hours": 78.431,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -738,7 +738,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 215.78,
+      "age_hours": 225.137,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1103,7 +1103,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 358.926,
+      "age_hours": 368.283,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1460,16 +1460,16 @@
     "beach_location": "Panama City Beach, FL",
     "beach_latitude": 30.227076,
     "beach_longitude": -85.900616,
-    "age_hours": 69.074,
+    "age_hours": 78.431,
     "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
     "state": "no_fresh_visitbeaches_flag",
-    "knowthegulf_flag": "Red",
+    "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-05T01:51:04.911828-06:00",
+    "knowthegulf_last_verified_at": "2026-11-05T14:41:08.918547-06:00",
     "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-02T14:21:59+00:00",
