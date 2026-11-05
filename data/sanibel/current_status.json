@@ -12,8 +12,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-11-05T14:30:56+00:00",
-  "last_checked_at": "2026-11-05T21:36:39.354471+00:00",
+  "last_verified_at": "2026-11-05T21:47:59+00:00",
+  "last_checked_at": "2026-11-05T22:48:53.736244+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -49,8 +49,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "77061",
-      "created_at": "2026-11-05T14:30:56+00:00",
+      "report_id": "77087",
+      "created_at": "2026-11-05T21:47:59+00:00",
       "latitude": 26.522131,
       "longitude": -82.193346,
       "ambassador": {
@@ -63,12 +63,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "E",
+            "value": "NNW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "5.23",
+            "value": "11.72",
             "unit": "Mph"
           }
         ],
@@ -94,14 +94,14 @@
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
-          "value": "78",
+          "value": "79",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "None"
+        "crowd": "Few"
       },
       "parameters": [
         {
@@ -158,7 +158,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "E",
+          "value": "NNW",
           "selected_values": []
         },
         {
@@ -168,7 +168,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "5.23",
+          "value": "11.72",
           "selected_values": []
         },
         {
@@ -178,7 +178,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "80.02",
+          "value": "83.62",
           "selected_values": []
         },
         {
@@ -269,10 +269,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -283,7 +283,7 @@
           "unit": "\u00b0F",
           "category": "Water Conditions",
           "category_slug": "water-conditions",
-          "value": "78",
+          "value": "79",
           "selected_values": []
         },
         {
@@ -381,10 +381,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
             }
           ]
         }
@@ -394,7 +394,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 7.095,
+      "age_hours": 1.015,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -744,7 +744,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 24.131,
+      "age_hours": 25.335,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1094,7 +1094,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 55.93,
+      "age_hours": 57.133,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
