@@ -1,135 +1,135 @@
 {
   "status": "ok",
-  "n_training": 2285,
+  "n_training": 2286,
   "positive_days": 793,
   "validation": {
     "method": "5-split expanding-window time-series validation",
-    "roc_auc": 0.91392867900119,
-    "brier": 0.11240411464297509,
+    "roc_auc": 0.9136993331172594,
+    "brier": 0.11255452606694054,
     "status": "exploratory"
   },
   "baselines": {
-    "monthly_auc": 0.5351796850696965,
-    "persistence_auc": 0.8023970353691715
+    "monthly_auc": 0.5353526424860289,
+    "persistence_auc": 0.8025667373817732
   },
   "associations": [
     {
       "key": "wave_period_s",
       "label": "Wave period",
-      "coefficient": 1.8140622107913054,
-      "odds_ratio": 6.135319842012452
+      "coefficient": 1.813653484162488,
+      "odds_ratio": 6.132812685822362
     },
     {
       "key": "wave_max_ft",
       "label": "Wave height",
-      "coefficient": 1.511380180155554,
-      "odds_ratio": 4.532982811788871
+      "coefficient": 1.5126913722672872,
+      "odds_ratio": 4.538930321406066
     },
     {
       "key": "gust_max_mph",
       "label": "Max gust",
-      "coefficient": -0.5862878087452252,
-      "odds_ratio": 0.5563888777795599
+      "coefficient": -0.5867785950505595,
+      "odds_ratio": 0.556115876735972
     },
     {
       "key": "season_cos",
       "label": "Season (cos)",
-      "coefficient": -0.5452062708383092,
-      "odds_ratio": 0.5797221912237173
+      "coefficient": -0.5447945806491822,
+      "odds_ratio": 0.5799609062972185
     },
     {
       "key": "tide_range_ft",
       "label": "Tide range",
-      "coefficient": -0.512215526724835,
-      "odds_ratio": 0.5991666375053516
+      "coefficient": -0.5131672563619876,
+      "odds_ratio": 0.5985966641321434
     },
     {
       "key": "wind_max_mph",
       "label": "Max wind",
-      "coefficient": 0.44169488333566226,
-      "odds_ratio": 1.5553411075379475
+      "coefficient": 0.4414254855844088,
+      "odds_ratio": 1.5549221585756325
     },
     {
       "key": "season_sin",
       "label": "Season (sin)",
-      "coefficient": -0.37497716806886056,
-      "odds_ratio": 0.6873049711116007
+      "coefficient": -0.37470859677044394,
+      "odds_ratio": 0.6874895862901598
     },
     {
       "key": "precip_in",
       "label": "Rain",
-      "coefficient": 0.17027836227127927,
-      "odds_ratio": 1.1856348413972002
+      "coefficient": 0.17056147324344295,
+      "odds_ratio": 1.1859705551496604
     },
     {
       "key": "swell_max_ft",
       "label": "Swell height",
-      "coefficient": 0.13602304473370916,
-      "odds_ratio": 1.1457082958332303
+      "coefficient": 0.13503003288168183,
+      "odds_ratio": 1.1445711586053158
     },
     {
       "key": "swell_period_s",
       "label": "Swell period",
-      "coefficient": -0.012654706277843597,
-      "odds_ratio": 0.9874250278260361
+      "coefficient": -0.011672546169620783,
+      "odds_ratio": 0.9883953137082733
     }
   ],
   "research_context": {
     "measured_ndbc": {
       "pcbf1_obs_count": {
-        "rows": 2015,
+        "rows": 2016,
         "pct": 88.2
       },
       "pcbf1_wind_max_mph": {
-        "rows": 2015,
+        "rows": 2016,
         "pct": 88.2
       },
       "pcbf1_gust_max_mph": {
-        "rows": 2015,
+        "rows": 2016,
         "pct": 88.2
       },
       "pcbf1_air_temp_max_f": {
-        "rows": 1990,
+        "rows": 1991,
         "pct": 87.1
       },
       "pcbf1_air_temp_min_f": {
-        "rows": 1990,
+        "rows": 1991,
         "pct": 87.1
       },
       "pcbf1_water_temp_mean_f": {
-        "rows": 1992,
-        "pct": 87.2
-      },
-      "pcbf1_pressure_min_mb": {
         "rows": 1993,
         "pct": 87.2
       },
+      "pcbf1_pressure_min_mb": {
+        "rows": 1994,
+        "pct": 87.2
+      },
       "42039_obs_count": {
-        "rows": 1223,
+        "rows": 1224,
         "pct": 53.5
       },
       "ndbc42039_wave_max_ft": {
-        "rows": 1179,
+        "rows": 1180,
         "pct": 51.6
       },
       "ndbc42039_wave_mean_ft": {
-        "rows": 1179,
+        "rows": 1180,
         "pct": 51.6
       },
       "ndbc42039_dominant_period_max_s": {
-        "rows": 1174,
+        "rows": 1175,
         "pct": 51.4
       },
       "ndbc42039_average_period_mean_s": {
-        "rows": 1179,
+        "rows": 1180,
         "pct": 51.6
       },
       "ndbc42039_wind_max_mph": {
-        "rows": 1223,
+        "rows": 1224,
         "pct": 53.5
       },
       "ndbc42039_gust_max_mph": {
-        "rows": 1223,
+        "rows": 1224,
         "pct": 53.5
       },
       "ndbc42039_water_temp_mean_f": {
@@ -137,58 +137,58 @@
         "pct": 31.3
       },
       "ndbc42039_pressure_min_mb": {
-        "rows": 1223,
+        "rows": 1224,
         "pct": 53.5
       }
     },
     "retrospective_tropical_cyclone": {
       "nearest_storm_id": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "nearest_storm_name": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "nearest_storm_status": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "nearest_storm_category": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_min_distance_mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_max_wind_kt_within_500mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_active_storms_within_500mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_within_50mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_within_100mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_within_200mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_within_300mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       },
       "tc_within_500mi": {
         "rows": 104,
-        "pct": 4.6
+        "pct": 4.5
       }
     },
     "policy": "Measured NDBC and HURDAT2 fields are retained in model_training.csv for research. HURDAT2 best-track fields are retrospective and are not included in the operational feature set."
