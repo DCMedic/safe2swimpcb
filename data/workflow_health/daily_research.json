@@ -1,9 +1,9 @@
 {
-  "event_name": "push",
-  "head_sha": "aa7d1ed2d6005c93a523c14bfbb5f761c6e3ad5c",
-  "last_success_at": "2026-11-05T18:23:39.262779+00:00",
+  "event_name": "schedule",
+  "head_sha": "7da7b2b86961d1798e226acc8c764ebd4dcc5a33",
+  "last_success_at": "2026-11-05T18:50:24.716661+00:00",
   "run_attempt": "1",
-  "run_id": "42083460394",
+  "run_id": "42087960285",
   "status": "success",
   "version": 1,
   "workflow": "Refresh Know the Gulf research dataset"
