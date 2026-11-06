@@ -11,8 +11,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-11-06T11:45:26+00:00",
-  "last_checked_at": "2026-11-06T17:28:39.352104+00:00",
+  "last_verified_at": "2026-11-06T18:51:18+00:00",
+  "last_checked_at": "2026-11-06T19:16:14.954272+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -48,8 +48,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "77092",
-      "created_at": "2026-11-06T11:45:26+00:00",
+      "report_id": "77132",
+      "created_at": "2026-11-06T18:51:18+00:00",
       "latitude": 26.4237626,
       "longitude": -81.9078,
       "ambassador": {
@@ -62,7 +62,7 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NNE",
+            "value": "E",
             "unit": ""
           },
           {
@@ -84,7 +84,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Calm",
+            "value": "Wind Chop",
             "unit": null
           },
           {
@@ -100,7 +100,7 @@
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "None"
+        "crowd": "Few"
       },
       "parameters": [
         {
@@ -157,7 +157,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NNE",
+          "value": "E",
           "selected_values": []
         },
         {
@@ -177,7 +177,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "71.62",
+          "value": "86.05",
           "selected_values": []
         },
         {
@@ -187,7 +187,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -234,10 +234,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "9",
-              "name": "Calm",
-              "value": "calm",
-              "description": null
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
             }
           ]
         },
@@ -303,57 +303,6 @@
           ]
         },
         {
-          "parameter_id": "21",
-          "parameter": "Biogenic",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "42",
-              "name": "None",
-              "value": "none",
-              "description": "No beach debris in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "20",
-          "parameter": "Anthropogenic",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "39",
-              "name": "None",
-              "value": "none",
-              "description": "No litter in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "19",
-          "parameter": "Beach Debris Location",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "36",
-              "name": "Beach",
-              "value": "beach",
-              "description": null
-            }
-          ]
-        },
-        {
           "parameter_id": "18",
           "parameter": "Beach Debris",
           "prompt": null,
@@ -363,9 +312,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "34",
-              "name": "Some",
-              "value": "some",
+              "id": "33",
+              "name": "None",
+              "value": "none",
               "description": null
             }
           ]
@@ -431,10 +380,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
             }
           ]
         }
@@ -444,7 +393,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 5.72,
+      "age_hours": 0.416,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -828,7 +777,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 25.32,
+      "age_hours": 27.113,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1229,7 +1178,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 53.751,
+      "age_hours": 55.544,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
