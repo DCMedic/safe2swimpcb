@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-05T20:48:15.953946+00:00",
+  "checked_at": "2026-11-06T01:46:26.656104+00:00",
   "freshness_hours": 24,
   "aliases": [
     "South Marco Beach",
@@ -359,7 +359,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 0.266,
+      "age_hours": 5.236,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -695,7 +695,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 123.553,
+      "age_hours": 128.523,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1031,7 +1031,7 @@
       "beach_location": "Marco Island, FL",
       "beach_latitude": 25.911738,
       "beach_longitude": -81.72877,
-      "age_hours": 146.692,
+      "age_hours": 151.662,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1376,7 +1376,7 @@
     "beach_location": "Marco Island, FL",
     "beach_latitude": 25.911738,
     "beach_longitude": -81.72877,
-    "age_hours": 0.266,
+    "age_hours": 5.236,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1385,7 +1385,7 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-10-31T17:15:05+00:00",
+    "knowthegulf_last_verified_at": "2026-11-05T20:32:18+00:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-05T20:32:18+00:00",
