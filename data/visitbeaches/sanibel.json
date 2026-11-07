@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-06T20:04:07.238040+00:00",
+  "checked_at": "2026-11-07T01:07:24.700300+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Sanibel",
@@ -374,7 +374,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 5.962,
+      "age_hours": 11.017,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -724,8 +724,8 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 22.269,
-      "fresh": true,
+      "age_hours": 27.324,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1074,12 +1074,12 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 46.59,
+      "age_hours": 51.644,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
+  "fresh_observation_count": 1,
   "flag": "Green",
   "purple": false,
   "flag_conflict": false,
@@ -1433,7 +1433,7 @@
     "beach_location": "Captiva, FL",
     "beach_latitude": 26.522131,
     "beach_longitude": -82.193346,
-    "age_hours": 5.962,
+    "age_hours": 11.017,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1446,7 +1446,7 @@
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-06T14:06:25+00:00",
-    "visitbeaches_fresh_observation_count": 2,
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
