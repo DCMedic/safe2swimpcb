@@ -12,8 +12,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-11-08T14:18:13+00:00",
-  "last_checked_at": "2026-11-08T20:36:55.544818+00:00",
+  "last_verified_at": "2026-11-08T20:58:59+00:00",
+  "last_checked_at": "2026-11-08T21:57:28.560043+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -49,8 +49,8 @@
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "77198",
-      "created_at": "2026-11-08T14:18:13+00:00",
+      "report_id": "77216",
+      "created_at": "2026-11-08T20:58:59+00:00",
       "latitude": 26.522131,
       "longitude": -82.193346,
       "ambassador": {
@@ -63,12 +63,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "NE",
+            "value": "NW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "10.6",
+            "value": "9.86",
             "unit": "Mph"
           }
         ],
@@ -85,7 +85,7 @@
           },
           {
             "parameter": "Surf Type",
-            "value": "Shore Break",
+            "value": "Calm",
             "unit": null
           },
           {
@@ -96,7 +96,7 @@
         ],
         "water_color": "Moderate",
         "water_temperature": {
-          "value": "77",
+          "value": "76",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
@@ -158,7 +158,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "NE",
+          "value": "NW",
           "selected_values": []
         },
         {
@@ -168,7 +168,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "10.6",
+          "value": "9.86",
           "selected_values": []
         },
         {
@@ -178,7 +178,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "74.84",
+          "value": "83.01",
           "selected_values": []
         },
         {
@@ -235,10 +235,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "11",
-              "name": "Shore Break",
-              "value": "shore-break",
-              "description": "Waves breaking close to shore or shallow water."
+              "id": "9",
+              "name": "Calm",
+              "value": "calm",
+              "description": null
             }
           ]
         },
@@ -283,7 +283,7 @@
           "unit": "\u00b0F",
           "category": "Water Conditions",
           "category_slug": "water-conditions",
-          "value": "77",
+          "value": "76",
           "selected_values": []
         },
         {
@@ -394,7 +394,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 6.311,
+      "age_hours": 0.974,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -744,7 +744,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 30.536,
+      "age_hours": 31.879,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1094,7 +1094,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 54.508,
+      "age_hours": 55.85,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
