@@ -1,4 +1,4 @@
 lane=eastern
-requested_at=2026-11-09T09:53:21.928Z
+requested_at=2026-11-09T07:40:25-06:00
 requested_by=knowthegulf-repository-health
-reason=overdue heartbeat data/franklin-county/current_flag.json age 119 minutes
+reason=overdue heartbeat data/franklin-county/current_flag.json age 142 minutes
