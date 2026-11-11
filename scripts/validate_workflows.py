@@ -35,6 +35,26 @@ def validate_preview_boundary(workflow: str, live_job: str, mode: str, errors: l
         errors.append(f"{live_job}: production job must gate the main ref and explicit manual mode")
 
 
+def validate_x_run_titles(workflow: str, recovery: str, cfg: dict, errors: list[str]) -> None:
+    titles = cfg.get("run_titles", {})
+    production, preview = titles.get("production"), titles.get("preview")
+    if not production or not preview or production == preview:
+        errors.append("X recovery requires distinct production/preview run titles")
+        return
+    live = job_text(workflow, "publish")
+    gate = re.search(r"(?m)^    if: \$\{\{ (.+) \}\}$", live)
+    expected = (f'run-name: "${{{{ {gate.group(1)} && {production!r} || {preview!r} }}}}"'
+                if gate else "")
+    if not expected or expected not in workflow:
+        errors.append("X run title must use the exact production-job gate and policy titles")
+    completion_guard = (
+        f"(github.event.workflow_run.name != 'Publish Know the Gulf to X' || "
+        f"github.event.workflow_run.display_title == {production!r})"
+    )
+    if completion_guard not in job_text(recovery, "recover"):
+        errors.append("X preview completion must not trigger production recovery")
+
+
 def validate() -> list[str]:
     errors: list[str] = []
     policy = json.loads(POLICY.read_text(encoding="utf-8"))
@@ -149,6 +169,7 @@ def validate() -> list[str]:
     if "scripts/mark_x_publisher_failure.py" not in x_workflow:
         errors.append("X workflow lacks fail-closed pre-publisher health recording")
     validate_preview_boundary(x_workflow, "publish", "publish", errors)
+    validate_x_run_titles(x_workflow, recovery, policy["lanes"]["x"], errors)
 
     return errors
 

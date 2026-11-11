@@ -55,7 +55,7 @@ jobs:
       - name: Read-only recovery preview
         run: python scripts/recovery_watchdog.py --dry-run --repo "${GITHUB_REPOSITORY}"
   recover:
-    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_run' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'apply')) }}
+    if: "${{ github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_run' && (github.event.workflow_run.name != 'Publish Know the Gulf to X' || github.event.workflow_run.display_title == 'Know the Gulf X: publish')) || (github.event_name == 'workflow_dispatch' && inputs.mode == 'apply')) }}"
     permissions:
       contents: read
       actions: write

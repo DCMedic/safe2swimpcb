@@ -42,6 +42,11 @@ workflows, or alter files. Current workflow state is checked only in apply mode.
   repository write permission.
 - Preview and production jobs have separate concurrency groups so a preview
   cannot replace a pending live job. X preview verifies that `data/` is unchanged.
+- X run titles identify publish and preview using the exact production-job gate.
+  Recovery ignores marked previews, including completed manual previews, before
+  cooldown and cancellation decisions. X preview completion cannot invoke the
+  recovery workflow's live job. The independent scheduled recovery checks remain
+  unchanged.
 - On a development ref, selecting a live manual mode skips the live job. It
   does not silently check out `main` and perform a production action.
 
@@ -66,9 +71,20 @@ token. Within GitHub Actions it rejects a non-`main` ref. Recovery:
    approval. They suppress dispatch rather than becoming cancellation targets.
 6. Confirms a canceled run is actually completed. An accepted cancellation or
    HTTP 409/422 does not prove completion. Pending cancellations defer dispatch
-   until a later evaluation.
+   until a later evaluation. A confirmed cancellation by this evaluation is
+   excluded from its own failed-dispatch cooldown, allowing immediate replacement.
+   Unrelated cancellations, racing successes, and newer active attempts still
+   count. Cancellation attribution is not persisted across evaluations, so a
+   cancellation only confirmed later retains the conservative retry delay.
 7. Rechecks live state immediately before dispatch. A new run, a disabled
    workflow, remaining active runs, or a query failure prevents dispatch.
+
+Legacy X runs without either configured title are deliberately ambiguous: old
+previews also used a job called `publish`, so that job name is not proof of live
+publication. Unmarked active runs suppress recovery and are never automatically
+canceled. Completed legacy dispatches retain the existing bounded cooldown or
+failure delay, labeled as unclassified rather than successful production. New
+previews carry the explicit preview title and do not enter that fallback.
 
 ## Validation and remaining limits
 
@@ -76,6 +92,8 @@ Regression tests cover byte-for-byte and modification-time preservation of X
 state/health, repeated flag-change previews, absent state files, successful
 publishing via a stub, disabled recovery, branch/repository/event filtering,
 protected approval waits, cancellation races, and workflow privilege boundaries.
+Run-status, creation-time, and completed-conclusion validation also fail closed
+when GitHub supplies incomplete or unsupported state.
 Network mutation calls in these tests are mocked; tests do not contact GitHub or X.
 
 GitHub's read/check/dispatch operations are not atomic. A workflow can start or

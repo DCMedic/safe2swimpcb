@@ -16,6 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_POLICY = ROOT / ".github" / "recovery" / "policy.json"
 ACTIVE_RUN_STATES = {"queued", "in_progress", "waiting", "requested", "pending"}
 RECOVERY_BRANCH = "main"
+COMPLETED_RUN_CONCLUSIONS = {
+    "success", "failure", "neutral", "cancelled", "skipped", "timed_out",
+    "action_required", "stale", "startup_failure",
+}
 
 
 def parse_time(value: str) -> datetime:
@@ -75,11 +79,28 @@ def split_active_runs(
         age = run_age_minutes(run, now)
         # A waiting run can be paused for a protected-environment approval.
         # Do not turn an intentional human gate into an automatic cancellation.
-        if run.get("status") == "waiting" or age is None or age < stuck_run_minutes:
+        if run.get("_recovery_purpose") == "unknown" or run.get("status") == "waiting" or age is None or age < stuck_run_minutes:
             recent.append(run)
         else:
             stuck.append(run)
     return recent, stuck
+
+
+def classify_run_purposes(runs: list[dict], run_titles: dict | None) -> list[dict]:
+    """Exclude known previews; never auto-cancel an ambiguous mixed-mode run."""
+    if run_titles is None:
+        return runs
+    production = run_titles.get("production")
+    preview = run_titles.get("preview")
+    if not production or not preview or production == preview:
+        raise RuntimeError("mixed-mode workflow requires distinct production and preview run titles")
+    result = []
+    for run in runs:
+        title = run.get("display_title")
+        if title == preview:
+            continue
+        result.append({**run, "_recovery_purpose": "production" if title == production else "unknown"})
+    return result
 
 
 def github_json(url: str, token: str) -> dict:
@@ -103,6 +124,7 @@ def recovery_suppression_reason(
     now: datetime,
     heartbeat_at: datetime | None = None,
     stuck_run_minutes: int = 60,
+    cancelled_by_watchdog: set[int] | None = None,
 ) -> str | None:
     recent_active, _ = split_active_runs(runs, stuck_run_minutes, now)
     if recent_active:
@@ -113,6 +135,11 @@ def recovery_suppression_reason(
 
     for run in runs:
         if run.get("event") != "workflow_dispatch":
+            continue
+        if (run.get("id") in (cancelled_by_watchdog or set())
+                and run.get("status") == "completed" and run.get("conclusion") == "cancelled"):
+            # Ignore only this evaluation's confirmed cancellations. A racing
+            # successful run, unrelated cancellation, or new attempt still counts.
             continue
         created = run.get("created_at")
         if not created:
@@ -125,6 +152,11 @@ def recovery_suppression_reason(
             continue
         age = (now - created_at.astimezone(now.tzinfo)).total_seconds() / 60.0
         conclusion = run.get("conclusion")
+        if run.get("_recovery_purpose") == "unknown":
+            delay = cooldown_minutes if conclusion == "success" else failure_retry_minutes
+            if conclusion is not None and 0 <= age < delay:
+                return f"unclassified legacy dispatch {run.get('id', 'unknown')} is {age:.1f}m old within conservative {delay}m delay"
+            continue
         if conclusion == "success" and 0 <= age < cooldown_minutes:
             return f"successful recovery dispatch {run.get('id', 'unknown')} is {age:.1f}m old within {cooldown_minutes}m cooldown"
         if conclusion not in (None, "success") and 0 <= age < failure_retry_minutes:
@@ -142,6 +174,8 @@ def workflow_recovery_state(
     now: datetime,
     token: str,
     heartbeat_at: datetime | None = None,
+    run_titles: dict | None = None,
+    cancelled_by_watchdog: set[int] | None = None,
 ) -> tuple[str | None, list[dict]]:
     encoded = urllib.parse.quote(Path(workflow_path).name, safe="")
     workflow_url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}"
@@ -168,6 +202,13 @@ def workflow_recovery_state(
                     run.get("id"), (run.get("head_repository") or {}).get("full_name"),
                 )):
                     raise RuntimeError("workflow run scope is missing or malformed")
+                if run.get("status") not in ACTIVE_RUN_STATES | {"completed"}:
+                    raise RuntimeError("workflow run status is missing or unsupported")
+                if not run.get("created_at"):
+                    raise RuntimeError("workflow run creation time is missing")
+                parse_time(str(run["created_at"]))
+                if run["status"] == "completed" and run.get("conclusion") not in COMPLETED_RUN_CONCLUSIONS:
+                    raise RuntimeError("completed workflow run conclusion is missing or unsupported")
             # Defense in depth: never cancel or suppress based on a PR, fork,
             # or development-branch run, even if the API filter is ignored.
             runs.extend(run for run in batch if (
@@ -185,7 +226,7 @@ def workflow_recovery_state(
     by_id = {run["id"]: run for run in runs}
     for status in sorted(ACTIVE_RUN_STATES):
         by_id.update({run["id"]: run for run in scoped_runs(status)})
-    runs = list(by_id.values())
+    runs = classify_run_purposes(list(by_id.values()), run_titles)
     suppression = recovery_suppression_reason(
         runs,
         cooldown_minutes,
@@ -193,6 +234,7 @@ def workflow_recovery_state(
         now,
         heartbeat_at,
         stuck_run_minutes,
+        cancelled_by_watchdog,
     )
     _, stuck_runs = split_active_runs(runs, stuck_run_minutes, now)
     return suppression, stuck_runs
@@ -329,6 +371,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
                 now,
                 token,
                 heartbeat_at,
+                cfg.get("run_titles"),
             )
             if suppression:
                 print(f"{lane}: stale age={age_text}; recovery suppressed because {suppression}")
@@ -336,12 +379,15 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
                 continue
 
             cancellation_pending = False
+            cancelled_by_watchdog = set()
             for run in stuck_runs:
                 run_id = int(run["id"])
                 run_age = run_age_minutes(run, now)
                 run_age_text = "unknown" if run_age is None else f"{run_age:.1f}m"
                 completed = cancel_workflow_run(repo, run_id, token)
                 cancellation_pending = cancellation_pending or not completed
+                if completed:
+                    cancelled_by_watchdog.add(run_id)
                 print(
                     f"{lane}: cancellation requested for stuck {run.get('status')} run {run_id} "
                     f"age={run_age_text}; completed={completed}"
@@ -355,6 +401,7 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             # newer normal run or a newly disabled workflow prevents recovery.
             suppression, still_active = workflow_recovery_state(
                 repo, workflow_path, cooldown, failure_retry, stuck_run, now, token, heartbeat_at,
+                cfg.get("run_titles"), cancelled_by_watchdog,
             )
             if suppression or still_active:
                 decision_telemetry(lane, heartbeat_at, age, overdue, "suppressed", suppression or "active runs remain")

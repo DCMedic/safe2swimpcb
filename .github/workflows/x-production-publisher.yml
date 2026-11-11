@@ -1,4 +1,5 @@
 name: Publish Know the Gulf to X
+run-name: "${{ github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish')) && 'Know the Gulf X: publish' || 'Know the Gulf X: preview' }}"
 
 on:
   workflow_dispatch:
