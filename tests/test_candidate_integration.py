@@ -45,3 +45,21 @@ def test_built_safety_panels_load_only_allowlisted_content_bound_scripts(tmp_pat
     ui = (output / versioned['safety-ui']).read_text(encoding='utf-8')
     assert f"require('./{Path(versioned['safety-state']).name}')" in ui
     subprocess.run(['node', '-e', 'require(process.argv[1])', str(output / versioned['safety-ui'])], check=True)
+
+
+def test_pr_browser_validation_keeps_read_only_local_fixture_boundary():
+    workflow = (ROOT / '.github/workflows/site-health.yml').read_text()
+    assert 'pull_request_target:' not in workflow
+    assert '  contents: read' in workflow
+    assert ': write' not in workflow
+    assert '${{ secrets.' not in workflow
+    assert 'persist-credentials: false' in workflow
+    assert 'playwright@1.62.1' in workflow
+    assert '--ignore-scripts' in workflow
+    assert 'SITE_ROOT: ${{ runner.temp }}/public-site' in workflow
+    assert workflow.index('scripts/stage_public_artifact.py') < workflow.index('node tests/browser_safety.cjs')
+    assert 'deploy-pages@' not in workflow
+    harness = (ROOT / 'tests/browser_safety.cjs').read_text()
+    assert "page.route('**/*'" in harness
+    assert "url.hostname!=='127.0.0.1'" in harness
+    assert "serviceWorkers:'block'" in harness

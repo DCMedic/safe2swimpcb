@@ -20,7 +20,11 @@ this preparation.
   transforms, prerender/site-health checks, and explicit artifact staging.
 - The deterministic browser harness accepts `SITE_ROOT=/absolute/artifact/path`
   to exercise the staged, fingerprinted artifact, rather than only source HTML.
-  All browser requests are intercepted and use local fixtures.
+  All browser requests are intercepted and use local fixtures. PR validation
+  installs pinned official Playwright and its Chromium in the ephemeral runner
+  and executes this harness against that job's staged artifact. It uses no
+  production credentials or publishing permissions; checkout credentials are
+  not persisted. Only an observed success for the exact PR head counts as a pass.
 - Build transforms and artifact staging belong in a separate clean checkout.
   Do not commit generated runtime data or treat local test results as a genuine
   GitHub workflow run. Local builds cannot produce passing release attestation
@@ -33,7 +37,8 @@ Use an isolated checkout of the exact reviewed commit, Python dependencies from
 The public artifact destination must be new and outside the source checkout.
 
 For browser validation in an environment allowed to launch Chromium, install
-Playwright and use the existing Chromium executable (or set `CHROMIUM_PATH`):
+Playwright 1.62.1 and its Chromium revision. The harness uses that browser by
+default; `CHROMIUM_PATH` can explicitly select an existing approved executable:
 
 ```sh
 SITE_ROOT=/absolute/artifact/path node tests/browser_safety.cjs
@@ -47,9 +52,12 @@ release, current collector observations, or safe swimming conditions.
 
 1. **Real browser validation.** The authoring environment previously blocked
    Chromium launch with an operating-system socket restriction. A launch failure
-   is not a passing browser test. The staged candidate still needs completed
-   browser, responsive, accessibility, interruption/failure, and cache-generation
-   checks in an approved environment.
+   is not a passing browser test. The isolated PR validation now runs deterministic
+   browser assertions against the staged artifact; verify its exact-head result.
+   This covers four regional pages, a narrow viewport, accessibility attributes,
+   freshness aging, failed refresh, and no JavaScript. It is not a complete
+   accessibility audit, cache-upgrade matrix, or production-guard compatibility
+   test. Those broader release checks remain separate.
 2. **Production guard compatibility.** A prior KT-002 public diagnostic at
    21:41 UTC reported VPS hosting/PCB ownership and found
    `https://knowthegulf.com/assets/ktg-status-guard.js`, SHA-256

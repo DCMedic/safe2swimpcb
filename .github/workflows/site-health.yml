@@ -30,6 +30,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -65,12 +67,30 @@ jobs:
         run: |
           python scripts/stage_public_artifact.py --output "$RUNNER_TEMP/public-site"
           for file in "$RUNNER_TEMP/public-site"/assets/*.js; do node --check "$file"; done
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated browser validation dependencies
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/ktg-chromium
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ktg-browser" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.62.1
+          node "$RUNNER_TEMP/ktg-browser/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Validate staged safety panels in Chromium
+        timeout-minutes: 3
+        env:
+          NODE_PATH: ${{ runner.temp }}/ktg-browser/node_modules
+          PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/ktg-chromium
+          SITE_ROOT: ${{ runner.temp }}/public-site
+        run: node tests/browser_safety.cjs
 
   lighthouse:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'

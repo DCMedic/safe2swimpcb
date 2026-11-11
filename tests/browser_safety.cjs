@@ -7,11 +7,12 @@ const root = path.resolve(process.env.SITE_ROOT || path.join(__dirname,'..'));
 const now = Date.parse('2026-11-11T12:00:00Z');
 const base = {flag:'Double Red',purple:true,last_verified_at:'2026-11-11T11:00:00Z',last_checked_at:'2026-11-11T11:30:00Z',stale_after_hours:2,source_name:'County lifeguards',source_url:'https://example.org/current',source_check_status:'verified',visitbeaches_evidence:{source_lineage:'visitbeaches',flag:'Double Red',purple:true,report_at:'2026-11-11T11:00:00Z',freshness_hours:1.01}};
 (async()=>{
-  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH || '/usr/bin/chromium',args:['--no-sandbox']});
+  // Default to the Chromium revision supplied by the pinned Playwright package.
+  const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH ? {executablePath:process.env.CHROMIUM_PATH} : {})});
   let checks=0;
   try {
     for (const route of ['/','/destin/','/cape-san-blas/','/siesta-key/']) {
-      const context=await browser.newContext({viewport:{width:390,height:844}}), page=await context.newPage();
+      const context=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block'}), page=await context.newPage();
       let fail=false, requests=0;
       await page.addInitScript(t=>{window.__testNow=t; Date.now=()=>window.__testNow;},now);
       await page.route('**/*',async r=>{
@@ -46,7 +47,7 @@ const base = {flag:'Double Red',purple:true,last_verified_at:'2026-11-11T11:00:0
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true); checks++;
       await context.close();
     }
-    const context=await browser.newContext({javaScriptEnabled:false}); const page=await context.newPage();
+    const context=await browser.newContext({javaScriptEnabled:false,serviceWorkers:'block'}); const page=await context.newPage();
     await page.route('**/*',r=>{const url=new URL(r.request().url()); if(url.hostname!=='127.0.0.1') return r.abort(); const file=path.join(root,url.pathname==='/'?'index.html':url.pathname); return fs.existsSync(file)?r.fulfill({path:file}):r.fulfill({status:404,body:''});});
     await page.goto('http://127.0.0.1/'); assert.equal(await page.locator('#flagPole').isVisible(),false); checks++;
     await context.close();
