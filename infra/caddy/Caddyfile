@@ -27,10 +27,10 @@ knowthegulf.com {
 	root * /srv/knowthegulf/current
 	encode zstd gzip
 
-	@live_flags path_regexp liveflags ^/data/(?:current_flag\.json|[^/]+/current_flag\.json)$
+	@live_flags path_regexp liveflags ^/data/(?:current_flag\.json|[^/]+/(?:current_flag\.json|current_status\.json))$
 	header @live_flags Cache-Control "no-store, max-age=0, must-revalidate"
 
-	@health_state path /data/x_publisher_health.json /data/workflow_health/*
+	@health_state path /data/site_build_health.json /data/x_publisher_health.json /data/workflow_health/*
 	header @health_state Cache-Control "no-store, max-age=0, must-revalidate"
 
 	@static_assets path /assets/*

@@ -99,7 +99,7 @@ def normalize_flag(value: str | None) -> str | None:
 def hours_old(ts: datetime | None, now: datetime) -> float | None:
     if ts is None:
         return None
-    return max(0.0, (now.astimezone(ts.tzinfo) - ts).total_seconds() / 3600.0)
+    return (now.astimezone(ts.tzinfo) - ts).total_seconds() / 3600.0
 
 
 def parse_nws_issued(text: str) -> datetime | None:
@@ -186,7 +186,7 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
             issued_text = body.get("issuanceTime") or product.get("issuanceTime")
             flags = parse_nws_flag_table(text)
             age = hours_old(issued, datetime.now(EASTERN)) if issued else None
-            if flags and age is not None and age <= MAX_OFFICIAL_AGE_HOURS:
+            if flags and age is not None and 0 <= age < MAX_OFFICIAL_AGE_HOURS:
                 return flags, issued_text, issued, detail_url
     except (requests.RequestException, ValueError, TypeError) as exc:
         print(f"NWS API SRFTAE unavailable: {type(exc).__name__}: {exc}")
@@ -211,7 +211,7 @@ def fetch_nws_flags() -> tuple[dict[str, str], str | None, datetime | None, str]
             newest_issued, newest_issued_text = issued, issued_text
         flags = parse_nws_flag_table(text)
         age = hours_old(issued, datetime.now(EASTERN)) if issued else None
-        if flags and age is not None and age <= MAX_OFFICIAL_AGE_HOURS:
+        if flags and age is not None and 0 <= age < MAX_OFFICIAL_AGE_HOURS:
             return flags, issued_text, issued, url
     return {}, newest_issued_text, newest_issued, last_url
 
@@ -322,7 +322,7 @@ def cached_franklin_observation(now: datetime) -> dict[str, object | None] | Non
     if observed_at is None and previous.get("timestamp_basis") == "fetch_time":
         observed_at = parse_iso_datetime(previous.get("official_observed_at"))
     age = hours_old(observed_at, now) if observed_at else None
-    if not flag or age is None or age > MAX_OFFICIAL_AGE_HOURS:
+    if not flag or age is None or not 0 <= age < MAX_OFFICIAL_AGE_HOURS:
         return None
     return {
         "flag": flag,
@@ -375,7 +375,7 @@ def write_payload(
     previous = load_previous_payload(slug) or {}
     nws_flag = nws_flags.get(cfg["nws_key"])
     nws_age = hours_old(nws_issued_at, now)
-    nws_fresh = bool(nws_flag and nws_age is not None and nws_age <= MAX_OFFICIAL_AGE_HOURS)
+    nws_fresh = bool(nws_flag and nws_age is not None and 0 <= nws_age < MAX_OFFICIAL_AGE_HOURS)
 
     official_flag = franklin.get("flag") if slug == "franklin-county" and franklin else None
     official_updated_text = franklin.get("official_updated_text") if slug == "franklin-county" and franklin else None
@@ -386,7 +386,7 @@ def write_payload(
 
     evidence_at = official_updated_at if isinstance(official_updated_at, datetime) else fetched_at if isinstance(fetched_at, datetime) else None
     official_age = hours_old(evidence_at, now) if evidence_at else None
-    official_fresh = bool(official_flag and official_age is not None and official_age <= MAX_OFFICIAL_AGE_HOURS)
+    official_fresh = bool(official_flag and official_age is not None and 0 <= official_age < MAX_OFFICIAL_AGE_HOURS)
 
     if official_fresh:
         flag = str(official_flag)
@@ -428,8 +428,11 @@ def write_payload(
         nws_fresh=nws_fresh,
     )
 
+    selected_evidence_at = evidence_at if official_fresh else nws_issued_at if nws_fresh else None
     payload = {
         "location": cfg["name"],
+        "observed_at": selected_evidence_at.isoformat() if isinstance(selected_evidence_at, datetime) else None,
+        "source_lineage": "nws" if tier == "official_report_via_nws" else cfg["official_url"],
         "flag": flag,
         "label": flag if flag else "Official flag status unavailable",
         "severity": FLAG_SEVERITY.get(flag),

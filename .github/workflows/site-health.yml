@@ -38,8 +38,11 @@ jobs:
         run: python -m pip install --disable-pip-version-check -r requirements.txt
       - name: Validate shared JavaScript
         run: |
-          for f in assets/app.js assets/menu.js assets/beach-nav.js assets/site-ui.js assets/quality-ui.js assets/western-location.js assets/eastern-location.js assets/southwest-location.js assets/location-page.js; do
+          for f in assets/*.js; do
             node --check "$f"
+          done
+          for test_file in tests/*.test.cjs; do
+            if [ -f "$test_file" ]; then node --test "$test_file"; fi
           done
       - name: Validate Python, persistence and workflow architecture
         run: |
@@ -55,7 +58,13 @@ jobs:
           python scripts/inject_social_meta.py
           python scripts/generate_sitemap.py
       - name: Validate routes, assets, sitemap and data contracts
-        run: python scripts/site_health_check.py
+        run: |
+          python scripts/verify_prerender_consistency.py
+          python scripts/site_health_check.py
+      - name: Validate the explicitly allowed public artifact
+        run: |
+          python scripts/stage_public_artifact.py --output "$RUNNER_TEMP/public-site"
+          for file in "$RUNNER_TEMP/public-site"/assets/*.js; do node --check "$file"; done
 
   lighthouse:
     runs-on: ubuntu-latest

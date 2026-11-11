@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import argparse,html,json,re,sys,time
+sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parents[1]))
 from pathlib import Path
 from urllib.request import Request,urlopen
 ROOT=Path(__file__).resolve().parents[1]; DATA=ROOT/"data/current_flag.json"; INDEX=ROOT/"index.html"
 def expected():
- d=json.loads(DATA.read_text(encoding="utf-8")); label=str(d.get("label") or d.get("flag") or "Verify official flag"); verified=str(d.get("last_verified_at") or "")
- if not verified: raise ValueError("data/current_flag.json missing last_verified_at")
- return label,verified
+ from scripts.prerender_current_status import snapshot_label,evidence_stamp
+ d=json.loads(DATA.read_text(encoding="utf-8"))
+ return snapshot_label(d),str(evidence_stamp(d) or "")
 def check_text(text):
  label,verified=expected(); errors=[]; m=re.search(r'<div id="currentFlag" class="flagname">(.*?)</div>',text,re.S)
  rendered=html.unescape(re.sub(r"<[^>]+>","",m.group(1))).strip() if m else None
- if rendered!=label: errors.append(f"rendered PCB flag {rendered!r} != authoritative label {label!r}")
- if verified not in text: errors.append(f"authoritative PCB verification timestamp {verified!r} missing from rendered HTML")
- if "Checking the locally cached official status" in text: errors.append("neutral PCB loading placeholder remains in rendered HTML")
+ if rendered!=label: errors.append(f"rendered PCB snapshot {rendered!r} != expected snapshot {label!r}")
+ if verified and verified not in text: errors.append(f"authoritative PCB evidence timestamp {verified!r} missing from rendered HTML")
+ pole=re.search(r'<div id="flagPole"([^>]*)>(.*?)</div>',text,re.S)
+ if not pole or 'hidden' not in pole[1] or 'flagshape' in pole[2]: errors.append("prerender must not show an unvalidated current flag graphic")
+ if "This snapshot may have expired" not in text: errors.append("conservative snapshot expiry warning missing")
  return errors
 def fetch(url):
  req=Request(url,headers={"Cache-Control":"no-cache","Pragma":"no-cache","User-Agent":"KnowTheGulf-deployment-verifier/1.0"})

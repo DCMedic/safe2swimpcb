@@ -183,7 +183,7 @@ def test_okaloosa_synchronized_fallback_accepts_fresh_verified_official_flag(tmp
     source.mkdir(parents=True)
     source.joinpath("current_flag.json").write_text(
         '{"flag":"Double Red","primary_flag":"Double Red","purple":false,'
-        '"source_check_status":"verified","source_name":"Destin Fire Control District / Destin Beach Safety",'
+        '"source_check_status":"verified","stale_after_hours":3,"source_name":"Destin Fire Control District / Destin Beach Safety",'
         '"source_url":"https://www.destinfire.gov/today-s-warning-condition-beach-flags",'
         '"last_verified_at":"2026-09-24T09:00:00-05:00"}',
         encoding="utf-8",
@@ -247,3 +247,21 @@ def test_okaloosa_synchronized_fallback_requires_verified_source(tmp_path, monke
     assert flag is None
     assert purple is False
     assert metadata == {}
+
+
+def test_synchronized_fallback_does_not_refresh_expired_observation(tmp_path, monkeypatch):
+    import json
+    from scripts import refresh_western_current_flags as module
+    source = tmp_path / 'current.json'
+    record = {'flag': 'Green', 'source_check_status': 'verified', 'stale_after_hours': 3,
+              'last_verified_at': '2026-09-24T10:00:00-05:00',
+              'observed_at': '2026-09-24T07:00:00-05:00'}
+    source.write_text(json.dumps(record))
+    monkeypatch.setattr(module, 'ROOT', tmp_path)
+    cfg = {'synchronized_source_path': 'current.json', 'synchronization_authority_url': 'https://authority.example'}
+    now = module.datetime.fromisoformat('2026-09-24T10:00:00-05:00')
+    assert load_synchronized_official_flag(cfg, now)[0] is None
+    record['observed_at'] = '2026-09-24T09:00:00-05:00'
+    record['source_name'] = 'VisitBeaches'
+    source.write_text(json.dumps(record))
+    assert load_synchronized_official_flag(cfg, now)[0] is None

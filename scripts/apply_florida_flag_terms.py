@@ -5,6 +5,7 @@ import argparse
 import json
 import re
 from datetime import datetime
+from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
@@ -16,6 +17,11 @@ try:
     from .florida_flag_terms import PRIMARY_SEVERITY, FloridaFlagState, interpret_florida_flag_terms
 except ImportError:
     from florida_flag_terms import PRIMARY_SEVERITY, FloridaFlagState, interpret_florida_flag_terms
+
+try:
+    from .source_evidence import reset_primary_evidence
+except ImportError:
+    from source_evidence import reset_primary_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 CENTRAL = ZoneInfo("America/Chicago")
@@ -75,13 +81,42 @@ def http_session() -> requests.Session:
     return s
 
 
-def merge_states(a: FloridaFlagState, b: FloridaFlagState) -> FloridaFlagState:
-    return FloridaFlagState(
-        primary=a.primary or b.primary,
+@dataclass(frozen=True)
+class CurrentFlagState(FloridaFlagState):
+    distinct_flags: tuple[str, ...] = ()
+
+    @property
+    def conflict(self) -> bool:
+        return len(self.distinct_flags) > 1
+
+
+def merge_states(a: FloridaFlagState, b: FloridaFlagState) -> CurrentFlagState:
+    flags = set(getattr(a, 'distinct_flags', ())) | set(getattr(b, 'distinct_flags', ()))
+    flags.update(flag for flag in (a.primary, b.primary) if flag)
+    return CurrentFlagState(
+        primary=next(iter(flags)) if len(flags) == 1 else None,
         purple=a.purple or b.purple,
         primary_term=a.primary_term or b.primary_term,
         purple_term=a.purple_term or b.purple_term,
+        distinct_flags=tuple(sorted(flags)),
     )
+
+
+def has_evidence(state: FloridaFlagState) -> bool:
+    return bool(state.primary or state.purple or getattr(state, 'distinct_flags', ()))
+
+
+def parse_current_value(value: object) -> FloridaFlagState:
+    state = FloridaFlagState()
+    terms = list(TERM_PATTERN.finditer(str(value or '')))
+    if not terms:
+        state = interpret_florida_flag_terms(value)
+    for term in terms:
+        state = merge_states(state, interpret_florida_flag_terms(term.group(0)))
+    for piece in re.split(r'[;,|]', str(value or '')):
+        if re.fullmatch(r'\s*(?:double red|single red|red|yellow|green|purple)\s*', piece, re.I):
+            state = merge_states(state, interpret_florida_flag_terms(piece))
+    return state
 
 
 def state_from_current_text(text: str) -> tuple[FloridaFlagState, str | None]:
@@ -95,10 +130,13 @@ def state_from_current_text(text: str) -> tuple[FloridaFlagState, str | None]:
             parsed = interpret_florida_flag_terms(bare.group(1))
             state = merge_states(state, parsed)
             evidence.append(bare.group(1))
+        for piece in re.split(r'[;,|]', segment):
+            if re.fullmatch(r'\s*(?:double red|single red|red|yellow|green|purple)\s*', piece, re.I):
+                state = merge_states(state, interpret_florida_flag_terms(piece))
         terms = list(TERM_PATTERN.finditer(segment))
-        for term in terms[:2]:
+        for term in terms:
             parsed = interpret_florida_flag_terms(term.group(0))
-            if parsed.primary or parsed.purple:
+            if has_evidence(parsed):
                 state = merge_states(state, parsed)
                 evidence.append(term.group(0))
     return state, "; ".join(dict.fromkeys(evidence)) or None
@@ -120,6 +158,9 @@ def state_from_record(record: object) -> tuple[FloridaFlagState, str | None]:
     evidence: list[str] = []
     if isinstance(record, dict):
         for key, value in record.items():
+            key_l = str(key).lower()
+            if any(token in key_l for token in ('legend', 'definition', 'forecast', 'meaning')):
+                continue
             if isinstance(value, (dict, list)):
                 child, why = state_from_record(value)
                 state = merge_states(state, child)
@@ -129,8 +170,8 @@ def state_from_record(record: object) -> tuple[FloridaFlagState, str | None]:
             key_l = str(key).lower()
             if not any(token in key_l for token in ("flag", "status", "condition", "warning", "hazard", "marine")):
                 continue
-            parsed = interpret_florida_flag_terms(value)
-            if parsed.primary or parsed.purple:
+            parsed = parse_current_value(value)
+            if has_evidence(parsed):
                 state = merge_states(state, parsed)
                 evidence.append(f"{key}={value}")
     elif isinstance(record, list):
@@ -145,23 +186,23 @@ def state_from_record(record: object) -> tuple[FloridaFlagState, str | None]:
 def state_from_structured(obj: object, beach_names: list[str]) -> tuple[FloridaFlagState, str | None]:
     if not beach_names or not contains_beach(obj, beach_names):
         return FloridaFlagState(), None
-    if isinstance(obj, list):
-        for item in obj:
-            if contains_beach(item, beach_names):
-                state, why = state_from_structured(item, beach_names)
-                if state.primary or state.purple:
-                    return state, why
-        return FloridaFlagState(), None
     if isinstance(obj, dict):
         direct = " ".join(str(v or "") for v in obj.values() if not isinstance(v, (dict, list))).lower()
         if any(name.lower() in direct for name in beach_names):
             return state_from_record(obj)
-        for child in obj.values():
-            if isinstance(child, (dict, list)) and contains_beach(child, beach_names):
-                state, why = state_from_structured(child, beach_names)
-                if state.primary or state.purple:
-                    return state, why
-    return FloridaFlagState(), None
+        children = [value for key, value in obj.items()
+                    if not any(token in str(key).lower() for token in ('legend', 'definition', 'forecast', 'meaning'))]
+    else:
+        children = obj if isinstance(obj, list) else []
+    combined = FloridaFlagState()
+    reasons = []
+    for child in children:
+        if isinstance(child, (dict, list)) and contains_beach(child, beach_names):
+            state, why = state_from_structured(child, beach_names)
+            combined = merge_states(combined, state)
+            if why:
+                reasons.append(why)
+    return combined, "; ".join(reasons) or None
 
 
 def extract_page_state(html: str, beach_names: list[str]) -> tuple[FloridaFlagState, str | None]:
@@ -177,13 +218,13 @@ def extract_page_state(html: str, beach_names: list[str]) -> tuple[FloridaFlagSt
         except Exception:
             continue
         state, why = state_from_structured(obj, beach_names)
-        if state.primary or state.purple:
+        if has_evidence(state):
             combined = merge_states(combined, state)
             if why:
                 evidence.append(f"structured:{why}")
     text = " ".join(soup.stripped_strings)
     state, why = state_from_current_text(text)
-    if state.primary or state.purple:
+    if has_evidence(state):
         combined = merge_states(combined, state)
         if why:
             evidence.append(f"current-text:{why}")
@@ -223,7 +264,7 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         except requests.RequestException:
             continue
         found, evidence = extract_page_state(r.text, beach_names)
-        if not (found.primary or found.purple):
+        if not has_evidence(found):
             continue
 
         had_primary = verified.primary is not None
@@ -235,13 +276,13 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         elif found.purple and not had_purple and verified.primary is None:
             verified_url = url
             verified_evidence = evidence
-        if verified.primary and verified.purple:
-            break
 
     # A fresh verified primary is a complete current primary observation. It must
     # not inherit a stale Purple overlay from the previous cache. If the only new
     # evidence is Purple, preserve the existing primary and add the overlay.
-    if verified.primary:
+    if has_evidence(verified) and getattr(verified, "conflict", False):
+        final_state = verified
+    elif verified.primary:
         final_state = verified
     elif verified.purple:
         final_state = merge_states(existing, verified)
@@ -254,6 +295,11 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
     payload["purple"] = final_state.purple
     payload["label"] = final_state.label or payload.get("label") or "Official flag status unavailable"
     payload["severity"] = PRIMARY_SEVERITY.get(final_state.primary)
+    if getattr(final_state, "conflict", False):
+        payload["flag_conflict"] = True
+        payload["fresh_distinct_flags"] = list(final_state.distinct_flags)
+        payload["label"] = "Conflicting current flag reports. Check your beach."
+
     payload["flag_schema"] = "Florida Beach Warning Flag terminology v1"
     payload["flag_terms_note"] = (
         "Official current wording is normalized as: Water Closed to Public=Double Red; "
@@ -267,7 +313,15 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
         payload["terminology_verified_url"] = verified_url
         payload["terminology_evidence"] = verified_evidence
         payload["terminology_verified_at"] = verified_at
-        if verified.primary:
+        if getattr(verified, "conflict", False):
+            reset_primary_evidence(payload, verified_at, verified_url)
+            payload["flag_conflict"] = True
+            payload["fresh_distinct_flags"] = list(verified.distinct_flags)
+            payload["source_check_status"] = "conflict"
+            payload["last_checked_at"] = verified_at
+            payload["provenance_tier"] = "primary_official_terminology_conflict"
+        elif verified.primary:
+            payload.pop("fresh_distinct_flags", None)
             prior_url = payload.get("source_url")
             prior_name = payload.get("source_name")
             if prior_url and prior_url != verified_url:
@@ -279,6 +333,14 @@ def update_payload(slug: str, payload: dict, session: requests.Session) -> tuple
             payload["provenance_tier"] = "primary_official_terminology"
             payload["cached"] = False
             payload["source_check_status"] = "verified"
+            # Re-reading dated current wording does not create a new issuance.
+            same_dated_source = verified_url in (prior_url, payload.get("official_authority_url")) and (
+                payload.get("official_updated_at") is not None or payload.get("official_updated_text") is not None)
+            official_stamp = payload.get("official_updated_at")
+            selected_stamp = official_stamp if same_dated_source else verified_at
+            reset_primary_evidence(payload, selected_stamp, verified_url)
+            if same_dated_source:
+                payload["official_updated_at"] = official_stamp
             payload["last_verified_at"] = verified_at
             payload["last_checked_at"] = verified_at
             payload["stale_reason"] = None

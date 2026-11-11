@@ -8,6 +8,11 @@ from typing import Any
 
 import requests
 
+try:
+    from .source_evidence import fresh_at, parse_time, current_visitbeaches
+except ImportError:
+    from source_evidence import fresh_at, parse_time, current_visitbeaches
+
 GRAPHQL_URL = "https://api.visitbeaches.org/graphql"
 USER_AGENT = "KnowTheGulf/1.0 (+https://knowthegulf.com)"
 
@@ -81,18 +86,6 @@ def normalize_flag(value: Any) -> str | None:
     return None
 
 
-def parse_time(value: str | None) -> datetime | None:
-    if not value:
-        return None
-    try:
-        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
-    except ValueError:
-        return None
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc)
-
-
 def _parameter_text(param: dict) -> str:
     parameter = param.get("parameter") or {}
     category = parameter.get("parameterCategory") or {}
@@ -118,6 +111,7 @@ def normalize_report(report: dict) -> dict:
     flag: str | None = None
     purple = False
     normalized: dict[str, Any] = {}
+    reported_flags = set()
 
     beach_report = report.get("beachReport") or {}
     for category_block in beach_report if isinstance(beach_report, list) else [beach_report]:
@@ -154,14 +148,21 @@ def normalize_report(report: dict) -> dict:
             # unrelated colors or generic hazard text from becoming a Florida warning flag.
             flag_context = "flag" in key or bool(re.search(r"\b(?:green|yellow|red|purple|double\s+red)\s+flag\b|water\s+closed", value_names, re.I))
             if flag_context:
-                candidate = normalize_flag(value_names or rp.get("value") or text)
-                if candidate:
-                    flag = candidate
-                if PURPLE_RE.search(value_names + " | " + text):
+                # Each selected value is distinct evidence; combining its text first
+                # would silently hide a Green/Double Red conflict in one parameter.
+                candidates = [normalize_flag(v.get("name") or v.get("value"))
+                              for v in values if isinstance(v, dict)]
+                if not values:
+                    candidates = [normalize_flag(rp.get("value"))]
+                for candidate in candidates:
+                    if candidate:
+                        reported_flags.add(candidate)
+                        flag = candidate
+                if PURPLE_RE.search(value_names + " | " + _norm_text(rp.get("value"))):
                     purple = True
 
             if "dangerous marine life" in key or "marine life" in key or "purple flag" in key:
-                if PURPLE_RE.search(text) or any(str(v.get("value", "")).lower() in {"1", "true", "yes"} for v in values if isinstance(v, dict)):
+                if PURPLE_RE.search(value_names) or str(rp.get("value", "")).lower() in {"1", "true", "yes"} or any(str(v.get("value", "")).lower() in {"1", "true", "yes"} for v in values if isinstance(v, dict)):
                     purple = True
 
             # Preserve a useful normalized view while retaining the complete raw parameter set.
@@ -190,7 +191,9 @@ def normalize_report(report: dict) -> dict:
         "latitude": report.get("latitude"),
         "longitude": report.get("longitude"),
         "ambassador": report.get("user"),
-        "flag": flag,
+        "flag": flag if len(reported_flags) <= 1 else None,
+        "flag_conflict": len(reported_flags) > 1,
+        "reported_flags": sorted(reported_flags),
         "purple": purple,
         "normalized_conditions": normalized,
         "parameters": raw_params,
@@ -267,7 +270,7 @@ def collect_location(aliases: list[str], *, freshness_hours: float = 24.0, clien
                 "beach_latitude": beach.get("latitude"),
                 "beach_longitude": beach.get("longitude"),
                 "age_hours": round(age_h, 3) if age_h is not None else None,
-                "fresh": age_h is not None and -0.25 <= age_h <= freshness_hours,
+                "fresh": fresh_at(nr.get("created_at"), freshness_hours, datetime.now(timezone.utc)),
                 "source_class": "Beach Ambassador Report",
             })
             observations.append(nr)
@@ -275,11 +278,11 @@ def collect_location(aliases: list[str], *, freshness_hours: float = 24.0, clien
     observations.sort(key=lambda x: parse_time(x.get("created_at")) or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
     fresh = [o for o in observations if o.get("fresh")]
     fresh_flags = [o for o in fresh if o.get("flag")]
-    distinct_flags = sorted({o["flag"] for o in fresh_flags})
+    distinct_flags = sorted({f for o in fresh for f in (o.get("reported_flags") or ([o["flag"]] if o.get("flag") else []))})
 
     selected_flag: str | None = None
-    conflict = False
-    if len(distinct_flags) == 1:
+    conflict = any(o.get("flag_conflict") for o in fresh)
+    if len(distinct_flags) == 1 and not conflict:
         selected_flag = distinct_flags[0]
     elif len(distinct_flags) > 1:
         conflict = True
@@ -295,7 +298,9 @@ def collect_location(aliases: list[str], *, freshness_hours: float = 24.0, clien
         "source_url": "https://visitbeaches.org/map",
         "source_data_url": GRAPHQL_URL,
         "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-        "checked_at": checked_at.isoformat(),
+        "checked_at": datetime.now(timezone.utc).isoformat(),
+        "source_lineage": "visitbeaches",
+        "report_at": min((o["created_at"] for o in fresh if o.get("flag") or o.get("reported_flags") or o.get("purple") is True), key=parse_time, default=None),
         "freshness_hours": freshness_hours,
         "aliases": aliases,
         "matched_beaches": matches,

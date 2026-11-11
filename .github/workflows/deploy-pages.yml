@@ -28,8 +28,9 @@ concurrency:
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository)) }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     environment:
       name: github-pages
       url: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deployment.outputs.page_url }}
@@ -41,21 +42,43 @@ jobs:
         with:
           ref: main
 
+      - name: Capture actual checkout identity
+        id: checkout_identity
+        run: echo "sha=$(git rev-parse --verify HEAD^{commit})" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
       - name: Validate frontend JavaScript
+        id: javascript
         run: |
-          node --check assets/app.js
-          node --check assets/menu.js
-          node --check assets/beach-nav.js
-          node --check assets/site-ui.js
-          node --check assets/quality-ui.js
-          node --check assets/western-location.js
-          node --check assets/eastern-location.js
-          node --check assets/southwest-location.js
-          node --check assets/location-page.js
+          for file in assets/*.js; do node --check "$file"; done
+          for test_file in tests/*.test.cjs; do
+            if [ -f "$test_file" ]; then node --test "$test_file"; fi
+          done
 
       - name: Validate deployment helpers
+        id: python
         run: |
-          python -m py_compile scripts/inject_social_meta.py scripts/site_health_check.py scripts/verify_prerender_consistency.py
+          python -m compileall -q scripts
+          bash -n scripts/persist_paths.sh
+
+      - name: Validate workflow architecture
+        id: workflow_architecture
+        run: python scripts/validate_workflows.py
+
+      - name: Validate staged infrastructure policy
+        id: infrastructure
+        run: python scripts/validate_infrastructure.py
+
+      - name: Run repository test suite for this checkout
+        id: repository_tests
+        run: python -m pytest -q
 
       - name: Build optimized deployment HTML
         run: |
@@ -64,22 +87,51 @@ jobs:
           python scripts/generate_sitemap.py
 
       - name: Verify authoritative PCB status is baked into artifact
+        id: prerender
         run: python scripts/verify_prerender_consistency.py
 
       - name: Repository-wide site health gate
+        id: site_health
         run: python scripts/site_health_check.py
 
-      - name: Write deployment health marker
-        run: python scripts/write_build_health.py
+      - name: Stage explicitly allowed public files
+        id: artifact
+        run: |
+          python scripts/stage_public_artifact.py --output "$RUNNER_TEMP/public-site"
+          for file in "$RUNNER_TEMP/public-site"/assets/*.js; do node --check "$file"; done
 
-      - name: Configure GitHub Pages
+      - name: Write build evidence, not deployment success
+        env:
+          EXPECTED_SHA: ${{ steps.checkout_identity.outputs.sha }}
+          BUILD_JAVASCRIPT_RESULT: ${{ steps.javascript.outcome }}
+          BUILD_PYTHON_RESULT: ${{ steps.python.outcome }}
+          BUILD_REPOSITORY_TESTS_RESULT: ${{ steps.repository_tests.outcome }}
+          BUILD_PRERENDER_RESULT: ${{ steps.prerender.outcome }}
+          BUILD_SITE_HEALTH_RESULT: ${{ steps.site_health.outcome }}
+          BUILD_WORKFLOW_ARCHITECTURE_RESULT: ${{ steps.workflow_architecture.outcome }}
+          BUILD_INFRASTRUCTURE_RESULT: ${{ steps.infrastructure.outcome }}
+          BUILD_ARTIFACT_RESULT: ${{ steps.artifact.outcome }}
+        run: python scripts/write_build_health.py --site-dir "$RUNNER_TEMP/public-site" --target github-pages --expected-sha "$EXPECTED_SHA"
+
+      - name: Verify final artifact inventory and hashes
+        run: python scripts/verify_release.py --site-dir "$RUNNER_TEMP/public-site" --target build
+
+      - name: Read GitHub Pages configuration
+        id: pages_config
         uses: actions/configure-pages@v5
+        with:
+          enablement: false
+
+      - name: Preflight isolated Pages target before publication
+        env:
+          PAGES_URL: ${{ steps.pages_config.outputs.base_url }}
+        run: python scripts/verify_release.py --site-dir "$RUNNER_TEMP/public-site" --target github-pages --url "$PAGES_URL" --preflight
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v4
         with:
           name: ${{ env.PAGES_ARTIFACT_NAME }}
-          path: '.'
+          path: ${{ runner.temp }}/public-site
 
       - name: Deploy to GitHub Pages - attempt 1
         id: deploy_1
@@ -111,6 +163,8 @@ jobs:
         with:
           artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
 
-      - name: Verify production PCB prerender matches authoritative data
+      - name: Verify this release at the configured GitHub Pages target
         if: ${{ always() && (steps.deploy_1.outcome == 'success' || steps.deploy_2.outcome == 'success' || steps.deployment.outcome == 'success') }}
-        run: python scripts/verify_prerender_consistency.py --url https://knowthegulf.com/ --attempts 8 --delay 15
+        env:
+          PAGES_URL: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deployment.outputs.page_url }}
+        run: python scripts/verify_release.py --site-dir "$RUNNER_TEMP/public-site" --target github-pages --url "$PAGES_URL" --attempts 8 --delay 15
