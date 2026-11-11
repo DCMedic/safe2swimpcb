@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_POLICY = ROOT / ".github" / "recovery" / "policy.json"
 ACTIVE_RUN_STATES = {"queued", "in_progress", "waiting", "requested", "pending"}
+RECOVERY_BRANCH = "main"
 
 
 def parse_time(value: str) -> datetime:
@@ -72,7 +73,9 @@ def split_active_runs(
         if run.get("status") not in ACTIVE_RUN_STATES:
             continue
         age = run_age_minutes(run, now)
-        if age is None or age < stuck_run_minutes:
+        # A waiting run can be paused for a protected-environment approval.
+        # Do not turn an intentional human gate into an automatic cancellation.
+        if run.get("status") == "waiting" or age is None or age < stuck_run_minutes:
             recent.append(run)
         else:
             stuck.append(run)
@@ -140,10 +143,49 @@ def workflow_recovery_state(
     token: str,
     heartbeat_at: datetime | None = None,
 ) -> tuple[str | None, list[dict]]:
-    encoded = urllib.parse.quote(workflow_path, safe="")
-    url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/runs?per_page=20"
-    data = github_json(url, token)
-    runs = data.get("workflow_runs", [])
+    encoded = urllib.parse.quote(Path(workflow_path).name, safe="")
+    workflow_url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}"
+    workflow = github_json(workflow_url, token)
+    # Respect intentional pauses. Recovery never enables a disabled workflow.
+    if workflow.get("state") != "active":
+        return f"workflow is not active ({workflow.get('state', 'unknown')})", []
+    if workflow.get("path") != workflow_path or not isinstance(workflow.get("id"), int):
+        raise RuntimeError("workflow metadata does not match configured path")
+
+    def scoped_runs(status: str | None = None) -> list[dict]:
+        runs = []
+        for page in range(1, 11):
+            query = {"branch": RECOVERY_BRANCH, "per_page": 100, "page": page}
+            if status:
+                query["status"] = status
+            data = github_json(f"{workflow_url}/runs?{urllib.parse.urlencode(query)}", token)
+            batch = data.get("workflow_runs")
+            if not isinstance(batch, list):
+                raise RuntimeError("workflow run list is missing or malformed")
+            for run in batch:
+                if not isinstance(run, dict) or not all((
+                    run.get("head_branch"), run.get("event"), run.get("workflow_id"),
+                    run.get("id"), (run.get("head_repository") or {}).get("full_name"),
+                )):
+                    raise RuntimeError("workflow run scope is missing or malformed")
+            # Defense in depth: never cancel or suppress based on a PR, fork,
+            # or development-branch run, even if the API filter is ignored.
+            runs.extend(run for run in batch if (
+                run.get("head_branch") == RECOVERY_BRANCH
+                and run.get("head_repository", {}).get("full_name") == repo
+                and run.get("event") in {"push", "schedule", "workflow_dispatch"}
+                and run.get("workflow_id") == workflow.get("id")
+            ))
+            if not status or len(batch) < 100:
+                return runs
+        raise RuntimeError("active workflow runs exceed pagination safety limit")
+
+    runs = scoped_runs()
+    # The recent-run page can hide a long-stuck run behind completed runs.
+    by_id = {run["id"]: run for run in runs}
+    for status in sorted(ACTIVE_RUN_STATES):
+        by_id.update({run["id"]: run for run in scoped_runs(status)})
+    runs = list(by_id.values())
     suppression = recovery_suppression_reason(
         runs,
         cooldown_minutes,
@@ -156,7 +198,7 @@ def workflow_recovery_state(
     return suppression, stuck_runs
 
 
-def cancel_workflow_run(repo: str, run_id: int, token: str) -> None:
+def cancel_workflow_run(repo: str, run_id: int, token: str) -> bool:
     url = f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/cancel"
     req = urllib.request.Request(
         url,
@@ -175,17 +217,17 @@ def cancel_workflow_run(repo: str, run_id: int, token: str) -> None:
             if response.status not in (202, 204):
                 raise RuntimeError(f"workflow cancel returned HTTP {response.status}")
     except urllib.error.HTTPError as exc:
-        # A run can finish between the state query and the cancel request. In
-        # that race GitHub returns a conflict/unprocessable response; recovery
-        # should continue because the stale run no longer needs cancellation.
+        # A conflict may be a finished run, but is not evidence of completion.
         if exc.code not in (409, 422):
             raise
+    current = github_json(f"https://api.github.com/repos/{repo}/actions/runs/{run_id}", token)
+    return current.get("status") == "completed"
 
 
 def dispatch_workflow(repo: str, workflow_path: str, inputs: dict, token: str) -> None:
-    encoded = urllib.parse.quote(workflow_path, safe="")
+    encoded = urllib.parse.quote(Path(workflow_path).name, safe="")
     url = f"https://api.github.com/repos/{repo}/actions/workflows/{encoded}/dispatches"
-    body = json.dumps({"ref": "main", "inputs": inputs}).encode("utf-8")
+    body = json.dumps({"ref": RECOVERY_BRANCH, "inputs": inputs}).encode("utf-8")
     req = urllib.request.Request(
         url,
         data=body,
@@ -233,9 +275,16 @@ def decision_telemetry(lane: str, heartbeat_at: datetime | None, age: float | No
 
 def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry_run: bool) -> int:
     policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    if repo != policy.get("repository"):
+        print("Repository must match the recovery policy; no actions taken", file=sys.stderr)
+        return 1
     failures = 0
 
     for lane, cfg in policy["lanes"].items():
+        if cfg.get("enabled", True) is not True:
+            print(f"{lane}: disabled in recovery policy")
+            decision_telemetry(lane, None, None, int(cfg["overdue_minutes"]), "disabled")
+            continue
         if not in_active_window(now, cfg.get("active_window")):
             print(f"{lane}: outside active window")
             decision_telemetry(lane, None, None, int(cfg["overdue_minutes"]), "outside_active_window")
@@ -258,8 +307,8 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
             continue
 
         if dry_run:
-            print(f"{lane}: stale age={age_text}; would dispatch {workflow_path}")
-            decision_telemetry(lane, heartbeat_at, age, overdue, "would_dispatch", workflow_path)
+            print(f"{lane}: stale age={age_text}; recovery candidate {workflow_path}; live workflow checks not performed")
+            decision_telemetry(lane, heartbeat_at, age, overdue, "recovery_candidate", workflow_path)
             continue
 
         if not token:
@@ -286,15 +335,30 @@ def evaluate(policy_path: Path, now: datetime, repo: str, token: str | None, dry
                 decision_telemetry(lane, heartbeat_at, age, overdue, "suppressed", suppression)
                 continue
 
+            cancellation_pending = False
             for run in stuck_runs:
                 run_id = int(run["id"])
                 run_age = run_age_minutes(run, now)
                 run_age_text = "unknown" if run_age is None else f"{run_age:.1f}m"
-                cancel_workflow_run(repo, run_id, token)
+                completed = cancel_workflow_run(repo, run_id, token)
+                cancellation_pending = cancellation_pending or not completed
                 print(
-                    f"{lane}: cancelled stuck {run.get('status')} run {run_id} "
-                    f"age={run_age_text} before recovery"
+                    f"{lane}: cancellation requested for stuck {run.get('status')} run {run_id} "
+                    f"age={run_age_text}; completed={completed}"
                 )
+
+            if cancellation_pending:
+                decision_telemetry(lane, heartbeat_at, age, overdue, "cancellation_pending", "dispatch deferred until a later evaluation")
+                continue
+
+            # Re-read after cancellation and immediately before dispatch so a
+            # newer normal run or a newly disabled workflow prevents recovery.
+            suppression, still_active = workflow_recovery_state(
+                repo, workflow_path, cooldown, failure_retry, stuck_run, now, token, heartbeat_at,
+            )
+            if suppression or still_active:
+                decision_telemetry(lane, heartbeat_at, age, overdue, "suppressed", suppression or "active runs remain")
+                continue
 
             dispatch_workflow(repo, workflow_path, cfg.get("dispatch_inputs", {}), token)
             print(f"{lane}: stale age={age_text}; dispatched {workflow_path}")
@@ -311,12 +375,16 @@ def main() -> int:
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
     parser.add_argument("--repo", default=os.getenv("GITHUB_REPOSITORY", "DCMedic/safe2swimpcb"))
     parser.add_argument("--now", help="ISO-8601 override for tests/manual validation")
-    parser.add_argument("--dry-run", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--dry-run", action="store_true", help="Offline, read-only evaluation (the default)")
+    mode.add_argument("--apply", action="store_true", help="Allow cancellation and dispatch of production workflows")
     args = parser.parse_args()
 
     now = parse_time(args.now) if args.now else datetime.now(timezone.utc)
     token = os.getenv("GITHUB_TOKEN")
-    return evaluate(args.policy, now, args.repo, token, args.dry_run)
+    if args.apply and os.getenv("GITHUB_REF", f"refs/heads/{RECOVERY_BRANCH}") != f"refs/heads/{RECOVERY_BRANCH}":
+        parser.error("--apply is only allowed from the main ref in GitHub Actions")
+    return evaluate(args.policy, now, args.repo, token, not args.apply)
 
 
 if __name__ == "__main__":
