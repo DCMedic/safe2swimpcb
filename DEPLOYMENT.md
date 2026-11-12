@@ -79,9 +79,13 @@ This preserves legacy bookmarks, old QR codes, inbound links, and as much search
 
 ## 8. Confirm Actions permissions
 
-Open **Repository → Settings → Actions → General**. Ensure GitHub Actions is enabled. Under **Workflow permissions**, use **Read and write permissions** if the repository-level setting requires it. The workflows explicitly request only the permissions they need (`contents: write`, `pages: write`, and `id-token: write`).
+Prefer the repository's read-only default token permissions. Individual production jobs request only the additional permissions they need: data persistence uses `contents: write`, recovery uses `actions: write`, and deployment uses `pages: write` and `id-token: write`. X and recovery previews inherit `contents: read`, do not receive X secrets, and disable persisted checkout credentials. Do not broaden repository permissions or enable a paused workflow as a troubleshooting shortcut; those are separate production changes requiring approval.
 
 ## 9. Run the site deployment once
+
+The following rollout steps change production and require explicit release
+authorization. For read-only validation first, see
+[Recovery and X preview safety](docs/recovery-and-preview-safety.md).
 
 Open **Actions → Deploy Know the Gulf to GitHub Pages → Run workflow → main → Run workflow**. A successful run should create the `github-pages` deployment and publish the current repository contents.
 
