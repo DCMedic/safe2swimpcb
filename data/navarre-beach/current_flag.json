@@ -2,7 +2,7 @@
   "flag": "Yellow",
   "label": "Yellow",
   "severity": 2,
-  "last_verified_at": "2026-11-10T12:30:02+00:00",
+  "last_verified_at": "2026-11-11T22:21:26+00:00",
   "last_checked_at": "2026-11-11T20:19:34.108562-06:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
@@ -24,11 +24,11 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "visitbeaches_gap_fill",
-    "reason": "No primary flag is available and a fresh consistent VisitBeaches Ambassador flag is available",
+    "state": "visitbeaches_newer_than_stale_primary",
+    "reason": "Primary observation is stale and a fresh consistent VisitBeaches Ambassador flag is available",
     "flag": "Yellow",
     "purple": false,
-    "report_at": "2026-11-10T12:30:02+00:00",
+    "report_at": "2026-11-11T22:21:26+00:00",
     "fresh_observation_count": 1,
     "matched_beaches": [
       {
@@ -41,7 +41,7 @@
     "fresh_distinct_flags": [
       "Yellow"
     ],
-    "checked_at": "2026-11-11T08:17:16.049111+00:00",
+    "checked_at": "2026-11-12T02:27:57.042039+00:00",
     "publication_action": "filled_missing_or_stale_primary"
   },
   "multi_source_confidence": "visitbeaches_gap_filled",
