@@ -73,6 +73,9 @@ def inject_or_replace(html: str) -> str:
     else:
         html = html.replace("</head>", identity + "</head>", 1)
 
+    if ('id="currentFlag"' in html or 'id="currentStatus"' in html) and '/assets/safety-state.js' not in html:
+        html = html.replace('</head>', '<script defer src="/assets/safety-state.js"></script><script defer src="/assets/safety-ui.js"></script></head>', 1)
+
     if not SITE_UI_RE.search(html):
         html = html.replace("</head>", SITE_UI + "</head>", 1)
     if not QUALITY_UI_RE.search(html):

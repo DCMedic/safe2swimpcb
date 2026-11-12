@@ -18,18 +18,18 @@ def visitbeaches_payload(slug: str, cfg: dict) -> dict:
 
     if conflict:
         flag = None
-        purple = False
+        purple = bool(vb.get("purple"))
         label = "Conflicting fresh Beach Ambassador flag reports"
         status = "visitbeaches_ambassador_conflict"
         provenance = "primary_observational_conflict"
-        verified_at = vb.get("newest_report_at")
+        verified_at = vb.get("report_at")
     elif fresh_flag:
         flag = fresh_flag
         purple = bool(vb.get("purple"))
         label = f"{flag}{' + Purple' if purple else ''}"
         status = "explicit_flag_verified"
         provenance = "primary_visitbeaches_ambassador"
-        verified_at = vb.get("newest_report_at")
+        verified_at = vb.get("report_at")
     elif newest_flag_report.get("flag"):
         # Preserve useful last-known information. The old report timestamp remains the
         # verification timestamp so the UI automatically renders "Last verified flag".
@@ -45,7 +45,7 @@ def visitbeaches_payload(slug: str, cfg: dict) -> dict:
         label = "Official conditions available — no explicit flag published"
         status = "official_conditions_source_reachable"
         provenance = "primary_visitbeaches_ambassador_no_flag"
-        verified_at = vb.get("newest_report_at")
+        verified_at = vb.get("report_at")
 
     now = datetime.now(timezone.utc).isoformat()
     return {
@@ -59,9 +59,11 @@ def visitbeaches_payload(slug: str, cfg: dict) -> dict:
         "severity": FLAG_SEVERITY.get(flag),
         "status": status,
         "provenance_tier": provenance,
-        "last_verified_at": verified_at or now,
+        "last_verified_at": verified_at,
+        "observed_at": verified_at,
+        "source_lineage": "visitbeaches",
         "last_checked_at": now,
-        "source_check_status": "verified",
+        "source_check_status": "verified" if fresh_flag and not conflict else "unverified",
         "source_name": cfg["source_system"],
         "source_url": "https://visitbeaches.org/map",
         "source_data_url": "https://api.visitbeaches.org/graphql",

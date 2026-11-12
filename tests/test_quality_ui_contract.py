@@ -3,12 +3,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_quality_ui_exposes_confidence_states():
+def test_quality_ui_does_not_independently_fetch_or_assert_confidence():
     text = (ROOT / "assets" / "quality-ui.js").read_text(encoding="utf-8")
-    for state in ("corroborated", "partial_corroboration", "source_disagreement", "visitbeaches_gap_filled"):
-        assert state in text
-    assert "High confidence" in text
-    assert "local authority remains primary" in text
+    assert "fetch(" not in text
+    assert "High confidence" not in text
+    state = (ROOT / "assets" / "safety-state.js").read_text()
+    for value in ("corroborated", "partial_corroboration", "source_disagreement"):
+        assert value in state
 
 
 def test_quality_polish_has_mobile_and_touch_targets():

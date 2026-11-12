@@ -10,7 +10,7 @@ def test_shared_ui_renders_visitbeaches_observations_without_replacing_flag_stat
     assert "Beach Ambassador Observation" in text
     assert "do not replace posted flags or lifeguard instructions" in text
     assert "Mote Marine Laboratory" in text
-    assert "Source comparison:" in text
+    assert "knowthegulf_comparison" not in text
 
 
 def test_shared_ui_surfaces_high_value_ambassador_fields():
@@ -34,5 +34,7 @@ def test_shared_ui_surfaces_high_value_ambassador_fields():
 
 def test_shared_ui_prefers_fresh_observation_but_can_show_last_known():
     text = (ROOT / "assets/site-ui.js").read_text(encoding="utf-8")
-    assert "x&&x.fresh&&observationMetrics(x).length" in text
+    assert "freshAt(x)&&observationMetrics(x).length" in text
+    assert "obs.fresh" not in text
+    assert "visibilitychange" in text
     assert "Last Beach Ambassador observation" in text

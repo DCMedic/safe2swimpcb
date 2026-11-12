@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import math
+import subprocess
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -19,7 +21,7 @@ DESTINATIONS = [
 REQUIRED_ASSETS = [
     "assets/app.css", "assets/app.js", "assets/menu.js", "assets/beach-nav.js",
     "assets/site-ui.js", "assets/western-location.js", "assets/eastern-location.js",
-    "assets/southwest-location.js", "assets/location-page.js",
+    "assets/southwest-location.js", "assets/location-page.js", "assets/safety-state.js", "assets/safety-ui.js",
 ]
 
 
@@ -119,9 +121,10 @@ def validate_json(errors: list[str]) -> None:
         if primary is not None and flag is not None and primary != flag:
             fail(f"{p.relative_to(ROOT)} primary_flag contradicts flag", errors)
 
+        no_flag = flag is None and primary is None and d.get("purple") is not True
         try:
             stale_hours = float(d.get("stale_after_hours"))
-            if stale_hours < 0:
+            if not isinstance(d.get("stale_after_hours"), (int, float)) or isinstance(d.get("stale_after_hours"), bool) or not math.isfinite(stale_hours) or not (0 < stale_hours <= 24 or (stale_hours == 0 and no_flag)):
                 raise ValueError
         except (TypeError, ValueError):
             fail(f"{p.relative_to(ROOT)} has invalid stale_after_hours", errors)
@@ -132,7 +135,8 @@ def validate_json(errors: list[str]) -> None:
 
         verified = d.get("last_verified_at")
         if not verified:
-            fail(f"{p.relative_to(ROOT)} missing last_verified_at", errors)
+            if not no_flag:
+                fail(f"{p.relative_to(ROOT)} missing last_verified_at", errors)
         else:
             try:
                 stamp = datetime.fromisoformat(str(verified).replace("Z", "+00:00"))
@@ -150,38 +154,18 @@ def validate_json(errors: list[str]) -> None:
 
 
 def validate_pcb_flag_ui_contract(errors: list[str]) -> None:
-    """Keep the browser renderer aligned with the canonical current-flag schema."""
-    app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
-    prerender = (ROOT / "scripts/prerender_current_status.py").read_text(encoding="utf-8")
-    required_app = {
-        "Red meaning": "Red:{sev:3,meaning:'High hazard — high surf and/or strong currents.'}",
-        "Red CSS mapping": "if(f==='Red'||f==='Single Red')return'red'",
-    }
-    for label, needle in required_app.items():
-        if needle not in app:
-            fail(f"PCB frontend contract missing {label}; canonical Red can render as Yellow or fallback text", errors)
-    for needle in ['"Red": ("red", "High hazard — high surf and/or strong currents.")',
-                   '"Double Red": ("double", "Water closed to the public.")']:
-        if needle not in prerender:
-            fail("PCB prerender contract is not aligned with canonical flag values", errors)
+    """Execute safety behavior instead of checking obsolete renderer string fragments."""
+    result = subprocess.run(['node', '--test', str(ROOT / 'tests/safety_state.test.cjs')], cwd=ROOT, capture_output=True, text=True)
+    if result.returncode:
+        fail('Shared safety behavior contract failed: ' + result.stdout + result.stderr, errors)
 
 
 def validate_destination_ui_contract(errors: list[str]) -> None:
-    western = (ROOT / "assets/western-location.js").read_text(encoding="utf-8")
-    eastern = (ROOT / "assets/eastern-location.js").read_text(encoding="utf-8")
-    southwest = (ROOT / "assets/southwest-location.js").read_text(encoding="utf-8")
-    if "(c.flag==='Red'||c.flag==='Single Red')?'red'" not in western:
-        fail("western renderer does not map canonical Red to the red visual flag", errors)
-    if "f === 'Red' || f === 'Single Red'" not in eastern:
-        fail("eastern renderer does not map canonical Red to the red visual flag", errors)
-    if "f === 'Red' || f === 'Single Red'" not in southwest:
-        fail("Southwest renderer does not map canonical Red to the red visual flag", errors)
-    if "Official source checked — no explicit flag published" not in eastern:
-        fail("eastern renderer conflates healthy no-explicit-flag state with outage", errors)
-    if "Official source checked — no explicit flag published" not in southwest:
-        fail("Southwest renderer conflates healthy no-explicit-flag state with outage", errors)
-    if "Multiple fresh official reports disagree" not in southwest:
-        fail("Southwest renderer does not distinguish conflicting fresh reports", errors)
+    for path in [ROOT / 'index.html', *[ROOT / slug / 'index.html' for slug in DESTINATIONS]]:
+        text = path.read_text(encoding='utf-8')
+        for asset in ('/assets/safety-state.js', '/assets/safety-ui.js'):
+            if asset not in text:
+                fail(f'{path.relative_to(ROOT)} missing shared safety renderer {asset}', errors)
 
 
 def main() -> int:
