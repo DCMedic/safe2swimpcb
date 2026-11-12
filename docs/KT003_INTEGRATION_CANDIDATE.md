@@ -72,11 +72,14 @@ release, current collector observations, or safe swimming conditions.
    staged `CNAME` before upload because Pages-origin isolation is unresolved.
    Do not remove that block or change DNS merely to obtain a green deployment.
    Pages and VPS identity/cache/security checks are different release gates.
-4. **VPS baseline and rollout authorization.** The effective builder, overlays,
-   release pointer/pinning, collector ownership, recovery controls, current
-   security/cache policy, and rollback path need authorized operator evidence.
-   Historical paths are not proof of current configuration. No live VPS release
-   or rollback has been attempted by this work.
+4. **VPS integration and rollout authorization.** Owner diagnostics now establish
+   the active runtime builder, public-releases layout, private helper overrides,
+   guard injection, collector selection, and existing recovery paths. See
+   `docs/KT003_VPS_INTEGRATION.md`. The string-redacted exports are not executable
+   source: the narrow remaining handoff is exact non-secret builder, guard,
+   helper and public-list source. Actual builder integration, a durable pin,
+   data-preserving rollback, and effective security/cache qualification remain
+   release gates. No live VPS release or rollback has been attempted by this work.
 5. **Review and CI.** Check the exact draft-PR commit and its required CI before
    judging merge readiness. These remaining release gates are not waived by
    Python/Node unit tests, artifact hashes, or a successful Lighthouse run.
