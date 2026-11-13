@@ -12,7 +12,7 @@
   "status": "official_conditions_source_reachable",
   "provenance_tier": "cached_official_observation",
   "last_verified_at": "2026-11-13T15:29:34+00:00",
-  "last_checked_at": "2026-11-13T14:57:32.207188-06:00",
+  "last_checked_at": "2026-11-13T16:16:43.647676-06:00",
   "source_check_status": "degraded",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -69,7 +69,7 @@
   "cached": true,
   "source_error": "official_conditions_source_reachable",
   "stale_reason": "Live source verification failed; retaining the last successfully verified official observation only until its existing freshness window expires.",
-  "cache_age_hours": 5.47,
+  "cache_age_hours": 6.79,
   "fallback_trigger": "missing-flag",
   "guarded_current_output": true
 }
