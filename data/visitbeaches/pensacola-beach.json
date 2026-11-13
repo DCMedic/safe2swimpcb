@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-12T21:02:31.742653+00:00",
+  "checked_at": "2026-11-13T02:04:16.725574+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Pensacola Beach"
@@ -26,33 +26,33 @@
   ],
   "observations": [
     {
-      "report_id": "77367",
-      "created_at": "2026-11-12T14:46:11+00:00",
+      "report_id": "77393",
+      "created_at": "2026-11-12T23:12:09+00:00",
       "latitude": 30.330943,
       "longitude": -87.142206,
       "ambassador": {
         "id": "18",
         "name": "Pensacola Beach"
       },
-      "flag": "Green",
+      "flag": "Yellow",
       "purple": false,
       "normalized_conditions": {
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "N",
+            "value": "NW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "5.75",
+            "value": "8.05",
             "unit": "Mph"
           }
         ],
         "surf": [
           {
             "parameter": "Rip Currents",
-            "value": "Present",
+            "value": "None",
             "unit": null
           },
           {
@@ -71,14 +71,14 @@
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
-          "value": "73",
+          "value": "74",
           "unit": "\u00b0F"
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "None"
+        "crowd": "Few"
       },
       "parameters": [
         {
@@ -91,10 +91,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "4",
-              "name": "Green",
-              "value": "green",
-              "description": "Low Hazard; calm conditions; exercise caution."
+              "id": "3",
+              "name": "Yellow",
+              "value": "yellow",
+              "description": "Medium Hazard; moderate surf and/or currents."
             }
           ]
         },
@@ -135,7 +135,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "N",
+          "value": "NW",
           "selected_values": []
         },
         {
@@ -145,7 +145,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "5.75",
+          "value": "8.05",
           "selected_values": []
         },
         {
@@ -155,7 +155,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "67.06",
+          "value": "69.58",
           "selected_values": []
         },
         {
@@ -165,7 +165,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clouds",
+          "value": "Clear",
           "selected_values": []
         },
         {
@@ -178,9 +178,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "18",
-              "name": "Present",
-              "value": "present",
+              "id": "19",
+              "name": "None",
+              "value": "none",
               "description": null
             }
           ]
@@ -246,10 +246,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -260,7 +260,7 @@
           "unit": "\u00b0F",
           "category": "Water Conditions",
           "category_slug": "water-conditions",
-          "value": "73",
+          "value": "74",
           "selected_values": []
         },
         {
@@ -341,10 +341,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "55",
-              "name": "None",
-              "value": "none",
-              "description": "No jellyfish in sight."
+              "id": "56",
+              "name": "Some",
+              "value": "some",
+              "description": "There are 1 to 2 jellyfish in sight."
             }
           ]
         },
@@ -358,10 +358,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
             }
           ]
         }
@@ -371,7 +371,7 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 6.272,
+      "age_hours": 2.869,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -721,8 +721,8 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 21.841,
-      "fresh": true,
+      "age_hours": 26.87,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1071,48 +1071,47 @@
       "beach_location": "Pensacola, FL",
       "beach_latitude": 30.330943,
       "beach_longitude": -87.142206,
-      "age_hours": 45.843,
+      "age_hours": 50.872,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 2,
-  "flag": null,
+  "fresh_observation_count": 1,
+  "flag": "Yellow",
   "purple": false,
-  "flag_conflict": true,
+  "flag_conflict": false,
   "fresh_distinct_flags": [
-    "Green",
     "Yellow"
   ],
-  "newest_report_at": "2026-11-12T14:46:11+00:00",
+  "newest_report_at": "2026-11-12T23:12:09+00:00",
   "newest_flag_report": {
-    "report_id": "77367",
-    "created_at": "2026-11-12T14:46:11+00:00",
+    "report_id": "77393",
+    "created_at": "2026-11-12T23:12:09+00:00",
     "latitude": 30.330943,
     "longitude": -87.142206,
     "ambassador": {
       "id": "18",
       "name": "Pensacola Beach"
     },
-    "flag": "Green",
+    "flag": "Yellow",
     "purple": false,
     "normalized_conditions": {
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "N",
+          "value": "NW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "5.75",
+          "value": "8.05",
           "unit": "Mph"
         }
       ],
       "surf": [
         {
           "parameter": "Rip Currents",
-          "value": "Present",
+          "value": "None",
           "unit": null
         },
         {
@@ -1131,14 +1130,14 @@
           "unit": null
         }
       ],
-      "water_color": "Clear",
+      "water_color": "Moderate",
       "water_temperature": {
-        "value": "73",
+        "value": "74",
         "unit": "\u00b0F"
       },
       "respiratory_irritation": "None",
       "dead_fish": "None",
-      "crowd": "None"
+      "crowd": "Few"
     },
     "parameters": [
       {
@@ -1151,10 +1150,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "4",
-            "name": "Green",
-            "value": "green",
-            "description": "Low Hazard; calm conditions; exercise caution."
+            "id": "3",
+            "name": "Yellow",
+            "value": "yellow",
+            "description": "Medium Hazard; moderate surf and/or currents."
           }
         ]
       },
@@ -1195,7 +1194,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "N",
+        "value": "NW",
         "selected_values": []
       },
       {
@@ -1205,7 +1204,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "5.75",
+        "value": "8.05",
         "selected_values": []
       },
       {
@@ -1215,7 +1214,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "67.06",
+        "value": "69.58",
         "selected_values": []
       },
       {
@@ -1225,7 +1224,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Clouds",
+        "value": "Clear",
         "selected_values": []
       },
       {
@@ -1238,9 +1237,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "18",
-            "name": "Present",
-            "value": "present",
+            "id": "19",
+            "name": "None",
+            "value": "none",
             "description": null
           }
         ]
@@ -1306,10 +1305,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "20",
-            "name": "Clear",
-            "value": "clear",
-            "description": "Able to see the bottom in shallow water."
+            "id": "21",
+            "name": "Moderate",
+            "value": "moderate",
+            "description": "A light tint."
           }
         ]
       },
@@ -1320,7 +1319,7 @@
         "unit": "\u00b0F",
         "category": "Water Conditions",
         "category_slug": "water-conditions",
-        "value": "73",
+        "value": "74",
         "selected_values": []
       },
       {
@@ -1401,10 +1400,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "55",
-            "name": "None",
-            "value": "none",
-            "description": "No jellyfish in sight."
+            "id": "56",
+            "name": "Some",
+            "value": "some",
+            "description": "There are 1 to 2 jellyfish in sight."
           }
         ]
       },
@@ -1418,10 +1417,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "58",
-            "name": "None",
-            "value": "none",
-            "description": "Sporadic beachgoers."
+            "id": "59",
+            "name": "Few",
+            "value": "few",
+            "description": "Beachgoers are easily spaced 6 ft or more apart."
           }
         ]
       }
@@ -1431,21 +1430,21 @@
     "beach_location": "Pensacola, FL",
     "beach_latitude": 30.330943,
     "beach_longitude": -87.142206,
-    "age_hours": 6.272,
+    "age_hours": 2.869,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "visitbeaches_internal_conflict",
-    "knowthegulf_flag": "Green",
+    "state": "agree",
+    "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-12T08:45:20.513000-06:00",
-    "visitbeaches_flag": null,
+    "knowthegulf_last_verified_at": "2026-11-12T17:11:30.783000-06:00",
+    "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-11-12T14:46:11+00:00",
-    "visitbeaches_fresh_observation_count": 2,
-    "visitbeaches_flag_conflict": true
+    "visitbeaches_newest_report_at": "2026-11-12T23:12:09+00:00",
+    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
   "publication_effect": "none",
