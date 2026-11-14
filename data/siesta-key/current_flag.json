@@ -39,11 +39,11 @@
     "source_url": "https://visitbeaches.org/map",
     "source_data_url": "https://api.visitbeaches.org/graphql",
     "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-    "state": "visitbeaches_newer_than_stale_primary",
-    "reason": "Primary observation is stale and a fresh consistent VisitBeaches Ambassador flag is available",
-    "flag": "Green",
+    "state": "source_disagreement",
+    "reason": "Fresh primary source and fresh VisitBeaches Ambassador flag disagree",
+    "flag": "Yellow",
     "purple": false,
-    "report_at": "2026-11-13T15:29:34+00:00",
+    "report_at": "2026-11-13T20:47:51+00:00",
     "fresh_observation_count": 1,
     "matched_beaches": [
       {
@@ -59,12 +59,12 @@
     ],
     "flag_conflict": false,
     "fresh_distinct_flags": [
-      "Green"
+      "Yellow"
     ],
-    "checked_at": "2026-11-13T20:38:13.171210+00:00",
-    "publication_action": "filled_missing_or_stale_primary"
+    "checked_at": "2026-11-14T01:41:24.021508+00:00",
+    "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "visitbeaches_gap_filled",
+  "multi_source_confidence": "source_disagreement",
   "cached_from_provenance_tier": "primary_visitbeaches_ambassador_gap_fill",
   "cached": true,
   "source_error": "official_conditions_source_reachable",

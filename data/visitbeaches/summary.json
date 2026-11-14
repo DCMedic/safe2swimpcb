@@ -33,7 +33,7 @@
     },
     "navarre-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 2,
+      "fresh_observations": 1,
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
@@ -42,11 +42,11 @@
     },
     "pensacola-beach": {
       "matched_beaches": 1,
-      "fresh_observations": 2,
-      "visitbeaches_flag": null,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
-      "flag_conflict": true,
-      "comparison": "visitbeaches_internal_conflict",
+      "flag_conflict": false,
+      "comparison": "agree",
       "error": null
     },
     "south-walton": {
@@ -97,10 +97,10 @@
     "siesta-key": {
       "matched_beaches": 2,
       "fresh_observations": 1,
-      "visitbeaches_flag": "Green",
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "agree",
+      "comparison": "flag_disagreement",
       "error": null
     },
     "venice": {
@@ -132,20 +132,20 @@
     },
     "naples": {
       "matched_beaches": 4,
-      "fresh_observations": 5,
-      "visitbeaches_flag": null,
+      "fresh_observations": 3,
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
-      "flag_conflict": true,
-      "comparison": "visitbeaches_internal_conflict",
+      "flag_conflict": false,
+      "comparison": "agree",
       "error": null
     },
     "marco-island": {
       "matched_beaches": 1,
-      "fresh_observations": 2,
-      "visitbeaches_flag": null,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Red",
       "visitbeaches_purple": false,
-      "flag_conflict": true,
-      "comparison": "visitbeaches_internal_conflict",
+      "flag_conflict": false,
+      "comparison": "agree",
       "error": null
     }
   }
