@@ -14,8 +14,8 @@
   "severity": 1,
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
-  "last_verified_at": "2026-11-16T15:17:12+00:00",
-  "last_checked_at": "2026-11-16T21:08:02.060685+00:00",
+  "last_verified_at": "2026-11-16T21:39:29+00:00",
+  "last_checked_at": "2026-11-16T22:54:57.753268+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -72,15 +72,15 @@
       }
     }
   ],
-  "visitbeaches_fresh_observation_count": 2,
+  "visitbeaches_fresh_observation_count": 1,
   "visitbeaches_flag_conflict": false,
   "visitbeaches_fresh_distinct_flags": [
     "Green"
   ],
   "visitbeaches_observations": [
     {
-      "report_id": "77542",
-      "created_at": "2026-11-16T15:17:12+00:00",
+      "report_id": "77555",
+      "created_at": "2026-11-16T21:39:29+00:00",
       "latitude": 27.099903,
       "longitude": -82.460239,
       "ambassador": {
@@ -93,12 +93,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "ENE",
+            "value": "NE",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "12.66",
+            "value": "9.22",
             "unit": "Mph"
           }
         ],
@@ -124,7 +124,7 @@
             "unit": null
           }
         ],
-        "water_color": "Clear",
+        "water_color": "Moderate",
         "water_temperature": {
           "value": "77",
           "unit": "\u00b0F"
@@ -188,7 +188,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "ENE",
+          "value": "NE",
           "selected_values": []
         },
         {
@@ -198,7 +198,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "12.66",
+          "value": "9.22",
           "selected_values": []
         },
         {
@@ -208,7 +208,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "69.44",
+          "value": "75.11",
           "selected_values": []
         },
         {
@@ -299,10 +299,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
             }
           ]
         },
@@ -424,7 +424,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 5.846,
+      "age_hours": 1.257,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -774,8 +774,8 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 23.302,
-      "fresh": true,
+      "age_hours": 25.084,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -1175,7 +1175,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 24.701,
+      "age_hours": 26.483,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1559,7 +1559,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 25.617,
+      "age_hours": 27.399,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1909,7 +1909,7 @@
       "beach_location": "Venice, FL",
       "beach_latitude": 27.099903,
       "beach_longitude": -82.460239,
-      "age_hours": 47.535,
+      "age_hours": 49.317,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2259,7 +2259,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 49.254,
+      "age_hours": 51.036,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2643,7 +2643,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 52.975,
+      "age_hours": 54.757,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2993,7 +2993,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.1136,
       "beach_longitude": -82.469,
-      "age_hours": 72.392,
+      "age_hours": 74.173,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3377,7 +3377,7 @@
       "beach_location": "Nokomis, FL",
       "beach_latitude": 27.124129,
       "beach_longitude": -82.47093,
-      "age_hours": 76.614,
+      "age_hours": 78.396,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
