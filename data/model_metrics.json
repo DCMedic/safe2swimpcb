@@ -5,7 +5,7 @@
   "validation": {
     "method": "5-split expanding-window time-series validation",
     "roc_auc": 0.9126021904567024,
-    "brier": 0.11276921317502532,
+    "brier": 0.11276921317502528,
     "status": "exploratory"
   },
   "baselines": {
@@ -16,14 +16,14 @@
     {
       "key": "wave_period_s",
       "label": "Wave period",
-      "coefficient": 1.8058299608264,
-      "odds_ratio": 6.085019681276172
+      "coefficient": 1.8058299608264001,
+      "odds_ratio": 6.085019681276173
     },
     {
       "key": "wave_max_ft",
       "label": "Wave height",
-      "coefficient": 1.5034307731310663,
-      "odds_ratio": 4.497091134168634
+      "coefficient": 1.5034307731310654,
+      "odds_ratio": 4.49709113416863
     },
     {
       "key": "gust_max_mph",
@@ -40,37 +40,37 @@
     {
       "key": "tide_range_ft",
       "label": "Tide range",
-      "coefficient": -0.5088685741973727,
-      "odds_ratio": 0.6011753795040002
+      "coefficient": -0.5088685741973729,
+      "odds_ratio": 0.6011753795040001
     },
     {
       "key": "wind_max_mph",
       "label": "Max wind",
-      "coefficient": 0.43776306977045815,
-      "odds_ratio": 1.549237802663919
+      "coefficient": 0.43776306977045887,
+      "odds_ratio": 1.5492378026639202
     },
     {
       "key": "season_sin",
       "label": "Season (sin)",
-      "coefficient": -0.37443504869414207,
-      "odds_ratio": 0.687677673468237
+      "coefficient": -0.3744350486941422,
+      "odds_ratio": 0.6876776734682369
     },
     {
       "key": "precip_in",
       "label": "Rain",
-      "coefficient": 0.16929522295037247,
+      "coefficient": 0.16929522295037244,
       "odds_ratio": 1.1844697699719933
     },
     {
       "key": "swell_max_ft",
       "label": "Swell height",
-      "coefficient": 0.12082352465067552,
-      "odds_ratio": 1.1284257554653365
+      "coefficient": 0.12082352465067543,
+      "odds_ratio": 1.1284257554653363
     },
     {
       "key": "swell_period_s",
       "label": "Swell period",
-      "coefficient": -0.015075769474213283,
+      "coefficient": -0.015075769474213265,
       "odds_ratio": 0.9850373010170567
     }
   ],

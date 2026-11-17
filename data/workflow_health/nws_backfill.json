@@ -1,9 +1,9 @@
 {
-  "event_name": "schedule",
-  "head_sha": "9d2754bcf64f1e7debaa9591d2c19b0fd9d6b8b5",
-  "last_success_at": "2026-11-09T20:06:20.396754+00:00",
+  "event_name": "workflow_dispatch",
+  "head_sha": "00f4176318f15ed06b3a572a48e5e23b3c746850",
+  "last_success_at": "2026-11-17T20:52:03.772561+00:00",
   "run_attempt": "1",
-  "run_id": "42689509006",
+  "run_id": "44173590624",
   "status": "success",
   "version": 1,
   "workflow": "Backfill NWS Surf Zone history"
