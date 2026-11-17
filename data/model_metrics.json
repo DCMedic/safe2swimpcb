@@ -1,135 +1,135 @@
 {
   "status": "ok",
-  "n_training": 2297,
+  "n_training": 2298,
   "positive_days": 795,
   "validation": {
     "method": "5-split expanding-window time-series validation",
-    "roc_auc": 0.9127157069906673,
-    "brier": 0.11276721275022968,
+    "roc_auc": 0.9126021904567024,
+    "brier": 0.11276921317502532,
     "status": "exploratory"
   },
   "baselines": {
-    "monthly_auc": 0.5362837745299447,
-    "persistence_auc": 0.8020362544266401
+    "monthly_auc": 0.5383573523536691,
+    "persistence_auc": 0.8018808403246708
   },
   "associations": [
     {
       "key": "wave_period_s",
       "label": "Wave period",
-      "coefficient": 1.8060218100369654,
-      "odds_ratio": 6.086187199488443
+      "coefficient": 1.8058299608264,
+      "odds_ratio": 6.085019681276172
     },
     {
       "key": "wave_max_ft",
       "label": "Wave height",
-      "coefficient": 1.5024090819972868,
-      "odds_ratio": 4.492498842380431
+      "coefficient": 1.5034307731310663,
+      "odds_ratio": 4.497091134168634
     },
     {
       "key": "gust_max_mph",
       "label": "Max gust",
-      "coefficient": -0.5810441373762106,
-      "odds_ratio": 0.5593140608547928
+      "coefficient": -0.5815220815678975,
+      "odds_ratio": 0.5590468038201397
     },
     {
       "key": "season_cos",
       "label": "Season (cos)",
-      "coefficient": -0.5441734541001794,
-      "odds_ratio": 0.5803212473106035
+      "coefficient": -0.5438146784933064,
+      "odds_ratio": 0.5805294897722127
     },
     {
       "key": "tide_range_ft",
       "label": "Tide range",
-      "coefficient": -0.5078619552086678,
-      "odds_ratio": 0.6017808387388071
+      "coefficient": -0.5088685741973727,
+      "odds_ratio": 0.6011753795040002
     },
     {
       "key": "wind_max_mph",
       "label": "Max wind",
-      "coefficient": 0.43779527287639053,
-      "odds_ratio": 1.549287693736312
+      "coefficient": 0.43776306977045815,
+      "odds_ratio": 1.549237802663919
     },
     {
       "key": "season_sin",
       "label": "Season (sin)",
-      "coefficient": -0.3747018817442667,
-      "odds_ratio": 0.6874942028162283
+      "coefficient": -0.37443504869414207,
+      "odds_ratio": 0.687677673468237
     },
     {
       "key": "precip_in",
       "label": "Rain",
-      "coefficient": 0.16910395642717552,
-      "odds_ratio": 1.1842432422215372
+      "coefficient": 0.16929522295037247,
+      "odds_ratio": 1.1844697699719933
     },
     {
       "key": "swell_max_ft",
       "label": "Swell height",
-      "coefficient": 0.1212829349341161,
-      "odds_ratio": 1.1289442849612679
+      "coefficient": 0.12082352465067552,
+      "odds_ratio": 1.1284257554653365
     },
     {
       "key": "swell_period_s",
       "label": "Swell period",
-      "coefficient": -0.015746689599985965,
-      "odds_ratio": 0.9843766413168942
+      "coefficient": -0.015075769474213283,
+      "odds_ratio": 0.9850373010170567
     }
   ],
   "research_context": {
     "measured_ndbc": {
       "pcbf1_obs_count": {
-        "rows": 2013,
+        "rows": 2014,
         "pct": 87.6
       },
       "pcbf1_wind_max_mph": {
-        "rows": 2013,
+        "rows": 2014,
         "pct": 87.6
       },
       "pcbf1_gust_max_mph": {
-        "rows": 2013,
+        "rows": 2014,
         "pct": 87.6
       },
       "pcbf1_air_temp_max_f": {
-        "rows": 1988,
-        "pct": 86.5
+        "rows": 1989,
+        "pct": 86.6
       },
       "pcbf1_air_temp_min_f": {
-        "rows": 1988,
-        "pct": 86.5
+        "rows": 1989,
+        "pct": 86.6
       },
       "pcbf1_water_temp_mean_f": {
-        "rows": 1990,
+        "rows": 1991,
         "pct": 86.6
       },
       "pcbf1_pressure_min_mb": {
-        "rows": 1991,
+        "rows": 1992,
         "pct": 86.7
       },
       "42039_obs_count": {
-        "rows": 1221,
+        "rows": 1222,
         "pct": 53.2
       },
       "ndbc42039_wave_max_ft": {
-        "rows": 1177,
-        "pct": 51.2
+        "rows": 1178,
+        "pct": 51.3
       },
       "ndbc42039_wave_mean_ft": {
-        "rows": 1177,
-        "pct": 51.2
+        "rows": 1178,
+        "pct": 51.3
       },
       "ndbc42039_dominant_period_max_s": {
-        "rows": 1172,
+        "rows": 1173,
         "pct": 51.0
       },
       "ndbc42039_average_period_mean_s": {
-        "rows": 1177,
-        "pct": 51.2
+        "rows": 1178,
+        "pct": 51.3
       },
       "ndbc42039_wind_max_mph": {
-        "rows": 1221,
+        "rows": 1222,
         "pct": 53.2
       },
       "ndbc42039_gust_max_mph": {
-        "rows": 1221,
+        "rows": 1222,
         "pct": 53.2
       },
       "ndbc42039_water_temp_mean_f": {
@@ -137,7 +137,7 @@
         "pct": 31.1
       },
       "ndbc42039_pressure_min_mb": {
-        "rows": 1221,
+        "rows": 1222,
         "pct": 53.2
       }
     },
