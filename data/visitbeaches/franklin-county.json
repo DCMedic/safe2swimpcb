@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-18T04:40:46.896435+00:00",
+  "checked_at": "2026-11-18T21:32:52.001053+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. George Island",
@@ -27,6 +27,342 @@
     }
   ],
   "observations": [
+    {
+      "report_id": "77601",
+      "created_at": "2026-11-18T13:06:11+00:00",
+      "latitude": 29.662236,
+      "longitude": -84.861462,
+      "ambassador": {
+        "id": "23",
+        "name": "St. George"
+      },
+      "flag": "Double Red",
+      "purple": false,
+      "normalized_conditions": {
+        "wind": [
+          {
+            "parameter": "Wind Direction",
+            "value": "NE",
+            "unit": ""
+          },
+          {
+            "parameter": "Wind Speed",
+            "value": "12.66",
+            "unit": "Mph"
+          }
+        ],
+        "surf": [
+          {
+            "parameter": "Rip Currents",
+            "value": "Present",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Height",
+            "value": "2-4 feet (0.6-1.2 m)",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Type",
+            "value": "Wind Chop",
+            "unit": null
+          },
+          {
+            "parameter": "Surf Intensity",
+            "value": "Rough",
+            "unit": null
+          }
+        ],
+        "water_color": "Moderate",
+        "respiratory_irritation": "None",
+        "dead_fish": "None",
+        "crowd": "Few"
+      },
+      "parameters": [
+        {
+          "parameter_id": "1",
+          "parameter": "Flag",
+          "prompt": null,
+          "unit": null,
+          "category": "Flag",
+          "category_slug": "flag",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "1",
+              "name": "Double Red",
+              "value": "double-red",
+              "description": "Water is closed to the public; storm surge, hurricanes, rip currents, elevated bacteria counts."
+            }
+          ]
+        },
+        {
+          "parameter_id": "8",
+          "parameter": "UV Index",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "4.07",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "7",
+          "parameter": "Sunset",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "05:42:59 PM",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "6",
+          "parameter": "Sunrise",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "07:06:33 AM",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "5",
+          "parameter": "Wind Direction",
+          "prompt": null,
+          "unit": "",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "NE",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "4",
+          "parameter": "Wind Speed",
+          "prompt": null,
+          "unit": "Mph",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "12.66",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "3",
+          "parameter": "Air Temperature",
+          "prompt": null,
+          "unit": "\u00b0F",
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "55.45",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "2",
+          "parameter": "Weather Summary",
+          "prompt": null,
+          "unit": null,
+          "category": "Weather",
+          "category_slug": "weather",
+          "value": "Clear",
+          "selected_values": []
+        },
+        {
+          "parameter_id": "12",
+          "parameter": "Rip Currents",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "18",
+              "name": "Present",
+              "value": "present",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "11",
+          "parameter": "Surf Height",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "16",
+              "name": "2-4 feet (0.6-1.2 m)",
+              "value": "2-4",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "10",
+          "parameter": "Surf Type",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "10",
+              "name": "Wind Chop",
+              "value": "wind-chop",
+              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+            }
+          ]
+        },
+        {
+          "parameter_id": "9",
+          "parameter": "Surf Intensity",
+          "prompt": null,
+          "unit": null,
+          "category": "Surf Conditions",
+          "category_slug": "surf-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "8",
+              "name": "Rough",
+              "value": "rough",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "14",
+          "parameter": "Water Color",
+          "prompt": null,
+          "unit": null,
+          "category": "Water Conditions",
+          "category_slug": "water-conditions",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "21",
+              "name": "Moderate",
+              "value": "moderate",
+              "description": "A light tint."
+            }
+          ]
+        },
+        {
+          "parameter_id": "15",
+          "parameter": "Drift Algae",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "23",
+              "name": "None",
+              "value": "none",
+              "description": "No drift algae in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "18",
+          "parameter": "Beach Debris",
+          "prompt": null,
+          "unit": null,
+          "category": "Beach Debris",
+          "category_slug": "beach-debris",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "33",
+              "name": "None",
+              "value": "none",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "22",
+          "parameter": "Respiratory Irritation",
+          "prompt": null,
+          "unit": null,
+          "category": "Respiratory Irritation",
+          "category_slug": "respiratory-irritation",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "45",
+              "name": "None",
+              "value": "none",
+              "description": "No coughing observed due to airborne toxins."
+            }
+          ]
+        },
+        {
+          "parameter_id": "23",
+          "parameter": "Dead Fish",
+          "prompt": null,
+          "unit": null,
+          "category": "Dead Fish",
+          "category_slug": "dead-fish",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "49",
+              "name": "None",
+              "value": "none",
+              "description": "No dead fish in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "25",
+          "parameter": "Jellyfish",
+          "prompt": null,
+          "unit": null,
+          "category": "Jellyfish",
+          "category_slug": "jellyfish",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "55",
+              "name": "None",
+              "value": "none",
+              "description": "No jellyfish in sight."
+            }
+          ]
+        },
+        {
+          "parameter_id": "26",
+          "parameter": "Crowds",
+          "prompt": null,
+          "unit": null,
+          "category": "Crowds",
+          "category_slug": "crowds",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
+            }
+          ]
+        }
+      ],
+      "beach_id": "24",
+      "beach_name": "St George Island (Bayside)",
+      "beach_location": "St. George Island, FL",
+      "beach_latitude": 29.662236,
+      "beach_longitude": -84.861462,
+      "age_hours": 8.445,
+      "fresh": true,
+      "source_class": "Beach Ambassador Report"
+    },
     {
       "report_id": "77445",
       "created_at": "2026-11-14T12:53:29+00:00",
@@ -359,7 +695,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 87.788,
+      "age_hours": 104.656,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -695,374 +1031,40 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 159.77,
-      "fresh": false,
-      "source_class": "Beach Ambassador Report"
-    },
-    {
-      "report_id": "76834",
-      "created_at": "2026-10-31T11:56:16+00:00",
-      "latitude": 29.662236,
-      "longitude": -84.861462,
-      "ambassador": {
-        "id": "23",
-        "name": "St. George"
-      },
-      "flag": "Red",
-      "purple": false,
-      "normalized_conditions": {
-        "wind": [
-          {
-            "parameter": "Wind Direction",
-            "value": "ENE",
-            "unit": ""
-          },
-          {
-            "parameter": "Wind Speed",
-            "value": "10.36",
-            "unit": "Mph"
-          }
-        ],
-        "surf": [
-          {
-            "parameter": "Rip Currents",
-            "value": "Present",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Height",
-            "value": "1-2 feet (0.3-0.6 m)",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Type",
-            "value": "Wind Chop",
-            "unit": null
-          },
-          {
-            "parameter": "Surf Intensity",
-            "value": "Rough",
-            "unit": null
-          }
-        ],
-        "water_color": "Clear",
-        "respiratory_irritation": "None",
-        "dead_fish": "None",
-        "crowd": "Few"
-      },
-      "parameters": [
-        {
-          "parameter_id": "1",
-          "parameter": "Flag",
-          "prompt": null,
-          "unit": null,
-          "category": "Flag",
-          "category_slug": "flag",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "2",
-              "name": "Red",
-              "value": "red",
-              "description": "High Hazard; high surf, and/or strong currents."
-            }
-          ]
-        },
-        {
-          "parameter_id": "8",
-          "parameter": "UV Index",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "5.32",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "7",
-          "parameter": "Sunset",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "06:53:56 PM",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "6",
-          "parameter": "Sunrise",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "07:52:02 AM",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "5",
-          "parameter": "Wind Direction",
-          "prompt": null,
-          "unit": "",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "ENE",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "4",
-          "parameter": "Wind Speed",
-          "prompt": null,
-          "unit": "Mph",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "10.36",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "3",
-          "parameter": "Air Temperature",
-          "prompt": null,
-          "unit": "\u00b0F",
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "69.85",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "2",
-          "parameter": "Weather Summary",
-          "prompt": null,
-          "unit": null,
-          "category": "Weather",
-          "category_slug": "weather",
-          "value": "Clear",
-          "selected_values": []
-        },
-        {
-          "parameter_id": "12",
-          "parameter": "Rip Currents",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "18",
-              "name": "Present",
-              "value": "present",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "11",
-          "parameter": "Surf Height",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "15",
-              "name": "1-2 feet (0.3-0.6 m)",
-              "value": "1-2",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "10",
-          "parameter": "Surf Type",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
-            }
-          ]
-        },
-        {
-          "parameter_id": "9",
-          "parameter": "Surf Intensity",
-          "prompt": null,
-          "unit": null,
-          "category": "Surf Conditions",
-          "category_slug": "surf-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "8",
-              "name": "Rough",
-              "value": "rough",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "14",
-          "parameter": "Water Color",
-          "prompt": null,
-          "unit": null,
-          "category": "Water Conditions",
-          "category_slug": "water-conditions",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "20",
-              "name": "Clear",
-              "value": "clear",
-              "description": "Able to see the bottom in shallow water."
-            }
-          ]
-        },
-        {
-          "parameter_id": "15",
-          "parameter": "Drift Algae",
-          "prompt": null,
-          "unit": null,
-          "category": "Drift Algae",
-          "category_slug": "drift-algae",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "23",
-              "name": "None",
-              "value": "none",
-              "description": "No drift algae in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "18",
-          "parameter": "Beach Debris",
-          "prompt": null,
-          "unit": null,
-          "category": "Beach Debris",
-          "category_slug": "beach-debris",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "33",
-              "name": "None",
-              "value": "none",
-              "description": null
-            }
-          ]
-        },
-        {
-          "parameter_id": "22",
-          "parameter": "Respiratory Irritation",
-          "prompt": null,
-          "unit": null,
-          "category": "Respiratory Irritation",
-          "category_slug": "respiratory-irritation",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "45",
-              "name": "None",
-              "value": "none",
-              "description": "No coughing observed due to airborne toxins."
-            }
-          ]
-        },
-        {
-          "parameter_id": "23",
-          "parameter": "Dead Fish",
-          "prompt": null,
-          "unit": null,
-          "category": "Dead Fish",
-          "category_slug": "dead-fish",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "49",
-              "name": "None",
-              "value": "none",
-              "description": "No dead fish in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "25",
-          "parameter": "Jellyfish",
-          "prompt": null,
-          "unit": null,
-          "category": "Jellyfish",
-          "category_slug": "jellyfish",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "55",
-              "name": "None",
-              "value": "none",
-              "description": "No jellyfish in sight."
-            }
-          ]
-        },
-        {
-          "parameter_id": "26",
-          "parameter": "Crowds",
-          "prompt": null,
-          "unit": null,
-          "category": "Crowds",
-          "category_slug": "crowds",
-          "value": null,
-          "selected_values": [
-            {
-              "id": "59",
-              "name": "Few",
-              "value": "few",
-              "description": "Beachgoers are easily spaced 6 ft or more apart."
-            }
-          ]
-        }
-      ],
-      "beach_id": "24",
-      "beach_name": "St George Island (Bayside)",
-      "beach_location": "St. George Island, FL",
-      "beach_latitude": 29.662236,
-      "beach_longitude": -84.861462,
-      "age_hours": 424.742,
+      "age_hours": 176.638,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 0,
-  "flag": null,
+  "fresh_observation_count": 1,
+  "flag": "Double Red",
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [],
-  "newest_report_at": "2026-11-14T12:53:29+00:00",
+  "fresh_distinct_flags": [
+    "Double Red"
+  ],
+  "newest_report_at": "2026-11-18T13:06:11+00:00",
   "newest_flag_report": {
-    "report_id": "77445",
-    "created_at": "2026-11-14T12:53:29+00:00",
+    "report_id": "77601",
+    "created_at": "2026-11-18T13:06:11+00:00",
     "latitude": 29.662236,
     "longitude": -84.861462,
     "ambassador": {
       "id": "23",
       "name": "St. George"
     },
-    "flag": "Yellow",
+    "flag": "Double Red",
     "purple": false,
     "normalized_conditions": {
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "NNE",
+          "value": "NE",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "9.22",
+          "value": "12.66",
           "unit": "Mph"
         }
       ],
@@ -1074,7 +1076,7 @@
         },
         {
           "parameter": "Surf Height",
-          "value": "0-1 feet (0-0.3 m)",
+          "value": "2-4 feet (0.6-1.2 m)",
           "unit": null
         },
         {
@@ -1084,11 +1086,11 @@
         },
         {
           "parameter": "Surf Intensity",
-          "value": "Moderate",
+          "value": "Rough",
           "unit": null
         }
       ],
-      "water_color": "Clear",
+      "water_color": "Moderate",
       "respiratory_irritation": "None",
       "dead_fish": "None",
       "crowd": "Few"
@@ -1104,10 +1106,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "3",
-            "name": "Yellow",
-            "value": "yellow",
-            "description": "Medium Hazard; moderate surf and/or currents."
+            "id": "1",
+            "name": "Double Red",
+            "value": "double-red",
+            "description": "Water is closed to the public; storm surge, hurricanes, rip currents, elevated bacteria counts."
           }
         ]
       },
@@ -1118,7 +1120,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "4.24",
+        "value": "4.07",
         "selected_values": []
       },
       {
@@ -1128,7 +1130,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "05:44:45 PM",
+        "value": "05:42:59 PM",
         "selected_values": []
       },
       {
@@ -1138,7 +1140,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "07:03:14 AM",
+        "value": "07:06:33 AM",
         "selected_values": []
       },
       {
@@ -1148,7 +1150,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "NNE",
+        "value": "NE",
         "selected_values": []
       },
       {
@@ -1158,7 +1160,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "9.22",
+        "value": "12.66",
         "selected_values": []
       },
       {
@@ -1168,7 +1170,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "41.05",
+        "value": "55.45",
         "selected_values": []
       },
       {
@@ -1208,9 +1210,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "14",
-            "name": "0-1 feet (0-0.3 m)",
-            "value": "0-1",
+            "id": "16",
+            "name": "2-4 feet (0.6-1.2 m)",
+            "value": "2-4",
             "description": null
           }
         ]
@@ -1242,9 +1244,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "7",
-            "name": "Moderate",
-            "value": "moderate",
+            "id": "8",
+            "name": "Rough",
+            "value": "rough",
             "description": null
           }
         ]
@@ -1259,10 +1261,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "20",
-            "name": "Clear",
-            "value": "clear",
-            "description": "Able to see the bottom in shallow water."
+            "id": "21",
+            "name": "Moderate",
+            "value": "moderate",
+            "description": "A light tint."
           }
         ]
       },
@@ -1374,20 +1376,20 @@
     "beach_location": "St. George Island, FL",
     "beach_latitude": 29.662236,
     "beach_longitude": -84.861462,
-    "age_hours": 87.788,
-    "fresh": false,
+    "age_hours": 8.445,
+    "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "no_fresh_visitbeaches_flag",
+    "state": "agree",
     "knowthegulf_flag": "Double Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-17T22:19:30.277229-06:00",
-    "visitbeaches_flag": null,
+    "knowthegulf_last_verified_at": "2026-11-18T14:45:19.451393-06:00",
+    "visitbeaches_flag": "Double Red",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-11-14T12:53:29+00:00",
-    "visitbeaches_fresh_observation_count": 0,
+    "visitbeaches_newest_report_at": "2026-11-18T13:06:11+00:00",
+    "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,

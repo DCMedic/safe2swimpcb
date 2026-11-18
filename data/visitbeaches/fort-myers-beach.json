@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-18T04:40:55.557808+00:00",
+  "checked_at": "2026-11-18T21:32:58.734194+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Fort Myers Beach",
@@ -487,8 +487,8 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 12.263,
-      "fresh": true,
+      "age_hours": 29.13,
+      "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
     {
@@ -922,7 +922,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 40.2,
+      "age_hours": 57.068,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1272,7 +1272,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 87.528,
+      "age_hours": 104.395,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1707,7 +1707,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 108.038,
+      "age_hours": 124.906,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2091,7 +2091,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 423.281,
+      "age_hours": 440.149,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2490,7 +2490,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4536438,
       "beach_longitude": -81.9570615,
-      "age_hours": 520.654,
+      "age_hours": 537.522,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -2895,7 +2895,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 7236.473,
+      "age_hours": 7253.341,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3294,7 +3294,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 8000.815,
+      "age_hours": 8017.682,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -3693,18 +3693,16 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.464853,
       "beach_longitude": -81.968058,
-      "age_hours": 8244.411,
+      "age_hours": 8261.279,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
   ],
-  "fresh_observation_count": 1,
-  "flag": "Yellow",
+  "fresh_observation_count": 0,
+  "flag": null,
   "purple": false,
   "flag_conflict": false,
-  "fresh_distinct_flags": [
-    "Yellow"
-  ],
+  "fresh_distinct_flags": [],
   "newest_report_at": "2026-11-17T16:25:09+00:00",
   "newest_flag_report": {
     "report_id": "77585",
@@ -4137,20 +4135,20 @@
     "beach_location": "Fort Myers Beach, FL",
     "beach_latitude": 26.4237626,
     "beach_longitude": -81.9078,
-    "age_hours": 12.263,
-    "fresh": true,
+    "age_hours": 29.13,
+    "fresh": false,
     "source_class": "Beach Ambassador Report"
   },
   "selection_rule": "A regional flag is emitted only when all fresh Ambassador observations with explicit flags agree. Conflicting fresh flags remain separate observations and no regional flag is emitted.",
   "knowthegulf_comparison": {
-    "state": "agree",
+    "state": "no_fresh_visitbeaches_flag",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
     "knowthegulf_last_verified_at": "2026-11-17T16:25:09+00:00",
-    "visitbeaches_flag": "Yellow",
+    "visitbeaches_flag": null,
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-17T16:25:09+00:00",
-    "visitbeaches_fresh_observation_count": 1,
+    "visitbeaches_fresh_observation_count": 0,
     "visitbeaches_flag_conflict": false
   },
   "shadow_mode": true,
