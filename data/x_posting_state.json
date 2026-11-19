@@ -81,13 +81,12 @@
     "Navarre Beach": "Yellow",
     "Okaloosa Island": "Double Red",
     "Panama City Beach": "Yellow",
-    "Pensacola Beach": "Red"
+    "Pensacola Beach": "Single Red"
   },
   "last_link_post_at": "2026-11-03T19:30:18.697011-06:00",
-  "last_posted_at": "2026-11-19T01:41:22.845077-06:00",
-  "lifetime_estimated_spend_usd": 3.87,
+  "last_posted_at": "2026-11-19T16:19:20.899821-06:00",
+  "lifetime_estimated_spend_usd": 3.885,
   "recent_fingerprints": [
-    "0d5b52688b6d58e4",
     "6e7118ba56ebc524",
     "cfd1a8df92e3adde",
     "5b29ba4e1aac48c4",
@@ -146,9 +145,10 @@
     "7ad38845dcb14b90",
     "e659c716cfb48f44",
     "672afcfd094bee00",
-    "4649a3861b5036ed"
+    "4649a3861b5036ed",
+    "c2cf57fdb6c382a8"
   ],
-  "sequence": 109,
+  "sequence": 110,
   "usage": {
     "2026-08": {
       "days": {
@@ -245,10 +245,10 @@
         "2026-11-12": 1,
         "2026-11-13": 1,
         "2026-11-15": 1,
-        "2026-11-19": 1
+        "2026-11-19": 2
       },
-      "estimated_spend_usd": 0.335,
-      "posts": 10,
+      "estimated_spend_usd": 0.35,
+      "posts": 11,
       "url_posts": 1
     }
   },
