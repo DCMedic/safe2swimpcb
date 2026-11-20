@@ -18,7 +18,7 @@ ACQUISITION=[('flags',"What does today's beach flag actually mean for your famil
 class Candidate:
  kind:str; text:str; contains_url:bool=False; priority:int=10; campaign:str|None=None; landing:str|None=None
 def parse_args():
- p=argparse.ArgumentParser(); p.add_argument('--publish',action='store_true'); p.add_argument('--force-slot',choices=['morning','afternoon','evening']); p.add_argument('--now'); return p.parse_args()
+ p=argparse.ArgumentParser(allow_abbrev=False); mode=p.add_mutually_exclusive_group(); mode.add_argument('--publish',action='store_true'); mode.add_argument('--dry-run',action='store_true'); p.add_argument('--force-slot',choices=['morning','afternoon','evening']); p.add_argument('--now'); return p.parse_args()
 def now_local(v):
  if v:
   d=datetime.fromisoformat(v); return d.replace(tzinfo=TZ) if d.tzinfo is None else d.astimezone(TZ)
@@ -109,14 +109,18 @@ def record_post(s,now,c):
   a=s.setdefault('acquisition',{'link_posts':0,'campaigns':{}}); a['link_posts']=int(a.get('link_posts',0))+1; campaigns=a.setdefault('campaigns',{}); rec=campaigns.setdefault(c.campaign or 'unknown',{'posts':0,'estimated_spend_usd':0.0,'landings':{}}); rec['posts']=int(rec.get('posts',0))+1; rec['estimated_spend_usd']=round(float(rec.get('estimated_spend_usd',0))+cost,3); land=rec.setdefault('landings',{}); land[c.landing or 'unknown']=int(land.get(c.landing or 'unknown',0))+1
 def main():
  a=parse_args(); now=now_local(a.now); s=load_state(); c=choose_candidate(s,now,a.force_slot)
- if not c:save_state(s); print('NO_POST: no scheduled slot or verified flag change'); return 0
+ if not c:
+  if a.publish:save_state(s)
+  print('NO_POST: no scheduled slot or verified flag change'); return 0
  allowed,reason=guardrails_allow(s,now,c)
- if not allowed:save_state(s); print(f'NO_POST: {reason}'); return 0
+ if not allowed:
+  if a.publish:save_state(s)
+  print(f'NO_POST: {reason}'); return 0
  if len(c.text)>280:print(f'ERROR: generated post exceeds 280 characters ({len(c.text)})',file=sys.stderr); return 1
  print(f'SELECTED_KIND={c.kind}'); print(f"ESTIMATED_COST_USD={'0.200' if c.contains_url else '0.015'}"); print(f'ACQUISITION_CAMPAIGN={c.campaign or "none"}'); print(f'LANDING_PAGE={c.landing or "none"}'); print(c.text)
  if a.publish:
   from post_to_x import publish
   post_id,_=publish(c.text); record_post(s,now,c); save_state(s); print(f'PUBLISHED_URL=https://x.com/knowthegulf/status/{post_id}')
- else:save_state(s); print('DRY_RUN_ONLY')
+ else:print('DRY_RUN_ONLY')
  return 0
 if __name__=='__main__':raise SystemExit(main())

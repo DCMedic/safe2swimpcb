@@ -16,6 +16,45 @@ CORE_RESEARCH = {
 }
 
 
+def job_text(workflow: str, name: str) -> str:
+    match = re.search(r"(?ms)^  " + re.escape(name) + r":\n(.*?)(?=^  [a-zA-Z_][\w-]*:\n|\Z)", workflow)
+    return match.group(1) if match else ""
+
+
+def validate_preview_boundary(workflow: str, live_job: str, mode: str, errors: list[str]) -> None:
+    preview = job_text(workflow, "preview")
+    live = job_text(workflow, live_job)
+    top = workflow.split("jobs:", 1)[0]
+    if not preview or "contents: read" not in top or ": write" in top:
+        errors.append(f"{live_job}: preview must inherit read-only workflow permissions")
+    if any(value in preview for value in ("secrets.", ": write", "persist_paths.sh", "--publish", "--apply")):
+        errors.append(f"{live_job}: preview contains a production credential or mutation path")
+    if "persist-credentials: false" not in preview or "--dry-run" not in preview:
+        errors.append(f"{live_job}: preview must disable persisted credentials and explicitly select dry-run")
+    if "github.ref == 'refs/heads/main'" not in live or f"inputs.mode == '{mode}'" not in live:
+        errors.append(f"{live_job}: production job must gate the main ref and explicit manual mode")
+
+
+def validate_x_run_titles(workflow: str, recovery: str, cfg: dict, errors: list[str]) -> None:
+    titles = cfg.get("run_titles", {})
+    production, preview = titles.get("production"), titles.get("preview")
+    if not production or not preview or production == preview:
+        errors.append("X recovery requires distinct production/preview run titles")
+        return
+    live = job_text(workflow, "publish")
+    gate = re.search(r"(?m)^    if: \$\{\{ (.+) \}\}$", live)
+    expected = (f'run-name: "${{{{ {gate.group(1)} && {production!r} || {preview!r} }}}}"'
+                if gate else "")
+    if not expected or expected not in workflow:
+        errors.append("X run title must use the exact production-job gate and policy titles")
+    completion_guard = (
+        f"(github.event.workflow_run.name != 'Publish Know the Gulf to X' || "
+        f"github.event.workflow_run.display_title == {production!r})"
+    )
+    if completion_guard not in job_text(recovery, "recover"):
+        errors.append("X preview completion must not trigger production recovery")
+
+
 def validate() -> list[str]:
     errors: list[str] = []
     policy = json.loads(POLICY.read_text(encoding="utf-8"))
@@ -56,6 +95,7 @@ def validate() -> list[str]:
             errors.append(f"recovery controller redundantly subscribes to {noisy}")
     if "actions: write" not in recovery or "contents: read" not in recovery:
         errors.append("recovery controller permissions are not least-privilege read/actions-write")
+    validate_preview_boundary(recovery, "recover", "apply", errors)
 
     latency_groups: dict[str, str] = {}
     for lane in ("pcb", "destin", "eastern", "southwest", "western"):
@@ -128,6 +168,8 @@ def validate() -> list[str]:
     x_workflow = (WORKFLOWS / "x-production-publisher.yml").read_text(encoding="utf-8")
     if "scripts/mark_x_publisher_failure.py" not in x_workflow:
         errors.append("X workflow lacks fail-closed pre-publisher health recording")
+    validate_preview_boundary(x_workflow, "publish", "publish", errors)
+    validate_x_run_titles(x_workflow, recovery, policy["lanes"]["x"], errors)
 
     return errors
 

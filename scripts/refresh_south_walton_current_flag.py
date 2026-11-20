@@ -16,6 +16,11 @@ try:
 except ImportError:
     from flag_image_verification import fetch_and_classify_flag_image
 
+try:
+    from .source_evidence import reset_primary_evidence
+except ImportError:
+    from source_evidence import reset_primary_evidence
+
 ROOT = Path(__file__).resolve().parents[1]
 PATH = ROOT / "data" / "south-walton" / "current_flag.json"
 SOURCE_URL = "https://www.visitsouthwalton.com/beach-safety/"
@@ -197,6 +202,7 @@ def refresh() -> None:
         payload.pop("evidence_conflict", None)
 
     if primary and not conflict:
+        reset_primary_evidence(payload, now, SOURCE_URL)
         payload["last_verified_at"] = now
         payload["source_check_status"] = "verified"
         payload["provenance_tier"] = "primary_official_current_visual"
