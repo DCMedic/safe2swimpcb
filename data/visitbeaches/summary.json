@@ -6,11 +6,11 @@
   "locations": {
     "pcb": {
       "matched_beaches": 1,
-      "fresh_observations": 0,
-      "visitbeaches_flag": null,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "no_fresh_visitbeaches_flag",
+      "comparison": "agree",
       "error": null
     },
     "destin": {
@@ -123,11 +123,11 @@
     },
     "fort-myers-beach": {
       "matched_beaches": 3,
-      "fresh_observations": 0,
-      "visitbeaches_flag": null,
+      "fresh_observations": 1,
+      "visitbeaches_flag": "Green",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "no_fresh_visitbeaches_flag",
+      "comparison": "agree",
       "error": null
     },
     "naples": {
