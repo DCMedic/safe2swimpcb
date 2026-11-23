@@ -3,17 +3,17 @@
   "purple": false,
   "label": "Yellow",
   "severity": 2,
-  "provenance_tier": "primary_official_terminology",
-  "cached": false,
+  "provenance_tier": "cached_official_observation",
+  "cached": true,
   "last_verified_at": "2026-11-22T17:41:18.161719-06:00",
-  "last_checked_at": "2026-11-22T17:41:18.161719-06:00",
+  "last_checked_at": "2026-11-22T18:26:11.580490-06:00",
   "status_changed_at": "2026-11-13T10:35:21.895418-06:00",
   "source_name": "Visit Panama City Beach / Beach & Surf Patrol",
   "source_url": "https://www.visitpanamacitybeach.com/stay-pcb-current/",
-  "source_check_status": "verified",
-  "method": "Direct official current-condition terminology normalized under Florida Beach Warning Flag definitions",
+  "source_check_status": "degraded",
+  "method": "Cached last-known official PCB flag after bounded live-source retries failed",
   "stale_after_hours": 2,
-  "stale_reason": null,
+  "stale_reason": "Live source verification failed; retaining the last successfully verified official observation only until its existing freshness window expires.",
   "note": "last_verified_at is the most recent successful Know the Gulf poll. status_changed_at is when Know the Gulf first observed the current flag status. Polling time is not guaranteed to equal the exact official issuance time.",
   "primary_flag": "Yellow",
   "flag_schema": "Florida Beach Warning Flag terminology v1",
@@ -44,5 +44,8 @@
     "checked_at": "2026-11-22T20:27:38.957289+00:00",
     "publication_action": "corroboration_only"
   },
-  "multi_source_confidence": "primary_only"
+  "multi_source_confidence": "primary_only",
+  "cached_from_provenance_tier": "primary_official_terminology",
+  "source_error": "403 Client Error: Forbidden for url: https://www.visitpanamacitybeach.com/stay-pcb-current/",
+  "cache_age_hours": 0.75
 }
