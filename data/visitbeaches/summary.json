@@ -33,20 +33,20 @@
     },
     "navarre-beach": {
       "matched_beaches": 1,
+      "fresh_observations": 0,
+      "visitbeaches_flag": null,
+      "visitbeaches_purple": false,
+      "flag_conflict": false,
+      "comparison": "no_fresh_visitbeaches_flag",
+      "error": null
+    },
+    "pensacola-beach": {
+      "matched_beaches": 1,
       "fresh_observations": 1,
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
       "comparison": "agree",
-      "error": null
-    },
-    "pensacola-beach": {
-      "matched_beaches": 1,
-      "fresh_observations": 2,
-      "visitbeaches_flag": null,
-      "visitbeaches_purple": false,
-      "flag_conflict": true,
-      "comparison": "visitbeaches_internal_conflict",
       "error": null
     },
     "south-walton": {
@@ -100,7 +100,7 @@
       "visitbeaches_flag": "Yellow",
       "visitbeaches_purple": false,
       "flag_conflict": false,
-      "comparison": "visitbeaches_fills_current_gap",
+      "comparison": "agree",
       "error": null
     },
     "venice": {

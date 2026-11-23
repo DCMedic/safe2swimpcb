@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-22T20:27:57.002809+00:00",
+  "checked_at": "2026-11-23T01:56:56.762769+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Sanibel",
@@ -29,8 +29,8 @@
   ],
   "observations": [
     {
-      "report_id": "77779",
-      "created_at": "2026-11-22T13:54:31+00:00",
+      "report_id": "77806",
+      "created_at": "2026-11-22T21:49:32+00:00",
       "latitude": 26.522131,
       "longitude": -82.193346,
       "ambassador": {
@@ -43,12 +43,12 @@
         "wind": [
           {
             "parameter": "Wind Direction",
-            "value": "WNW",
+            "value": "NW",
             "unit": ""
           },
           {
             "parameter": "Wind Speed",
-            "value": "12.12",
+            "value": "12.55",
             "unit": "Mph"
           }
         ],
@@ -60,17 +60,17 @@
           },
           {
             "parameter": "Surf Height",
-            "value": "1-2 feet (0.3-0.6 m)",
+            "value": "0-1 feet (0-0.3 m)",
             "unit": null
           },
           {
             "parameter": "Surf Type",
-            "value": "Wind Chop",
+            "value": "Shore Break",
             "unit": null
           },
           {
             "parameter": "Surf Intensity",
-            "value": "Calm",
+            "value": "Moderate",
             "unit": null
           }
         ],
@@ -81,7 +81,7 @@
         },
         "respiratory_irritation": "None",
         "dead_fish": "None",
-        "crowd": "None"
+        "crowd": "Few"
       },
       "parameters": [
         {
@@ -138,7 +138,7 @@
           "unit": "",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "WNW",
+          "value": "NW",
           "selected_values": []
         },
         {
@@ -148,7 +148,7 @@
           "unit": "Mph",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "12.12",
+          "value": "12.55",
           "selected_values": []
         },
         {
@@ -158,7 +158,7 @@
           "unit": "\u00b0F",
           "category": "Weather",
           "category_slug": "weather",
-          "value": "76.01",
+          "value": "75.92",
           "selected_values": []
         },
         {
@@ -168,7 +168,7 @@
           "unit": null,
           "category": "Weather",
           "category_slug": "weather",
-          "value": "Clear",
+          "value": "Clouds",
           "selected_values": []
         },
         {
@@ -198,9 +198,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "15",
-              "name": "1-2 feet (0.3-0.6 m)",
-              "value": "1-2",
+              "id": "14",
+              "name": "0-1 feet (0-0.3 m)",
+              "value": "0-1",
               "description": null
             }
           ]
@@ -215,10 +215,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "10",
-              "name": "Wind Chop",
-              "value": "wind-chop",
-              "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+              "id": "11",
+              "name": "Shore Break",
+              "value": "shore-break",
+              "description": "Waves breaking close to shore or shallow water."
             }
           ]
         },
@@ -232,9 +232,9 @@
           "value": null,
           "selected_values": [
             {
-              "id": "6",
-              "name": "Calm",
-              "value": "calm",
+              "id": "7",
+              "name": "Moderate",
+              "value": "moderate",
               "description": null
             }
           ]
@@ -267,6 +267,40 @@
           "selected_values": []
         },
         {
+          "parameter_id": "17",
+          "parameter": "Drift Algae Location",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "30",
+              "name": "Beach",
+              "value": "beach",
+              "description": null
+            }
+          ]
+        },
+        {
+          "parameter_id": "16",
+          "parameter": "Drift Algae Type",
+          "prompt": null,
+          "unit": null,
+          "category": "Drift Algae",
+          "category_slug": "drift-algae",
+          "value": null,
+          "selected_values": [
+            {
+              "id": "27",
+              "name": "Green Macroalgae",
+              "value": "green-macroalgea",
+              "description": null
+            }
+          ]
+        },
+        {
           "parameter_id": "15",
           "parameter": "Drift Algae",
           "prompt": null,
@@ -276,10 +310,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "23",
-              "name": "None",
-              "value": "none",
-              "description": "No drift algae in sight."
+              "id": "24",
+              "name": "Some",
+              "value": "some",
+              "description": "Clumps of drift algae."
             }
           ]
         },
@@ -361,10 +395,10 @@
           "value": null,
           "selected_values": [
             {
-              "id": "58",
-              "name": "None",
-              "value": "none",
-              "description": "Sporadic beachgoers."
+              "id": "59",
+              "name": "Few",
+              "value": "few",
+              "description": "Beachgoers are easily spaced 6 ft or more apart."
             }
           ]
         }
@@ -374,7 +408,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 6.557,
+      "age_hours": 4.124,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -775,7 +809,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 30.619,
+      "age_hours": 36.103,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1125,7 +1159,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 53.913,
+      "age_hours": 59.396,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1137,10 +1171,10 @@
   "fresh_distinct_flags": [
     "Green"
   ],
-  "newest_report_at": "2026-11-22T13:54:31+00:00",
+  "newest_report_at": "2026-11-22T21:49:32+00:00",
   "newest_flag_report": {
-    "report_id": "77779",
-    "created_at": "2026-11-22T13:54:31+00:00",
+    "report_id": "77806",
+    "created_at": "2026-11-22T21:49:32+00:00",
     "latitude": 26.522131,
     "longitude": -82.193346,
     "ambassador": {
@@ -1153,12 +1187,12 @@
       "wind": [
         {
           "parameter": "Wind Direction",
-          "value": "WNW",
+          "value": "NW",
           "unit": ""
         },
         {
           "parameter": "Wind Speed",
-          "value": "12.12",
+          "value": "12.55",
           "unit": "Mph"
         }
       ],
@@ -1170,17 +1204,17 @@
         },
         {
           "parameter": "Surf Height",
-          "value": "1-2 feet (0.3-0.6 m)",
+          "value": "0-1 feet (0-0.3 m)",
           "unit": null
         },
         {
           "parameter": "Surf Type",
-          "value": "Wind Chop",
+          "value": "Shore Break",
           "unit": null
         },
         {
           "parameter": "Surf Intensity",
-          "value": "Calm",
+          "value": "Moderate",
           "unit": null
         }
       ],
@@ -1191,7 +1225,7 @@
       },
       "respiratory_irritation": "None",
       "dead_fish": "None",
-      "crowd": "None"
+      "crowd": "Few"
     },
     "parameters": [
       {
@@ -1248,7 +1282,7 @@
         "unit": "",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "WNW",
+        "value": "NW",
         "selected_values": []
       },
       {
@@ -1258,7 +1292,7 @@
         "unit": "Mph",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "12.12",
+        "value": "12.55",
         "selected_values": []
       },
       {
@@ -1268,7 +1302,7 @@
         "unit": "\u00b0F",
         "category": "Weather",
         "category_slug": "weather",
-        "value": "76.01",
+        "value": "75.92",
         "selected_values": []
       },
       {
@@ -1278,7 +1312,7 @@
         "unit": null,
         "category": "Weather",
         "category_slug": "weather",
-        "value": "Clear",
+        "value": "Clouds",
         "selected_values": []
       },
       {
@@ -1308,9 +1342,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "15",
-            "name": "1-2 feet (0.3-0.6 m)",
-            "value": "1-2",
+            "id": "14",
+            "name": "0-1 feet (0-0.3 m)",
+            "value": "0-1",
             "description": null
           }
         ]
@@ -1325,10 +1359,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "10",
-            "name": "Wind Chop",
-            "value": "wind-chop",
-            "description": "Bumpy ocean and wave conditions due to moderate to strong winds or currents"
+            "id": "11",
+            "name": "Shore Break",
+            "value": "shore-break",
+            "description": "Waves breaking close to shore or shallow water."
           }
         ]
       },
@@ -1342,9 +1376,9 @@
         "value": null,
         "selected_values": [
           {
-            "id": "6",
-            "name": "Calm",
-            "value": "calm",
+            "id": "7",
+            "name": "Moderate",
+            "value": "moderate",
             "description": null
           }
         ]
@@ -1377,6 +1411,40 @@
         "selected_values": []
       },
       {
+        "parameter_id": "17",
+        "parameter": "Drift Algae Location",
+        "prompt": null,
+        "unit": null,
+        "category": "Drift Algae",
+        "category_slug": "drift-algae",
+        "value": null,
+        "selected_values": [
+          {
+            "id": "30",
+            "name": "Beach",
+            "value": "beach",
+            "description": null
+          }
+        ]
+      },
+      {
+        "parameter_id": "16",
+        "parameter": "Drift Algae Type",
+        "prompt": null,
+        "unit": null,
+        "category": "Drift Algae",
+        "category_slug": "drift-algae",
+        "value": null,
+        "selected_values": [
+          {
+            "id": "27",
+            "name": "Green Macroalgae",
+            "value": "green-macroalgea",
+            "description": null
+          }
+        ]
+      },
+      {
         "parameter_id": "15",
         "parameter": "Drift Algae",
         "prompt": null,
@@ -1386,10 +1454,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "23",
-            "name": "None",
-            "value": "none",
-            "description": "No drift algae in sight."
+            "id": "24",
+            "name": "Some",
+            "value": "some",
+            "description": "Clumps of drift algae."
           }
         ]
       },
@@ -1471,10 +1539,10 @@
         "value": null,
         "selected_values": [
           {
-            "id": "58",
-            "name": "None",
-            "value": "none",
-            "description": "Sporadic beachgoers."
+            "id": "59",
+            "name": "Few",
+            "value": "few",
+            "description": "Beachgoers are easily spaced 6 ft or more apart."
           }
         ]
       }
@@ -1484,7 +1552,7 @@
     "beach_location": "Captiva, FL",
     "beach_latitude": 26.522131,
     "beach_longitude": -82.193346,
-    "age_hours": 6.557,
+    "age_hours": 4.124,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1493,10 +1561,10 @@
     "state": "agree",
     "knowthegulf_flag": "Green",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-22T13:54:31+00:00",
+    "knowthegulf_last_verified_at": "2026-11-22T21:49:32+00:00",
     "visitbeaches_flag": "Green",
     "visitbeaches_purple": false,
-    "visitbeaches_newest_report_at": "2026-11-22T13:54:31+00:00",
+    "visitbeaches_newest_report_at": "2026-11-22T21:49:32+00:00",
     "visitbeaches_fresh_observation_count": 1,
     "visitbeaches_flag_conflict": false
   },
