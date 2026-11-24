@@ -13,7 +13,7 @@
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-11-23T16:25:10+00:00",
-  "last_checked_at": "2026-11-24T05:38:29.769479+00:00",
+  "last_checked_at": "2026-11-24T09:40:29.888173+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -394,7 +394,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 13.222,
+      "age_hours": 17.255,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -778,7 +778,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 31.816,
+      "age_hours": 35.849,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1179,7 +1179,7 @@
       "beach_location": "Captiva, FL",
       "beach_latitude": 26.522131,
       "beach_longitude": -82.193346,
-      "age_hours": 63.795,
+      "age_hours": 67.828,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
