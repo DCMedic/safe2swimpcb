@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-23T13:33:43.175048+00:00",
+  "checked_at": "2026-11-24T01:10:30.666216+00:00",
   "freshness_hours": 24,
   "aliases": [
     "Panama City Beach",
@@ -373,7 +373,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 1.19,
+      "age_hours": 12.804,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -723,7 +723,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 117.756,
+      "age_hours": 129.369,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1073,7 +1073,7 @@
       "beach_location": "Panama City Beach, FL",
       "beach_latitude": 30.227076,
       "beach_longitude": -85.900616,
-      "age_hours": 169.224,
+      "age_hours": 180.837,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1432,7 +1432,7 @@
     "beach_location": "Panama City Beach, FL",
     "beach_latitude": 30.227076,
     "beach_longitude": -85.900616,
-    "age_hours": 1.19,
+    "age_hours": 12.804,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1441,7 +1441,7 @@
     "state": "agree",
     "knowthegulf_flag": "Yellow",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-23T02:04:09.931995-06:00",
+    "knowthegulf_last_verified_at": "2026-11-23T18:51:21.860758-06:00",
     "visitbeaches_flag": "Yellow",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-23T12:22:18+00:00",
