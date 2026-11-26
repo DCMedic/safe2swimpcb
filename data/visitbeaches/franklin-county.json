@@ -3,7 +3,7 @@
   "source_url": "https://visitbeaches.org/map",
   "source_data_url": "https://api.visitbeaches.org/graphql",
   "source_class": "Beach Ambassador Reports only; Community Reports excluded",
-  "checked_at": "2026-11-25T22:41:48.447418+00:00",
+  "checked_at": "2026-11-26T05:22:39.082397+00:00",
   "freshness_hours": 24,
   "aliases": [
     "St. George Island",
@@ -359,7 +359,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 9.654,
+      "age_hours": 16.334,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -695,7 +695,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 103.153,
+      "age_hours": 109.833,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1031,7 +1031,7 @@
       "beach_location": "St. George Island, FL",
       "beach_latitude": 29.662236,
       "beach_longitude": -84.861462,
-      "age_hours": 129.874,
+      "age_hours": 136.554,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
@@ -1376,7 +1376,7 @@
     "beach_location": "St. George Island, FL",
     "beach_latitude": 29.662236,
     "beach_longitude": -84.861462,
-    "age_hours": 9.654,
+    "age_hours": 16.334,
     "fresh": true,
     "source_class": "Beach Ambassador Report"
   },
@@ -1385,7 +1385,7 @@
     "state": "agree",
     "knowthegulf_flag": "Red",
     "knowthegulf_purple": false,
-    "knowthegulf_last_verified_at": "2026-11-25T16:28:19.884609-06:00",
+    "knowthegulf_last_verified_at": "2026-11-25T22:21:52.385319-06:00",
     "visitbeaches_flag": "Red",
     "visitbeaches_purple": false,
     "visitbeaches_newest_report_at": "2026-11-25T13:02:35+00:00",
