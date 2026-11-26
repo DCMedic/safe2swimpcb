@@ -91,10 +91,9 @@
     "Pensacola Beach": "Single Red"
   },
   "last_link_post_at": "2026-11-23T15:41:54.367377-06:00",
-  "last_posted_at": "2026-11-23T15:41:54.367377-06:00",
-  "lifetime_estimated_spend_usd": 4.16,
+  "last_posted_at": "2026-11-26T09:52:11.614603-06:00",
+  "lifetime_estimated_spend_usd": 4.175,
   "recent_fingerprints": [
-    "c90b3bb705229a62",
     "eba0a3818d72c7f1",
     "8ac9322161497eb3",
     "d105839aa8523a65",
@@ -153,9 +152,10 @@
     "6e7118ba56ebc524",
     "9fb4ca42415cee97",
     "d10c877653c0cdab",
-    "4cfdf0d6ef0b5d54"
+    "4cfdf0d6ef0b5d54",
+    "9ee6e480fce7d5eb"
   ],
-  "sequence": 116,
+  "sequence": 117,
   "usage": {
     "2026-08": {
       "days": {
@@ -256,10 +256,11 @@
         "2026-11-20": 1,
         "2026-11-21": 2,
         "2026-11-22": 2,
-        "2026-11-23": 1
+        "2026-11-23": 1,
+        "2026-11-26": 1
       },
-      "estimated_spend_usd": 0.625,
-      "posts": 17,
+      "estimated_spend_usd": 0.64,
+      "posts": 18,
       "url_posts": 2
     }
   },
