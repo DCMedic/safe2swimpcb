@@ -12,7 +12,7 @@
   "status": "explicit_flag_verified",
   "provenance_tier": "primary_visitbeaches_ambassador",
   "last_verified_at": "2026-11-26T16:55:11+00:00",
-  "last_checked_at": "2026-11-26T22:22:03.255704+00:00",
+  "last_checked_at": "2026-11-27T00:06:55.600523+00:00",
   "source_check_status": "verified",
   "source_name": "Mote Beach Conditions Reporting System / VisitBeaches",
   "source_url": "https://visitbeaches.org/map",
@@ -444,7 +444,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 5.448,
+      "age_hours": 7.195,
       "fresh": true,
       "source_class": "Beach Ambassador Report"
     },
@@ -845,7 +845,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 82.637,
+      "age_hours": 84.385,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     },
@@ -1195,7 +1195,7 @@
       "beach_location": "Fort Myers Beach, FL",
       "beach_latitude": 26.4237626,
       "beach_longitude": -81.9078,
-      "age_hours": 177.422,
+      "age_hours": 179.17,
       "fresh": false,
       "source_class": "Beach Ambassador Report"
     }
