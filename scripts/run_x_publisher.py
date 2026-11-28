@@ -18,13 +18,17 @@ MAX_POST_LENGTH = 280
 
 
 def parse_args() -> tuple[argparse.Namespace, list[str]]:
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("--publish", action="store_true")
+    parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--publish", action="store_true")
+    mode.add_argument("--dry-run", action="store_true")
     parser.add_argument("--force-slot", choices=["morning", "afternoon", "evening"])
     known, unknown = parser.parse_known_args()
     forwarded: list[str] = []
     if known.publish:
         forwarded.append("--publish")
+    elif known.dry_run:
+        forwarded.append("--dry-run")
     if known.force_slot:
         forwarded.extend(["--force-slot", known.force_slot])
     forwarded.extend(unknown)
@@ -152,8 +156,13 @@ def main() -> int:
     if stderr:
         print(stderr, end="", file=sys.stderr)
     outcome, detail = classify(returncode, stdout, stderr)
-    write_health(now, args.publish, args.force_slot, returncode, outcome, detail)
-    print(f"PUBLISHER_HEALTH={outcome}")
+    if args.publish:
+        write_health(now, True, args.force_slot, returncode, outcome, detail)
+        print(f"PUBLISHER_HEALTH={outcome}")
+    else:
+        # A preview must not advance the production recovery heartbeat, even
+        # when it finds no candidate, hits a guardrail, or fails validation.
+        print(f"PUBLISHER_PREVIEW={outcome}")
     return returncode
 
 

@@ -84,6 +84,10 @@
       "trigger_path": ".github/recovery/x.trigger",
       "workflow": "Publish Know the Gulf to X",
       "workflow_path": ".github/workflows/x-production-publisher.yml",
+      "run_titles": {
+        "production": "Know the Gulf X: publish",
+        "preview": "Know the Gulf X: preview"
+      },
       "dispatch_inputs": {
         "mode": "publish",
         "slot": "auto"
