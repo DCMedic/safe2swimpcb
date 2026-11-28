@@ -166,3 +166,22 @@ Franklin......................Red
     assert flags["Walton"] == "Red"
     assert flags["West Facing Gulf Beaches"] == "Yellow"
     assert flags["Franklin"] == "Red"
+
+
+def test_nws_payload_uses_issuance_not_null_official_time(tmp_path, monkeypatch):
+    import json
+    from datetime import timedelta
+    from scripts import update_eastern_panhandle as module
+    from scripts.source_evidence import observation_time, fresh_at
+    monkeypatch.setattr(module, 'DATA', tmp_path)
+    now = datetime.now(EASTERN)
+    issued = now - timedelta(hours=1)
+    cfg = module.LOCATIONS['cape-san-blas']
+    module.write_payload('cape-san-blas', cfg, {cfg['nws_key']: 'Yellow'}, None, issued, 'https://weather.gov', None)
+    payload = json.loads((tmp_path / 'cape-san-blas/current_flag.json').read_text())
+    assert payload['official_updated_at'] is None
+    assert observation_time(payload) == issued.isoformat()
+    assert fresh_at(observation_time(payload), payload['stale_after_hours'], now)
+    module.write_payload('cape-san-blas', cfg, {cfg['nws_key']: 'Green'}, None, now + timedelta(hours=1), 'https://weather.gov', None)
+    payload = json.loads((tmp_path / 'cape-san-blas/current_flag.json').read_text())
+    assert payload['flag'] is None

@@ -87,3 +87,24 @@ def test_conflicting_fresh_ambassador_flags_do_not_emit_regional_flag():
     assert result["flag"] is None
     assert result["flag_conflict"] is True
     assert result["fresh_distinct_flags"] == ["Red", "Yellow"]
+
+
+def test_flag_legend_and_negative_marine_life_are_not_observations():
+    result = normalize_report({'beachReport': {'reportParameters': [
+        {'parameter': {'name': 'Beach Flag', 'description': 'Red means danger; Green means low hazard'}, 'parameterValues': []},
+        {'parameter': {'name': 'Dangerous Marine Life'}, 'parameterValues': [{'name': 'None', 'value': 'false'}]},
+    ]}})
+    assert result['flag'] is None
+    assert result['purple'] is False
+
+
+def test_single_report_conflicting_flags_retains_restrictions():
+    result = normalize_report({'beachReport': {'reportParameters': [
+        {'parameter': {'name': 'Beach Flag'}, 'parameterValues': [{'name': 'Double Red Flag'}]},
+        {'parameter': {'name': 'Beach Flag'}, 'parameterValues': [{'name': 'Green Flag'}]},
+        {'parameter': {'name': 'Beach Flag'}, 'parameterValues': [{'name': 'Purple Flag'}]},
+    ]}})
+    assert result['flag'] is None
+    assert result['flag_conflict'] is True
+    assert result['reported_flags'] == ['Double Red', 'Green']
+    assert result['purple'] is True

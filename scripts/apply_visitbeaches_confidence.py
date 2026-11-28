@@ -7,6 +7,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+try:
+    from .source_evidence import canonical_flag, current_visitbeaches, fresh_at, observation_time, parse_time, visitbeaches_lineage
+except ImportError:
+    from source_evidence import canonical_flag, current_visitbeaches, fresh_at, observation_time, parse_time, visitbeaches_lineage
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 VB = DATA / "visitbeaches"
@@ -38,44 +43,33 @@ def read_json(path: Path) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def parse_time(value: Any) -> datetime | None:
-    if not value:
-        return None
-    try:
-        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
-    except ValueError:
-        return None
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc)
-
-
 def is_fresh(record: dict[str, Any], now: datetime) -> bool:
-    stamp = parse_time(record.get("last_verified_at"))
-    if not stamp:
-        return False
-    try:
-        hours = float(record.get("stale_after_hours", 24))
-    except (TypeError, ValueError):
-        hours = 24
-    age = (now - stamp).total_seconds() / 3600
-    return -0.25 <= age <= max(0.0, hours)
+    return fresh_at(observation_time(record), record.get("stale_after_hours"), now)
 
 
 def newest_vb_time(vb: dict[str, Any]) -> str | None:
     report = vb.get("newest_flag_report") or {}
-    return report.get("created_at") or vb.get("newest_report_at")
+    return vb.get("report_at") or report.get("created_at")
 
 
 def confidence(existing: dict[str, Any], vb: dict[str, Any], now: datetime) -> tuple[str, str]:
-    primary = existing.get("flag")
-    purple = bool(existing.get("purple"))
+    vb = current_visitbeaches(vb, now)
+    primary = canonical_flag(existing.get("flag"))
+    purple = existing.get("purple") is True
     vb_flag = vb.get("flag")
-    vb_purple = bool(vb.get("purple"))
+    vb_purple = vb.get("purple") is True
     if vb.get("flag_conflict"):
         return "conflict", "VisitBeaches has conflicting fresh Ambassador flag observations"
     if not vb_flag:
         return "primary_only", "No fresh explicit VisitBeaches Ambassador flag is available"
+    if (existing.get("flag_conflict") or existing.get("visitbeaches_flag_conflict")
+            or existing.get("evidence_conflict")
+            or (canonical_flag(existing.get("primary_flag")) and canonical_flag(existing.get("primary_flag")) != primary)):
+        return "conflict", "Primary evidence contains conflicting warning flags"
+    if existing.get("source_reachable") is False or existing.get("source_check_status") not in (None, "verified"):
+        return "primary_unverified", "Primary source check did not verify current evidence"
+    if visitbeaches_lineage(existing):
+        return "same_source", "Primary and secondary evidence share VisitBeaches source lineage; not independent corroboration"
     if primary and is_fresh(existing, now):
         if primary == vb_flag and purple == vb_purple:
             return "corroborated", "Primary current-status source agrees with fresh VisitBeaches Ambassador observation"
@@ -95,9 +89,10 @@ def apply(slug: str, *, now: datetime | None = None) -> str:
     if not existing or not vb:
         return "missing-input"
 
+    vb = current_visitbeaches(vb, now)
     state, reason = confidence(existing, vb, now)
     vb_flag = vb.get("flag")
-    vb_purple = bool(vb.get("purple"))
+    vb_purple = vb.get("purple") is True
     evidence = {
         "source": "Mote Marine Laboratory Beach Conditions Reporting System / VisitBeaches",
         "source_url": "https://visitbeaches.org/map",
@@ -108,6 +103,9 @@ def apply(slug: str, *, now: datetime | None = None) -> str:
         "flag": vb_flag,
         "purple": vb_purple,
         "report_at": newest_vb_time(vb),
+        "freshness_hours": vb.get("freshness_hours"),
+        "source_lineage": "visitbeaches",
+        "report_ids": vb.get("report_ids", []),
         "fresh_observation_count": vb.get("fresh_observation_count", 0),
         "matched_beaches": [
             {"id": b.get("id"), "name": b.get("name"), "location": b.get("location")}
@@ -123,13 +121,19 @@ def apply(slug: str, *, now: datetime | None = None) -> str:
     # Gap fill is permitted only when no fresh primary warning flag exists and the
     # Ambassador observations are fresh, explicit, and internally consistent.
     promote = state in {"visitbeaches_gap_fill", "visitbeaches_newer_than_stale_primary"} and vb_flag and not vb.get("flag_conflict")
+    # A stale restriction remains last-known evidence, never silently relaxed.
+    if existing.get("flag") == "Double Red" or existing.get("purple") is True:
+        promote = False
     if promote:
         existing["flag"] = vb_flag
         existing["primary_flag"] = vb_flag
         existing["purple"] = vb_purple
         existing["label"] = vb_flag + (" + Purple" if vb_purple else "")
         existing["severity"] = SEVERITY.get(vb_flag)
-        existing["last_verified_at"] = newest_vb_time(vb) or vb.get("checked_at")
+        existing["last_verified_at"] = newest_vb_time(vb)
+        existing["observed_at"] = newest_vb_time(vb)
+        existing["last_checked_at"] = vb.get("checked_at")
+        existing["source_lineage"] = "visitbeaches"
         existing["source_check_status"] = "verified"
         existing["status"] = "explicit_flag_verified"
         existing["provenance_tier"] = "primary_visitbeaches_ambassador_gap_fill"
@@ -137,7 +141,7 @@ def apply(slug: str, *, now: datetime | None = None) -> str:
         existing["source_url"] = "https://visitbeaches.org/map"
         existing["source_data_url"] = "https://api.visitbeaches.org/graphql"
         existing["explicit_flag_evidence"] = f"Fresh consistent VisitBeaches Beach Ambassador report(s): {vb_flag}"
-        existing["stale_after_hours"] = max(float(existing.get("stale_after_hours") or 0), 24.0)
+        existing["stale_after_hours"] = vb["freshness_hours"]
         existing["multi_source_confidence"] = "visitbeaches_gap_filled"
         existing["visitbeaches_evidence"]["publication_action"] = "filled_missing_or_stale_primary"
     else:

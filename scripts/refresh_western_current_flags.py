@@ -16,6 +16,11 @@ try:
 except ImportError:
     from flag_image_verification import fetch_and_classify_flag_image
 
+try:
+    from .source_evidence import reset_primary_evidence, fresh_at, observation_time, parse_time, visitbeaches_lineage
+except ImportError:
+    from source_evidence import reset_primary_evidence, fresh_at, observation_time, parse_time, visitbeaches_lineage
+
 ROOT = Path(__file__).resolve().parents[1]
 CENTRAL = ZoneInfo("America/Chicago")
 
@@ -240,24 +245,18 @@ def load_synchronized_official_flag(cfg: dict[str, str], now_dt: datetime) -> tu
         data = json.loads((ROOT / rel_path).read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError, OSError):
         return None, False, {}
-    if not isinstance(data, dict) or data.get("source_check_status") not in {"verified", "verified_with_conflict"}:
+    if (not isinstance(data, dict) or data.get("source_check_status") != "verified"
+            or data.get("source_reachable") is False or visitbeaches_lineage(data)
+            or data.get("flag_conflict") or data.get("evidence_conflict")):
         return None, False, {}
     raw_flag = data.get("primary_flag") or data.get("flag")
     flag = {"Red": "Single Red"}.get(raw_flag, raw_flag)
     if flag not in SEVERITY:
         return None, False, {}
-    raw_verified = data.get("last_verified_at")
-    if not isinstance(raw_verified, str):
+    raw_verified = observation_time(data)
+    if not fresh_at(raw_verified, data.get("stale_after_hours"), now_dt) or not fresh_at(raw_verified, 3, now_dt):
         return None, False, {}
-    try:
-        verified = datetime.fromisoformat(raw_verified.replace("Z", "+00:00"))
-        if verified.tzinfo is None:
-            return None, False, {}
-        age = now_dt - verified.astimezone(CENTRAL)
-    except ValueError:
-        return None, False, {}
-    if age < timedelta(0) or age > timedelta(hours=3):
-        return None, False, {}
+    verified = parse_time(raw_verified)
     return flag, bool(data.get("purple")), {
         "synchronized_from": rel_path,
         "synchronized_source_name": data.get("source_name"),
@@ -303,7 +302,8 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
     payload = dict(previous)
     official_url = cfg.get("official_url", cfg["source_url"])
     source_updated_at = api_metadata.get("official_updated_at")
-    verified_at = source_updated_at or now
+    verified_at = (synchronized_metadata["synchronized_verified_at"] if synchronized_metadata
+                   else source_updated_at if api_metadata else now)
     payload.update({
         "flag": flag,
         "primary_flag": flag,
@@ -345,6 +345,11 @@ def refresh_slug(slug: str, cfg: dict[str, str]) -> None:
         payload.pop("evidence_conflict", None)
 
     if flag:
+        reset_primary_evidence(payload, verified_at, cfg["source_url"])
+        if source_updated_at is not None:
+            payload["official_updated_at"] = source_updated_at
+        if cfg.get("api_url"):
+            payload["source_data_url"] = cfg["api_url"]
         payload["last_verified_at"] = verified_at
         payload["source_check_status"] = "verified_with_conflict" if conflict else "verified"
         if slug == "pensacola-beach":

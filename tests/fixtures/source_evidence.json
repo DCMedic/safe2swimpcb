@@ -1,0 +1,162 @@
+{
+  "now": "2026-09-09T19:00:00Z",
+  "freshness": [
+    {
+      "name": "fresh",
+      "stamp": "2026-09-09T18:00:00Z",
+      "hours": 24,
+      "fresh": true
+    },
+    {
+      "name": "boundary",
+      "stamp": "2026-09-08T19:00:00Z",
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "future",
+      "stamp": "2026-09-09T19:00:01Z",
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "missing",
+      "stamp": null,
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "invalid",
+      "stamp": "bad",
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "no_zone",
+      "stamp": "2026-09-09T18:00:00",
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "invalid_date",
+      "stamp": "2026-02-30T18:00:00Z",
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "invalid_offset",
+      "stamp": "2026-09-09T18:00:00+00:99",
+      "hours": 24,
+      "fresh": false
+    },
+    {
+      "name": "zero_ttl",
+      "stamp": "2026-09-09T19:00:00Z",
+      "hours": 0,
+      "fresh": false
+    },
+    {
+      "name": "negative_ttl",
+      "stamp": "2026-09-09T19:00:00Z",
+      "hours": -1,
+      "fresh": false
+    },
+    {
+      "name": "large_ttl",
+      "stamp": "2026-09-09T19:00:00Z",
+      "hours": 25,
+      "fresh": false
+    },
+    {
+      "name": "string_ttl",
+      "stamp": "2026-09-09T19:00:00Z",
+      "hours": "24",
+      "fresh": false
+    },
+    {
+      "name": "bool_ttl",
+      "stamp": "2026-09-09T19:00:00Z",
+      "hours": true,
+      "fresh": false
+    },
+    {
+      "name": "missing_ttl",
+      "stamp": "2026-09-09T19:00:00Z",
+      "hours": null,
+      "fresh": false
+    },
+    {
+      "name": "offset",
+      "stamp": "2026-09-09T13:00:00-05:00",
+      "hours": 24,
+      "fresh": true
+    }
+  ],
+  "flags": [
+    {
+      "input": "Single Red",
+      "canonical": "Red"
+    },
+    {
+      "input": "Double Red",
+      "canonical": "Double Red"
+    },
+    {
+      "input": null,
+      "canonical": null
+    },
+    {
+      "input": "Purple",
+      "canonical": null
+    }
+  ],
+  "observations": [
+    {
+      "record": {
+        "observed_at": null,
+        "last_verified_at": "2026-09-09T19:00:00Z"
+      },
+      "stamp": null
+    },
+    {
+      "record": {
+        "observed_at": "bad",
+        "last_verified_at": "2026-09-09T19:00:00Z"
+      },
+      "stamp": "bad"
+    },
+    {
+      "record": {
+        "last_checked_at": "2026-09-09T19:00:00Z"
+      },
+      "stamp": null
+    },
+    {
+      "record": {
+        "last_verified_at": "2026-09-09T19:00:00Z"
+      },
+      "stamp": "2026-09-09T19:00:00Z"
+    }
+  ],
+  "lineages": [
+    {
+      "record": {
+        "source_name": "VisitBeaches"
+      },
+      "visitbeaches": true
+    },
+    {
+      "record": {
+        "source_lineage": "official",
+        "provenance_tier": "primary_visitbeaches_ambassador"
+      },
+      "visitbeaches": true
+    },
+    {
+      "record": {
+        "source_name": "Local Authority"
+      },
+      "visitbeaches": false
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 name: Publish Know the Gulf to X
+run-name: "${{ github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish')) && 'Know the Gulf X: publish' || 'Know the Gulf X: preview' }}"
 
 on:
   workflow_dispatch:
@@ -31,13 +32,45 @@ on:
       timezone: 'America/Chicago'
     - cron: '23 19 * * 2,5'
       timezone: 'America/Chicago'
+# Previews never receive a write-capable token or X credentials.
 permissions:
-  contents: write
-concurrency:
-  group: knowthegulf-x-publisher
-  cancel-in-progress: false
+  contents: read
 jobs:
+  preview:
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode != 'publish') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: knowthegulf-x-preview-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with: {python-version: '3.12'}
+      - name: Preview without changing publisher state or health
+        env:
+          MANUAL_SLOT: ${{ inputs.slot }}
+        run: |
+          args=(--dry-run)
+          if [[ -n "$MANUAL_SLOT" && "$MANUAL_SLOT" != "auto" ]]; then args+=(--force-slot "$MANUAL_SLOT"); fi
+          python scripts/run_x_publisher.py "${args[@]}"
+      - name: Verify preview left tracked data unchanged
+        if: ${{ always() }}
+        run: |
+          if [[ -n "$(git status --porcelain -- data/)" ]]; then
+            echo "Preview unexpectedly changed data files." >&2
+            git status --short -- data/
+            exit 1
+          fi
   publish:
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish')) }}
+    permissions:
+      contents: write
+    concurrency:
+      group: knowthegulf-x-publisher
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

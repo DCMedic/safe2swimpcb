@@ -180,3 +180,77 @@ def test_successful_official_verification_clears_degraded_cache_metadata():
     assert 'source_error' not in normalized
     assert 'cache_age_hours' not in normalized
     assert 'cached_from_provenance_tier' not in normalized
+
+
+def test_direct_verification_replaces_gap_fill_timestamp_and_lineage():
+    from scripts.source_evidence import visitbeaches_lineage
+    payload = {'flag': 'Green', 'observed_at': '2000-01-01T00:00:00Z',
+               'observation_at': None, 'source_lineage': 'visitbeaches',
+               'source_url': 'https://visitbeaches.org/map',
+               'source_data_url': 'https://api.visitbeaches.org/graphql',
+               'source_name': 'VisitBeaches', 'official_authority': 'Local authority',
+               'official_authority_url': 'https://authority.example', 'stale_after_hours': 3}
+    result, _ = update_payload('test', payload, _Session())
+    assert result['observed_at'] == result['last_verified_at']
+    assert 'observation_at' not in result
+    assert not visitbeaches_lineage(result)
+
+
+def test_current_text_conflict_is_not_first_flag_wins():
+    state, _ = state_from_current_text('Current Status: Green; Double Red; Purple Flag')
+    assert state.primary is None
+    assert state.conflict
+    assert state.distinct_flags == ('Double Red', 'Green')
+    assert state.purple
+
+
+def test_structured_matching_records_are_all_checked_for_conflicts():
+    state, _ = state_from_structured({'reports': [
+        {'beach': 'Test Beach', 'status': 'Green'},
+        {'beach': 'Test Beach', 'status': 'Double Red', 'marineLife': 'Dangerous Marine Life'},
+    ]}, ['Test Beach'])
+    assert state.primary is None
+    assert state.conflict
+    assert state.purple
+
+
+def test_structured_beach_legend_is_not_observation():
+    state, _ = state_from_structured({'beach': 'Test Beach', 'legend': {'flag': 'Double Red'}}, ['Test Beach'])
+    assert state.primary is None
+
+
+def test_new_conflict_clears_old_current_flag_and_checks_all_urls():
+    class Session:
+        def get(self, url, **kwargs):
+            response = _Response()
+            response.text = '<h2>Current Status: ' + ('Green; Purple Flag' if 'one' in url else 'Double Red') + '</h2>'
+            return response
+    payload = {'flag': 'Green', 'last_verified_at': '2026-11-11T00:00:00Z',
+               'official_authority_url': 'https://one.example', 'source_url': 'https://two.example'}
+    result, _ = update_payload('test', payload, Session())
+    assert result['flag'] is None
+    assert result['primary_flag'] is None
+    assert result['flag_conflict'] is True
+    assert result['fresh_distinct_flags'] == ['Double Red', 'Green']
+    assert result['purple'] is True
+    assert result['source_check_status'] == 'conflict'
+
+
+def test_bare_current_color_list_is_conflict():
+    state, _ = state_from_current_text('Current Status: Green; Red')
+    assert state.primary is None
+    assert state.conflict
+    state, _ = state_from_structured({'beach': 'Test Beach', 'status': 'Green; Double Red'}, ['Test Beach'])
+    assert state.primary is None
+    assert state.conflict
+
+
+def test_terminology_recheck_never_rejuvenates_dated_official_evidence():
+    old_stamp = '2020-01-01T00:00:00Z'
+    payload = {'flag': 'Green', 'official_authority_url': 'https://authority.example',
+               'source_url': 'https://authority.example', 'official_updated_at': old_stamp,
+               'stale_after_hours': 24}
+    result, _ = update_payload('test', payload, _Session())
+    assert result['observed_at'] == old_stamp
+    assert result['official_updated_at'] == old_stamp
+    assert result['last_checked_at'] != old_stamp
